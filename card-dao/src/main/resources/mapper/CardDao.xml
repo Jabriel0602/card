@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.card.dao.CardDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.card.domain.card.Card">
+        <result column="card_type" property="cardType" jdbcType="VARCHAR"/>
+        <result column="card_id" property="cardId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
+        <result column="yn" property="yn" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        card_type,
+        card_id,
+        user_id,
+        remark,
+        create_time,
+        modified_time,
+        yn
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="card.cardId">
+        INSERT INTO card (
+            card_type,
+            card_id,
+            user_id,
+            remark,
+            create_time,
+            modified_time,
+            yn
+        ) VALUES (
+            #{card.cardType,jdbcType=VARCHAR},
+            #{card.cardId,jdbcType=BIGINT},
+            #{card.userId,jdbcType=BIGINT},
+            #{card.remark,jdbcType=VARCHAR},
+            #{card.createTime,jdbcType=DATE},
+            #{card.modifiedTime,jdbcType=DATE},
+            #{card.yn,jdbcType=TINYINT}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="card.cardId">
+        INSERT INTO card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="card.cardType!=null">card_type,</if>
+            <if test="card.cardId!=null">card_id,</if>
+            <if test="card.userId!=null">user_id,</if>
+            <if test="card.remark!=null">remark,</if>
+            <if test="card.createTime!=null">create_time,</if>
+            <if test="card.modifiedTime!=null">modified_time,</if>
+            <if test="card.yn!=null">yn,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="card.cardType!=null">#{card.cardType,jdbcType=VARCHAR},
+            </if>
+            <if test="card.cardId!=null">#{card.cardId,jdbcType=BIGINT},
+            </if>
+            <if test="card.userId!=null">#{card.userId,jdbcType=BIGINT},
+            </if>
+            <if test="card.remark!=null">#{card.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="card.createTime!=null">#{card.createTime,jdbcType=DATE},
+            </if>
+            <if test="card.modifiedTime!=null">#{card.modifiedTime,jdbcType=DATE},
+            </if>
+            <if test="card.yn!=null">#{card.yn,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO card (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="cards" item="card" index="index" separator=",">
+            (
+            #{card.cardType,jdbcType=VARCHAR},
+            #{card.cardId,jdbcType=BIGINT},
+            #{card.userId,jdbcType=BIGINT},
+            #{card.remark,jdbcType=VARCHAR},
+            #{card.createTime,jdbcType=DATE},
+            #{card.modifiedTime,jdbcType=DATE},
+            #{card.yn,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE card
+        <set>
+            <if test="card.cardType != null">card_type= #{card.cardType,jdbcType=VARCHAR},</if>
+            <if test="card.cardId != null">card_id= #{card.cardId,jdbcType=BIGINT},</if>
+            <if test="card.userId != null">user_id= #{card.userId,jdbcType=BIGINT},</if>
+            <if test="card.remark != null">remark= #{card.remark,jdbcType=VARCHAR},</if>
+            <if test="card.createTime != null">create_time= #{card.createTime,jdbcType=DATE},</if>
+            <if test="card.modifiedTime != null">modified_time= #{card.modifiedTime,jdbcType=DATE},</if>
+            <if test="card.yn != null">yn= #{card.yn,jdbcType=TINYINT}</if>
+        </set>
+        WHERE card_id = #{card.cardId,jdbcType=BIGINT}
+    </update>
+
+    <select id="findCardById" resultType="com.card.domain.card.Card">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM card
+        WHERE card_id = #{card.cardId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM card
+        WHERE card_id = #{card.cardId,jdbcType=BIGINT}
+    </delete>
+
+    <select id="findCard" resultType="com.card.domain.card.Card">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM card;
+    </select>
+</mapper>
+

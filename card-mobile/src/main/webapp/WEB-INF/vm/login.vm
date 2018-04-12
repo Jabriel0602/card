@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登陆</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" CONTENT="-1">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <link rel="stylesheet" href="/wx/css/g/baolong/html5/g.css">
+    <link rel="stylesheet" href="/wx/css/p/baolong/html5/login.css">
+</head>
+<body onload="_load();">
+<!--html start-->
+<div class="page">
+    <div class="login">
+        <div class="topblock">
+            <i>
+                <img src="/wx/img/baolong/html5/login/upicon.png">
+            </i>
+            <h2>登陆</h2>
+        </div>
+        <div class="tip">
+            <div class="tip1">温馨提示</div>
+            <div class="tip2">已注册会员，初始密码默认为手机号后六位</div>
+        </div>
+        <div class="form">
+            <form>
+                <ul>
+                    <li>
+                        <i>
+                            <img src="/wx/img/baolong/html5/login/usericon.png">
+                        </i>
+                        <input class="mip" type="input" id="phone" placeholder="请输入手机号" data-v="require-phone">
+                        <div class="merr hide" id="phonetip">此处为必填项</div>
+                    </li>
+                    <li>
+                        <i>
+                            <img src="/wx/img/baolong/html5/login/locker.png">
+                        </i>
+                        <input class="mip" id="password" type="password" placeholder="密码" data-v="require-range|6_8">
+                        <div class="merr hide" id="passwordtip">此处为必填项</div>
+                    </li>
+                    <li>
+                        <div>
+                            <input class="mbt1" id="j_sb" type="submit" value="提交">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mbox">
+                            <a class="reg" href="#">免费注册</a>
+                            忘记当前密码?
+                            <a class="resetp" href="#">重置密码</a>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<!--html end-->
+<script type="text/javascript">
+    var _load = function(){
+        var phone = document.getElementById("phone");
+        phone.onblur = function(){
+            _validatePhone(this);
+        };
+        var password = document.getElementById("password");
+        password.onblur = function(){
+            _validatePassword(this);
+        };
+    };
+    var _validatePhone = function (phone){
+        if(phone==null)return;
+        var phoneValue = phone.value;
+        if(phoneValue.length==0)
+        {
+            _showErrorMessage('phonetip','请输入手机号码！',true);
+            phone.focus();
+            return ;
+        }
+        if(phoneValue.length!=11)
+        {
+            _showErrorMessage('phonetip','请输入有效的手机号码！',true);
+            phone.focus();
+            return ;
+        }
+
+        var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!phoneReg.test(phoneValue))
+        {
+            //alert('请输入有效的手机号码！');
+            _showErrorMessage('phonetip','请输入有效的手机号码！',true);
+            phone.focus();
+            return ;
+        }
+
+        _showErrorMessage("phonetip",false);
+    }
+
+    var _showErrorMessage = function(messId,message,show){
+        if(messId==null)return;
+        var phoneTip = document.getElementById(messId);
+        if(show===true){
+            phoneTip.setAttribute("class","merr");
+            phoneTip.innerHTML = message;
+        } else{
+            phoneTip.setAttribute("class","merr hide");
+        }
+    };
+    var _validatePassword = function(password){
+        if(password==null)return;
+        var word = password.value;
+        var passwordReg = /^[0-9]{6,8}$/;
+        if(word.length==0){
+            _showErrorMessage("passwordtip","密码不能为空！",true);
+            password.focus();
+            return;
+        }
+
+        if(!passwordReg.test(word)){
+            _showErrorMessage("passwordtip","密码格式不正确，请输入6-8位数字密码！",true);
+            password.focus();
+            return;
+        }
+        _showErrorMessage('passwordtip',false);
+    };
+</script>
+</body>
+</html>

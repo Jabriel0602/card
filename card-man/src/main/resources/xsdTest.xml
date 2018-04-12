@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xstest="http://hahahahha"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://hahahahha testXSD.xsd">
+
+    <xstest:book id="123">
+        <xstest:author>jabriel</xstest:author>
+        <xstest:data>2016-06-06</xstest:data>
+    </xstest:book>
+
+</beans>

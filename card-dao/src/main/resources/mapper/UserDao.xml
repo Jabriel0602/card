@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.card.dao.UserDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.card.domain.user.User">
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="user_type" property="userType" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="yn" property="yn" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        user_id,
+        user_type,
+        user_name,
+        password,
+        create_time,
+        modify_time,
+        operator,
+        yn
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="user.userId">
+        INSERT INTO user (
+            user_id,
+            user_type,
+            user_name,
+            password,
+            create_time,
+            modify_time,
+            operator,
+            yn
+        ) VALUES (
+            #{user.userId,jdbcType=BIGINT},
+            #{user.userType,jdbcType=VARCHAR},
+            #{user.userName,jdbcType=VARCHAR},
+            #{user.password,jdbcType=VARCHAR},
+            #{user.createTime,jdbcType=DATE},
+            #{user.modifyTime,jdbcType=DATE},
+            #{user.operator,jdbcType=VARCHAR},
+            #{user.yn,jdbcType=TINYINT}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="user.userId">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user.userId!=null">user_id,</if>
+            <if test="user.userType!=null">user_type,</if>
+            <if test="user.userName!=null">user_name,</if>
+            <if test="user.password!=null">password,</if>
+            <if test="user.createTime!=null">create_time,</if>
+            <if test="user.modifyTime!=null">modify_time,</if>
+            <if test="user.operator!=null">operator,</if>
+            <if test="user.yn!=null">yn,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user.userId!=null">#{user.userId,jdbcType=BIGINT},
+            </if>
+            <if test="user.userType!=null">#{user.userType,jdbcType=VARCHAR},
+            </if>
+            <if test="user.userName!=null">#{user.userName,jdbcType=VARCHAR},
+            </if>
+            <if test="user.password!=null">#{user.password,jdbcType=VARCHAR},
+            </if>
+            <if test="user.createTime!=null">#{user.createTime,jdbcType=DATE},
+            </if>
+            <if test="user.modifyTime!=null">#{user.modifyTime,jdbcType=DATE},
+            </if>
+            <if test="user.operator!=null">#{user.operator,jdbcType=VARCHAR},
+            </if>
+            <if test="user.yn!=null">#{user.yn,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="users" item="user" index="index" separator=",">
+            (
+            #{user.userId,jdbcType=BIGINT},
+            #{user.userType,jdbcType=VARCHAR},
+            #{user.userName,jdbcType=VARCHAR},
+            #{user.password,jdbcType=VARCHAR},
+            #{user.createTime,jdbcType=DATE},
+            #{user.modifyTime,jdbcType=DATE},
+            #{user.operator,jdbcType=VARCHAR},
+            #{user.yn,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE user
+        <set>
+            <if test="user.userId != null">user_id= #{user.userId,jdbcType=BIGINT},</if>
+            <if test="user.userType != null">user_type= #{user.userType,jdbcType=VARCHAR},</if>
+            <if test="user.userName != null">user_name= #{user.userName,jdbcType=VARCHAR},</if>
+            <if test="user.password != null">password= #{user.password,jdbcType=VARCHAR},</if>
+            <if test="user.createTime != null">create_time= #{user.createTime,jdbcType=DATE},</if>
+            <if test="user.modifyTime != null">modify_time= #{user.modifyTime,jdbcType=DATE},</if>
+            <if test="user.operator != null">operator= #{user.operator,jdbcType=VARCHAR},</if>
+            <if test="user.yn != null">yn= #{user.yn,jdbcType=TINYINT}</if>
+        </set>
+        WHERE user_id = #{user.userId,jdbcType=BIGINT}
+    </update>
+
+    <select id="findUserByUserId" resultType="com.card.domain.user.User">
+        select
+        <include refid="Base_Column_List"></include>
+        from user
+        WHERE user_id = #{user.userId,jdbcType=BIGINT}
+    </select>
+
+    <update id="updateByUserId">
+        UPDATE user
+        <set>
+            <if test="user.userId != null">user_id= #{user.userId,jdbcType=BIGINT},</if>
+            <if test="user.userType != null">user_type= #{user.userType,jdbcType=VARCHAR},</if>
+            <if test="user.userName != null">user_name= #{user.userName,jdbcType=VARCHAR},</if>
+            <if test="user.password != null">password= #{user.password,jdbcType=VARCHAR},</if>
+            <if test="user.createTime != null">create_time= #{user.createTime,jdbcType=DATE},</if>
+            <if test="user.modifyTime != null">modify_time= #{user.modifyTime,jdbcType=DATE},</if>
+            <if test="user.operator != null">operator= #{user.operator,jdbcType=VARCHAR},</if>
+            <if test="user.yn != null">yn= #{user.yn,jdbcType=TINYINT}</if>
+        </set>
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </update>
+</mapper>
+

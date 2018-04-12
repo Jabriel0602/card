@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Spring事物-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="cardDataSourcePool"/>
+    </bean>
+
+
+    <!--主库sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+        <!--扫描包(出去内部类和接口) 注册类型 别名 key value-->
+        <property name="typeAliasesPackage" value="com.card.domain" />
+        <!-- 显式指定Mapper文件位置 -->     <!-- 扫描 MyBatis  mapper  .xml  Sql -->
+        <property name="mapperLocations"  value="classpath:mapper/*.xml" />
+        <!-- MyBatis配置 -->
+        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/>-->
+        <property name="dataSource" ref="cardDataSourcePool"/>
+    </bean>
+
+    <!--
+        MapperScannerConfigurer的Scanner类负责搜索basePackage类下
+        所有的MapperClass并将其注册至spring的beanfinitionHolder中，
+        其注册的classBean为MapperFactoryBean-->
+
+    <!--MapperFactoryBean直接实现了Spring的FactoryBean及InitializingBean接口，作为专门生产Mapper实例的工厂-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.card.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+
+</beans>

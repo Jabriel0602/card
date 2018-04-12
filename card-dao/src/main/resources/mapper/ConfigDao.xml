@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.card.dao.ConfigDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.card.domain.config.Config">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="VARCHAR"/>
+        <result column="config_type" property="configType" jdbcType="INTEGER"/>
+        <result column="key" property="key" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
+        <result column="created_time" property="createdTime" jdbcType="DATE"/>
+        <result column="yn" property="yn" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        order_id,
+        config_type,
+        key,
+        value,
+        operator,
+        modified_time,
+        created_time,
+        yn
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="config.id">
+        INSERT INTO config (
+            id,
+            order_id,
+            config_type,
+            key,
+            value,
+            operator,
+            modified_time,
+            created_time,
+            yn
+        ) VALUES (
+            #{config.id,jdbcType=INTEGER},
+            #{config.orderId,jdbcType=VARCHAR},
+            #{config.configType,jdbcType=INTEGER},
+            #{config.key,jdbcType=VARCHAR},
+            #{config.value,jdbcType=VARCHAR},
+            #{config.operator,jdbcType=VARCHAR},
+            #{config.modifiedTime,jdbcType=DATE},
+            #{config.createdTime,jdbcType=DATE},
+            #{config.yn,jdbcType=TINYINT}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="config.id">
+        INSERT INTO config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="config.id!=null"> id,</if>
+            <if test="config.orderId!=null"> order_id,</if>
+            <if test="config.configType!=null"> config_type,</if>
+            <if test="config.key!=null"> key,</if>
+            <if test="config.value!=null"> value,</if>
+            <if test="config.operator!=null"> operator,</if>
+            <if test="config.modifiedTime!=null"> modified_time,</if>
+            <if test="config.createdTime!=null"> created_time,</if>
+            <if test="config.yn!=null"> yn,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="config.id!=null">#{config.id,jdbcType=INTEGER},
+            </if>
+            <if test="config.orderId!=null">#{config.orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="config.configType!=null">#{config.configType,jdbcType=INTEGER},
+            </if>
+            <if test="config.key!=null">#{config.key,jdbcType=VARCHAR},
+            </if>
+            <if test="config.value!=null">#{config.value,jdbcType=VARCHAR},
+            </if>
+            <if test="config.operator!=null">#{config.operator,jdbcType=VARCHAR},
+            </if>
+            <if test="config.modifiedTime!=null">#{config.modifiedTime,jdbcType=DATE},
+            </if>
+            <if test="config.createdTime!=null">#{config.createdTime,jdbcType=DATE},
+            </if>
+            <if test="config.yn!=null">#{config.yn,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO config (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="configs" item="config" index="index" separator=",">
+            (
+            #{config.id,jdbcType=INTEGER},
+            #{config.orderId,jdbcType=VARCHAR},
+            #{config.configType,jdbcType=INTEGER},
+            #{config.key,jdbcType=VARCHAR},
+            #{config.value,jdbcType=VARCHAR},
+            #{config.operator,jdbcType=VARCHAR},
+            #{config.modifiedTime,jdbcType=DATE},
+            #{config.createdTime,jdbcType=DATE},
+            #{config.yn,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE config
+        <set>
+            <if test="config.id != null"> id= #{config.id,jdbcType=INTEGER},</if>
+            <if test="config.orderId != null"> order_id= #{config.orderId,jdbcType=VARCHAR},</if>
+            <if test="config.configType != null"> config_type= #{config.configType,jdbcType=INTEGER},</if>
+            <if test="config.key != null"> key= #{config.key,jdbcType=VARCHAR},</if>
+            <if test="config.value != null"> value= #{config.value,jdbcType=VARCHAR},</if>
+            <if test="config.operator != null"> operator= #{config.operator,jdbcType=VARCHAR},</if>
+            <if test="config.modifiedTime != null"> modified_time= #{config.modifiedTime,jdbcType=DATE},</if>
+            <if test="config.createdTime != null"> created_time= #{config.createdTime,jdbcType=DATE},</if>
+            <if test="config.yn != null"> yn= #{config.yn,jdbcType=TINYINT}</if>
+        </set>
+        WHERE id = #{config.id,jdbcType=INTEGER}
+    </update>
+</mapper>
+

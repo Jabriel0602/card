@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.card.dao.TaskDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.card.domain.task.Task">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="biz_type" property="bizType" jdbcType="INTEGER"/>
+        <result column="biz_desc" property="bizDesc" jdbcType="VARCHAR"/>
+        <result column="biz_id" property="bizId" jdbcType="VARCHAR"/>
+        <result column="task_type" property="taskType" jdbcType="INTEGER"/>
+        <result column="task_desc" property="taskDesc" jdbcType="INTEGER"/>
+        <result column="task_id" property="taskId" jdbcType="VARCHAR"/>
+        <result column="retry_strategy" property="retryStrategy" jdbcType="INTEGER"/>
+        <result column="retry_times" property="retryTimes" jdbcType="INTEGER"/>
+        <result column="max_retry_times" property="maxRetryTimes" jdbcType="INTEGER"/>
+        <result column="execute_status" property="executeStatus" jdbcType="TINYINT"/>
+        <result column="next_execute_time" property="nextExecuteTime" jdbcType="DATE"/>
+        <result column="final_time" property="finalTime" jdbcType="DATE"/>
+        <result column="created_time" property="createdTime" jdbcType="DATE"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="yn" property="yn" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        biz_type,
+        biz_desc,
+        biz_id,
+        task_type,
+        task_desc,
+        task_id,
+        retry_strategy,
+        retry_times,
+        max_retry_times,
+        execute_status,
+        next_execute_time,
+        final_time,
+        created_time,
+        modified_time,
+        operator,
+        yn
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="task.id">
+        INSERT INTO task (
+            id,
+            biz_type,
+            biz_desc,
+            biz_id,
+            task_type,
+            task_desc,
+            task_id,
+            retry_strategy,
+            retry_times,
+            max_retry_times,
+            execute_status,
+            next_execute_time,
+            final_time,
+            created_time,
+            modified_time,
+            operator,
+            yn
+        ) VALUES (
+            #{task.id,jdbcType=INTEGER},
+            #{task.bizType,jdbcType=INTEGER},
+            #{task.bizDesc,jdbcType=VARCHAR},
+            #{task.bizId,jdbcType=VARCHAR},
+            #{task.taskType,jdbcType=INTEGER},
+            #{task.taskDesc,jdbcType=INTEGER},
+            #{task.taskId,jdbcType=VARCHAR},
+            #{task.retryStrategy,jdbcType=INTEGER},
+            #{task.retryTimes,jdbcType=INTEGER},
+            #{task.maxRetryTimes,jdbcType=INTEGER},
+            #{task.executeStatus,jdbcType=TINYINT},
+            #{task.nextExecuteTime,jdbcType=DATE},
+            #{task.finalTime,jdbcType=DATE},
+            #{task.createdTime,jdbcType=DATE},
+            #{task.modifiedTime,jdbcType=DATE},
+            #{task.operator,jdbcType=VARCHAR},
+            #{task.yn,jdbcType=TINYINT}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="task.id">
+        INSERT INTO task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="task.id!=null"> id,</if>
+            <if test="task.bizType!=null"> biz_type,</if>
+            <if test="task.bizDesc!=null"> biz_desc,</if>
+            <if test="task.bizId!=null"> biz_id,</if>
+            <if test="task.taskType!=null"> task_type,</if>
+            <if test="task.taskDesc!=null"> task_desc,</if>
+            <if test="task.taskId!=null"> task_id,</if>
+            <if test="task.retryStrategy!=null"> retry_strategy,</if>
+            <if test="task.retryTimes!=null"> retry_times,</if>
+            <if test="task.maxRetryTimes!=null"> max_retry_times,</if>
+            <if test="task.executeStatus!=null"> execute_status,</if>
+            <if test="task.nextExecuteTime!=null"> next_execute_time,</if>
+            <if test="task.finalTime!=null"> final_time,</if>
+            <if test="task.createdTime!=null"> created_time,</if>
+            <if test="task.modifiedTime!=null"> modified_time,</if>
+            <if test="task.operator!=null"> operator,</if>
+            <if test="task.yn!=null"> yn,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="task.id!=null">#{task.id,jdbcType=INTEGER},
+            </if>
+            <if test="task.bizType!=null">#{task.bizType,jdbcType=INTEGER},
+            </if>
+            <if test="task.bizDesc!=null">#{task.bizDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="task.bizId!=null">#{task.bizId,jdbcType=VARCHAR},
+            </if>
+            <if test="task.taskType!=null">#{task.taskType,jdbcType=INTEGER},
+            </if>
+            <if test="task.taskDesc!=null">#{task.taskDesc,jdbcType=INTEGER},
+            </if>
+            <if test="task.taskId!=null">#{task.taskId,jdbcType=VARCHAR},
+            </if>
+            <if test="task.retryStrategy!=null">#{task.retryStrategy,jdbcType=INTEGER},
+            </if>
+            <if test="task.retryTimes!=null">#{task.retryTimes,jdbcType=INTEGER},
+            </if>
+            <if test="task.maxRetryTimes!=null">#{task.maxRetryTimes,jdbcType=INTEGER},
+            </if>
+            <if test="task.executeStatus!=null">#{task.executeStatus,jdbcType=TINYINT},
+            </if>
+            <if test="task.nextExecuteTime!=null">#{task.nextExecuteTime,jdbcType=DATE},
+            </if>
+            <if test="task.finalTime!=null">#{task.finalTime,jdbcType=DATE},
+            </if>
+            <if test="task.createdTime!=null">#{task.createdTime,jdbcType=DATE},
+            </if>
+            <if test="task.modifiedTime!=null">#{task.modifiedTime,jdbcType=DATE},
+            </if>
+            <if test="task.operator!=null">#{task.operator,jdbcType=VARCHAR},
+            </if>
+            <if test="task.yn!=null">#{task.yn,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO task (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="tasks" item="task" index="index" separator=",">
+            (
+            #{task.id,jdbcType=INTEGER},
+            #{task.bizType,jdbcType=INTEGER},
+            #{task.bizDesc,jdbcType=VARCHAR},
+            #{task.bizId,jdbcType=VARCHAR},
+            #{task.taskType,jdbcType=INTEGER},
+            #{task.taskDesc,jdbcType=INTEGER},
+            #{task.taskId,jdbcType=VARCHAR},
+            #{task.retryStrategy,jdbcType=INTEGER},
+            #{task.retryTimes,jdbcType=INTEGER},
+            #{task.maxRetryTimes,jdbcType=INTEGER},
+            #{task.executeStatus,jdbcType=TINYINT},
+            #{task.nextExecuteTime,jdbcType=DATE},
+            #{task.finalTime,jdbcType=DATE},
+            #{task.createdTime,jdbcType=DATE},
+            #{task.modifiedTime,jdbcType=DATE},
+            #{task.operator,jdbcType=VARCHAR},
+            #{task.yn,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE task
+        <set>
+            <if test="task.id != null"> id= #{task.id,jdbcType=INTEGER},</if>
+            <if test="task.bizType != null"> biz_type= #{task.bizType,jdbcType=INTEGER},</if>
+            <if test="task.bizDesc != null"> biz_desc= #{task.bizDesc,jdbcType=VARCHAR},</if>
+            <if test="task.bizId != null"> biz_id= #{task.bizId,jdbcType=VARCHAR},</if>
+            <if test="task.taskType != null"> task_type= #{task.taskType,jdbcType=INTEGER},</if>
+            <if test="task.taskDesc != null"> task_desc= #{task.taskDesc,jdbcType=INTEGER},</if>
+            <if test="task.taskId != null"> task_id= #{task.taskId,jdbcType=VARCHAR},</if>
+            <if test="task.retryStrategy != null"> retry_strategy= #{task.retryStrategy,jdbcType=INTEGER},</if>
+            <if test="task.retryTimes != null"> retry_times= #{task.retryTimes,jdbcType=INTEGER},</if>
+            <if test="task.maxRetryTimes != null"> max_retry_times= #{task.maxRetryTimes,jdbcType=INTEGER},</if>
+            <if test="task.executeStatus != null"> execute_status= #{task.executeStatus,jdbcType=TINYINT},</if>
+            <if test="task.nextExecuteTime != null"> next_execute_time= #{task.nextExecuteTime,jdbcType=DATE},</if>
+            <if test="task.finalTime != null"> final_time= #{task.finalTime,jdbcType=DATE},</if>
+            <if test="task.createdTime != null"> created_time= #{task.createdTime,jdbcType=DATE},</if>
+            <if test="task.modifiedTime != null"> modified_time= #{task.modifiedTime,jdbcType=DATE},</if>
+            <if test="task.operator != null"> operator= #{task.operator,jdbcType=VARCHAR},</if>
+            <if test="task.yn != null"> yn= #{task.yn,jdbcType=TINYINT}</if>
+        </set>
+        WHERE id = #{task.id,jdbcType=INTEGER}
+    </update>
+</mapper>
+

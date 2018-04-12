@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--主库配置-->
+    <bean id="cardDataSourcePool" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="${card.admin.jdbc.url}"/>
+        <property name="username" value="${card.admin.jdbc.username}"/>
+        <property name="password" value="${card.admin.jdbc.password}"/>
+        <property value="15000" name="maxWait"/>
+        <property value="true" name="useUnfairLock"/>
+        <property value="2" name="initialSize"/>
+        <property value="2" name="minIdle"/>
+        <property value="20" name="maxActive"/>
+        <property name="removeAbandoned" value="false" />
+        <property value="60000" name="timeBetweenEvictionRunsMillis"/>
+        <property value="180000" name="minEvictableIdleTimeMillis"/>
+        <property value="SELECT 'x'" name="validationQuery"/>
+        <property value="true" name="testWhileIdle"/>
+        <property value="false" name="testOnBorrow"/>
+        <property value="false" name="testOnReturn"/>
+        <property value="false" name="poolPreparedStatements"/>
+        <property value="-1" name="maxPoolPreparedStatementPerConnectionSize"/>
+        <property value="stat" name="filters"/>
+    </bean>
+
+
+</beans>

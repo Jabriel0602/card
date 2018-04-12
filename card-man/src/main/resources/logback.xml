@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <property resource="common.properties"/>
+
+    <contextName>${logger_app_name}</contextName>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <encoder charset="UTF-8">
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L][%thread][%X{invokeNo}]
+                    [%X{req.requestURIWithQueryString}] [%X{req.remoteAddr}]%m%n
+                </pattern>
+            </encoder>
+        </layout>
+    </appender>
+
+    <appender name="all" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger_path_all}/all.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logger_path_sql}/all-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L][%thread][%X{invokeNo}] [%X{req.requestURIWithQueryString}]
+                [%X{req.remoteAddr}]%m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger_path_error}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logger_path_sql}/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L][%thread][%X{invokeNo}] [%X{req.requestURIWithQueryString}]
+                [%X{req.remoteAddr}]%m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="sql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger_path_sql}/sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logger_path_sql}/sql-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L][%thread][%X{invokeNo}] [%X{req.requestURIWithQueryString}]
+                [%X{req.remoteAddr}]%m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="dao" level="trace" additivity="false">
+        <appender-ref ref="sql"/>
+    </logger>
+
+    <!-- root -->
+    <root level="info">
+        <appender-ref ref="all"/>
+        <appender-ref ref="error"/>
+    </root>
+
+</configuration>

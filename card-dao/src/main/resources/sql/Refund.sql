@@ -1,0 +1,18 @@
+-- auto Generated on 2018-03-05 19:40:36 
+-- DROP TABLE IF EXISTS refund; 
+CREATE TABLE refund(
+	id BIGINT (15) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键id',
+	order_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '订单id',
+	refund_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '退款id',
+	refund_type TINYINT (3) NOT NULL DEFAULT 0 COMMENT '退款类型',
+	refund_fee BIGINT (15) NOT NULL DEFAULT -1 COMMENT '退款金额',
+	refund_status TINYINT (3) NOT NULL DEFAULT 0 COMMENT '退款状态',
+	created_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '创建时间',
+	modified_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '修改时间',
+	finish_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '完成时间',
+	yn TINYINT (3) NOT NULL DEFAULT 0 COMMENT '是否有效 1 有效 0无效',
+	page_index INT (11) NOT NULL DEFAULT -1 COMMENT '当前页  非表字段',
+	start_row INT (11) NOT NULL DEFAULT -1 COMMENT '开始行  非表字段',
+	page_size INT (11) NOT NULL DEFAULT -1 COMMENT '每页显示多少条  非表字段',
+	PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'refund';

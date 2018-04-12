@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--
+        1、mybatis可以使用properties来引入外部properties配置文件的内容；
+        resource：引入类路径下的资源
+        url：引入网络路径或者磁盘路径下的资源
+    -->
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="defaultExecutorType" value="REUSE" />
+        <setting name="lazyLoadingEnabled" value="false" />
+    </settings>
+
+
+    <!--&lt;!&ndash;扫描包(出去内部类和接口) 注册 类型别名 key value&ndash;&gt;-->
+    <!--<typeAliases>-->
+        <!--<package name="com.card.domain"></package>-->
+    <!--</typeAliases>-->
+
+
+    <!--&lt;!&ndash; 将包内的映射器接口实现全部注册为映射器 &ndash;&gt;-->
+    <!--<mappers>-->
+        <!--<package name="com.card.dao"/>-->
+    <!--</mappers>-->
+
+</configuration>

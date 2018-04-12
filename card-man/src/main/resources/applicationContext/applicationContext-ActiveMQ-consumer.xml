@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+">
+
+    <!--<amq:connectionFactory id="amqConnectionFactory"-->
+                           <!--brokerURL="tcp://localhost:61616"-->
+                           <!--userName="admin"-->
+                           <!--password="admin"/>-->
+
+    <!--&lt;!&ndash; 配置JMS连接工长 &ndash;&gt;-->
+    <!--<bean id="connectionFactory"-->
+          <!--class="org.springframework.jms.connection.CachingConnectionFactory">-->
+        <!--<constructor-arg ref="amqConnectionFactory"/>-->
+        <!--<property name="sessionCacheSize" value="100"/>-->
+    <!--</bean>-->
+
+
+    <!--&lt;!&ndash;对账消息队列&ndash;&gt;-->
+    <!--<bean id="confirmQueue" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--&lt;!&ndash; 设置消息队列的名字 &ndash;&gt;-->
+        <!--<constructor-arg>-->
+            <!--<value>${confirmQueue}</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; 配置消息队列监听者（Queue） &ndash;&gt;-->
+    <!--<bean id="confirmHandlerListener" class="com.card.manager.handler.ConfirmHandler"/>-->
+    <!--&lt;!&ndash; 显示注入消息监听容器（Queue），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 &ndash;&gt;-->
+    <!--<bean id="confirmQueueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="destination" ref="confirmQueue"/>-->
+        <!--<property name="messageListener" ref="confirmHandlerListener"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;生单消息队列&ndash;&gt;-->
+    <!--<bean id="createOrderQueue" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg>-->
+            <!--<value>${createOrderQueue}</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!--<bean id="createOrderListener" class="com.card.manager.handler.CreateOrderHandler"/>-->
+    <!--<bean id="createOrderQueueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="destination" ref="createOrderQueue"/>-->
+        <!--<property name="messageListener" ref="createOrderListener"/>-->
+    <!--</bean>-->
+
+
+    <!--&lt;!&ndash;充值消息队列&ndash;&gt;-->
+    <!--<bean id="rechargeQueue" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg>-->
+            <!--<value>${rechargeQueue}</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!--<bean id="rechargeHandlerListener" class="com.card.manager.handler.RechargeHandler"/>-->
+    <!--<bean id="rechargeQueueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="destination" ref="rechargeQueue"/>-->
+        <!--<property name="messageListener" ref="rechargeHandlerListener"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;退款消息队列&ndash;&gt;-->
+    <!--<bean id="refundQueue" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg>-->
+            <!--<value>${refundQueue}</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!--<bean id="refundHandlerListener" class="com.card.manager.handler.RefundHandler"/>-->
+    <!--<bean id="refundQueueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="destination" ref="refundQueue"/>-->
+        <!--<property name="messageListener" ref="refundHandlerListener"/>-->
+    <!--</bean>-->
+
+
+</beans>
