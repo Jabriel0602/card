@@ -16,6 +16,8 @@ public interface AdImageService{
 
     List<AdImage> findAllAdImage();
 
-    AdImage findAdImageById(@Param("id")Long id);
+    AdImage findAdImageById(Long id);
+
+    int delete(Long id);
 
 }

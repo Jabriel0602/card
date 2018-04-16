@@ -1,14 +1,13 @@
--- auto Generated on 2018-03-06 15:58:12 
+-- auto Generated on 2018-04-12 17:19:16 
 -- DROP TABLE IF EXISTS ad_image; 
 CREATE TABLE ad_image(
-	id BIGINT (15) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键id',
-	desc VARCHAR (50) NOT NULL DEFAULT '' COMMENT '广告图描述',
+	id BIGINT (15) NOT NULL AUTO_INCREMENT COMMENT '日期只需要判断非空非null，因为如果日期格式错误，无法转换成data',
+	`desc` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '广告图描述',
 	img_url VARCHAR (50) NOT NULL DEFAULT '' COMMENT '广告图片URL',
 	response_url VARCHAR (50) NOT NULL DEFAULT '' COMMENT '跳转链接,广告商品URL',
 	created_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '创建时间',
 	modified_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '修改时间',
 	operator VARCHAR (50) NOT NULL DEFAULT '' COMMENT '操作人',
-	module_code INT (11) NOT NULL DEFAULT -1 COMMENT '0 公共 1.飞机票',
 	weight INT (11) NOT NULL DEFAULT -1 COMMENT '权重',
 	put_on TINYINT (3) NOT NULL DEFAULT 0 COMMENT '是否启用',
 	release_status TINYINT (3) NOT NULL DEFAULT 0 COMMENT '是否发布',

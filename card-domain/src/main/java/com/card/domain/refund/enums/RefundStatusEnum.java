@@ -7,8 +7,8 @@ package com.card.domain.refund.enums;
  * Description：
  */
 public enum  RefundStatusEnum {
-
-	REFUND_INT			(1, "退款初始化"),
+	REFUND_NULL		(0,"无退款记录"),
+	REFUND_INT		(1, "退款初始化"),
 	REFUND_APPLYING	(2, "已经向支付系统申请退款"),
 	REFUND_FAIL		(4, "退款失败"),
 	REFUND_SUCCESS	(8, "退款成功");

@@ -6,7 +6,6 @@ import com.card.domain.task.enums.TaskTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -36,15 +35,10 @@ public class TaskServiceImpl implements TaskService {
 		return taskDao.update(task);
 	}
 
-	@Override
-	public Task buildTask(TaskTypeEnum taskTypeEnum, long erpOrderId, String data) {
-
-		return null;
-	}
 
 	@Override
-	public int updateStatus(Long taskId,int oldStatus, int newStatus) {
-		return 0;
+	public int updateStatus(Long taskId, int oldStatus, int newStatus) {
+		return taskDao.updateStatus(taskId, oldStatus, newStatus);
 	}
 
 	@Override

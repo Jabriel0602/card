@@ -19,6 +19,14 @@
             <groupId>com.jabriel.card</groupId>
             <artifactId>card-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.jabriel.card</groupId>
+            <artifactId>card-manager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jabriel.card</groupId>
+            <artifactId>OuterSystem</artifactId>
+        </dependency>
     </dependencies>
 
 

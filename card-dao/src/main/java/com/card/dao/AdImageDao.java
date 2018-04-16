@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import com.card.domain.adimage.AdImage;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface AdImageDao {
@@ -20,4 +19,6 @@ public interface AdImageDao {
     List<AdImage> findAllAdImage();
 
     AdImage findAdImageById(@Param("id")Long id);
+
+    int delete(@Param("id")Long id);
 }

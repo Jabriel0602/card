@@ -20,5 +20,9 @@
             <groupId>com.jabriel.card</groupId>
             <artifactId>card-domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.jabriel.card</groupId>
+            <artifactId>OuterSystem</artifactId>
+        </dependency>
     </dependencies>
 </project>

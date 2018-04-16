@@ -1,11 +1,9 @@
 package com.card.manager.handler;
 
 import com.card.domain.order.Order;
-import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.pay.PayStatusEnum;
 import com.card.domain.task.Task;
 import com.card.domain.task.enums.TaskStatusEnum;
-import com.card.domain.task.enums.TaskTypeEnum;
 import com.card.manager.task.TaskManager;
 import com.card.service.order.OrderService;
 import com.card.service.task.TaskService;
@@ -32,13 +30,16 @@ public class ConfirmHandler extends AbstractHandler {
 
 	@Override
 	public void handle(Task task) {
+		Integer count = taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.EXCUTE.getCode());
+		if (count != 1) {
+			return;
+		}
 		Order order = orderService.selectByOrderId(task.getOrderId());
 		if (order.getPayStatus().equals(PayStatusEnum.HAVE_PAY.getCode())) {
 			//已支付-->已支付未充值
-			Task createOrderTask = TaskTypeEnum.ORDER_CREATE.buildTask(order.getOrderId());
-			taskService.updateStatus(task.getTaskId(),OrderStatusEnum.PAY_SUCCESS.getCode(),OrderStatusEnum.CREATE_ING.getCode());
-			taskService.insert(createOrderTask);
+			taskManager.payment(order.getOrderId());
 		}
+		taskService.updateStatus(task.getTaskId(), TaskStatusEnum.EXCUTE.getCode(), TaskStatusEnum.SUCCESS.getCode());
 	}
 
 	@Override

@@ -1,8 +1,8 @@
--- auto Generated on 2018-04-10 18:41:46 
+-- auto Generated on 2018-04-13 10:45:58 
 -- DROP TABLE IF EXISTS card; 
 CREATE TABLE card(
+	card_id BIGINT (15) NOT NULL COMMENT '卡片id',
 	card_type VARCHAR (50) NOT NULL DEFAULT '' COMMENT '主键',
-	card_id BIGINT (15) NOT NULL UNIQUE COMMENT '卡片id',
 	user_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '用户ID',
 	remark VARCHAR (50) NOT NULL DEFAULT '' COMMENT '备注',
 	create_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '创建时间',

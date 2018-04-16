@@ -1,18 +1,20 @@
 package com.card.manager.task;
 
+import com.card.domain.order.Order;
 
+/**
+ * @author yangzhanbang
+ * @date 2018/4/14 9:34
+ * @desc
+ */
+public interface TaskManager {
 
-public interface TaskManager{
+	Order payment(Long orderId);
 
-    /**
-     *
-     * @param taskId
-     * @param oldTaskStatus
-     * @param newTaskStatus
-     * @param orderId
-     * @param oldOrderStatus
-     * @param newOrderStatus
-     */
-    void updateTaskAndOrder(Long taskId,Integer oldTaskStatus,Integer newTaskStatus,Long orderId,Integer oldOrderStatus,Integer newOrderStatus);
+	void supplierCreate(Long orderId);
+
+	void supplierRecharge(Long orderId);
+
+	void refund(Long orderId);
 
 }

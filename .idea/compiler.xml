@@ -13,10 +13,10 @@
         <module name="card-manager" />
         <module name="card-mobile" />
         <module name="card-service" />
-        <module name="PaymentSystem" />
+        <module name="OuterSystem" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7">
+    <bytecodeTargetLevel>
       <module name="card" target="1.8" />
       <module name="card-common" target="1.8" />
       <module name="card-dao" target="1.8" />
@@ -25,7 +25,7 @@
       <module name="card-manager" target="1.8" />
       <module name="card-mobile" target="1.8" />
       <module name="card-service" target="1.8" />
-      <module name="PaymentSystem" target="1.8" />
+      <module name="OuterSystem" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

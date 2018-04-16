@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PaymentSystem/PaymentSystem.iml" filepath="$PROJECT_DIR$/PaymentSystem/PaymentSystem.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/card.iml" filepath="$PROJECT_DIR$/.idea/card.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OuterSystem/OuterSystem.iml" filepath="$PROJECT_DIR$/OuterSystem/OuterSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/card.iml" filepath="$PROJECT_DIR$/card.iml" />
       <module fileurl="file://$PROJECT_DIR$/card-common/card-common.iml" filepath="$PROJECT_DIR$/card-common/card-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/card-dao/card-dao.iml" filepath="$PROJECT_DIR$/card-dao/card-dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/card-domain/card-domain.iml" filepath="$PROJECT_DIR$/card-domain/card-domain.iml" />

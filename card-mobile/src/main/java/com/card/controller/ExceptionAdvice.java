@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ExceptionAdvice {
 
 	@ExceptionHandler({Exception.class})
-	@ResponseBody
 	public String handException(HttpServletRequest request, Exception e) throws Exception {
 		e.printStackTrace();
-		return e.getMessage();
+		return "error";
 	}
 }

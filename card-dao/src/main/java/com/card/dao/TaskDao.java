@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import com.card.domain.task.Task;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface TaskDao {
@@ -16,4 +15,7 @@ public interface TaskDao {
     int insertList(@Param("tasks") List<Task> tasks);
 
     int update(@Param("task") Task task);
+
+    int updateStatus(@Param("taskId") Long taskId,@Param("oldStatus")int oldStatus,@Param("newStatus") int newStatus);
+
 }

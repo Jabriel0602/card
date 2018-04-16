@@ -24,24 +24,15 @@
 	</div>
 	<div class="banner" id="banner">
 		<ul style="width: 1240px; overflow: hidden; transform: translateX(-620px); transition-duration: 200ms;">
-			<li style="width: 620px; vertical-align: top; display: table-cell;">
-				<a href="#"><img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/home/home0.jpg">
-				</a>
-			</li>
-			<li style="width: 620px; vertical-align: top; display: table-cell;">
-				<a href="#"><img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/home/home1.jpg">
-				</a>
-			</li>
-			<li style="width: 620px; vertical-align: top; display: table-cell;">
-				<a href="#"><img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/home/home2.jpg">
-				</a>
-			</li>
-			<li style="width: 620px; vertical-align: top; display: table-cell;">
-				<a href="#"><img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/home/home3.jpg">
-				</a>
-			</li>
+			#foreach($adImage in $adImageList)
+                <li style="width: 620px; vertical-align: top; display: table-cell;">
+                    <a href="$adImage.getResponseUrl()"><img src=$adImage.getImgUrl()>
+                    </a>
+                </li>
+			#end
 		</ul>
 	</div>
+
 	<div class="section" draggable="false">
 		<ul class="secnav clearfix">
 			<li>
@@ -78,6 +69,7 @@
 			</li>
 		</ul>
 	</div>
+
 	<div class="bztj">本周推荐<img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/home/sjtj.png"></div>
 	<div class="shop part">
 		<ul class="clearfix">

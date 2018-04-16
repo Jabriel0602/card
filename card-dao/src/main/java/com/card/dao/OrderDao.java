@@ -1,10 +1,10 @@
 package com.card.dao;
 
-import com.card.domain.order.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import com.card.domain.order.Order;
 
 @Mapper
 public interface OrderDao {
@@ -17,4 +17,6 @@ public interface OrderDao {
     int update(@Param("order") Order order);
 
     Order selectByOrderId(@Param("orderId") Long orderId);
+
+    List<Order> findAllOrder(@Param("userId") Long userId);
 }

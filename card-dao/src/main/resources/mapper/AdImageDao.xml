@@ -4,13 +4,12 @@
     <!--auto generated Code-->
     <resultMap id="BaseResultMap" type="com.card.domain.adimage.AdImage">
         <result column="id" property="id" jdbcType="BIGINT"/>
-        <result column="desc" property="desc" jdbcType="VARCHAR"/>
+        <result column="`desc`" property="desc" jdbcType="VARCHAR"/>
         <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
         <result column="response_url" property="responseUrl" jdbcType="VARCHAR"/>
         <result column="created_time" property="createdTime" jdbcType="DATE"/>
         <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
         <result column="operator" property="operator" jdbcType="VARCHAR"/>
-        <result column="module_code" property="moduleCode" jdbcType="INTEGER"/>
         <result column="weight" property="weight" jdbcType="INTEGER"/>
         <result column="put_on" property="putOn" jdbcType="TINYINT"/>
         <result column="release_status" property="releaseStatus" jdbcType="TINYINT"/>
@@ -21,13 +20,12 @@
     <!--auto generated Code-->
     <sql id="Base_Column_List">
         id,
-        desc,
+        `desc`,
         img_url,
         response_url,
         created_time,
-        modified_time,
+        modified_Time,
         operator,
-        module_code,
         weight,
         put_on,
         release_status,
@@ -39,13 +37,11 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="adImage.id">
         INSERT INTO ad_image (
             id,
-            desc,
+            `desc`,
             img_url,
             response_url,
             created_time,
-            modified_time,
             operator,
-            module_code,
             weight,
             put_on,
             release_status,
@@ -57,9 +53,7 @@
             #{adImage.imgUrl,jdbcType=VARCHAR},
             #{adImage.responseUrl,jdbcType=VARCHAR},
             #{adImage.createdTime,jdbcType=DATE},
-            #{adImage.modifiedTime,jdbcType=DATE},
             #{adImage.operator,jdbcType=VARCHAR},
-            #{adImage.moduleCode,jdbcType=INTEGER},
             #{adImage.weight,jdbcType=INTEGER},
             #{adImage.putOn,jdbcType=TINYINT},
             #{adImage.releaseStatus,jdbcType=TINYINT},
@@ -73,13 +67,11 @@
         INSERT INTO ad_image
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="adImage.id!=null">id,</if>
-            <if test="adImage.desc!=null">desc,</if>
+            <if test="adImage.desc!=null">`desc`,</if>
             <if test="adImage.imgUrl!=null">img_url,</if>
             <if test="adImage.responseUrl!=null">response_url,</if>
             <if test="adImage.createdTime!=null">created_time,</if>
-            <if test="adImage.modifiedTime!=null">modified_time,</if>
             <if test="adImage.operator!=null">operator,</if>
-            <if test="adImage.moduleCode!=null">module_code,</if>
             <if test="adImage.weight!=null">weight,</if>
             <if test="adImage.putOn!=null">put_on,</if>
             <if test="adImage.releaseStatus!=null">release_status,</if>
@@ -98,11 +90,7 @@
             </if>
             <if test="adImage.createdTime!=null">#{adImage.createdTime,jdbcType=DATE},
             </if>
-            <if test="adImage.modifiedTime!=null">#{adImage.modifiedTime,jdbcType=DATE},
-            </if>
             <if test="adImage.operator!=null">#{adImage.operator,jdbcType=VARCHAR},
-            </if>
-            <if test="adImage.moduleCode!=null">#{adImage.moduleCode,jdbcType=INTEGER},
             </if>
             <if test="adImage.weight!=null">#{adImage.weight,jdbcType=INTEGER},
             </if>
@@ -129,9 +117,7 @@
             #{adImage.imgUrl,jdbcType=VARCHAR},
             #{adImage.responseUrl,jdbcType=VARCHAR},
             #{adImage.createdTime,jdbcType=DATE},
-            #{adImage.modifiedTime,jdbcType=DATE},
             #{adImage.operator,jdbcType=VARCHAR},
-            #{adImage.moduleCode,jdbcType=INTEGER},
             #{adImage.weight,jdbcType=INTEGER},
             #{adImage.putOn,jdbcType=TINYINT},
             #{adImage.releaseStatus,jdbcType=TINYINT},
@@ -146,13 +132,11 @@
         UPDATE ad_image
         <set>
             <if test="adImage.id != null">id= #{adImage.id,jdbcType=BIGINT},</if>
-            <if test="adImage.desc != null">desc= #{adImage.desc,jdbcType=VARCHAR},</if>
+            <if test="adImage.desc != null">`desc`= #{adImage.desc,jdbcType=VARCHAR},</if>
             <if test="adImage.imgUrl != null">img_url= #{adImage.imgUrl,jdbcType=VARCHAR},</if>
             <if test="adImage.responseUrl != null">response_url= #{adImage.responseUrl,jdbcType=VARCHAR},</if>
             <if test="adImage.createdTime != null">created_time= #{adImage.createdTime,jdbcType=DATE},</if>
-            <if test="adImage.modifiedTime != null">modified_time= #{adImage.modifiedTime,jdbcType=DATE},</if>
             <if test="adImage.operator != null">operator= #{adImage.operator,jdbcType=VARCHAR},</if>
-            <if test="adImage.moduleCode != null">module_code= #{adImage.moduleCode,jdbcType=INTEGER},</if>
             <if test="adImage.weight != null">weight= #{adImage.weight,jdbcType=INTEGER},</if>
             <if test="adImage.putOn != null">put_on= #{adImage.putOn,jdbcType=TINYINT},</if>
             <if test="adImage.releaseStatus != null">release_status= #{adImage.releaseStatus,jdbcType=TINYINT},</if>
@@ -162,17 +146,24 @@
         WHERE id = #{adImage.id,jdbcType=BIGINT}
     </update>
 
-    <select id="findAllAdImage" resultType="com.card.domain.adimage.AdImage">
+    <select id="findAllAdImage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"></include>
         FROM ad_image
     </select>
 
-    <select id="findAdImageById" resultType="com.card.domain.adimage.AdImage">
+    <select id="findAdImageById" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"></include>
         FROM ad_image
         WHERE id= #{id,jdbcType=BIGINT}
     </select>
+
+    <delete id="delete">
+        DELETE
+        FROM ad_image
+        WHERE id= #{id,jdbcType=BIGINT}
+    </delete>
+
 </mapper>
 

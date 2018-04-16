@@ -22,7 +22,7 @@
         <module>card-common</module>
         <module>card-mobile</module>
         <module>card-man</module>
-        <module>PaymentSystem</module>
+        <module>OuterSystem</module>
     </modules>
 
 
@@ -65,6 +65,11 @@
             <dependency>
                 <groupId>com.jabriel.card</groupId>
                 <artifactId>card-manager</artifactId>
+                <version>${package.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jabriel.card</groupId>
+                <artifactId>OuterSystem</artifactId>
                 <version>${package.version}</version>
             </dependency>
 

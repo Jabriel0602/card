@@ -2,6 +2,8 @@ package com.card.service.order;
 
 import java.util.List;
 import com.card.domain.order.Order;
+import org.apache.ibatis.annotations.Param;
+
 public interface OrderService{
 
     int insert(Order order);
@@ -13,4 +15,7 @@ public interface OrderService{
     int update(Order order);
 
     Order selectByOrderId(Long orderId);
+
+    List<Order> findAllOrder(Long userId);
+
 }

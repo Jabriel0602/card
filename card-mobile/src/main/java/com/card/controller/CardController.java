@@ -17,8 +17,8 @@ public class CardController {
 	private CardService cardService;
 
 	@GetMapping("")
-	public List<Card> listCard() {
-		return cardService.findCard();
+	public List<Card> listCard(@RequestParam(required = false) Long userId) {
+		return cardService.findCard(userId);
 	}
 
 	@GetMapping("/{cardId}")

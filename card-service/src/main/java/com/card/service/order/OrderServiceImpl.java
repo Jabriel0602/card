@@ -37,4 +37,9 @@ public class OrderServiceImpl implements OrderService{
     public Order selectByOrderId(Long orderId) {
         return orderDao.selectByOrderId(orderId);
     }
+
+    @Override
+    public List<Order> findAllOrder(Long userId) {
+        return orderDao.findAllOrder(userId);
+    }
 }

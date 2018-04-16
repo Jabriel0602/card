@@ -1,6 +1,7 @@
 package com.card.domain.order;
 
 import lombok.Data;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -18,21 +19,25 @@ public class Order {
 
 	@NotNull(message = "订单id不能为空")
 	private Long orderId;		// 订单id
+
 	@NotBlank(message = "商品id不能为空")
 	private String skuId;		//商品id
 	@NotBlank(message = "商品名称不能为空")
 	private String skuName;	//商品名称
-	@NotBlank(message = "卡片类型不能为空")
-	private String cardType;	//卡片类型
+
 	@NotBlank(message = "卡片id不能为空")
 	private String cardId;		//卡片id
+	@NotBlank(message = "卡片类型不能为空")
+	private String cardType;	//卡片类型
+
 	@NotBlank(message = "用户不能为空")
-	private String userPin;	//用户
-	@NotBlank(message = "用户手机号不能为空")
+	private Long userId;	//用户
+//	@NotBlank(message = "用户手机号不能为空")
 	private String phone;		//用户手机号
+
 	@NotBlank(message = "提单时间不能为空")
 	private Date submitTime;	//提单时间
-	@NotBlank(message = "支付号不能为空")
+//	@NotBlank(message = "支付号不能为空")
 	private String payNo;		//支付号
 	@NotNull(message = "支付时间不能为空")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -43,12 +48,13 @@ public class Order {
 	private Integer payStatus;		//支付状态
 	@NotNull(message = "充值状态不能为空")
 	private Integer rechargeStatus;	//充值状态
+
 	@NotNull(message = "退款状态不能为空")
 	private Integer refundStatus;	//退款状态
 	@NotNull(message = "订单状态不能为空")
 	private Integer orderStatus;	//订单状态
 	@NotNull(message = "最终状态不能为空")
-	private Byte finaStatus;		//最终状态
+	private Integer finaStatus;		//最终状态
 
 	@NotNull(message = "创建时间不能为空")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

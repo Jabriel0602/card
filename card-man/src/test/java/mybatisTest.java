@@ -1,4 +1,6 @@
+import com.card.domain.adimage.AdImage;
 import com.card.domain.card.Card;
+import com.card.service.adimage.AdImageService;
 import com.card.service.card.CardService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author yangzhanbang
@@ -19,20 +22,24 @@ import java.util.Date;
 public class mybatisTest {
 
 	@Autowired
-	private CardService cardService;
+	private AdImageService adImageService;
 
 	@Test
-	public void test(){
-		Card card=new Card();
-		card.setId(3L);
-		card.setCardId("asd111");
-		card.setCardType("yct");
-		card.setCreateTime(new Date());
-		card.setRemark("sad");
-		card.setUserPin("ss");
-		card.setModifiedTime(new Date());
-		card.setYn((byte)1);
-		System.out.println(cardService.insert(card));
+	public void test() {
+		AdImage adImage = new AdImage();
+		adImage.setCreatedTime(new Date());
+		adImage.setDesc("asd");
+		adImage.setId(19L);
+		adImage.setImgUrl("asdasd");
+		adImage.setResponseUrl("sad");
+		adImage.setOperator("test");
+
+
+//		adImage.setModifiedTime(new Date());
+
+		adImageService.insertSelective(adImage);
+		List<AdImage> list = adImageService.findAllAdImage();
+		System.out.println(list);
 	}
 
 }

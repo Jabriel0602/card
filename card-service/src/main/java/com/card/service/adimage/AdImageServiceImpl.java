@@ -44,4 +44,9 @@ public class AdImageServiceImpl implements AdImageService {
 	public AdImage findAdImageById(Long id) {
 		return adImageDao.findAdImageById(id);
 	}
+
+	@Override
+	public int delete(Long id) {
+		return adImageDao.delete(id);
+	}
 }

@@ -5,7 +5,6 @@ import com.card.domain.card.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -46,7 +45,7 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public List<Card> findCard() {
-		return cardDao.findCard();
+	public List<Card> findCard(Long userId) {
+		return cardDao.findCard(userId);
 	}
 }

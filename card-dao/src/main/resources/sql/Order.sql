@@ -1,13 +1,12 @@
--- auto Generated on 2018-04-09 16:20:25 
+-- auto Generated on 2018-04-13 15:48:40 
 -- DROP TABLE IF EXISTS order; 
 CREATE TABLE order(
-	id INT ( 11 ) UNSIGNED NOT NULL COMMENT '主键id',
-	order_id VARCHAR (50) NOT NULL DEFAULT '' COMMENT '订单id',
+	order_id BIGINT (15) NOT NULL COMMENT '订单id',
 	sku_id VARCHAR (50) NOT NULL DEFAULT '' COMMENT '商品id',
 	sku_name VARCHAR (50) NOT NULL DEFAULT '' COMMENT '商品名称',
-	card_type VARCHAR (50) NOT NULL DEFAULT '' COMMENT '卡片类型',
 	card_id VARCHAR (50) NOT NULL DEFAULT '' COMMENT '卡片id',
-	user_pin VARCHAR (50) NOT NULL DEFAULT '' COMMENT '用户',
+	card_type VARCHAR (50) NOT NULL DEFAULT '' COMMENT '卡片类型',
+	user_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '用户',
 	phone VARCHAR (50) NOT NULL DEFAULT '' COMMENT '用户手机号',
 	submit_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '提单时间',
 	pay_no VARCHAR (50) NOT NULL DEFAULT '' COMMENT '支付号',
@@ -16,19 +15,9 @@ CREATE TABLE order(
 	recharge_status INT (11) NOT NULL DEFAULT -1 COMMENT '充值状态',
 	refund_status INT (11) NOT NULL DEFAULT -1 COMMENT '退款状态',
 	order_status INT (11) NOT NULL DEFAULT -1 COMMENT '订单状态',
-	fina_status TINYINT (3) NOT NULL DEFAULT 0 COMMENT '最终状态',
+	fina_status INT (11) NOT NULL DEFAULT -1 COMMENT '最终状态',
 	created_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '创建时间',
 	modify_time DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT '修改时间',
 	yn TINYINT (3) NOT NULL DEFAULT 0 COMMENT '是否有效',
-	pre_status INT (11) NOT NULL DEFAULT -1 COMMENT '订单前置状态 非表字段',
-	page_index INT (11) NOT NULL DEFAULT -1 COMMENT '当前页  非表字段',
-	start_row INT (11) NOT NULL DEFAULT -1 COMMENT '开始行  非表字段',
-	page_size INT (11) NOT NULL DEFAULT -1 COMMENT '每页显示多少条  非表字段',
-	previous_created VARCHAR (50) NOT NULL DEFAULT '' COMMENT '创建日期起始  非表字段',
-	post_created VARCHAR (50) NOT NULL DEFAULT '' COMMENT '创建日期结束  非表字段',
-	previous_pay_time VARCHAR (50) NOT NULL DEFAULT '' COMMENT '支付时间起始  非表字段',
-	post_pay_time VARCHAR (50) NOT NULL DEFAULT '' COMMENT '支付时间结束  非表字段',
-	previous_submit_time VARCHAR (50) NOT NULL DEFAULT '' COMMENT '提单时间起始  非表字段',
-	post_submit_time VARCHAR (50) NOT NULL DEFAULT '' COMMENT '提单时间结束  非表字段',
-	PRIMARY KEY (id)
+	PRIMARY KEY (order_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'order';

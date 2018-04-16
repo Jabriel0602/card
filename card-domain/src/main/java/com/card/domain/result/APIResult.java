@@ -1,6 +1,7 @@
 package com.card.domain.result;
 
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 /**
  * Created with card
@@ -13,7 +14,7 @@ public class APIResult<T> {
 	/**
 	 * 状态码
 	 */
-	private String code;
+	private Integer code;
 
 	/**
 	 * 状态码描述
@@ -24,4 +25,18 @@ public class APIResult<T> {
 	 * 实体泛型
 	 */
 	private T data;
+
+	public APIResult(){
+
+	}
+
+	public APIResult(T data){
+		this.code=HttpStatus.OK.value();
+		this.data=data;
+	}
+
+	public APIResult(Integer code,T data){
+		this.code=code;
+		this.data=data;
+	}
 }

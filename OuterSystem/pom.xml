@@ -6,14 +6,14 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>PaymentSystem</artifactId>
-    <packaging>war</packaging>
-    <name>PaymentSystem Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <artifactId>OuterSystem</artifactId>
+    <packaging>jar</packaging>
+
+
     <dependencies>
 
     </dependencies>
     <build>
-        <finalName>PaymentSystem</finalName>
+        <finalName>OuterSystem</finalName>
     </build>
 </project>

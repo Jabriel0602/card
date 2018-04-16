@@ -14,6 +14,8 @@
         </webroots>
         <sourceRoots>
           <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/profile/develop" />
+          <root url="file://$MODULE_DIR$/src/main/profile/product" />
           <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
@@ -41,6 +43,7 @@
     <orderEntry type="module" module-name="card-domain" />
     <orderEntry type="module" module-name="card-common" />
     <orderEntry type="module" module-name="card-manager" />
+    <orderEntry type="module" module-name="OuterSystem" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.12.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.3.12.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.12.RELEASE" level="project" />

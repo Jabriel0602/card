@@ -14,8 +14,6 @@ public interface TaskService{
 
     int update(Task task);
 
-    Task buildTask(TaskTypeEnum taskTypeEnum, long erpOrderId, String data);
-
     int updateStatus(Long taskId, int oldStatus, int newStatus);
 
     boolean isFail(Task task);
