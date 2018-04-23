@@ -59,8 +59,8 @@ public class CardController {
 
 	@PutMapping(value = "/{cardId}")
 	@ResponseBody
-	public APIResult<Integer> updateCard(Card cardVo) {
-		Card card = cardService.findCardById(cardVo.getCardId());
+	public APIResult<Integer> updateCard(@PathVariable(value = "cardId") Long cardId,Card cardVo) {
+		Card card = cardService.findCardById(cardId);
 		card.setRemark(cardVo.getRemark());
 		card.setModifiedTime(new Date());
 		return new APIResult<>(cardService.update(card));

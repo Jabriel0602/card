@@ -90,8 +90,6 @@
 
     <a href="http://127.0.0.1/html/addCard.html"><input type="button" value="添加卡片"></a>
     <br>
-    <input type="button" href="" value="卡片管理">
-
 
     <div class="footblock">
         <ul class="footerlist clearfix">
@@ -136,8 +134,6 @@
     Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
 
     var updateCard = function (cardId) {
-
-
     };
 
 </script>
