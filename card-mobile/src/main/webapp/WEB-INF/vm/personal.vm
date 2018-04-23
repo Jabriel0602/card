@@ -85,9 +85,10 @@
             </div>
         </div>
     </div>
+    #include("foot.vm")
+
 </div>
 
-    #include("foot.vm")
 
 <!--html end-->
 <script type="text/javascript">

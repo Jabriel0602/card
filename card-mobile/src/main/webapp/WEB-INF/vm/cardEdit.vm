@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<title>注册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Expires" CONTENT="-1">
+<meta http-equiv="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Pragma" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/g.css">
+<link rel="stylesheet" href="/css/register.css">
+<link rel="stylesheet" href="../../css/home.css">
+
+<script src="../../js/jquery.min.js" type="text/javascript"></script>
+<script src="../../js/zepto.min.js" type="text/javascript"></script>
+
+<body onload="load();">
+<!--html start-->
+<div class="page">
+    <div class="register">
+        <div class="topblock">
+            <i>
+                <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
+            </i>
+            <h2>注册</h2>
+        </div>
+        <div class="tip">
+            <div class="tip1">温馨提示</div>
+            <div class="tip2">请输入正确的卡号</div>
+        </div>
+        <div class="form">
+            <form>
+                <ul>
+
+                    <li>
+                        <i>
+                            <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/usericon.png">
+                        </i>
+                        <input class="mip" type="button" id="cardId" name="cardId" value="$card.getCardId()"
+                               placeholder="$card.getCardId()"
+                               onblur="_validateCardId()">
+                        <div class="merr hide" id="cardIdTip">此处为必填项</div>
+                    </li>
+
+                    <li>
+                        <i>
+                            <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
+                        </i>
+                        <input class="mip" type="input" id="remark" name="remark" value="$card.getRemark()"
+                               placeholder="$card.getRemark()"
+                               onblur="_validateCardMark()">
+                        <div class="merr hide" id="remarkTip">此处为必填项</div>
+                    </li>
+
+                    <li>
+                        <div>
+                            <input class="mbt1" id="j_sb" onclick="_submit('${card.getCardId()}','${card.getRemark()}')" value="修改卡片">
+                        </div>
+                    </li>
+
+                </ul>
+            </form>
+        </div>
+
+        <div class="footblock">
+            <ul class="footerlist clearfix">
+                <li>
+                    <div>
+                        <a href="http://localhost/index" class="footwd">
+                            <img alt="" src="/image/home.png"><br>
+                            <span>首页</span>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <a href="#" class="footyh">
+                            <img alt="" src="/image/yh.png"><br>
+                            <span>帮助中心</span>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <a href="//127.0.0.1/orders" class="footsh">
+                            <img alt="" src="/image/stores.png"><br>
+                            <span>我的订单</span>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <a href="//127.0.0.1/users" class="footsh">
+                            <img alt="" src="/image/wod.png"><br>
+                            <span>个人中心</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+    #include("foot.vm")
+
+<!--html end-->
+<script type="text/javascript">
+    var load = function () {
+
+        var cardId = jQuery('input[name=cardId]').val();
+        cardId.onblur = function () {
+            _validateCardId(this);
+        };
+        var remark = jQuery('input[name=remark]').val();
+        remark.onblur = function () {
+            _validateCardMark(this);
+        };
+    };
+
+    var _validateCardId = function () {
+        var cardId = jQuery('input[name=cardId]').val();
+        if (cardId == null || cardId.length == 0) {
+            _showErrorMessage("cardIdTip", "cardId不能为空！", true);
+            return;
+        }
+        _showErrorMessage('cardIdTip', false);
+
+    }
+
+    var _validateCardMark = function () {
+        var remark = jQuery('input[name=remark]').val();
+        if (remark == null || remark.length == 0) {
+            _showErrorMessage("remarkTip", "备注不能为空！", true);
+            return;
+        }
+        _showErrorMessage('remarkTip', false);
+
+    }
+
+
+    var _showErrorMessage = function (messId, message, show) {
+        if (messId == null) return;
+        var Tip = document.getElementById(messId);
+        if (show === true) {
+            Tip.setAttribute("class", "merr");
+            Tip.innerHTML = message;
+        } else {
+            Tip.setAttribute("class", "merr hide");
+        }
+    };
+
+
+    var _submit = function (cardId, remark) {
+        var url = '//127.0.0.1/cards/${card.getCardId()}';
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                cardId: cardId,
+                remark: remark
+            },
+            dataType:'json',
+            success: function (data) {
+                alert(data);
+                if (data == 200) {
+                    alert("修改成功");
+                    return;
+                } else if (data == 0) {
+                    alert("用户不存在")
+                } else {
+                    alert("参数错误")
+                }
+            },
+            error: function () {
+                alert("出错了");
+            }
+        })
+    };
+
+
+</script>
+</body>
+</html>

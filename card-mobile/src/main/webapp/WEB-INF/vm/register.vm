@@ -44,7 +44,6 @@
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
                         <input class="mip" type="input" id="passWord" placeholder="请输入密码" onblur="_validatePassword()">
-                        <div class="mask hide" id="mask"></div>
                         <div class="merr hide" id="passWordTip">此处为必填项</div>
                     </li>
 
@@ -53,7 +52,7 @@
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
                         <input class="mip" type="input" id="sex" placeholder="性别" onblur="_validateSex()">
-                        <div class="mask hide" id="mask"></div>
+##                        <div class="mask hide" id="mask"></div>
                         <div class="merr hide" id="sexTip">此处为必填项</div>
                     </li>
 
@@ -62,7 +61,7 @@
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
                         <input class="mip" type="input" id="birthday" placeholder="生日" onblur="_validateBirthday">
-                        <div class="mask hide" id="mask"></div>
+##                        <div class="mask hide" id="mask"></div>
                         <div class="merr hide" id="birthdayTip">此处为必填项</div>
                     </li>
 
@@ -71,7 +70,7 @@
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
                         <input class="mip" type="input" id="phone" placeholder="手机" onblur="_validatePhone()">
-                        <div class="mask hide" id="mask"></div>
+##                        <div class="mask hide" id="mask"></div>
                         <div class="merr hide" id="phoneTip">此处为必填项</div>
                     </li>
 

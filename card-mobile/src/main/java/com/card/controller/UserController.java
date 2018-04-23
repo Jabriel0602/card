@@ -60,6 +60,9 @@ public class UserController {
 		User user = userService.getUserByNameAndPassWord(userName, password);
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
+			cookie.setMaxAge(3600*24*7);
+			cookie.setDomain("127.0.0.1");
+			cookie.setPath("/");
 			response.addCookie(cookie);
 			List<AdImage> adImageList = adImageService.findAllAdImage();
 			List<Card> cardList = cardService.findCard(user.getUserId());

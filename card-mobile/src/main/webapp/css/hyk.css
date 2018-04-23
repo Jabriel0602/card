@@ -28,6 +28,35 @@
     font-size: 19px;
     color: #8ab6f3;
 }
+
+.card_update{
+    width: .75rem;
+    height: .3rem;
+    background: #fff;
+    border-radius: .025rem;
+    line-height: .3rem;
+    text-align: center;
+    color: #2a68d9;
+    position: absolute;
+    right: .17rem;
+    top: .385rem;
+    font-size: .15rem;
+}
+
+.card_recharge{
+    width: .75rem;
+    height: .3rem;
+    background: #fff;
+    border-radius: .025rem;
+    line-height: .3rem;
+    text-align: center;
+    color: #2a68d9;
+    position: absolute;
+    right: .17rem;
+    top: .385rem;
+    font-size: .15rem;
+}
+
 .code{text-align: center;margin-top:50px;}
 .code p{font-size: 15px;color: #cecece;margin:1%;}
 

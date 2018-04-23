@@ -2,7 +2,7 @@
     <ul class="footerlist clearfix">
         <li>
             <div>
-                <a href="http://localhost/index" class="footwd">
+                <a href="http://127.0.0.1/index" class="footwd">
                     <img alt="" src="/image/home.png"><br>
                     <span>首页</span>
                 </a>

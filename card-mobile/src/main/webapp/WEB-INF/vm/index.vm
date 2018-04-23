@@ -78,14 +78,17 @@
                         <div class="carddate">
                             <span class="title">备&#8195;&#8195;注:</span>
                             <span class="date">$card.getRemark()</span>
+                            <span class="date"><a href="//127.0.0.1/cards/$card.getCardId()/editPage">修改卡片</a> </span>
+                            <span class="date">余额充值</span>
                         </div>
+
                     </div>
                 </div>
             #end
         </div>
     </div>
 
-    <input type="button" href="" value="添加卡片">
+    <a href="http://127.0.0.1/html/addCard.html"><input type="button" value="添加卡片"></a>
     <br>
     <input type="button" href="" value="卡片管理">
 
@@ -94,7 +97,7 @@
         <ul class="footerlist clearfix">
             <li>
                 <div>
-                    <a href="http://localhost/index" class="footsy">
+                    <a href="http://127.0.0.1/index" class="footsy">
                         <img alt="" src="/image/home.png"><br>
                         <span>首页</span>
                     </a>
@@ -131,6 +134,12 @@
 <!--html end-->
 <script type="text/javascript">
     Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
+
+    var updateCard = function (cardId) {
+
+
+    };
+
 </script>
 </body>
 </html>
