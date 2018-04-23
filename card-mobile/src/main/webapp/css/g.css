@@ -39,7 +39,7 @@ input[type="submit"],input[type="reset"],input[type="button"]{-webkit-appearance
 #slider-dot-select{background: #fff;}
 /*******slider end*****/
 /*topblock*/
-.topblock{position: fixed;height: 50px;width:100%;max-width:720px;background: #cb2517;border-top: 3px solid #8e1e13;border-bottom: 3px solid #8e1e13;color:#ffffff;font-weight:bold;font-size:16px;text-align: center;line-height: 50px;z-index: 9999;}
+.topblock{position: fixed;height: 50px;width:100%;max-width:720px;background: #8ab6f3;border-top: 3px solid #8ab6f3;border-bottom: 3px solid #8ab6f3;color:#ffffff;font-weight:bold;font-size:16px;text-align: center;line-height: 50px;z-index: 9999;}
 .topblock i{float:left;}
 .topblock i img{margin-top:15px;margin-left:15px;}
 /*topblock end*/

@@ -1,0 +1,13 @@
+.page{max-width: 720px;overflow: auto;background: #f2f2f2;}
+.login{overflow: hidden;}
+.tip{margin-top: 86px;}
+.tip1{position:relative;font-size: 15px;font-weight:bold;color:#cb2517;margin-top: 6.8%;margin-left: 4.4%;}
+.tip2{position: relative;margin-top: 3.9%;margin-left: 4.6%;margin-bottom: 6.5%;font-size: 11px;font-weight:bold;color: #b4b4b4}
+.form form ul li i img{position: absolute;margin-top: 18px;margin-left: 24px;}
+.mip {background: #fff;border: 1px solid #d8d8d8;border-radius:3px;margin:0px;height:51px;font-size:15px;color:#b4b4b4;line-height: 3.4;width: 99%;padding-left: 15.7%;-webkit-appearance: none;}
+.merr{color:#FF0000;font-size: 10px;margin:2px;}
+.hide{display:none;}
+.reg{color:#7ab7f3;font-size: 13px;font-weight: bold;float: left;margin-left:5%;}
+.resetp{float: right;color: #7ab7f3;font-size: 13px;font-weight: bold;margin-right: 5%;margin-left: 2.2%;}
+.mbox{height:45px;line-height: 45px;color: #888888;text-align: right;font-size: 13px;font-weight: bold;}
+.mbt1 {background: #f35142;margin-top:10px;border: 0 none;border-radius: 8px;color: #fff;display: block;height: 60px;ime-mode: disabled;overflow: hidden;text-align: center;width: 90%;margin-left: 5%;margin-right: 5%;font-size: 16px;font-weight: bold;-webkit-appearance: none;}

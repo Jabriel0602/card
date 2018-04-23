@@ -3,6 +3,7 @@ package com.card.service.order;
 import com.card.dao.OrderDao;
 import com.card.domain.order.Order;
 import org.omg.PortableInterceptor.INACTIVE;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService{
 
+    @Autowired
     private OrderDao orderDao;
 
     @Override

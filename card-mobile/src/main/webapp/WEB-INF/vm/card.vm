@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>注册</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,7 +20,7 @@
     <div class="register">
         <div class="topblock">
             <i>
-                <img src="/wx/img/baolong/html5/register/back.png">
+                <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
             </i>
             <h2>注册</h2>
         </div>
@@ -65,90 +64,88 @@
         </div>
     </div>
 </div>
+    #include("foot.vm")
 <!--html end-->
 <script type="text/javascript">
-    var load = function(){
+    var load = function () {
         var getkey = document.getElementById("getkey");
         var mask = document.getElementById("mask");
-        getkey.onclick = function(){
-            mask.setAttribute("style","display:block;");
+        getkey.onclick = function () {
+            mask.setAttribute("style", "display:block;");
             var timer = 59;
-            var interval = setInterval(function(){
-                if(timer <= 0){
+            var interval = setInterval(function () {
+                if (timer <= 0) {
                     getkey.innerHTML = "获取验证码";
-                    mask.setAttribute("style","display:none;");
+                    mask.setAttribute("style", "display:none;");
                     clearInterval(interval);
-                }else{
+                } else {
                     getkey.innerHTML = timer + "秒后重试";
                 }
                 timer--;
-            },1000);
+            }, 1000);
             var phoneNumber = document.getElementById("phonenum");
             $.ajax({
                 type: "POST",
                 url: "/aj/member/getauthcode",
-                data: { mobile:  phoneNumber.value},
+                data: {mobile: phoneNumber.value},
                 dataType: "json",
-                success: function(data){
+                success: function (data) {
                 },
-                error: function(xhr, type){
+                error: function (xhr, type) {
                 }
             });
         };
 
         //验证用户输入的手机号
         var phoneNum = document.getElementById("phonenum");
-        phoneNum.onblur = function(){
+        phoneNum.onblur = function () {
             _validatePhone();
         };
 
         //给同意宝龙会员协议勾选框添加事件
         var agreement = document.getElementById("agreement");
-        agreement.onclick = function(){
+        agreement.onclick = function () {
             var j_sb = document.getElementById("j_sb");
-            if(this.checked){
-                j_sb.setAttribute("style","background-color:#f35142");
+            if (this.checked) {
+                j_sb.setAttribute("style", "background-color:#f35142");
                 j_sb.disabled = false;
-            }else{
-                j_sb.setAttribute("style","background-color:#bababa");
+            } else {
+                j_sb.setAttribute("style", "background-color:#bababa");
                 j_sb.disabled = true;
             }
         };
     };
-    var _validatePhone = function (){
+    var _validatePhone = function () {
         var phone = document.getElementById("phonenum");
         var phoneValue = phone.value;
-        if(phoneValue.length==0)
-        {
-            _showPhoneMessage('请输入手机号码！',true);
+        if (phoneValue.length == 0) {
+            _showPhoneMessage('请输入手机号码！', true);
             phone.focus();
-            return ;
+            return;
         }
-        if(phoneValue.length!=11)
-        {
-            _showPhoneMessage('请输入有效的手机号码！',true);
+        if (phoneValue.length != 11) {
+            _showPhoneMessage('请输入有效的手机号码！', true);
             phone.focus();
-            return ;
+            return;
         }
 
         var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        if(!phoneReg.test(phoneValue))
-        {
+        if (!phoneReg.test(phoneValue)) {
             //alert('请输入有效的手机号码！');
-            _showPhoneMessage('请输入有效的手机号码！',true);
+            _showPhoneMessage('请输入有效的手机号码！', true);
             phone.focus();
-            return ;
+            return;
         }
 
         _showPhoneMessage(false);
     }
-    var _showPhoneMessage = function(message,show){
+    var _showPhoneMessage = function (message, show) {
         var phoneTip = document.getElementById("phonetip");
-        if(show===true){
-            phoneTip.setAttribute("class","merr");
+        if (show === true) {
+            phoneTip.setAttribute("class", "merr");
             phoneTip.innerHTML = message;
-        }else{
-            phoneTip.setAttribute("class","merr hide");
+        } else {
+            phoneTip.setAttribute("class", "merr hide");
         }
 
     };

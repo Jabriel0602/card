@@ -1,0 +1,52 @@
+.page{max-width: 720px;overflow: hidden;}
+.coupon{overflow: auto;}
+/*banner begin*/
+.banner{ position:relative; height:150px; overflow:hidden;display:block;margin-top: 56px;}
+.banner li img{ width:100%; height:150px;}
+.banner .numb{ position:absolute; left:0; bottom:0px; height:24px; line-height:24px; width:100%;  background:rgba(0,0,0,0); text-align:center;}
+.banner .numb span{border-radius:6px; height:12px; margin:0 4px; width:12px; display:inline-block; background:#fff; cursor:pointer}
+.banner .numb span.on{ background:#62b12e;}
+/*banner end*/
+/*filter start*/
+.filter{height: 50px;margin-bottom: 2px;}
+.filter ul a li{float: left;width: 50%;text-align: center;line-height: 50px;background-color:#ffffff;color: #333333;font-size: 15px;border-bottom: 1px solid #d8d8d8;border-top: 1px solid #d8d8d8;}
+.filter ul a li img{margin-left: 5px;}
+.filterpanel{z-index: 999;height: 500%;position: absolute;background-color:rgba(47,47,47,0.5);width: 100%;max-width: 720px;display: none;}
+.alltype{display: none;background-color:#ffffff;}
+.alltype ul li{float: left;width: 50%;color:#a4a4a4;text-align: center;height: 40px;line-height: 40px;font-size: 15px;border-bottom: 1px solid #d8d8d8;}
+.alltype ul li a{display: block;}
+.checked{background-color: #d6d6d6;}
+/*filter end*/
+/*activity list start*/
+.list{background-color: #fafafa;margin-bottom: 56px;}
+.list li{position: relative;padding-top:5px;height: 65px;border-bottom: 1px solid #d8d8d8;}
+.list a{position:relative;display: block;padding-left: 90px;}
+.hdpic{position: absolute;left: 10px;top: 0px;}
+.hdpic img{display: block;height: 60px;width: 80px;}
+.hdstate{position: absolute;left: 10px;top:0px;}
+.hdxq{display: block;margin-left: 10px;}
+.title{display: block;color: #000000;font-size: 15px;font-weight: bold;height: 15px;line-height:15px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;}
+.time{display: block;font-size: 12px;margin-bottom: 5px;margin-top: 5px;}
+.time img{margin-right: 4px;margin-bottom: -2px;}
+.from{float: left;display: block;margin-right: 12px;background-color: #ffffff;color: #62b12e;border:1px solid #62b12e;border-radius:3px;font-size: 12px;padding:2px;}
+.from img{margin-right: 4px;margin-bottom: -2px;}
+.life{border:1px solid #ce80ff;color:#ce80ff;}
+.food{border:1px solid #fecb82;color:#fecb82;}
+.common{border:1px solid #94cbe8;color:#94cbe8;}
+.child{border:1px solid #60c8d1;color:#60c8d1;}
+.enterten{border:1px solid #9dcc6a;color:#9dcc6a;}
+.tickettype,.hdfrom{background-color: rgba(201, 37, 22, 1);color:#ffffff;font-size: 12px;padding:2px 3px;border-radius:3px;}
+.freeticket{background-color: rgba(74, 188, 86, 1);}
+.parkticket{background-color: rgba(99, 173, 236, 1);}
+.couponticket{background-color: rgba(234, 97, 0, 1);}
+.limit{position: absolute;right:20px;top:0px;height:100%;line-height:5;font-size:14px;color:#62b12e;}
+.free{color:#62b12e;}
+.cost{color:#ffa200;}
+/*activity list end*/
+/*foot*/
+.footerlist{background: #2f2f2f;text-align:center;position: fixed;bottom: 0px;width: 100%;max-width: 720px;}
+.footerlist li{float: left;width: 20%;border-top: 1px solid #cccccc; text-align: center;}
+.footerlist li a{display: block;padding-top: 8px;text-align: center;}
+.footerlist li a span{line-height: 20px;font-size: 14px;color: #888888;}
+.footyh{background-color: #cb2517;}
+/*foot end*/

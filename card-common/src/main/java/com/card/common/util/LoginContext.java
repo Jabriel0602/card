@@ -13,7 +13,7 @@ public class LoginContext {
 	};
 
 	public static Boolean isLogin() {
-		if (Strings.isNullOrEmpty(getUserPIN())) {
+		if (getUserId() == null) {
 			return false;
 		}
 		return true;
@@ -21,7 +21,7 @@ public class LoginContext {
 
 	@Data
 	public static class SessionInfo {
-		private String userPin;
+		private Long userId;
 		private String userName;
 		private String ip;
 	}
@@ -38,12 +38,12 @@ public class LoginContext {
 		SESSION_INFO.get().getUserName();
 	}
 
-	public static void setUserPIN(String userPIN) {
-		SESSION_INFO.get().setUserPin(userPIN);
+	public static void setUserId(Long userId) {
+		SESSION_INFO.get().setUserId(userId);
 	}
 
-	public static String getUserPIN() {
-		return SESSION_INFO.get().getUserPin();
+	public static Long getUserId() {
+		return SESSION_INFO.get().getUserId();
 	}
 
 	public static String getIP() {

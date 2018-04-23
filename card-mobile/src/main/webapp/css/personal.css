@@ -1,0 +1,18 @@
+.page{max-width: 720px;overflow: auto;background: #f2f2f2;}
+.setlist{padding-top: 86px;}
+.list li{height: 50px;line-height: 50px;border-bottom: 1px solid #b4b4b4;background-color: #ffffff;-webkit-appearance:none;}
+.frontpic{margin-left: 10px;margin-right: 10px;}
+.text{font-size: 15px;font-weight: bold;}
+.value{font-size: 15px;color:#b4b4b4;float: right;margin-right: 15px;}
+.endpic{float: right;margin-right: 15px;margin-top: 15px;}
+.top{height: 30px;line-height: 30px;border-bottom:2px solid #2270b8;text-align: center;color:#2270b8;}
+.mask{min-height: 100%;top:0px;width:100%;background-color: rgba(0,0,0,0.5);z-index: 999;position: absolute;max-width: 720px;}
+.gender li{height: 50px;line-height: 50px;border-bottom: 1px solid #e3e3e3;}
+.gender li input{float: right;margin-right: 5%;margin-top: 20px;}
+.gender li span{margin-left: 5%;}
+.hidden{display: none;}
+.confirm li{float: left;width: 49.3%;text-align: center;height: 50px;line-height: 50px;}
+.cancel{border-right: 1px solid #e3e3e3;}
+.choosegender,.inputname,.choosedate{background-color: #ffffff;width: 80%;border-radius:5px;margin-left: 10%;margin-right: 10%;margin-top: 30%;}
+#newname,#dateinput{min-width: 80%;margin:5% 10% 2% 10%;height: 50px;line-height: 50px;border-radius: 5px;border: 1px solid #e3e3e3;font-size: 15px;}
+.inputname p{font-size: 12px;color: #b4b4b4;width: 80%;margin-left: 10%;margin-right: 10%;margin-bottom: 2%;}

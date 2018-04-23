@@ -1,6 +1,9 @@
 package com.card.common.util.bean;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +19,7 @@ import java.util.Map;
  * Description：
  */
 @Slf4j
+@Service
 public class Sequence {
 	private int blockSize = 5;
 	private long startValue = 0L;
@@ -23,6 +27,7 @@ public class Sequence {
 	private static final String NEW_SQL = "insert into sequence_value (id,name) values (?,?)";
 	private static final String UPDATE_SQL = "update sequence_value set id = ?  where name = ? and id = ?";
 	private Map<String, Step> stepMap = new HashMap();
+	@Autowired
 	private DataSource dataSource;
 
 	public Sequence() {

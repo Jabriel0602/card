@@ -1,5 +1,7 @@
 package com.card.controller;
 
+import com.card.common.util.LoginContext;
+import com.card.domain.adimage.AdImage;
 import com.card.domain.order.Order;
 import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.pay.FinaStatusEnum;
@@ -7,6 +9,7 @@ import com.card.domain.pay.PayStatusEnum;
 import com.card.domain.pay.RechargeStatusEnum;
 import com.card.domain.refund.enums.RefundStatusEnum;
 import com.card.domain.result.APIResult;
+import com.card.service.adimage.AdImageService;
 import com.card.service.order.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yangzhanbang
@@ -31,13 +35,20 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private AdImageService adImageService;
+
 	@GetMapping("")
-	@ResponseBody
-	public APIResult<List<Order>> listOrder(@RequestParam(required = false) Long userId) {
+	public String listOrder(Map map) {
 		/**
 		 * 从cookie获取userId
 		 */
-		return new APIResult<List<Order>>(orderService.findAllOrder(userId));
+		List<Order> orderList = orderService.findAllOrder(LoginContext.getUserId());
+		List<AdImage> adImageList = adImageService.findAllAdImage();
+		map.put("adImage", new AdImage());
+		map.put("adImageList", adImageList);
+		map.put("orderList", orderList);
+		return "order";
 	}
 
 	@PostMapping("")

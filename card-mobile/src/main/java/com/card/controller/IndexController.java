@@ -1,5 +1,6 @@
 package com.card.controller;
 
+import com.card.common.util.LoginContext;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.card.Card;
 import com.card.service.adimage.AdImageService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +30,13 @@ public class IndexController {
 	private CardService cardService;
 
 	@GetMapping("")
-	public String index(Long userId, Map map) {
+	public String index(Map map) {
 		List<AdImage> adImageList = adImageService.findAllAdImage();
-		List<Card> cardList = cardService.findCard(userId);
 
+		List<Card> cardList = new ArrayList<>();
+		if (LoginContext.getUserId() != null) {
+			cardList = cardService.findCard(LoginContext.getUserId());
+		}
 		map.put("adImage", new AdImage());
 		map.put("adImageList", adImageList);
 		map.put("card", new Card());

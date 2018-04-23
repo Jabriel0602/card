@@ -1,0 +1,36 @@
+<div class="footblock">
+    <ul class="footerlist clearfix">
+        <li>
+            <div>
+                <a href="http://localhost/index" class="footwd">
+                    <img alt="" src="/image/home.png"><br>
+                    <span>首页</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div>
+                <a href="#" class="footyh">
+                    <img alt="" src="/image/yh.png"><br>
+                    <span>帮助中心</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div>
+                <a href="//127.0.0.1/orders" class="footsh">
+                    <img alt="" src="/image/stores.png"><br>
+                    <span>我的订单</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div>
+                <a href="//127.0.0.1/users" class="footsy">
+                    <img alt="" src="/image/wod.png"><br>
+                    <span>个人中心</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>

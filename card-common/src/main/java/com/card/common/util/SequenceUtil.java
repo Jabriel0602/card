@@ -1,6 +1,8 @@
 package com.card.common.util;
 
 import com.card.common.util.bean.Sequence;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
@@ -10,9 +12,11 @@ import java.util.Map;
  * Date: 2018/2/11
  * Description：
  */
-
+@Service
 public class SequenceUtil {
 	private Map<String, Sequence> sequenceMap;
+
+	@Autowired
 	private Sequence defaultSequence;
 
 	public SequenceUtil() {

@@ -7,6 +7,9 @@
         <result column="user_type" property="userType" jdbcType="VARCHAR"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="DATE"/>
         <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
         <result column="operator" property="operator" jdbcType="VARCHAR"/>
@@ -19,6 +22,9 @@
         user_type,
         user_name,
         password,
+        sex,
+        phone,
+        birthday,
         create_time,
         modify_time,
         operator,
@@ -32,6 +38,9 @@
             user_type,
             user_name,
             password,
+            sex,
+            phone,
+            birthday,
             create_time,
             modify_time,
             operator,
@@ -41,6 +50,9 @@
             #{user.userType,jdbcType=VARCHAR},
             #{user.userName,jdbcType=VARCHAR},
             #{user.password,jdbcType=VARCHAR},
+            #{user.sex,jdbcType=INTEGER},
+            #{user.phone,jdbcType=VARCHAR},
+            #{user.birthday,jdbcType=VARCHAR},
             #{user.createTime,jdbcType=DATE},
             #{user.modifyTime,jdbcType=DATE},
             #{user.operator,jdbcType=VARCHAR},
@@ -52,14 +64,17 @@
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="user.userId">
         INSERT INTO user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="user.userId!=null">user_id,</if>
-            <if test="user.userType!=null">user_type,</if>
-            <if test="user.userName!=null">user_name,</if>
-            <if test="user.password!=null">password,</if>
-            <if test="user.createTime!=null">create_time,</if>
-            <if test="user.modifyTime!=null">modify_time,</if>
-            <if test="user.operator!=null">operator,</if>
-            <if test="user.yn!=null">yn,</if>
+            <if test="user.userId!=null"> user_id,</if>
+            <if test="user.userType!=null"> user_type,</if>
+            <if test="user.userName!=null"> user_name,</if>
+            <if test="user.password!=null"> password,</if>
+            <if test="user.sex!=null"> sex,</if>
+            <if test="user.phone!=null"> phone,</if>
+            <if test="user.birthday!=null"> birthday,</if>
+            <if test="user.createTime!=null"> create_time,</if>
+            <if test="user.modifyTime!=null"> modify_time,</if>
+            <if test="user.operator!=null"> operator,</if>
+            <if test="user.yn!=null"> yn,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -70,6 +85,12 @@
             <if test="user.userName!=null">#{user.userName,jdbcType=VARCHAR},
             </if>
             <if test="user.password!=null">#{user.password,jdbcType=VARCHAR},
+            </if>
+            <if test="user.sex!=null">#{user.sex,jdbcType=INTEGER},
+            </if>
+            <if test="user.phone!=null">#{user.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="user.birthday!=null">#{user.birthday,jdbcType=VARCHAR},
             </if>
             <if test="user.createTime!=null">#{user.createTime,jdbcType=DATE},
             </if>
@@ -93,6 +114,9 @@
             #{user.userType,jdbcType=VARCHAR},
             #{user.userName,jdbcType=VARCHAR},
             #{user.password,jdbcType=VARCHAR},
+            #{user.sex,jdbcType=INTEGER},
+            #{user.phone,jdbcType=VARCHAR},
+            #{user.birthday,jdbcType=VARCHAR},
             #{user.createTime,jdbcType=DATE},
             #{user.modifyTime,jdbcType=DATE},
             #{user.operator,jdbcType=VARCHAR},
@@ -105,23 +129,26 @@
     <update id="update">
         UPDATE user
         <set>
-            <if test="user.userId != null">user_id= #{user.userId,jdbcType=BIGINT},</if>
-            <if test="user.userType != null">user_type= #{user.userType,jdbcType=VARCHAR},</if>
-            <if test="user.userName != null">user_name= #{user.userName,jdbcType=VARCHAR},</if>
-            <if test="user.password != null">password= #{user.password,jdbcType=VARCHAR},</if>
-            <if test="user.createTime != null">create_time= #{user.createTime,jdbcType=DATE},</if>
-            <if test="user.modifyTime != null">modify_time= #{user.modifyTime,jdbcType=DATE},</if>
-            <if test="user.operator != null">operator= #{user.operator,jdbcType=VARCHAR},</if>
-            <if test="user.yn != null">yn= #{user.yn,jdbcType=TINYINT}</if>
+            <if test="user.userId != null"> user_id= #{user.userId,jdbcType=BIGINT},</if>
+            <if test="user.userType != null"> user_type= #{user.userType,jdbcType=VARCHAR},</if>
+            <if test="user.userName != null"> user_name= #{user.userName,jdbcType=VARCHAR},</if>
+            <if test="user.password != null"> password= #{user.password,jdbcType=VARCHAR},</if>
+            <if test="user.sex != null"> sex= #{user.sex,jdbcType=INTEGER},</if>
+            <if test="user.phone != null"> phone= #{user.phone,jdbcType=VARCHAR},</if>
+            <if test="user.birthday != null"> birthday= #{user.birthday,jdbcType=VARCHAR},</if>
+            <if test="user.createTime != null"> create_time= #{user.createTime,jdbcType=DATE},</if>
+            <if test="user.modifyTime != null"> modify_time= #{user.modifyTime,jdbcType=DATE},</if>
+            <if test="user.operator != null"> operator= #{user.operator,jdbcType=VARCHAR},</if>
+            <if test="user.yn != null"> yn= #{user.yn,jdbcType=TINYINT}</if>
         </set>
         WHERE user_id = #{user.userId,jdbcType=BIGINT}
     </update>
 
-    <select id="findUserByUserId" resultType="com.card.domain.user.User">
+    <select id="findUserByUserId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"></include>
         from user
-        WHERE user_id = #{user.userId,jdbcType=BIGINT}
+        WHERE user_id = #{userId,jdbcType=BIGINT}
     </select>
 
     <update id="updateByUserId">
@@ -138,5 +165,13 @@
         </set>
         WHERE user_id = #{userId,jdbcType=BIGINT}
     </update>
+    <select id="getUserByNameAndPassWord" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from user
+        WHERE user_name = #{userName,jdbcType=VARCHAR}
+        AND
+        password = #{password,jdbcType=VARCHAR}
+    </select>
 </mapper>
 

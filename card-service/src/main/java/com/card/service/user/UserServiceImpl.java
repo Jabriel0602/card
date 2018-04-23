@@ -1,7 +1,9 @@
 package com.card.service.user;
 
+import com.card.common.util.Base64Util;
 import com.card.dao.UserDao;
 import com.card.domain.user.User;
+import com.google.common.base.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +36,15 @@ public class UserServiceImpl implements UserService{
         return userDao.update(user);
     }
 
-    @Override
-    public int updateByUserPin(Long userId, User user) {
-        return 0;
-    }
 
     @Override
     public User getUser(Long userId) {
         return userDao.findUserByUserId(userId);
+    }
+
+    @Override
+    public User getUserByNameAndPassWord(String userName,String password) {
+        return userDao.getUserByNameAndPassWord(userName, Base64Util.base64ForCharset(password, Charsets.UTF_8.name()));
     }
 
 }

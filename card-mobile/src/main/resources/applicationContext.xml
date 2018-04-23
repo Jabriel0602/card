@@ -6,6 +6,7 @@
 
     <context:annotation-config></context:annotation-config>
 
+    <!--整个Spring容器只能加载一次，多出加载会崩溃-->
     <context:property-placeholder location="classpath:*.properties"/>
 
     <!--<import resource="applicationContext/applicationContext-ActiveMQ-producer.xml"></import>-->

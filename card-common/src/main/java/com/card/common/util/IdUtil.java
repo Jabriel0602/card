@@ -35,7 +35,7 @@ public class IdUtil {
 		SMS(5, "SMS_ID"),
 		REFUND(6, "REFUND_ID"),
 		CONFIG(7, "CONFIG_ID"),
-		USER(8, "AUTHORITY_ID"),
+		USER(8, "USER_ID"),
 		ADIMAGE(9, "ADIMAGE_ID");
 
 

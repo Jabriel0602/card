@@ -1,18 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>个人资料</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="Expires" CONTENT="-1">
-    <meta http-equiv="Cache-Control" CONTENT="no-cache">
-    <meta http-equiv="Pragma" CONTENT="no-cache">
-    <link rel="stylesheet" href="/wx/css/g/baolong/html5/g.css">
-    <link rel="stylesheet" href="/wx/css/p/baolong/html5/my/personalinfo.css">
+    #include("head.vm")
 </head>
 <body onload="load();">
 <!--html start-->
@@ -20,31 +11,38 @@
     <div class="info">
         <div class="topblock clearfix">
             <i>
-                <a href="#"><img src="/wx/img/baolong/html5/my/personalinfo/back.png"></a>
+                <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
             </i>
             <h2>个人资料</h2>
         </div>
         <div class="setlist">
             <ul class="clearfix list">
                 <li id="setname">
-                    <img src="/wx/img/baolong/html5/my/personalinfo/name.png" class="frontpic">
-                    <span class="text">昵称</span>
-                    <img class="endpic" src="/wx/img/baolong/html5/my/personalinfo/rightarrow.png">
-                    <span class="value" id="name"></span>
+                    <img src="/image/name.png" class="frontpic">
+                    <span class="text">用户名</span>
+                    <img class="endpic" src="/image/rightarrow.png">
+                    <span class="value" id="name">$!user.getUserName()</span>
                 </li>
                 <li id="setgender">
-                    <img src="/wx/img/baolong/html5/my/personalinfo/gender.png" class="frontpic">
+                    <img src="/image/gender.png" class="frontpic">
                     <span class="text">性别</span>
-                    <img class="endpic" src="/wx/img/baolong/html5/my/personalinfo/rightarrow.png">
-                    <span class="value" id="gender"></span>
+                    <img class="endpic" src="/image/rightarrow.png">
+                    <span class="value" id="gender">$!user.getSex()</span>
                 </li>
                 <li id="setdate">
-                    <img src="/wx/img/baolong/html5/my/personalinfo/date.png" class="frontpic">
+                    <img src="/image/date.png" class="frontpic">
                     <span class="text">出生年月</span>
-                    <img class="endpic" src="/wx/img/baolong/html5/my/personalinfo/rightarrow.png">
-                    <span class="value" id="date"></span>
+                    <img class="endpic" src="/image/rightarrow.png">
+                    <span class="value" id="date">$!user.getBirthday()</span>
                 </li>
             </ul>
+
+            <form action="//127.0.0.1/users/cookieClear" method="post">
+
+                <input type="submit" value="退 出 登 录" />
+
+            </form>
+
         </div>
         <div class="mask hidden" id="namemask">
             <div class="inputname">
@@ -53,7 +51,7 @@
                 <p>请输入4-10个字符，支持中文、英文、数字、"-"、"_"</p>
                 <ul class="clearfix confirm">
                     <li class="cancel" onclick="showObj('namemask','no');">取消</li>
-                    <li onclick="confirmSetName();">确定</li>
+                    <li onclick="confirmSetName()">确定</li>
                 </ul>
             </div>
         </div>
@@ -61,19 +59,25 @@
             <div class="choosegender">
                 <div class="top">请选择性别</div>
                 <ul class="clearfix gender">
-                    <li><span>男</span><input type="radio" name="genderitem" value="male" checked></li>
-                    <li><span>女</span><input type="radio" name="genderitem" value="female"></li>
+                    <li><span>男</span><input type="radio" name="sex" value="男"
+                        #if($user.getSex()=='男') checked
+                        #end
+                    ></li>
+                    <li><span>女</span><input type="radio" name="sex" value="女"
+                        #if($user.getSex()=='女') checked
+                        #end
+                    ></li>
                 </ul>
                 <ul class="clearfix confirm">
                     <li class="cancel" onclick="showObj('gendermask','no');">取消</li>
-                    <li onclick="confirmSetGender();">确定</li>
+                    <li onclick="confirmSetSex();">确定</li>
                 </ul>
             </div>
         </div>
         <div class="mask hidden" id="datemask">
             <div class="choosedate">
                 <div class="top">请选择出生年月</div>
-                <input id="dateinput" type="date" value="" placeholder="请选择日期"/>
+                <input id="birthday" type="date" value="" placeholder="请选择日期"/>
                 <ul class="clearfix confirm">
                     <li class="cancel" onclick="showObj('datemask','no');">取消</li>
                     <li onclick="confirmSetDate();">确定</li>
@@ -82,60 +86,137 @@
         </div>
     </div>
 </div>
+
+    #include("foot.vm")
+
 <!--html end-->
 <script type="text/javascript">
-    var load = function(){
+    var _back = function () {
+        document.location.href = "//127.0.0.1/users";
+    }
+
+    var load = function () {
         //打开设置昵称面板
         var setName = document.getElementById("setname");
-        setName.onclick = function(){
-            showObj("namemask","yes");
+        setName.onclick = function () {
+            showObj("namemask", "yes");
         };
         //打开设置性别面板
         var setGender = document.getElementById("setgender");
-        setGender.onclick = function(){
-            showObj("gendermask","yes");
+        setGender.onclick = function () {
+            showObj("gendermask", "yes");
         };
         //打开设置日期面板
         var setDate = document.getElementById("setdate");
-        setDate.onclick = function(){
-            showObj("datemask","yes");
+        setDate.onclick = function () {
+            showObj("datemask", "yes");
         };
     };
-    var showObj = function(objid,yesorno){
+    var showObj = function (objid, yesorno) {
         var obj = document.getElementById(objid);
-        if(obj == null)return;
-        if(yesorno == "yes"){
-            obj.setAttribute("style","display:block");
-        }else if(yesorno == "no"){
-            obj.setAttribute("style","display:none");
+        if (obj == null) return;
+        if (yesorno == "yes") {
+            obj.setAttribute("style", "display:block");
+        } else if (yesorno == "no") {
+            obj.setAttribute("style", "display:none");
         }
     };
-    var cancelSetGender = function(){
+    var cancelSetGender = function () {
 
     };
-    var confirmSetName = function(){
-        var newName = document.getElementById("newname");
-        var name = document.getElementById("name");
-        name.innerHTML= newName.value;
-        showObj("namemask","no");
+    var confirmSetName = function () {
+        var newName = jQuery('input[id=newname]').val();
+        updateUserName('$user.getUserId()', newName);
+        showObj("namemask", "no");
+        _back();
     };
-    var confirmSetGender = function(){
-        var radios = document.getElementsByName("genderitem");
-        for(var i=0;i<radios.length;i++){
-            if(radios[i].checked){
-                var gender = document.getElementById("gender");
-                gender.innerHTML = radios[i].value == "male" ? "男" : "女";
-                break;
+    var confirmSetSex = function () {
+        var sex = $("[name='sex']:checked").val();
+        updateUserSex('$user.getUserId()', sex);
+        showObj("gendermask", "no");
+        _back();
+    };
+    var confirmSetDate = function () {
+        var birthday = jQuery('input[id=birthday]').val();
+        updateUserBirth('$user.getUserId()', birthday);
+        // var date = document.getElementById("date");
+        // date.innerHTML = birthday.value;
+        showObj("datemask", "no");
+        _back();
+    };
+
+    var updateUserName = function (userId, userName) {
+        var url = '/users/' + userId + '/userName';
+        jQuery.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                userId: userId,
+                userName: userName
+            },
+            success: function (data) {
+                if (data) {
+                    alert("修改成功");
+                    return;
+                } else {
+                    alert("修改失败");
+                    return;
+                }
+            },
+            error: function () {
+                return;
             }
-        }
-        showObj("gendermask","no");
-    };
-    var confirmSetDate = function(){
-        var dateInput = document.getElementById("dateinput");
-        var date = document.getElementById("date");
-        date.innerHTML = dateInput.value;
-        showObj("datemask","no");
-    };
+        })
+    }
+
+    var updateUserSex = function (userId, sex) {
+        var url = '/users/' + userId + '/sex';
+        jQuery.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                userId: userId,
+                sex: sex
+            },
+            success: function (data) {
+                if (data) {
+                    alert("修改成功");
+                    return;
+                } else {
+                    alert("修改失败");
+                    return;
+                }
+            },
+            error: function () {
+                return;
+            }
+        })
+    }
+
+    var updateUserBirth = function (userId, birthday) {
+        var url = '/users/' + userId + '/birthday';
+        jQuery.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                userId: userId,
+                birthday: birthday
+            },
+            success: function (data) {
+                if (data) {
+                    alert("修改成功");
+                    return;
+                } else {
+                    alert("修改失败");
+                    return;
+                }
+            },
+            error: function () {
+                return;
+            }
+        })
+    }
+
 </script>
 </body>
 </html>

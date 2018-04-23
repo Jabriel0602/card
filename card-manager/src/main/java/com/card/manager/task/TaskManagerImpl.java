@@ -45,7 +45,7 @@ public class TaskManagerImpl implements TaskManager {
 	@Override
 	@Transactional
 	public Order payment(Long orderId) {
-		Long userId = Long.valueOf(LoginContext.getUserPIN());
+		Long userId = LoginContext.getUserId();
 		Order order = orderService.selectByOrderId(orderId);
 		String payNo = UUID.randomUUID().toString();
 		order.setPayNo(payNo);

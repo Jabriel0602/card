@@ -14,7 +14,9 @@ public interface UserService{
 
     int update(User user);
 
-    int updateByUserPin(@Param("userId")Long userId, @Param("users") User user);
 
     User getUser(Long userId);
+
+    User getUserByNameAndPassWord(String userName,String password);
+
 }

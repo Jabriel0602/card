@@ -1,9 +1,11 @@
 package com.card.test;
 
+import com.alibaba.fastjson.JSONObject;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.card.Card;
 import com.card.service.adimage.AdImageService;
 import com.card.service.card.CardService;
+import com.mysql.cj.xdevapi.JsonArray;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,8 @@ import java.util.Date;
  * @date 2018/4/13 10:05
  * @desc
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath*:applicationContext.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration({"classpath*:applicationContext.xml"})
 public class CardTest {
 
 	@Autowired
@@ -66,5 +68,13 @@ public class CardTest {
 		adImage1.setDesc("asdasdasd");
 		adImageService.update(adImage1);
 		adImageService.delete(200L);
+	}
+
+	@Test
+	public  void jsonTest(){
+		JsonArray jsonArray=new JsonArray();
+//		jsonArray.get(1);
+		JSONObject jsonObject=new JSONObject();
+		System.out.println(jsonObject.get("a"));
 	}
 }
