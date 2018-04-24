@@ -74,54 +74,25 @@
             </div>
         </div>
         <div class="hdlist">
+
             <ul class="list">
-                <li>
-                    <div>
-                        <a class="clearfix" href="#">
-                            <span class="hdpic"><img alt="" src="/wx/img/baolong/html5/coupon/huodong0.png"></span>
-                            <span class="hdstate"><img alt="" src="/wx/img/baolong/html5/coupon/open.png"></span>
-                            <span class="hdxq">
-                                        <span class="title">这里是优惠券名称</span>
-                                        <span class="time"><img src="/wx/img/baolong/html5/coupon/clock.png">使用时间</span>
-                                        <span class="from common"><img src="/wx/img/baolong/html5/coupon/common.png">通用</span>
-                                        <span class="tickettype">现金券</span>
-                                    </span>
-                            <span class="limit cost">￥20</span>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <a class="clearfix" href="#">
-                            <span class="hdpic"><img alt="" src="/wx/img/baolong/html5/coupon/huodong1.png"></span>
-                            <span class="hdstate"><img alt="" src="/wx/img/baolong/html5/coupon/notstart.png"></span>
-                            <span class="hdxq">
-                                        <span class="title">这里是优惠券名称</span>
-                                        <span class="time"><img src="/wx/img/baolong/html5/coupon/clock.png">使用时间</span>
-                                        <span class="from child"><img
-                                                src="/wx/img/baolong/html5/coupon/child.png">儿童</span>
-                                        <span class="tickettype parkticket">停车券</span>
-                                    </span>
-                            <span class="limit free">免费</span>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <a class="clearfix" href="#">
-                            <span class="hdpic"><img alt="" src="/wx/img/baolong/html5/coupon/huodong1.png"></span>
-                            <span class="hdstate"><img alt="" src="/wx/img/baolong/html5/coupon/end.png"></span>
-                            <span class="hdxq">
-                                        <span class="title">这里是优惠券名称</span>
-                                        <span class="time"><img src="/wx/img/baolong/html5/coupon/clock.png">使用时间</span>
-                                        <span class="from food"><img
-                                                src="/wx/img/baolong/html5/coupon/food.png">饮食</span>
-                                        <span class="tickettype freeticket">免费券</span>
-                                    </span>
-                            <span class="limit free">免费</span>
-                        </a>
-                    </div>
-                </li>
+                #foreach($order in $orderList)
+                    <li>
+                        <div>
+                            <a class="clearfix" href="#">
+                                <span class="hdpic"><img alt="" src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/coupon/huodong0.png"></span>
+                                <span class="hdstate"><img alt="" src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/coupon/open.png"></span>
+                                <span class="hdxq">
+                                    <span class="title">一卡通充值</span>
+                                    <span class="time">订单:$order.getOrderId()</span>
+                                    <span class="time">卡号:$order.getCardId()</span>
+                                    <span class="tickettype">订单状态:$order.getOrderStatus()</span>
+                                </span>
+                                <span class="limit cost">￥$order.getMoney()</span>
+                            </a>
+                        </div>
+                    </li>
+                #end
             </ul>
         </div>
 

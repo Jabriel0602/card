@@ -51,7 +51,7 @@
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="order.orderId">
-        INSERT INTO order (
+        INSERT INTO `order` (
             order_id,
             sku_id,
             sku_name,
@@ -98,7 +98,7 @@
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="order.orderId">
-        INSERT INTO order
+        INSERT INTO `order`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="order.orderId!=null">order_id,</if>
             <if test="order.skuId!=null">sku_id,</if>
@@ -168,7 +168,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO order (
+        INSERT INTO `order` (
         <include refid="Base_Column_List"/>
         )VALUES
         <foreach collection="orders" item="order" index="index" separator=",">
@@ -199,7 +199,7 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE order
+        UPDATE `order`
         <set>
             <if test="order.orderId != null">order_id= #{order.orderId,jdbcType=BIGINT},</if>
             <if test="order.skuId != null">sku_id= #{order.skuId,jdbcType=VARCHAR},</if>

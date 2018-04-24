@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class CardController {
 	}
 
 	@PostMapping("")
-	public String saveCard(Card card) {
+	public String saveCard(Card card, HttpServletRequest request) {
 		card.setUserId(LoginContext.getUserId());
 		card.setCardType(CardTypeEnum.BEIJING.getDesc());
 		card.setYn(YnEnum.Y.getCode());
@@ -52,7 +53,7 @@ public class CardController {
 		card.setModifiedTime(new Date());
 		ValidatorUtils.validate(card);
 		cardService.insert(card);
-		return indexController.index(Maps.newHashMap());
+		return indexController.index(Maps.newHashMap(), request);
 	}
 
 	@GetMapping("/{cardId}/editPage")

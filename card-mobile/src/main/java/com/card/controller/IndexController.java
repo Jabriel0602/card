@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +32,21 @@ public class IndexController {
 	private CardService cardService;
 
 	@GetMapping("")
-	public String index(Map map) {
+	public String index(Map map, HttpServletRequest request) {
 		List<AdImage> adImageList = adImageService.findAllAdImage();
 
+		Long userId = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("card_user_cookie")) {
+					userId = Long.valueOf(cookie.getValue());
+					LoginContext.setUserId(userId);
+				}
+			}
+		}
 		List<Card> cardList = new ArrayList<>();
-		if (LoginContext.getUserId() != null) {
+		if (userId != null) {
 			cardList = cardService.findCard(LoginContext.getUserId());
 		}
 		map.put("adImage", new AdImage());

@@ -1,5 +1,6 @@
 package com.card.controller;
 
+import com.card.common.util.DateUtil;
 import com.card.domain.order.Order;
 import com.card.domain.result.APIResult;
 import com.card.manager.task.TaskManager;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -31,27 +33,40 @@ public class PayController {
 	@Autowired
 	private TaskManager taskManager;
 
+	/**
+	 * 支付页面
+	 */
 
 	@GetMapping("/submitPage")
 	public String getSubmitPage(Long orderId, Map map) {
-		map.put("orderId", orderId);
+		Order order=orderService.selectByOrderId(orderId);
+		map.put("order", order);
 		return "submitPage";
 	}
+
+	/**
+	 * 支付成功页
+	 * @param orderId
+	 * @param map
+	 * @return
+	 */
 
 	@GetMapping("/success")
 	public String getSuccess(Long orderId, Map map) {
 		Order order = orderService.selectByOrderId(orderId);
 		map.put("order", order);
+		map.put("payTime",DateUtil.formatDateYMDHMS(order.getPayTime()));
 		return "paySuccess";
 	}
 
 	/**
-	 * 用户在支付页面点击支付
-	 * 本地 直接支付成功--->跳转到对账
+	 *
+	 * 点击支付 本地 直接支付成功--->跳转到对账
 	 * @param orderId
 	 * @return
 	 */
 	@PostMapping("")
+	@ResponseBody
 	public APIResult<Order> payment(Long orderId) {
 
 		Order order = taskManager.payment(orderId);

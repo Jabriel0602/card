@@ -1,11 +1,10 @@
 package com.card.domain.task.enums;
 
-import ch.qos.logback.core.util.TimeUtil;
-import com.card.common.util.DateUtil;
 import com.card.common.util.IdUtil;
 import com.card.domain.YnEnum;
 import com.card.domain.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -50,16 +49,16 @@ public enum TaskTypeEnum {
 	}
 
 
-	@Autowired
-	private IdUtil idUtil;
-
-	public Task buildTask(Long orderId) {
+	public Task buildTask(Long orderId,Long taskId) {
 		Date date = new Date();
 		Task task = new Task();
 		task.setOrderId(orderId);
-		task.setTaskId(idUtil.getId(IdUtil.SequenceEnum.TASK));
+		task.setTaskId(taskId);
 		task.setTaskType(type);
 		task.setTaskDesc(desc);
+
+		task.setCreatedTime(date);
+		task.setModifiedTime(date);
 
 		task.setExecuteStatus(TaskStatusEnum.INITIAL.getCode());
 		task.setRetryTimes(0);

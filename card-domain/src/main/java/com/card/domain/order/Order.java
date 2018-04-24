@@ -33,12 +33,12 @@ public class Order {
 	@NotBlank(message = "卡片类型不能为空")
 	private String cardType;    //卡片类型
 
-	@NotBlank(message = "用户不能为空")
+	@NotNull(message = "用户不能为空")
 	private Long userId;    //用户
 	//	@NotBlank(message = "用户手机号不能为空")
 	private String phone;        //用户手机号
 
-	@NotBlank(message = "提单时间不能为空")
+	@NotNull(message = "提单时间不能为空")
 	private Date submitTime;    //提单时间
 
 

@@ -3,7 +3,6 @@ package com.card.domain.task;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 /**
@@ -15,7 +14,7 @@ import java.util.Date;
 @Data
 public class Task {
 
-	@NotBlank(message = "任务id不能为空")
+	@NotNull(message = "任务id不能为空")
 	private Long taskId;		//任务id
 	@NotNull(message = "任务类型不能为空")
 	private Integer taskType;	//任务类型
@@ -27,7 +26,7 @@ public class Task {
 //	private Integer orderType;		//任务对应的订单 类型
 //	@NotBlank(message = "类型描述不能为空")
 //	private String orderDesc;	//任务对应的订单 类型描述
-	@NotBlank(message = "业务id不能为空")
+	@NotNull(message = "业务id不能为空")
 	private Long orderId;		//任务对应的订单 编号
 
 

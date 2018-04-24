@@ -4,6 +4,7 @@ import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
 import com.card.domain.YnEnum;
 import com.card.domain.adimage.AdImage;
+import com.card.domain.card.CardTypeEnum;
 import com.card.domain.order.Order;
 import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.pay.FinaStatusEnum;
@@ -11,13 +12,12 @@ import com.card.domain.pay.PayStatusEnum;
 import com.card.domain.pay.RechargeStatusEnum;
 import com.card.domain.refund.enums.RefundStatusEnum;
 import com.card.domain.result.APIResult;
+import com.card.domain.user.User;
 import com.card.service.adimage.AdImageService;
 import com.card.service.order.OrderService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +34,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private OrderService orderService;
@@ -59,10 +62,14 @@ public class OrderController {
 
 	@PostMapping("")
 	@ResponseBody
-	public APIResult<Boolean> submitOrder(Order order) {
+	public APIResult<Long> submitOrder(Order order) {
 
+		User user = userService.getUser(LoginContext.getUserId());
 		order.setOrderId(idUtil.getId(IdUtil.SequenceEnum.ORDER));
 		order.setUserId(LoginContext.getUserId());
+
+		order.setPhone(user.getPhone());
+		order.setCardType(CardTypeEnum.BEIJING.getDesc());
 
 		order.setPayStatus(PayStatusEnum.NOT_PAY.getCode());
 		order.setRechargeStatus(RechargeStatusEnum.NOT_RECHARGE.getCode());
@@ -74,10 +81,10 @@ public class OrderController {
 		order.setCreatedTime(new Date());
 		order.setModifyTime(new Date());
 		order.setYn(YnEnum.Y.getCode());
-		if (orderService.insert(order) == 1) {
-			return new APIResult<>(true);
+		if (orderService.insertSelective(order) == 1) {
+			return new APIResult<>(order.getOrderId());
 		} else {
-			return new APIResult<>(false);
+			return new APIResult<>(order.getOrderId());
 		}
 	}
 

@@ -103,7 +103,8 @@
 
 
     <div class="pdlr16 mgt8">
-        <input value="立即充值" type="button" id="btn" onclick="_submit('$card.getCardId()')" class="btn_red btn-h40 b-r-4"/>
+        <input value="立即充值" type="button" id="btn" onclick="_submit('$card.getCardId()')"
+               class="btn_red btn-h40 b-r-4"/>
     </div>
 
 </div>
@@ -124,13 +125,15 @@
                 cardId: cardId,
                 skuId: skuId,
                 skuName: skuName,
-                skuMoney:skuMoney
+                skuMoney: skuMoney
             },
             success: function (data) {
                 var json = JSON.stringify(data);
                 var jsonObject = JSON.parse(json);
+                var orderId = jsonObject.data;
                 if (jsonObject.code == 200) {
-                    document.location.href = "//127.0.0.1/pay/submitPage";
+                    //跳转到支付页面
+                    document.location.href = "//127.0.0.1/pay/submitPage?orderId=" + orderId;
                     return;
                 } else {
                     alert("修改失败");

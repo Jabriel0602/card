@@ -1,7 +1,7 @@
 -- auto Generated on 2018-04-16 13:53:30 
 -- DROP TABLE IF EXISTS task; 
 CREATE TABLE task(
-	task_id BIGINT (15) NOT NULL AUTO_INCREMENT COMMENT '任务id',
+	task_id BIGINT (15) NOT NULL  COMMENT '任务id',
 	task_type INT (11) NOT NULL DEFAULT -1 COMMENT '任务类型',
 	task_desc VARCHAR (50) NOT NULL DEFAULT '' COMMENT '任务描述',
 	order_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '@NotNull(message = "业务类型不能为空")',

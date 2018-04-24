@@ -18,19 +18,14 @@
 </head>
 <body>
 
-<div class="topblock">
-    <i>
-        <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
-    </i>
-    <h2>冲值成功</h2>
-</div>
+
 
 <!--html beging-->
 <div class="page">
-##    <header class="header">
-##        <a href="#" class="back comm_20_down"></a>
-##        冲值成功
-##    </header>
+    <header class="header">
+        <a href="#" class="back comm_20_down"></a>
+        冲值成功
+    </header>
 
     <section class="seccuss-pay">
         <div class="tip">
@@ -40,14 +35,14 @@
         <div class="list b_fff">
             <ul>
                 <li><a href="#">订单号:$order.getOrderId()<i class="comm_20_down icon_right"></i></a></li>
-                <li><a href="#" class="substr">充值卡号: $order.getCardId() <i class="comm_20_down icon_right"></i></a></li>
-                <li><a href="#">充值金额:$order.getMoney()<i class="comm_20_down icon_right"></i></a></li>
-                <li><a href="#">充值时间:$order.getFinaStatus()<i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#" class="substr">卡&nbsp;号: $order.getCardId() <i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#">支付金额:$order.getMoney()元<i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#">支付时间:$payTime<i class="comm_20_down icon_right"></i></a></li>
             </ul>
         </div>
         <div class="pdlr16 mgt12">
             <a href="//127.0.0.1/index" class="btn-h40 btn_red b-r-4">返回首页</a>
-            <a href="//127.0.0.1/cards/$card.getCardId()/orders/new" class="btn-h40 btn_b_red mgt12 b-r-4">继续充值</a>
+            <a href="//127.0.0.1/cards/$order.getCardId()/orders/new" class="btn-h40 btn_b_red mgt12 b-r-4">继续充值</a>
 
         </div>
     </section>

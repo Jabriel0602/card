@@ -1,5 +1,6 @@
 package com.card.manager.task;
 
+import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
 import com.card.common.util.ValidatorUtils;
 import com.card.domain.order.Order;
@@ -33,7 +34,10 @@ public class TaskManagerImpl implements TaskManager {
 	private TaskService taskService;
 
 	@Autowired
-	SupplierService supplierService;
+	private SupplierService supplierService;
+
+	@Autowired
+	private IdUtil idUtil;
 
 	/**
 	 * 更改订单状态为支付成功
@@ -47,15 +51,22 @@ public class TaskManagerImpl implements TaskManager {
 	public Order payment(Long orderId) {
 		Long userId = LoginContext.getUserId();
 		Order order = orderService.selectByOrderId(orderId);
+		/**
+		 * 模拟台账系统
+		 */
 		String payNo = UUID.randomUUID().toString();
 		order.setPayNo(payNo);
+		order.setMoney(order.getSkuMoney());
+
 		order.setPayStatus(PayStatusEnum.HAVE_PAY.getCode());
 		order.setOrderStatus(OrderStatusEnum.PAY_SUCCESS.getCode());
+		order.setPayTime(new Date());
 		order.setModifyTime(new Date());
 		ValidatorUtils.validate(order);
 		orderService.update(order);
-		Task createTask = TaskTypeEnum.ORDER_CREATE.buildTask(orderId);
-		taskService.insert(createTask);
+		Task createTask = TaskTypeEnum.ORDER_CREATE.buildTask(orderId,idUtil.getId(IdUtil.SequenceEnum.TASK));
+		ValidatorUtils.validate(createTask);
+		taskService.insertSelective(createTask);
 		return order;
 	}
 
@@ -90,7 +101,7 @@ public class TaskManagerImpl implements TaskManager {
 			if (count != 1) {
 				throw new RuntimeException("更新订单失败");
 			}
-			Task createOrderTask = TaskTypeEnum.ORDER_RECHARGE.buildTask(order.getOrderId());
+			Task createOrderTask = TaskTypeEnum.ORDER_RECHARGE.buildTask(order.getOrderId(),idUtil.getId(IdUtil.SequenceEnum.TASK));
 			taskService.insert(createOrderTask);
 		}
 	}
@@ -144,7 +155,7 @@ public class TaskManagerImpl implements TaskManager {
 		if (count != 1) {
 			throw new RuntimeException("更新订单失败");
 		}
-		Task createOrderTask = TaskTypeEnum.ORDER_RECHARGE.buildTask(order.getOrderId());
+		Task createOrderTask = TaskTypeEnum.ORDER_RECHARGE.buildTask(order.getOrderId(),idUtil.getId(IdUtil.SequenceEnum.TASK));
 		taskService.insert(createOrderTask);
 	}
 }
