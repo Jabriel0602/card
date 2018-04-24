@@ -1,0 +1,24 @@
+.mgt8 {
+    margin-top: 0.5rem;
+}
+.pdlr16 {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.b-r-4 {
+    border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+}
+.btn-h40 {
+    display: block;
+    text-align: center;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+}
+.btn_red {
+    border: 1px solid #eb4a42;
+    background-color: #eb4a42;
+    display: block;
+    color: #FFF;
+}

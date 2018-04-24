@@ -1,6 +1,8 @@
 package com.card.controller;
 
+import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
+import com.card.domain.YnEnum;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.order.Order;
 import com.card.domain.order.enums.OrderStatusEnum;
@@ -11,6 +13,7 @@ import com.card.domain.refund.enums.RefundStatusEnum;
 import com.card.domain.result.APIResult;
 import com.card.service.adimage.AdImageService;
 import com.card.service.order.OrderService;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -38,6 +41,9 @@ public class OrderController {
 	@Autowired
 	private AdImageService adImageService;
 
+	@Autowired
+	private IdUtil idUtil;
+
 	@GetMapping("")
 	public String listOrder(Map map) {
 		/**
@@ -54,14 +60,20 @@ public class OrderController {
 	@PostMapping("")
 	@ResponseBody
 	public APIResult<Boolean> submitOrder(Order order) {
+
+		order.setOrderId(idUtil.getId(IdUtil.SequenceEnum.ORDER));
+		order.setUserId(LoginContext.getUserId());
+
 		order.setPayStatus(PayStatusEnum.NOT_PAY.getCode());
 		order.setRechargeStatus(RechargeStatusEnum.NOT_RECHARGE.getCode());
 		order.setFinaStatus(FinaStatusEnum.NOT_JIESUAN.getCode());
 		order.setRefundStatus(RefundStatusEnum.REFUND_NULL.getCode());
 		order.setOrderStatus(OrderStatusEnum.NOT_PAY.getCode());
+
 		order.setSubmitTime(new Date());
 		order.setCreatedTime(new Date());
 		order.setModifyTime(new Date());
+		order.setYn(YnEnum.Y.getCode());
 		if (orderService.insert(order) == 1) {
 			return new APIResult<>(true);
 		} else {

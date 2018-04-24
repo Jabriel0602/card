@@ -6,12 +6,14 @@
         <result column="order_id" property="orderId" jdbcType="BIGINT"/>
         <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
         <result column="sku_name" property="skuName" jdbcType="VARCHAR"/>
+        <result column="sku_money" property="skuMoney" jdbcType="BIGINT"/>
         <result column="card_id" property="cardId" jdbcType="VARCHAR"/>
         <result column="card_type" property="cardType" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="BIGINT"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
         <result column="submit_time" property="submitTime" jdbcType="DATE"/>
         <result column="pay_no" property="payNo" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="BIGINT"/>
         <result column="pay_time" property="payTime" jdbcType="DATE"/>
         <result column="pay_status" property="payStatus" jdbcType="INTEGER"/>
         <result column="recharge_status" property="rechargeStatus" jdbcType="INTEGER"/>
@@ -28,12 +30,14 @@
         order_id,
         sku_id,
         sku_name,
+        sku_money,
         card_id,
         card_type,
         user_id,
         phone,
         submit_time,
         pay_no,
+        money,
         pay_time,
         pay_status,
         recharge_status,
@@ -47,16 +51,18 @@
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="order.orderId">
-        INSERT INTO `order` (
+        INSERT INTO order (
             order_id,
             sku_id,
             sku_name,
+            sku_money,
             card_id,
             card_type,
             user_id,
             phone,
             submit_time,
             pay_no,
+            money,
             pay_time,
             pay_status,
             recharge_status,
@@ -70,12 +76,14 @@
             #{order.orderId,jdbcType=BIGINT},
             #{order.skuId,jdbcType=VARCHAR},
             #{order.skuName,jdbcType=VARCHAR},
+            #{order.skuMoney,jdbcType=BIGINT},
             #{order.cardId,jdbcType=VARCHAR},
             #{order.cardType,jdbcType=VARCHAR},
             #{order.userId,jdbcType=BIGINT},
             #{order.phone,jdbcType=VARCHAR},
             #{order.submitTime,jdbcType=DATE},
             #{order.payNo,jdbcType=VARCHAR},
+            #{order.money,jdbcType=BIGINT},
             #{order.payTime,jdbcType=DATE},
             #{order.payStatus,jdbcType=INTEGER},
             #{order.rechargeStatus,jdbcType=INTEGER},
@@ -90,26 +98,28 @@
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="order.orderId">
-        INSERT INTO `order`
+        INSERT INTO order
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="order.orderId!=null"> order_id,</if>
-            <if test="order.skuId!=null"> sku_id,</if>
-            <if test="order.skuName!=null"> sku_name,</if>
-            <if test="order.cardId!=null"> card_id,</if>
-            <if test="order.cardType!=null"> card_type,</if>
-            <if test="order.userId!=null"> user_id,</if>
-            <if test="order.phone!=null"> phone,</if>
-            <if test="order.submitTime!=null"> submit_time,</if>
-            <if test="order.payNo!=null"> pay_no,</if>
-            <if test="order.payTime!=null"> pay_time,</if>
-            <if test="order.payStatus!=null"> pay_status,</if>
-            <if test="order.rechargeStatus!=null"> recharge_status,</if>
-            <if test="order.refundStatus!=null"> refund_status,</if>
-            <if test="order.orderStatus!=null"> order_status,</if>
-            <if test="order.finaStatus!=null"> fina_status,</if>
-            <if test="order.createdTime!=null"> created_time,</if>
-            <if test="order.modifyTime!=null"> modify_time,</if>
-            <if test="order.yn!=null"> yn,</if>
+            <if test="order.orderId!=null">order_id,</if>
+            <if test="order.skuId!=null">sku_id,</if>
+            <if test="order.skuName!=null">sku_name,</if>
+            <if test="order.skuMoney!=null">sku_money,</if>
+            <if test="order.cardId!=null">card_id,</if>
+            <if test="order.cardType!=null">card_type,</if>
+            <if test="order.userId!=null">user_id,</if>
+            <if test="order.phone!=null">phone,</if>
+            <if test="order.submitTime!=null">submit_time,</if>
+            <if test="order.payNo!=null">pay_no,</if>
+            <if test="order.money!=null">money,</if>
+            <if test="order.payTime!=null">pay_time,</if>
+            <if test="order.payStatus!=null">pay_status,</if>
+            <if test="order.rechargeStatus!=null">recharge_status,</if>
+            <if test="order.refundStatus!=null">refund_status,</if>
+            <if test="order.orderStatus!=null">order_status,</if>
+            <if test="order.finaStatus!=null">fina_status,</if>
+            <if test="order.createdTime!=null">created_time,</if>
+            <if test="order.modifyTime!=null">modify_time,</if>
+            <if test="order.yn!=null">yn,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -118,6 +128,8 @@
             <if test="order.skuId!=null">#{order.skuId,jdbcType=VARCHAR},
             </if>
             <if test="order.skuName!=null">#{order.skuName,jdbcType=VARCHAR},
+            </if>
+            <if test="order.skuMoney!=null">#{order.skuMoney,jdbcType=BIGINT},
             </if>
             <if test="order.cardId!=null">#{order.cardId,jdbcType=VARCHAR},
             </if>
@@ -130,6 +142,8 @@
             <if test="order.submitTime!=null">#{order.submitTime,jdbcType=DATE},
             </if>
             <if test="order.payNo!=null">#{order.payNo,jdbcType=VARCHAR},
+            </if>
+            <if test="order.money!=null">#{order.money,jdbcType=BIGINT},
             </if>
             <if test="order.payTime!=null">#{order.payTime,jdbcType=DATE},
             </if>
@@ -154,7 +168,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO `order` (
+        INSERT INTO order (
         <include refid="Base_Column_List"/>
         )VALUES
         <foreach collection="orders" item="order" index="index" separator=",">
@@ -162,12 +176,14 @@
             #{order.orderId,jdbcType=BIGINT},
             #{order.skuId,jdbcType=VARCHAR},
             #{order.skuName,jdbcType=VARCHAR},
+            #{order.skuMoney,jdbcType=BIGINT},
             #{order.cardId,jdbcType=VARCHAR},
             #{order.cardType,jdbcType=VARCHAR},
             #{order.userId,jdbcType=BIGINT},
             #{order.phone,jdbcType=VARCHAR},
             #{order.submitTime,jdbcType=DATE},
             #{order.payNo,jdbcType=VARCHAR},
+            #{order.money,jdbcType=BIGINT},
             #{order.payTime,jdbcType=DATE},
             #{order.payStatus,jdbcType=INTEGER},
             #{order.rechargeStatus,jdbcType=INTEGER},
@@ -183,26 +199,28 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE `order`
+        UPDATE order
         <set>
-            <if test="order.orderId != null"> order_id= #{order.orderId,jdbcType=BIGINT},</if>
-            <if test="order.skuId != null"> sku_id= #{order.skuId,jdbcType=VARCHAR},</if>
-            <if test="order.skuName != null"> sku_name= #{order.skuName,jdbcType=VARCHAR},</if>
-            <if test="order.cardId != null"> card_id= #{order.cardId,jdbcType=VARCHAR},</if>
-            <if test="order.cardType != null"> card_type= #{order.cardType,jdbcType=VARCHAR},</if>
-            <if test="order.userId != null"> user_id= #{order.userId,jdbcType=BIGINT},</if>
-            <if test="order.phone != null"> phone= #{order.phone,jdbcType=VARCHAR},</if>
-            <if test="order.submitTime != null"> submit_time= #{order.submitTime,jdbcType=DATE},</if>
-            <if test="order.payNo != null"> pay_no= #{order.payNo,jdbcType=VARCHAR},</if>
-            <if test="order.payTime != null"> pay_time= #{order.payTime,jdbcType=DATE},</if>
-            <if test="order.payStatus != null"> pay_status= #{order.payStatus,jdbcType=INTEGER},</if>
-            <if test="order.rechargeStatus != null"> recharge_status= #{order.rechargeStatus,jdbcType=INTEGER},</if>
-            <if test="order.refundStatus != null"> refund_status= #{order.refundStatus,jdbcType=INTEGER},</if>
-            <if test="order.orderStatus != null"> order_status= #{order.orderStatus,jdbcType=INTEGER},</if>
-            <if test="order.finaStatus != null"> fina_status= #{order.finaStatus,jdbcType=INTEGER},</if>
-            <if test="order.createdTime != null"> created_time= #{order.createdTime,jdbcType=DATE},</if>
-            <if test="order.modifyTime != null"> modify_time= #{order.modifyTime,jdbcType=DATE},</if>
-            <if test="order.yn != null"> yn= #{order.yn,jdbcType=TINYINT}</if>
+            <if test="order.orderId != null">order_id= #{order.orderId,jdbcType=BIGINT},</if>
+            <if test="order.skuId != null">sku_id= #{order.skuId,jdbcType=VARCHAR},</if>
+            <if test="order.skuName != null">sku_name= #{order.skuName,jdbcType=VARCHAR},</if>
+            <if test="order.skuMoney != null">sku_money= #{order.skuMoney,jdbcType=BIGINT},</if>
+            <if test="order.cardId != null">card_id= #{order.cardId,jdbcType=VARCHAR},</if>
+            <if test="order.cardType != null">card_type= #{order.cardType,jdbcType=VARCHAR},</if>
+            <if test="order.userId != null">user_id= #{order.userId,jdbcType=BIGINT},</if>
+            <if test="order.phone != null">phone= #{order.phone,jdbcType=VARCHAR},</if>
+            <if test="order.submitTime != null">submit_time= #{order.submitTime,jdbcType=DATE},</if>
+            <if test="order.payNo != null">pay_no= #{order.payNo,jdbcType=VARCHAR},</if>
+            <if test="order.money != null">money= #{order.money,jdbcType=BIGINT},</if>
+            <if test="order.payTime != null">pay_time= #{order.payTime,jdbcType=DATE},</if>
+            <if test="order.payStatus != null">pay_status= #{order.payStatus,jdbcType=INTEGER},</if>
+            <if test="order.rechargeStatus != null">recharge_status= #{order.rechargeStatus,jdbcType=INTEGER},</if>
+            <if test="order.refundStatus != null">refund_status= #{order.refundStatus,jdbcType=INTEGER},</if>
+            <if test="order.orderStatus != null">order_status= #{order.orderStatus,jdbcType=INTEGER},</if>
+            <if test="order.finaStatus != null">fina_status= #{order.finaStatus,jdbcType=INTEGER},</if>
+            <if test="order.createdTime != null">created_time= #{order.createdTime,jdbcType=DATE},</if>
+            <if test="order.modifyTime != null">modify_time= #{order.modifyTime,jdbcType=DATE},</if>
+            <if test="order.yn != null">yn= #{order.yn,jdbcType=TINYINT}</if>
         </set>
         WHERE order_id = #{order.orderId,jdbcType=BIGINT}
     </update>

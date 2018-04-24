@@ -67,25 +67,28 @@
 
 ##  公交卡
     <div class="page">
-        <div class="hyk">
-            #foreach($card in $cardList)
+        #foreach($card in $cardList)
+
+            <div class="hyk">
                 <div class="cardinfo">
                     <div class="card">
                         <div class="cardnum">
-                            <span class="title">卡&#8195;&#8195;号:</span>
+                            <span class="title">卡号:</span>
                             <span class="num">$card.getCardId()</span>
                         </div>
                         <div class="carddate">
-                            <span class="title">备&#8195;&#8195;注:</span>
+                            <span class="title">备注:</span>
                             <span class="date">$card.getRemark()</span>
-                            <span class="date"><a href="//127.0.0.1/cards/$card.getCardId()/editPage">修改卡片</a> </span>
-                            <span class="date">余额充值</span>
                         </div>
-
+                        <div class="card-btn">
+                            <span><a href="//127.0.0.1/cards/$card.getCardId()/editPage">编辑</a> </span>
+                            <span><a href="//127.0.0.1/cards/$card.getCardId()/orders/new">充值</a> </span>
+                        </div>
                     </div>
                 </div>
-            #end
-        </div>
+            </div>
+        #end
+
     </div>
 
     <a href="http://127.0.0.1/html/addCard.html"><input type="button" value="添加卡片"></a>
@@ -131,11 +134,6 @@
 </div>
 <!--html end-->
 <script type="text/javascript">
-    Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
-
-    var updateCard = function (cardId) {
-    };
-
 </script>
 </body>
 </html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<title>公交卡充值系统</title>
+    #include( "head.vm" )
+
+<body>
+<!--html start-->
+<div class="page">
+    <div class="home">
+    </div>
+    <div class="topblock">
+        <i>
+            <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
+        </i>
+        <h2>公交卡充值系统</h2>
+    </div>
+    <div class="banner" id="banner">
+        <ul style="width: 1240px; overflow: hidden; transform: translateX(-620px); transition-duration: 200ms;">
+            #foreach($adImage in $adImageList)
+                <li style="width: 620px; vertical-align: top; display: table-cell;">
+                    <a href="$adImage.getResponseUrl()"><img src=$adImage.getImgUrl()>
+                    </a>
+                </li>
+            #end
+        </ul>
+    </div>
+
+
+    <div class="section" draggable="false">
+        <ul class="secnav clearfix">
+            <li>
+                <div>
+                    <a draggable="false" href="#">
+                        <img draggable="false" alt=""
+                             src="/image/food.png"><br>
+                        <span>餐饮</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a draggable="false" href="#">
+                        <img draggable="false" alt=""
+                             src="/image/map.png"><br>
+                        <span>商城导航</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a draggable="false" href="#">
+                        <img draggable="false" alt=""
+                             src="/image/wifi.png"><br>
+                        <span>免费WIFI</span>
+                    </a>
+                </div>
+            </li>
+            <li class="lastsecnav">
+                <div>
+                    <a draggable="false" href="#">
+                        <img draggable="false" alt=""
+                             src="/image/park.png"><br>
+                        <span>停车</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+##  公交卡
+    <div class="page">
+        <div class="hyk">
+            <div class="cardinfo">
+                <div class="card">
+                    <div class="cardnum">
+                        <span class="title">卡&#8195;&#8195;号:</span>
+                        <span class="num">$card.getCardId()</span>
+                    </div>
+                    <div class="carddate">
+                        <span class="title">备&#8195;&#8195;注:</span>
+                        <span class="date">$card.getRemark()</span>
+                        <span class="money_title">余&#8195;&#8195;额:</span>
+                        <span class="money_data">$card.getMoney()</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div data-v-df070f10="" class="rechargeList"><h3 data-v-df070f10="">面值</h3>
+        <ul data-v-df070f10="" report-eventid="MYangCharge_Cost" class="clearfix J_ping">
+            <li data-v-df070f10="" class=""><span data-v-df070f10="">50元</span></li>
+            <li data-v-df070f10="" class=""><span data-v-df070f10="">100元</span></li>
+            <li data-v-df070f10="" class=""><span data-v-df070f10="">150元</span></li>
+            <li data-v-df070f10="" class="active"><span data-v-df070f10="">200元</span></li>
+            <li data-v-df070f10="" class=""><span data-v-df070f10="">300元</span></li>
+            <li data-v-df070f10="" class=""><span data-v-df070f10="">500元</span></li>
+        </ul>
+    </div>
+
+
+    <div class="pdlr16 mgt8">
+        <input value="立即充值" type="button" id="btn" onclick="_submit('$card.getCardId()')" class="btn_red btn-h40 b-r-4"/>
+    </div>
+
+</div>
+<!--html end-->
+<script type="text/javascript">
+    Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
+
+
+    var _submit = function (cardId) {
+        var skuId = 10050;
+        var skuName = '50元';
+        var skuMoney = 50;
+        var url = '//127.0.0.1/orders';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                cardId: cardId,
+                skuId: skuId,
+                skuName: skuName,
+                skuMoney:skuMoney
+            },
+            success: function (data) {
+                var json = JSON.stringify(data);
+                var jsonObject = JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    document.location.href = "//127.0.0.1/pay/submitPage";
+                    return;
+                } else {
+                    alert("修改失败");
+                    return;
+                }
+            },
+            error: function () {
+                return;
+            }
+        })
+    };
+
+</script>
+</body>
+</html>

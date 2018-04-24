@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>积分充值－成功</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" CONTENT="-1">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <link rel="stylesheet" href="/css/public.css">
+    <link rel="stylesheet" href="/css/standard.css">
+    <link rel="stylesheet" href="/css/g.css">
+
+</head>
+<body>
+
+<div class="topblock">
+    <i>
+        <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
+    </i>
+    <h2>冲值成功</h2>
+</div>
+
+<!--html beging-->
+<div class="page">
+##    <header class="header">
+##        <a href="#" class="back comm_20_down"></a>
+##        冲值成功
+##    </header>
+
+    <section class="seccuss-pay">
+        <div class="tip">
+            <img src="/image/dui.png" class="b-r-50" />
+            <h2>支付成功</h2>
+        </div>
+        <div class="list b_fff">
+            <ul>
+                <li><a href="#">订单号:$order.getOrderId()<i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#" class="substr">充值卡号: $order.getCardId() <i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#">充值金额:$order.getMoney()<i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#">充值时间:$order.getFinaStatus()<i class="comm_20_down icon_right"></i></a></li>
+            </ul>
+        </div>
+        <div class="pdlr16 mgt12">
+            <a href="//127.0.0.1/index" class="btn-h40 btn_red b-r-4">返回首页</a>
+            <a href="//127.0.0.1/cards/$card.getCardId()/orders/new" class="btn-h40 btn_b_red mgt12 b-r-4">继续充值</a>
+
+        </div>
+    </section>
+</div>
+<!--html end-->
+
+
+
+</body>
+</html>

@@ -29,6 +29,22 @@
     color: #8ab6f3;
 }
 
+.carddate .money_money{
+    font-size: 19px;
+    color: #8ab6f3;
+    position: absolute;
+    align-content: right;
+    text-align: right;
+}
+
+.carddate .money_data{
+    font-size: 19px;
+    color: #8ab6f3;
+    position: absolute;
+    align-content: right;
+    text-align: right;
+}
+
 .card_update{
     width: .75rem;
     height: .3rem;
@@ -55,6 +71,25 @@
     right: .17rem;
     top: .385rem;
     font-size: .15rem;
+}
+.card-btn{
+    position: absolute;
+    right: 0;
+    top:50%;
+    height: 40px;
+    margin-top: -20px;
+}
+.card-btn span{
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+    line-height: 40px;
+    border-right: 4px;
+    padding: 0 10px;
+    margin-right: 8px;
+    font-size: 16px;
+    background: #fff;
+    color: #2a68d9;
 }
 
 .code{text-align: center;margin-top:50px;}

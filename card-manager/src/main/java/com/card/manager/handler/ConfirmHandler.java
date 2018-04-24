@@ -28,6 +28,12 @@ public class ConfirmHandler extends AbstractHandler {
 	@Autowired
 	private TaskManager taskManager;
 
+	/**
+	 * 目前无用，正式投产时候 消费 对账消息
+	 * 目前 模拟支付
+	 * @param task
+	 */
+
 	@Override
 	public void handle(Task task) {
 		Integer count = taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.EXCUTE.getCode());

@@ -4,9 +4,11 @@ package com.card.controller;
 import com.card.common.util.LoginContext;
 import com.card.common.util.ValidatorUtils;
 import com.card.domain.YnEnum;
+import com.card.domain.adimage.AdImage;
 import com.card.domain.card.Card;
 import com.card.domain.card.CardTypeEnum;
 import com.card.domain.result.APIResult;
+import com.card.service.adimage.AdImageService;
 import com.card.service.card.CardService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class CardController {
 
 	@Autowired
 	private IndexController indexController;
+
+	@Autowired
+	private AdImageService adImageService;
 
 	@GetMapping("")
 	public List<Card> listCard(@RequestParam(required = false) Long userId) {
@@ -59,7 +64,7 @@ public class CardController {
 
 	@PutMapping(value = "/{cardId}")
 	@ResponseBody
-	public APIResult<Integer> updateCard(@PathVariable(value = "cardId") Long cardId,Card cardVo) {
+	public APIResult<Integer> updateCard(@PathVariable(value = "cardId") Long cardId, Card cardVo) {
 		Card card = cardService.findCardById(cardId);
 		card.setRemark(cardVo.getRemark());
 		card.setModifiedTime(new Date());
@@ -72,4 +77,13 @@ public class CardController {
 	}
 
 
+	@GetMapping("/{cardId}/orders/new")
+	public String addOrderPage(@PathVariable("cardId") Long cardId, Map map) {
+		List<AdImage> adImageList = adImageService.findAllAdImage();
+		Card card = cardService.findCardById(cardId);
+		map.put("card", card);
+		map.put("adImage", new AdImage());
+		map.put("adImageList", adImageList);
+		return "addOrder";
+	}
 }

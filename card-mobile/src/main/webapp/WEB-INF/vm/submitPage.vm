@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>支付订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" CONTENT="-1">
+    <meta http-equiv="Cache-Control" CONTENT="no-cache">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <link rel="stylesheet" href="/css/public.css">
+    <link rel="stylesheet" href="/css/standard.css">
+    <link rel="stylesheet" href="/css/g.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="topblock">
+    <i>
+        <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
+    </i>
+    <h2>支付订单</h2>
+</div>
+<!--html beging-->
+<div class="page">
+##    <header class="header">
+##            <a href="#" class="back comm_20_down"></a> 支付订单
+##    </header>
+
+    <section class="order-form">
+        <br>
+    ##        <div class="bian"></div>
+        <div class="cont">
+            <div class="cont-c"><h2>这里是支付的名称</h2>
+                <div class="info"><p>单价：1元</p>
+                    <p>数量：2</p></div>
+                <h3 class="f_r">需花费：<span class="f_ea4a66 f_28">1元</span></h3></div>
+            <div class="v"></div>
+        </div>
+        <form method="" action=""><h1>支付方式</h1>
+            <ul id="likenessChe">
+                <li class="ckearfix"><input type="checkbox" checked="true" value="1" style="display:none"/><i
+                        class="ched ched_ed"></i><i class="icon"><img src="/image/weixin.png"/></i>
+                    微信支付 <span class="fr f_ea4a66">1元</span></li>
+                <li class="ckearfix"><input type="checkbox" value="2" style="display:none"/><i class="ched"></i><i
+                        class="icon"><img src="/image/weixin.png"/></i> 其它支付方案 <span
+                        class="fr f_ea4a66">1元</span></li>
+            </ul>
+            <div class="pdlr16 mgt8"><input type="buttom" class="btn_red btn-h40 b-r-4 mgt8" onclick="_submit()"
+                                            value="确定支付"/></div>
+        </form>
+    </section>
+</div>             <!--html end-->
+<script>
+
+    var _submit = function (orderId) {
+        var url = '//127.0.0.1/pay';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                orderId: orderId,
+            },
+            success: function (data) {
+                if (data) {
+
+                    document.location.href = "//127.0.0.1/pay/success?orderId=1";
+                    return;
+                } else {
+                    alert("修改失败");
+                    return;
+                }
+            },
+            error: function () {
+                return;
+            }
+        })
+
+    };
+</script>
+</body>
+</html>
