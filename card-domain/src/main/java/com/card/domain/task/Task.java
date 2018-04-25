@@ -56,7 +56,7 @@ public class Task {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date modifiedTime;		//修改时间
 
-	private String operator;			//操作人
+	private String operator="System";			//操作人
 
 	@NotNull(message = "数据是否有效不能为空")
 	private Byte yn;					//数据是否有效 0无效 1有效

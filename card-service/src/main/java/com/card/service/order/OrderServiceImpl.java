@@ -36,6 +36,11 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public int updateStatus(Long orderId, Integer oldStatus, Integer newStatus) {
+        return orderDao.updateStatus(orderId,oldStatus,newStatus);
+    }
+
+    @Override
     public Order selectByOrderId(Long orderId) {
         return orderDao.selectByOrderId(orderId);
     }

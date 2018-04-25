@@ -54,6 +54,7 @@ public class OrderController {
 		 */
 		List<Order> orderList = orderService.findAllOrder(LoginContext.getUserId());
 		List<AdImage> adImageList = adImageService.findAllAdImage();
+		map.put("orderStatusEnum",OrderStatusEnum.class);
 		map.put("adImage", new AdImage());
 		map.put("adImageList", adImageList);
 		map.put("orderList", orderList);

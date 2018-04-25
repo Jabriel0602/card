@@ -35,7 +35,7 @@
 .common{border:1px solid #94cbe8;color:#94cbe8;}
 .child{border:1px solid #60c8d1;color:#60c8d1;}
 .enterten{border:1px solid #9dcc6a;color:#9dcc6a;}
-.tickettype,.hdfrom{background-color: rgba(201, 37, 22, 1);color:#ffffff;font-size: 12px;padding:2px 3px;border-radius:3px;}
+.tickettype,.hdfrom{background-color: rgba(74, 188, 86, 1);color:#ffffff;font-size: 12px;padding:2px 3px;border-radius:3px;}
 .freeticket{background-color: rgba(74, 188, 86, 1);}
 .parkticket{background-color: rgba(99, 173, 236, 1);}
 .couponticket{background-color: rgba(234, 97, 0, 1);}

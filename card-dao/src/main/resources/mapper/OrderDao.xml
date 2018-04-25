@@ -225,6 +225,16 @@
         WHERE order_id = #{order.orderId,jdbcType=BIGINT}
     </update>
 
+    <update id="updateStatus">
+        UPDATE `order`
+        SET
+        order_status = #{newStatus,jdbcType=INTEGER}
+        WHERE
+        order_status = #{oldStatus,jdbcType=INTEGER}
+        AND order_id = #{orderId,jdbcType=BIGINT}
+        AND yn=1;
+    </update>
+
     <select id="selectByOrderId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"></include>
@@ -236,7 +246,9 @@
         select
         <include refid="Base_Column_List"></include>
         from `order`
-        <if test="userId != null"> where user_id= #{userId,jdbcType=BIGINT}</if>
+        <if test="userId != null">where user_id= #{userId,jdbcType=BIGINT}</if>
     </select>
+
+
 </mapper>
 

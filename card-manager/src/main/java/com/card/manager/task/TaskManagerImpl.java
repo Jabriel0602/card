@@ -94,7 +94,7 @@ public class TaskManagerImpl implements TaskManager {
 		 */
 		if (flag) {
 			Order order = orderService.selectByOrderId(orderId);
-			order.setOrderStatus(OrderStatusEnum.RECHARGE_ING.getCode());
+			order.setOrderStatus(OrderStatusEnum.CREATE_SUCCESS.getCode());
 			order.setModifyTime(new Date());
 			ValidatorUtils.validate(order);
 			Integer count = orderService.update(order);

@@ -165,7 +165,9 @@
     <update id="updateStatus">
         UPDATE task
         SET execute_status= #{newStatus,jdbcType=INTEGER}
-        WHERE execute_status = #{oldStatus,jdbcType=BIGINT} AND order_id =#{orderId,jdbcType=BIGINT}
+        WHERE execute_status = #{oldStatus,jdbcType=INTEGER}
+        AND task_id =#{taskId,jdbcType=BIGINT}
+        AND yn=1
     </update>
     <select id="selectTaskInitial" resultMap="BaseResultMap">
         SELECT

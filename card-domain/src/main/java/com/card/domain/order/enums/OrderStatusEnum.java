@@ -74,4 +74,22 @@ public enum OrderStatusEnum {
 				", simpleDesc='" + simpleDesc + '\'' +
 				'}';
 	}
+
+	public static String getDescByCode(Integer code){
+		for (OrderStatusEnum orderStatusEnum:OrderStatusEnum.values()) {
+			if(orderStatusEnum.getCode().equals(code)){
+				return orderStatusEnum.getDesc();
+			}
+		}
+		return null;
+	}
+
+	public static String getSimpleDescByCode(Integer code){
+		for (OrderStatusEnum orderStatusEnum:OrderStatusEnum.values()) {
+			if(orderStatusEnum.getCode().equals(code)){
+				return orderStatusEnum.getSimpleDesc();
+			}
+		}
+		return null;
+	}
 }

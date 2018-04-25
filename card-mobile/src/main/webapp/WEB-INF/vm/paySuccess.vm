@@ -13,7 +13,6 @@
     <meta http-equiv="Pragma" CONTENT="no-cache">
     <link rel="stylesheet" href="/css/public.css">
     <link rel="stylesheet" href="/css/standard.css">
-    <link rel="stylesheet" href="/css/g.css">
 
 </head>
 <body>
@@ -26,17 +25,26 @@
         <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 支付成功页
     </header>
 
+    <br>
+    <br>
+    <br>
+    <br>
+
     <section class="seccuss-pay">
         <div class="tip">
             <img src="/image/dui.png" class="b-r-50" />
             <h2>支付成功</h2>
         </div>
+
         <div class="list b_fff">
             <ul>
-                <li><a href="#">订单号:$order.getOrderId()<i class="comm_20_down icon_right"></i></a></li>
-                <li><a href="#" class="substr">卡&nbsp;号: $order.getCardId() <i class="comm_20_down icon_right"></i></a></li>
-                <li><a href="#">支付金额:$order.getMoney()元<i class="comm_20_down icon_right"></i></a></li>
-                <li><a href="#">支付时间:$payTime<i class="comm_20_down icon_right"></i></a></li>
+                <li><a href="#">订单号:$order.getOrderId()</i></a></li>
+
+                <li><a href="#" class="substr">卡&nbsp;号: $order.getCardId() </i></a></li>
+
+                <li><a href="#">支付金额:$order.getMoney()元</i></a></li>
+
+                <li><a href="#">支付时间:$payTime</i></a></li>
             </ul>
         </div>
         <div class="pdlr16 mgt12">

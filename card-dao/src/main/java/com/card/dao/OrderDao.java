@@ -16,6 +16,9 @@ public interface OrderDao {
 
     int update(@Param("order") Order order);
 
+    int updateStatus(@Param("orderId")Long orderId,@Param("oldStatus")Integer oldStatus,@Param("newStatus")Integer newStatus);
+
+
     Order selectByOrderId(@Param("orderId") Long orderId);
 
     List<Order> findAllOrder(@Param("userId") Long userId);

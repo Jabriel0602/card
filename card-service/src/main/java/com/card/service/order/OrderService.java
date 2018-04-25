@@ -14,6 +14,8 @@ public interface OrderService{
 
     int update(Order order);
 
+    int updateStatus(Long orderId,Integer oldStatus,Integer newStatus);
+
     Order selectByOrderId(Long orderId);
 
     List<Order> findAllOrder(Long userId);

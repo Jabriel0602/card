@@ -1,6 +1,8 @@
 package com.card.service.mq;
 
 import com.card.domain.task.Task;
+import com.card.domain.task.enums.TaskStatusEnum;
+import com.card.domain.task.enums.TaskTypeEnum;
 import com.card.service.task.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,12 @@ public class MessageWorker {
 	private TaskService taskService;
 
 //	每隔两分钟执行一次
-	@Scheduled(cron = "*/2 * * * * ?")
+	@Scheduled(cron = "*/1 * * * * ?")
 	public void sendTask() {
+
 		List<Task> taskList = taskService.selectTaskInitial(SIZE);
 		for (Task task : taskList) {
+			taskService.updateStatus(task.getTaskId(),TaskStatusEnum.INITIAL.getCode(),TaskStatusEnum.SEND.getCode());
 			producer.sendTask(task);
 		}
 	}

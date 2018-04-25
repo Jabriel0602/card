@@ -32,8 +32,9 @@ public abstract class AbstractHandler implements Handler<Task>, MessageListener 
 			int count = taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.EXCUTE.getCode());
 			if (count == 0) {
 				log.info("the task has been executed. task=" + task);
+			}else {
+				handle(task);
 			}
-			handle(task);
 		} catch (Exception e) {
 			log.error("an error occur.{}", e);
 			boolean isFail = taskService.isFail(task);

@@ -27,17 +27,28 @@ public class CreateOrderHandler extends AbstractHandler {
 
 	@Override
 	public void handle(Task task) {
-		Integer count = taskService.updateStatus(task.getTaskId(), OrderStatusEnum.CREATE_ING.getCode(), OrderStatusEnum.CREATE_SUCCESS.getCode());
-		if (count != 1) {
+		/**
+		 * 支付成功--->生单中
+		 */
+		Integer orderCount = orderService.updateStatus(task.getOrderId(), OrderStatusEnum.PAY_SUCCESS.getCode(), OrderStatusEnum.CREATE_ING.getCode());
+
+		if (orderCount != 1) {
 			return;
 		}
+
 		Order order = orderService.selectByOrderId(task.getOrderId());
 		if (order == null) {
 			log.error("生单异常,订单不存在:{}", order);
 			throw new RuntimeException("生单异常,订单不存在");
 		}
 
+		//生单中--->生单成功
 		taskManager.supplierCreate(order.getOrderId());
+
+		/**
+		 * 任务执行中--->执行成功
+		 */
+		taskService.updateStatus(task.getTaskId(), TaskStatusEnum.EXCUTE.getCode(), TaskStatusEnum.SUCCESS.getCode());
 
 	}
 

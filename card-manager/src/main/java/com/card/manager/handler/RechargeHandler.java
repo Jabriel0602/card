@@ -1,6 +1,7 @@
 package com.card.manager.handler;
 
 import com.card.domain.order.Order;
+import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.task.Task;
 import com.card.domain.task.enums.TaskStatusEnum;
 import com.card.manager.task.TaskManager;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @desc 充值消息处理
  */
 @Slf4j
-public class RechargeHandler extends AbstractHandler{
+public class RechargeHandler extends AbstractHandler {
 
 
 	@Autowired
@@ -26,8 +27,14 @@ public class RechargeHandler extends AbstractHandler{
 
 	@Override
 	public void handle(Task task) {
-		Integer count = taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.EXCUTE.getCode());
-		if (count != 1) {
+
+		/**
+		 * 生单成功--->充值中
+		 */
+
+		Integer orderCount = orderService.updateStatus(task.getOrderId(), OrderStatusEnum.CREATE_SUCCESS.getCode(), OrderStatusEnum.RECHARGE_ING.getCode());
+
+		if (orderCount != 1) {
 			return;
 		}
 		Order order = orderService.selectByOrderId(task.getOrderId());
@@ -36,8 +43,14 @@ public class RechargeHandler extends AbstractHandler{
 			throw new RuntimeException("生单异常,订单不存在");
 		}
 
+		//订单充值中--->充值成功
 		taskManager.supplierRecharge(order.getOrderId());
+
+		/**
+		 * 任务执行中-->成功
+		 */
 		taskService.updateStatus(task.getTaskId(), TaskStatusEnum.EXCUTE.getCode(), TaskStatusEnum.SUCCESS.getCode());
+
 	}
 
 	@Override
