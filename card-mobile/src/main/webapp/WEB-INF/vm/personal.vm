@@ -3,18 +3,33 @@
 <head>
     <meta charset="utf-8"/>
     <title>个人资料</title>
-    #include("head.vm")
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Cache-Control" CONTENT="no-cache">
+        <meta http-equiv="Pragma" CONTENT="no-cache">
+        <link rel="stylesheet" href="/css/iconfont/iconfont.css">
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/g.css">
+
+        <link rel="stylesheet" href="/css/personal.css">
+        <link rel="stylesheet" href="/css/public.css">
+
+
+        <script src="/js/silder.js" type="text/javascript"></script>
+        <script src="/js/jquery.min.js" type="text/javascript"></script>
+    </head>
 </head>
-<body onload="load();">
+<body onload="load()">
 <!--html start-->
 <div class="page">
+    <header class="header">
+        <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 个人资料
+    </header>
+
     <div class="info">
-        <div class="topblock clearfix">
-            <i>
-                <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
-            </i>
-            <h2>个人资料</h2>
-        </div>
         <div class="setlist">
             <ul class="clearfix list">
                 <li id="setname">
@@ -37,14 +52,17 @@
                 </li>
             </ul>
 
-            <form action="//127.0.0.1/users/cookieClear" method="post">
-
-                <input type="submit" value="退 出 登 录" />
-
+            <form id="_cookieClearForm" action="//127.0.0.1/users/cookieClear" method="post">
             </form>
 
+            <a style="display:block;height:34px;line-height:34px;font-size:14px;color:#fff;background:#eb4a42;text-align:center;margin:0 10px;border-radius:3px;"
+               onclick="$('#_cookieClearForm').submit();">
+            <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#fff;border:1px solid #fff;text-align:center;line-height:20px;vertical-align: middle;">x</span>
+            退 出 登 录
+            </a>
+
         </div>
-        <div class="mask hidden" id="namemask">
+        <div class="mask_personal hidden" id="namemask">
             <div class="inputname">
                 <div class="top">修改昵称</div>
                 <input type="text" placeholder="请输入新的昵称" id="newname">
@@ -55,7 +73,7 @@
                 </ul>
             </div>
         </div>
-        <div class="mask hidden" id="gendermask">
+        <div class="mask_personal hidden" id="gendermask">
             <div class="choosegender">
                 <div class="top">请选择性别</div>
                 <ul class="clearfix gender">
@@ -74,7 +92,7 @@
                 </ul>
             </div>
         </div>
-        <div class="mask hidden" id="datemask">
+        <div class="mask_personal hidden" id="datemask">
             <div class="choosedate">
                 <div class="top">请选择出生年月</div>
                 <input id="birthday" type="date" value="" placeholder="请选择日期"/>
@@ -85,7 +103,44 @@
             </div>
         </div>
     </div>
-    #include("foot.vm")
+
+##    foot
+    <div class="footblock">
+        <ul class="footerlist clearfix">
+            <li>
+                <div>
+                    <a href="http://127.0.0.1/index">
+                        <span class="iconfont icon-home"></span><br>
+                        <span>首页</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="#" class="footyh">
+                        <span class="iconfont icon-help"></span><br>
+                        <span>帮助中心</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="//127.0.0.1/orders" class="footsh">
+                        <span class="iconfont icon-order"></span><br>
+                        <span>我的订单</span>
+                    </a>
+                </div>
+            </li>
+            <li class="footsy">
+                <div>
+                    <a href="//127.0.0.1/users" class="footwd">
+                        <span class="iconfont icon-member"></span><br>
+                        <span>个人中心</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 </div>
 

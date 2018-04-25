@@ -1,9 +1,12 @@
+<head>
+    <link rel="stylesheet" href="/css/iconfont/iconfont.css">
+</head>
 <div class="footblock">
     <ul class="footerlist clearfix">
-        <li>
+        <li class="footsy">
             <div>
-                <a href="http://127.0.0.1/index" class="footwd">
-                    <img alt="" src="/image/home.png"><br>
+                <a href="http://127.0.0.1/index">
+                    <span class="iconfont icon-home"></span><br>
                     <span>首页</span>
                 </a>
             </div>
@@ -11,7 +14,7 @@
         <li>
             <div>
                 <a href="#" class="footyh">
-                    <img alt="" src="/image/yh.png"><br>
+                    <span class="iconfont icon-help"></span><br>
                     <span>帮助中心</span>
                 </a>
             </div>
@@ -19,15 +22,15 @@
         <li>
             <div>
                 <a href="//127.0.0.1/orders" class="footsh">
-                    <img alt="" src="/image/stores.png"><br>
+                    <span class="iconfont icon-order"></span><br>
                     <span>我的订单</span>
                 </a>
             </div>
         </li>
         <li>
             <div>
-                <a href="//127.0.0.1/users" class="footsy">
-                    <img alt="" src="/image/wod.png"><br>
+                <a href="//127.0.0.1/users" class="footwd">
+                    <span class="iconfont icon-member"></span><br>
                     <span>个人中心</span>
                 </a>
             </div>

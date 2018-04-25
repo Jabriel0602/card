@@ -43,7 +43,6 @@
             arrLi=obj.querySelectorAll(opt.titCell);
             maxL=arrLi.length;
             _ul.style.cssText+='display:table;width:'+(width-opt.titCellMargin*2)*maxL+'px; overflow:hidden;';
-            console.log(index);
             Transform(-(index*(width-opt.titCellMargin*2)));
             var div=document.createElement(opt.creObj);
             div.className=opt.creObjClassN;
@@ -91,7 +90,6 @@
             index++;
             if(index>=maxL)index=0;
             _ul.style.webkitTransitionDuration=_ul.style.MozTransitionDuration =_ul.style.msTransitionDuration =_ul.style.OTransitionDuration =_ul.style.transitionDuration=opt.delayTime+'ms';
-            console.log(index);
             Transform(-(index*(width-opt.titCellMargin*2)));
             if(clearTime){clearTimeout(clearTime);clearTime=null;}
             if(index===0){
@@ -114,7 +112,6 @@
                 }else if(index===maxL-1){
                     index=1;
                 }
-                console.log(index);
                 Transform(-(index*(width-opt.titCellMargin*2)));
                 clearTimeout(d); d=null;
             },opt.delayTime);
@@ -129,7 +126,6 @@
             _ul.addEventListener("touchend",_startEnd,false);
         }
         var _startMove=function(e){//瑙︽懜绉诲姩涓�
-            console.log(index);
             if(clearTime){clearFn()}
             x=e.touches[0].pageX-tx,y=e.touches[0].pageY-ty;
             e.preventDefault();
@@ -151,7 +147,6 @@
 
             x=tx=0;
             _ul.style.webkitTransitionDuration=_ul.style.MozTransitionDuration =_ul.style.msTransitionDuration =_ul.style.OTransitionDuration =_ul.style.transitionDuration=opt.delayTime+'ms';
-            console.log(index);
             Transform(-(index*(width-opt.titCellMargin*2)));
             for(var i=0;i<maxL;i++){arrS[i].className="";}//鍘绘帀褰撳墠鏁堟灉
             if(index===0){

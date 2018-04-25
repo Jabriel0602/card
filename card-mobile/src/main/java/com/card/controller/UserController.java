@@ -86,12 +86,25 @@ public class UserController {
 		User user= userService.getUser(LoginContext.getUserId());
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
+			cookie.setDomain("127.0.0.1");
+			cookie.setPath("/");
 			cookie.setMaxAge(0);
 			response.addCookie(cookie);
 		}
 		map.put("message", "请输入用户名和密码");
 		return "login";
 	}
+
+
+	/**
+	 * 注册页
+	 */
+	@GetMapping("/registerPage")
+	public String registerPage() {
+
+		return "register";
+	}
+
 
 
 	/**

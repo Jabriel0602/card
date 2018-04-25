@@ -18,4 +18,6 @@ public interface TaskService{
 
     boolean isFail(Task task);
 
+    List<Task> selectTaskInitial(int size);
+
 }

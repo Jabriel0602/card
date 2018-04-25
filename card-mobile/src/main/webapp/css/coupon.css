@@ -44,9 +44,9 @@
 .cost{color:#ffa200;}
 /*activity list end*/
 /*foot*/
-.footerlist{background: #2f2f2f;text-align:center;position: fixed;bottom: 0px;width: 100%;max-width: 720px;}
-.footerlist li{float: left;width: 20%;border-top: 1px solid #cccccc; text-align: center;}
-.footerlist li a{display: block;padding-top: 8px;text-align: center;}
-.footerlist li a span{line-height: 20px;font-size: 14px;color: #888888;}
-.footyh{background-color: #cb2517;}
+/*.footerlist{background: #2f2f2f;text-align:center;position: fixed;bottom: 0px;width: 100%;max-width: 720px;}*/
+/*.footerlist li{float: left;width: 20%;border-top: 1px solid #cccccc; text-align: center;}*/
+/*.footerlist li a{display: block;padding-top: 8px;text-align: center;}*/
+/*.footerlist li a span{line-height: 20px;font-size: 14px;color: #888888;}*/
+/*.footyh{background-color: #cb2517;}*/
 /*foot end*/

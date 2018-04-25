@@ -167,5 +167,18 @@
         SET execute_status= #{newStatus,jdbcType=INTEGER}
         WHERE execute_status = #{oldStatus,jdbcType=BIGINT} AND order_id =#{orderId,jdbcType=BIGINT}
     </update>
+    <select id="selectTaskInitial" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        task
+        WHERE
+        execute_status = 1
+        AND
+        retry_times &lt;= max_retry_times
+        AND yn=1
+        LIMIT #{size}
+    </select>
+
 </mapper>
 

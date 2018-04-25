@@ -9,7 +9,8 @@
     <!--整个Spring容器只能加载一次，多出加载会崩溃-->
     <context:property-placeholder location="classpath:*.properties"/>
 
-    <!--<import resource="applicationContext/applicationContext-ActiveMQ-producer.xml"></import>-->
+    <import resource="applicationContext/applicationContext-ActiveMQ-producer.xml"></import>
+    <import resource="applicationContext/applicationContext-ActiveMQ-consumer.xml"></import>
     <import resource="applicationContext/applicationContext-cache.xml"></import>
     <import resource="applicationContext/applicationContext-dao.xml"></import>
     <import resource="applicationContext/applicationContext-dataSource.xml"></import>

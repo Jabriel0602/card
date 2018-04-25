@@ -29,9 +29,10 @@
 .free{color:#62b12e;font-size: 14px;}
 .pay{color:#ffa200;font-size: 14px;}
 /*foot*/
-.footerlist{background: #2f2f2f;text-align:center;position: fixed;bottom: 0px;width: 100%;max-width: 720px;}
-.footerlist li{float: left;width: 20%;border-top: 1px solid #cccccc; text-align: center;}
+.footerlist{background: #fff;text-align:center;position: fixed;bottom: 0px;width: 100%;max-width: 720px;}
+.footerlist li{float: left;width: 25%;border-top: 1px solid #cccccc; text-align: center;}
 .footerlist li a{display: block;padding-top: 8px;text-align: center;}
-.footerlist li a span{line-height: 20px;font-size: 14px;color: #888888;}
-.footsy{background-color: #cb2517;}
+.footerlist li a span{line-height: 20px;font-size: 14px;color: #252525;}
+.footerlist li a .iconfont{font-size: 18px;}
+.footerlist .footsy span{color: #6892ff;}
 /*foot end*/

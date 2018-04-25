@@ -300,9 +300,9 @@
 .order-form .cont .v{ height:0.375rem; background:url(http://s.demo.shangquanquan.com/wx/img/standard/images/v_down.png) repeat-x left top; background-size:0.625rem 0.375rem;}
 .order-form .cont h3{ font-size:0.875rem; padding:0.875rem 1.25rem;}
 .order-form h1{ font-size:0.875rem; line-height:1.875rem; padding:1.875rem 0.5rem 0; border-bottom:1px solid #e3dedb;}
-.order-form li{ background:#FFF; padding:0.5rem 0.875rem;border-bottom:1px solid #e3dedb; height:2.25rem; line-height:2.25rem;}
-.order-form li .icon{vertical-align:top; display:inline-block; height:2.25rem; width:2.25rem; padding:0 0.5rem;}
-.order-form li .icon>img{height:2.25rem; width:2.25rem; border-radius:0.25rem; -moz-border-radius:0.25rem;}
+.order-form li{ background:#FFF; padding:0.5rem 0.875rem;border-bottom:1px solid #e3dedb;line-height:2.25rem;}
+.order-form li .icon{vertical-align:top; display:inline-block; height:1.6rem; width:1.6rem;font-size:0;margin:0 0.4rem;vertical-align: center;}
+.order-form li .icon>img{border-radius:0.25rem; -moz-border-radius:0.25rem;width:100%;height:100%;object-fit:contain;}
 .order-form li .ched{ display:inline-block; height:1.25rem; width:1.25rem; vertical-align:middle; background:url(http://s.demo.shangquanquan.com/wx/img/standard/icon/che.png) no-repeat left top; background-size:1.25rem 1.25rem;}
 .order-form li .ched_ed{background-image:url(http://s.demo.shangquanquan.com/wx/img/standard/icon/check_ed.png);}
 

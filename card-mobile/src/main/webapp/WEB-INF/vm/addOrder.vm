@@ -2,19 +2,88 @@
 <html>
 <meta charset="utf-8"/>
 <title>公交卡充值系统</title>
-    #include( "head.vm" )
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Pragma" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/g.css">
+<link rel="stylesheet" href="/css/hyk.css">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/public.css">
+
+
+<script src="/js/silder.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
 
 <body>
+<style>
+    .rechargeList li{
+        float:left;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        font-size: 14px;
+        position: relative;
+        width: 33.3%;
+        float: left;
+        background:#fff;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+    .rechargeList li.active{
+        z-index: 1;
+        border-top: 1px solid #f23030;
+        border-left: 1px solid #f23030;
+        border-color: #f23030;
+        color: #f23030;
+    }
+    .add-order-footer{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 42px;
+        background: #fff;
+        border-top:1px solid #888;
+    }
+    .add-order-footer-btn{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 124px;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        font-size: 16px;
+        background: #f23030;
+        color: #fff;
+    }
+    .add-order-footer-text{
+        margin-right:134px;
+        height: 42px;
+        line-height: 42px;
+        text-align: right;
+        font-size: 12px;
+        color: #252525;
+    }
+    .add-order-footer-text span{
+        color: #f23030;
+        font-weight:normal;
+        font-size:14px;
+    }
+    .add-order-footer-texti{
+        font-style: normal;
+    }
+</style>
 <!--html start-->
 <div class="page">
-    <div class="home">
-    </div>
-    <div class="topblock">
-        <i>
-            <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
-        </i>
-        <h2>公交卡充值系统</h2>
-    </div>
+    <header class="header">
+        <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 订单填写页
+    </header>
+
     <div class="banner" id="banner">
         <ul style="width: 1240px; overflow: hidden; transform: translateX(-620px); transition-duration: 200ms;">
             #foreach($adImage in $adImageList)
@@ -90,33 +159,48 @@
     </div>
 
 
-    <div data-v-df070f10="" class="rechargeList"><h3 data-v-df070f10="">面值</h3>
-        <ul data-v-df070f10="" report-eventid="MYangCharge_Cost" class="clearfix J_ping">
-            <li data-v-df070f10="" class=""><span data-v-df070f10="">50元</span></li>
-            <li data-v-df070f10="" class=""><span data-v-df070f10="">100元</span></li>
-            <li data-v-df070f10="" class=""><span data-v-df070f10="">150元</span></li>
-            <li data-v-df070f10="" class="active"><span data-v-df070f10="">200元</span></li>
-            <li data-v-df070f10="" class=""><span data-v-df070f10="">300元</span></li>
-            <li data-v-df070f10="" class=""><span data-v-df070f10="">500元</span></li>
+    <div class="rechargeList">
+        <h3 style="
+            font-weight:normal;
+            height: 40px;
+            background: #fff;
+            line-height: 40px;
+            padding: 0 10px;
+            font-size: 14px;
+            color: #333;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;"
+        >面值</h3>
+        <ul id="j_priceSelect" class="clearfix">
+            <li data-price="50" class="active"><span>50元</span></li>
+            <li data-price="100"><span>100元</span></li>
+            <li data-price="150"><span>150元</span></li>
+            <li data-price="200"><span>200元</span></li>
+            <li data-price="300"><span>300元</span></li>
+            <li data-price="500"><span>500元</span></li>
         </ul>
     </div>
-
-
-    <div class="pdlr16 mgt8">
-        <input value="立即充值" type="button" id="btn" onclick="_submit('$card.getCardId()')"
-               class="btn_red btn-h40 b-r-4"/>
+    <div style="height:52px;"></div>
+    <div class="add-order-footer">
+        <span id="btn"  onclick="_submit('$card.getCardId()')" class="add-order-footer-btn">提交订单</span>
+        <div class="add-order-footer-text">应付总额: <span>¥<i id="j_priceShow">50</i></span></div>
     </div>
-
 </div>
 <!--html end-->
 <script type="text/javascript">
     Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
-
+    var select_price = 50;
+    var $priceShow = $('#j_priceShow');
+    $('#j_priceSelect li').on('click',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        select_price = parseInt($(this).data('price'));
+        $priceShow.html(select_price);
+    });
 
     var _submit = function (cardId) {
         var skuId = 10050;
-        var skuName = '50元';
-        var skuMoney = 50;
+        var skuName = select_price + '元';
+        var skuMoney = select_price;
         var url = '//127.0.0.1/orders';
         $.ajax({
             url: url,

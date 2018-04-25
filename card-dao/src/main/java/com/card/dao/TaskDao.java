@@ -18,4 +18,6 @@ public interface TaskDao {
 
     int updateStatus(@Param("taskId") Long taskId,@Param("oldStatus")int oldStatus,@Param("newStatus") int newStatus);
 
+    List<Task> selectTaskInitial(int size);
+
 }

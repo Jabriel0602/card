@@ -46,4 +46,9 @@ public class TaskServiceImpl implements TaskService {
 		return task.getRetryTimes() >= task.getMaxRetryTimes();
 	}
 
+	@Override
+	public List<Task> selectTaskInitial(int size) {
+		return taskDao.selectTaskInitial(size);
+	}
+
 }

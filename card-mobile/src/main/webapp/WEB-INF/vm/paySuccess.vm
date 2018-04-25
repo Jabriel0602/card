@@ -23,8 +23,7 @@
 <!--html beging-->
 <div class="page">
     <header class="header">
-        <a href="#" class="back comm_20_down"></a>
-        冲值成功
+        <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 支付成功页
     </header>
 
     <section class="seccuss-pay">
