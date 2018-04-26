@@ -3,12 +3,14 @@ package com.card.manager.task;
 import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
 import com.card.common.util.ValidatorUtils;
+import com.card.domain.card.Card;
 import com.card.domain.order.Order;
 import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.pay.FinaStatusEnum;
 import com.card.domain.pay.PayStatusEnum;
 import com.card.domain.task.Task;
 import com.card.domain.task.enums.TaskTypeEnum;
+import com.card.service.card.CardService;
 import com.card.service.order.OrderService;
 import com.card.service.task.TaskService;
 import com.outer.system.SupplierService;
@@ -38,6 +40,9 @@ public class TaskManagerImpl implements TaskManager {
 
 	@Autowired
 	private IdUtil idUtil;
+
+	@Autowired
+	private CardService cardService;
 
 	/**
 	 * 更改订单状态为支付成功
@@ -128,6 +133,14 @@ public class TaskManagerImpl implements TaskManager {
 		 */
 		if(flag){
 			Order order = orderService.selectByOrderId(orderId);
+
+			synchronized (this){
+				Card card=cardService.findCardById(order.getCardId());
+				card.setMoney(card.getMoney()+order.getMoney());
+				card.setModifiedTime(new Date());
+				cardService.update(card);
+			}
+
 			order.setOrderStatus(OrderStatusEnum.RECHARGE_SUCCESS.getCode());
 			order.setModifyTime(new Date());
 			order.setFinaStatus(FinaStatusEnum.HAVE_JIESUAN.getCode());

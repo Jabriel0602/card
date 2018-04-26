@@ -6,6 +6,7 @@ CREATE TABLE order(
 	sku_name VARCHAR (50) NOT NULL DEFAULT '' COMMENT '商品名称',
 	sku_money BIGINT (15) NOT NULL DEFAULT -1 COMMENT '商品金额',
 	card_id VARCHAR (50) NOT NULL DEFAULT '' COMMENT '卡片id',
+	vendor_card_id VARCHAR (50) NOT NULL DEFAULT '' COMMENT '供应商卡片id',
 	card_type VARCHAR (50) NOT NULL DEFAULT '' COMMENT '卡片类型',
 	user_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '用户',
 	phone VARCHAR (50) NOT NULL DEFAULT '' COMMENT '用户手机号',

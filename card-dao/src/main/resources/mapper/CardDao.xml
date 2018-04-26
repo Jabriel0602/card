@@ -3,6 +3,7 @@
 <mapper namespace="com.card.dao.CardDao">
     <resultMap id="BaseResultMap" type="com.card.domain.card.Card">
         <result column="card_id" property="cardId" jdbcType="BIGINT"/>
+        <result column="vendor_card_id" property="vendorCardId" jdbcType="BIGINT"/>
         <result column="card_type" property="cardType" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="BIGINT"/>
         <result column="money" property="money" jdbcType="BIGINT"/>
@@ -15,6 +16,7 @@
     <!--auto generated Code-->
     <sql id="Base_Column_List">
         card_id,
+        vendor_card_id,
         card_type,
         user_id,
         money,
@@ -28,6 +30,7 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="card.cardId">
         INSERT INTO card (
             card_id,
+            vendor_card_id,
             card_type,
             user_id,
             money,
@@ -37,6 +40,7 @@
             yn
         ) VALUES (
             #{card.cardId,jdbcType=BIGINT},
+            #{card.vendorCardId,jdbcType=BIGINT},
             #{card.cardType,jdbcType=VARCHAR},
             #{card.userId,jdbcType=BIGINT},
             #{card.money,jdbcType=BIGINT},
@@ -52,6 +56,7 @@
         INSERT INTO card
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="card.cardId!=null"> card_id,</if>
+            <if test="card.vendorCardId!=null"> vendor_card_id,</if>
             <if test="card.cardType!=null"> card_type,</if>
             <if test="card.userId!=null"> user_id,</if>
             <if test="card.money!=null"> money,</if>
@@ -63,6 +68,8 @@
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="card.cardId!=null">#{card.cardId,jdbcType=BIGINT},
+            </if>
+            <if test="card.vendorCardId!=null">#{card.vendorCardId,jdbcType=BIGINT},
             </if>
             <if test="card.cardType!=null">#{card.cardType,jdbcType=VARCHAR},
             </if>
@@ -89,6 +96,7 @@
         <foreach collection="cards" item="card" index="index" separator=",">
             (
             #{card.cardId,jdbcType=BIGINT},
+            #{card.vendorCardId,jdbcType=BIGINT},
             #{card.cardType,jdbcType=VARCHAR},
             #{card.userId,jdbcType=BIGINT},
             #{card.money,jdbcType=BIGINT},
@@ -105,6 +113,8 @@
         UPDATE card
         <set>
             <if test="card.cardId != null"> card_id= #{card.cardId,jdbcType=BIGINT},</if>
+            <if test="card.vendorCardId != null"> vendor_card_id= #{card.vendorCardId,jdbcType=BIGINT},</if>
+
             <if test="card.cardType != null"> card_type= #{card.cardType,jdbcType=VARCHAR},</if>
             <if test="card.userId != null"> user_id= #{card.userId,jdbcType=BIGINT},</if>
             <if test="card.money != null"> money= #{card.money,jdbcType=BIGINT},</if>
@@ -133,6 +143,15 @@
         <include refid="Base_Column_List"></include>
         FROM card
         <if test="userId != null">WHERE user_id = #{userId,jdbcType=BIGINT}</if>;
+    </select>
+
+    <select id="findCardByVendorCardIdAndUserID" resultType="com.card.domain.card.Card">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM card
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+        AND
+        vendor_card_id = #{vendorCardId,jdbcType=BIGINT}
     </select>
 </mapper>
 

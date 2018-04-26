@@ -45,6 +45,11 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
+	public Card findCardByVendorCardIdAndUserID(Long vendorCardId,Long userId) {
+		return cardDao.findCardByVendorCardIdAndUserID(vendorCardId,userId);
+	}
+
+	@Override
 	public List<Card> findCard(Long userId) {
 		return cardDao.findCard(userId);
 	}

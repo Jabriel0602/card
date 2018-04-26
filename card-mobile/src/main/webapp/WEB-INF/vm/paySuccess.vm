@@ -40,7 +40,7 @@
             <ul>
                 <li><a href="#">订单号:$order.getOrderId()</i></a></li>
 
-                <li><a href="#" class="substr">卡&nbsp;号: $order.getCardId() </i></a></li>
+                <li><a href="#" class="substr">卡&nbsp;号: $order.getVendorCardId() </i></a></li>
 
                 <li><a href="#">支付金额:$order.getMoney()元</i></a></li>
 

@@ -55,9 +55,8 @@
             <form id="_cookieClearForm" action="//127.0.0.1/users/cookieClear" method="post">
             </form>
 
-            <a style="display:block;height:34px;line-height:34px;font-size:14px;color:#fff;background:#eb4a42;text-align:center;margin:0 10px;border-radius:3px;"
+            <a style="display:block;position:relative;top:20px;height:34px;line-height:34px;font-size:14px;color:#fff;background:#eb4a42;text-align:center;margin:0 10px;border-radius:3px;"
                onclick="$('#_cookieClearForm').submit();">
-            <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#fff;border:1px solid #fff;text-align:center;line-height:20px;vertical-align: middle;">x</span>
             退 出 登 录
             </a>
 

@@ -1,6 +1,7 @@
 package com.card.controller;
 
 
+import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
 import com.card.common.util.ValidatorUtils;
 import com.card.domain.YnEnum;
@@ -12,6 +13,7 @@ import com.card.service.adimage.AdImageService;
 import com.card.service.card.CardService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +31,7 @@ public class CardController {
 	private CardService cardService;
 
 	@Autowired
-	private IndexController indexController;
+	private IdUtil idUtil;
 
 	@Autowired
 	private AdImageService adImageService;
@@ -45,15 +47,27 @@ public class CardController {
 	}
 
 	@PostMapping("")
-	public String saveCard(Card card, HttpServletRequest request) {
+	@ResponseBody
+	public APIResult<String> saveCard(Card card, HttpServletRequest request) {
+		if(cardService.findCardByVendorCardIdAndUserID(card.getVendorCardId(),LoginContext.getUserId())!=null){
+			return new APIResult<String>(HttpStatus.EXPECTATION_FAILED.value(),"该卡片已添加");
+		}
+		card.setCardId(idUtil.getId(IdUtil.SequenceEnum.CARD));
 		card.setUserId(LoginContext.getUserId());
 		card.setCardType(CardTypeEnum.BEIJING.getDesc());
 		card.setYn(YnEnum.Y.getCode());
 		card.setCreateTime(new Date());
 		card.setModifiedTime(new Date());
 		ValidatorUtils.validate(card);
-		cardService.insert(card);
-		return indexController.index(Maps.newHashMap(), request);
+		try{
+			int count = cardService.insert(card);
+			if(count==1){
+				return new APIResult<String>("卡片添加成功");
+			}
+		}catch (Exception e){
+			return new APIResult<String>(HttpStatus.FORBIDDEN.value(),"卡片添加错误，请检查卡片号");
+		}
+		return new APIResult<String>(HttpStatus.FORBIDDEN.value(),"卡片添加错误，请检查卡片号");
 	}
 
 	@GetMapping("/{cardId}/editPage")

@@ -76,6 +76,7 @@
     </div>
 
 ##  公交卡
+
     <div style="padding-bottom: 60px;" class="page">
         #foreach($card in $cardList)
 
@@ -84,11 +85,13 @@
                     <div class="card">
                         <div class="cardnum">
                             <span class="title">卡号:</span>
-                            <span class="num">$card.getCardId()</span>
+                            <span class="num">$card.getVendorCardId()</span>
                         </div>
                         <div class="carddate">
                             <span class="title">备注:</span>
                             <span class="date">$card.getRemark()</span>
+                            <span class="money_title">余额:</span>
+                            <span class="money_data">$card.getMoney()</span>
                         </div>
                         <div class="card-btn">
                             <span><a href="//127.0.0.1/cards/$card.getCardId()/editPage">编辑</a> </span>
@@ -116,7 +119,7 @@
             </li>
             <li>
                 <div>
-                    <a href="#" class="footyh">
+                    <a href="help" class="footyh">
                         <span class="iconfont icon-help"></span><br>
                         <span>帮助中心</span>
                     </a>
@@ -144,6 +147,7 @@
 </div>
 <!--html end-->
 <script type="text/javascript">
+    Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
 </script>
 </body>
 </html>

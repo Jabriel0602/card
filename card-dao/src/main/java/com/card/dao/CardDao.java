@@ -20,5 +20,7 @@ public interface CardDao {
 
     Card findCardById(@Param("id") Long id);
 
+    Card findCardByVendorCardIdAndUserID(@Param("vendorCardId")Long vendorCardId,@Param("userId")Long userId);
+
     List<Card> findCard(@Param("userId")Long userId);
 }

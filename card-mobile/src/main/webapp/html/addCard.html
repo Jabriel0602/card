@@ -11,22 +11,27 @@
 <meta http-equiv="Pragma" CONTENT="no-cache">
 <link rel="stylesheet" href="/css/g.css">
 <link rel="stylesheet" href="/css/register.css">
-<link rel="stylesheet" href="../../css/home.css">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/public.css">
 
-<script src="../../js/jquery.min.js" type="text/javascript"></script>
 
-<script src="../js/zepto.min.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+<script src="/js/zepto.min.js" type="text/javascript"></script>
 
 <body onload="load();">
 <!--html start-->
 <div class="page">
+    <header class="header">
+        <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 添加一卡通
+    </header>
     <div class="register">
-        <div class="topblock">
-            <i>
-                <a href="javascript:history.go(-1)"><img src="/image/back.png"></a>
-            </i>
-            <h2>注册</h2>
-        </div>
+        <!--<div class="topblock">-->
+        <!--<i>-->
+        <!--<a href="javascript:history.go(-1)"><img src="/image/back.png"></a>-->
+        <!--</i>-->
+        <!--<h2>注册</h2>-->
+        <!--</div>-->
         <div class="tip">
             <div class="tip1">温馨提示</div>
             <div class="tip2">请输入正确的卡号</div>
@@ -37,11 +42,11 @@
 
                     <li>
                         <i>
-                            <img src="//image/usericon.png">
+                            <img src="/image/usericon.png">
                         </i>
-                        <input class="mip" type="number" id="cardId" name="cardId" placeholder="请输入卡号"
+                        <input class="mip" type="number" id="vendorCardId" name="vendorCardId" placeholder="请输入卡号"
                                onblur="_validateCardId()">
-                        <div class="merr hide" id="cardIdTip">此处为必填项</div>
+                        <div class="merr hide" id="vendorCardIdTip">此处为必填项</div>
                     </li>
 
                     <li>
@@ -55,7 +60,7 @@
 
                     <li>
                         <div>
-                            <input class="mbt1" id="j_sb" type="submit" value="添加卡片">
+                            <input class="mbt1" id="j_sb" onclick="_submit()" value="添加卡片">
                         </div>
                     </li>
 
@@ -63,53 +68,16 @@
             </form>
         </div>
 
-        <div class="footblock">
-            <ul class="footerlist clearfix">
-                <li>
-                    <div>
-                        <a href="http://localhost/index" class="footwd">
-                            <img alt="" src="/image/home.png"><br>
-                            <span>首页</span>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <a href="#" class="footyh">
-                            <img alt="" src="/image/yh.png"><br>
-                            <span>帮助中心</span>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <a href="//127.0.0.1/orders" class="footsh">
-                            <img alt="" src="/image/stores.png"><br>
-                            <span>我的订单</span>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <a href="//127.0.0.1/users" class="footsh">
-                            <img alt="" src="/image/wod.png"><br>
-                            <span>个人中心</span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
 
     </div>
 </div>
-#include("foot.vm")
 
 <!--html end-->
 <script type="text/javascript">
     var load = function () {
 
-        var cardId = jQuery('input[name=cardId]').val();
-        cardId.onblur = function () {
+        var vendorCardId = jQuery('input[name=vendorCardId]').val();
+        vendorCardId.onblur = function () {
             _validateCardId(this);
         };
         var remark = jQuery('input[name=remark]').val();
@@ -118,13 +86,64 @@
         };
     };
 
-    var _validateCardId = function () {
-        var cardId = jQuery('input[name=cardId]').val();
-        if (cardId == null || cardId.length == 0) {
-            _showErrorMessage("cardIdTip", "cardId不能为空！", true);
+    var _submit = function () {
+
+        var vendorCardId = jQuery('input[name=vendorCardId]').val();
+        if (vendorCardId == null || vendorCardId.length == 0) {
+            _showErrorMessage("vendorCardIdTip", "vendorCardId不能为空！", true);
             return;
         }
-        _showErrorMessage('cardIdTip', false);
+        _showErrorMessage('vendorCardIdTip', false);
+
+
+        var remark = jQuery('input[name=remark]').val();
+        if (remark == null || remark.length == 0) {
+            _showErrorMessage("remarkTip", "备注不能为空！", true);
+            return;
+        }
+        _showErrorMessage('remarkTip', false);
+
+
+        var url = '//127.0.0.1/cards';
+        var vendorCardId = $("#vendorCardId").val();
+        var remark = $("#remark").val();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                vendorCardId: vendorCardId,
+                remark: remark
+            },
+            success: function (data) {
+                var json = JSON.stringify(data);
+                var jsonObject = JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    //跳转到首页
+                    document.location.href = '//127.0.0.1/index';
+                    return;
+                } else if (jsonObject.code == 413) {
+                    alert(jsonObject.data);
+                    return;
+                } else {
+                    alert(jsonObject.data);
+                    return;
+                }
+            }
+            ,
+            error: function () {
+                return;
+            }
+        })
+    }
+
+
+    var _validateCardId = function () {
+        var vendorCardId = jQuery('input[name=vendorCardId]').val();
+        if (vendorCardId == null || vendorCardId.length == 0) {
+            _showErrorMessage("vendorCardIdTip", "vendorCardId不能为空！", true);
+            return;
+        }
+        _showErrorMessage('vendorCardIdTip', false);
 
     }
 

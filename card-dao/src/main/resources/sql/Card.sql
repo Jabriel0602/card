@@ -2,6 +2,7 @@
 -- DROP TABLE IF EXISTS card;
 CREATE TABLE card(
 	card_id BIGINT (15) NOT NULL  COMMENT '卡片id',
+	vendor_card_id BIGINT (15) NOT NULL  COMMENT '供应商卡片id',
 	card_type VARCHAR (50) NOT NULL DEFAULT '' COMMENT '主键',
 	user_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '用户ID',
 	money BIGINT (15) NOT NULL DEFAULT -1 COMMENT 'money',

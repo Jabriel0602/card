@@ -28,8 +28,10 @@ public class Order {
 	@NotNull(message = "商品名称不能为空")
 	private Long skuMoney;     //商品金额
 
-	@NotBlank(message = "卡片id不能为空")
-	private String cardId;        //卡片id
+	@NotNull(message = "系统卡片id不能为空")
+	private Long cardId;        //卡片id
+	@NotNull(message = "供应商卡片id不能为空")
+	private Long vendorCardId;        //卡片id
 	@NotBlank(message = "卡片类型不能为空")
 	private String cardType;    //卡片类型
 

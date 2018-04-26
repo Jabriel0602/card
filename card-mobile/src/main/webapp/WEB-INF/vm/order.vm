@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <title>优惠券</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,7 +22,7 @@
     <meta charset="utf-8"/>
     <title>优惠券</title>
 </head>
-<body onload="load();">
+##<body onload="load()">
 <!--html start-->
 <div class="page">
     <header class="header">
@@ -85,10 +85,16 @@
                         <div>
                             <a class="clearfix" href="#">
                                 <span class="hdpic"><img height="8" width="8" src="/image/bus.png"></span>
-##
+                            ##
                                 <span class="hdxq">
-                                    <span class="time">卡号:$order.getCardId()</span>
-                                    <span class="tickettype">${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())}</span>
+                                    <span class="time">卡号:$order.getVendorCardId()</span>
+                                    #if("未支付"==${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())})
+                                        <span class="tickettype">未支付</span>
+                                        <span class="tickettype" style="background-color:rgba(234, 97, 0, 1)"
+                                              onclick="document.location.href='//127.0.0.1/pay/submitPage?orderId=$order.getOrderId()'">去支付</span>
+                                    #else
+                                        <span class="tickettype">${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())}</span>
+                                    #end
                                 </span>
                                 <span class="limit cost">￥$order.getMoney()</span>
                             </a>
@@ -159,51 +165,56 @@
                     break;
             }
         };
-        var load = function () {
-            var storesdown = document.getElementById("storesdown");
-            var typesdown = document.getElementById("typesdown");
-            storesdown.onclick = function () {
-                var isExpand = this.getAttribute("isExpand");
-                if (!isExpand || isExpand == "false") {
-                    isExpand = "true";
-                    this.setAttribute("isExpand", isExpand);
-                    switchPanelStyle(this);
-                    this.setAttribute("style", "border-bottom:none;border-top:2px solid #63b12f;");
-                    typesdown.setAttribute("style", "border-top: 1px solid #d8d8d8;");
-                    typesdown.setAttribute("isExpand", "false");
-                } else if (isExpand == "true") {
-                    this.setAttribute("style", "border-top: 1px solid #d8d8d8;");
-                    var allSotores = document.getElementById("allstores");
-                    allSotores.setAttribute("style", "display:none;")
-                    var filterPanel = document.getElementById("filterpanel");
-                    filterPanel.setAttribute("style", "display:none;");
-                    isExpand = "false";
-                    this.setAttribute("isExpand", isExpand);
-                }
-            };
-            typesdown.onclick = function () {
-                var isExpand = this.getAttribute("isExpand");
-                if (!isExpand || isExpand == "false") {
-                    isExpand = "true";
-                    this.setAttribute("isExpand", isExpand);
-                    switchPanelStyle(this);
-                    this.setAttribute("style", "border-bottom:none;border-top:2px solid #63b12f;");
-                    storesdown.setAttribute("style", "border-top: 1px solid #d8d8d8;");
-                    storesdown.setAttribute("isExpand", "false");
-                } else if (isExpand == "true") {
-                    this.setAttribute("style", "border-top: 1px solid #d8d8d8;");
-                    var allType = document.getElementById("alltype");
-                    allType.setAttribute("style", "display:none;");
-                    var filterPanel = document.getElementById("filterpanel");
-                    filterPanel.setAttribute("style", "display:none;");
-                    isExpand = "false";
-                    this.setAttribute("isExpand", isExpand);
-                }
-
-            };
-        };
+        ## var $storesdown = $('#storesdown'),
+        ##         $typesdown = $('#typesdown'),
+        ##         $filterpanel = $('#filterpanel'),
+        ##         $allstores = $('#allstores'),
+        ##         $alltype = $('#alltype');
+        // var load = function () {
+        //     var storesdown = document.getElementById("storesdown");
+        //     var typesdown = document.getElementById("typesdown");
+        //     storesdown.onclick = function () {
+        //         var isExpand = this.getAttribute("isExpand");
+        //         if (!isExpand || isExpand == "false") {
+        //             isExpand = "true";
+        //             this.setAttribute("isExpand", isExpand);
+        //             switchPanelStyle(this);
+        //             this.setAttribute("style", "border-bottom:none;border-top:2px solid #63b12f;");
+        //             typesdown.setAttribute("style", "border-top: 1px solid #d8d8d8;");
+        //             typesdown.setAttribute("isExpand", "false");
+        //         } else if (isExpand == "true") {
+        //             this.setAttribute("style", "border-top: 1px solid #d8d8d8;");
+        //             var allSotores = document.getElementById("allstores");
+        //             allSotores.setAttribute("style", "display:none;")
+        //             var filterPanel = document.getElementById("filterpanel");
+        //             filterPanel.setAttribute("style", "display:none;");
+        //             isExpand = "false";
+        //             this.setAttribute("isExpand", isExpand);
+        //         }
+        //     };
+        //     typesdown.onclick = function () {
+        //         var isExpand = this.getAttribute("isExpand");
+        //         if (!isExpand || isExpand == "false") {
+        //             isExpand = "true";
+        //             this.setAttribute("isExpand", isExpand);
+        //             switchPanelStyle(this);
+        //             this.setAttribute("style", "border-bottom:none;border-top:2px solid #63b12f;");
+        //             storesdown.setAttribute("style", "border-top: 1px solid #d8d8d8;");
+        //             storesdown.setAttribute("isExpand", "false");
+        //         } else if (isExpand == "true") {
+        //             this.setAttribute("style", "border-top: 1px solid #d8d8d8;");
+        //             var allType = document.getElementById("alltype");
+        //             allType.setAttribute("style", "display:none;");
+        //             var filterPanel = document.getElementById("filterpanel");
+        //             filterPanel.setAttribute("style", "display:none;");
+        //             isExpand = "false";
+        //             this.setAttribute("isExpand", isExpand);
+        //         }
+        //
+        //     };
+        // };
 
     </script>
 
-</body>
+    </body></div>
 </html>

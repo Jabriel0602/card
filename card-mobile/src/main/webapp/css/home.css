@@ -1,7 +1,7 @@
 .page{max-width: 720px;overflow: hidden;}
 .home{background: #f2f2f2;overflow: hidden;}
 /*banner begin*/
-.banner{ position:relative; height:150px; overflow:hidden;display:block;margin-top:56px;}
+.banner{ position:relative; height:150px; overflow:hidden;display:block;margin-top:42px;}
 .banner li img{ width:100%; height:150px;}
 .banner .numb{ position:absolute; left:0; bottom:0px; height:24px; line-height:24px; width:100%;  background:rgba(0,0,0,0); text-align:center;}
 .banner .numb span{border-radius:6px; height:12px; margin:0 4px; width:12px; display:inline-block; background:#fff; cursor:pointer}

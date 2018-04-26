@@ -18,6 +18,8 @@ public interface CardService {
 
 	Card findCardById(Long id);
 
+	Card findCardByVendorCardIdAndUserID(Long vendorCardId,Long userId);
+
 	List<Card> findCard(Long userId);
 
 }

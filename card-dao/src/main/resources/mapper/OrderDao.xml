@@ -8,6 +8,8 @@
         <result column="sku_name" property="skuName" jdbcType="VARCHAR"/>
         <result column="sku_money" property="skuMoney" jdbcType="BIGINT"/>
         <result column="card_id" property="cardId" jdbcType="VARCHAR"/>
+        <result column="vendor_card_id" property="vendorCardId" jdbcType="BIGINT"/>
+
         <result column="card_type" property="cardType" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="BIGINT"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
@@ -32,6 +34,7 @@
         sku_name,
         sku_money,
         card_id,
+        vendor_card_id,
         card_type,
         user_id,
         phone,
@@ -57,6 +60,7 @@
             sku_name,
             sku_money,
             card_id,
+            vendor_card_id,
             card_type,
             user_id,
             phone,
@@ -78,6 +82,7 @@
             #{order.skuName,jdbcType=VARCHAR},
             #{order.skuMoney,jdbcType=BIGINT},
             #{order.cardId,jdbcType=VARCHAR},
+            #{order.vendorCardId,jdbcType=BIGINT},
             #{order.cardType,jdbcType=VARCHAR},
             #{order.userId,jdbcType=BIGINT},
             #{order.phone,jdbcType=VARCHAR},
@@ -105,6 +110,7 @@
             <if test="order.skuName!=null">sku_name,</if>
             <if test="order.skuMoney!=null">sku_money,</if>
             <if test="order.cardId!=null">card_id,</if>
+            <if test="order.vendorCardId!=null"> vendor_card_id,</if>
             <if test="order.cardType!=null">card_type,</if>
             <if test="order.userId!=null">user_id,</if>
             <if test="order.phone!=null">phone,</if>
@@ -132,6 +138,8 @@
             <if test="order.skuMoney!=null">#{order.skuMoney,jdbcType=BIGINT},
             </if>
             <if test="order.cardId!=null">#{order.cardId,jdbcType=VARCHAR},
+            </if>
+            <if test="order.vendorCardId!=null">#{order.vendorCardId,jdbcType=BIGINT},
             </if>
             <if test="order.cardType!=null">#{order.cardType,jdbcType=VARCHAR},
             </if>
@@ -178,6 +186,7 @@
             #{order.skuName,jdbcType=VARCHAR},
             #{order.skuMoney,jdbcType=BIGINT},
             #{order.cardId,jdbcType=VARCHAR},
+            #{order.vendorCardId,jdbcType=BIGINT},
             #{order.cardType,jdbcType=VARCHAR},
             #{order.userId,jdbcType=BIGINT},
             #{order.phone,jdbcType=VARCHAR},
@@ -206,6 +215,8 @@
             <if test="order.skuName != null">sku_name= #{order.skuName,jdbcType=VARCHAR},</if>
             <if test="order.skuMoney != null">sku_money= #{order.skuMoney,jdbcType=BIGINT},</if>
             <if test="order.cardId != null">card_id= #{order.cardId,jdbcType=VARCHAR},</if>
+            <if test="order.vendorCardId != null"> vendor_card_id= #{order.vendorCardId,jdbcType=BIGINT},</if>
+
             <if test="order.cardType != null">card_type= #{order.cardType,jdbcType=VARCHAR},</if>
             <if test="order.userId != null">user_id= #{order.userId,jdbcType=BIGINT},</if>
             <if test="order.phone != null">phone= #{order.phone,jdbcType=VARCHAR},</if>

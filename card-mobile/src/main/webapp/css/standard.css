@@ -313,7 +313,7 @@
 .seccuss-pay .tip p{ margin-top:-0.5rem; padding:0 1rem 1rem; line-height:1.2; font-size:1rem; color:#333;}
 .seccuss-pay .tip p span{ text-align:left; display:inline-block}
 .seccuss-pay .list{ padding:0 0.5rem;border-bottom:1px solid #e3dddd; border-top:1px solid #e3dddd;}
-.seccuss-pay li{ border-bottom:1px solid #e3dddd; padding:0.625rem 0.5rem; height:1.25rem; line-height:1.25rem; position:relative; background:#FFF;}
+.seccuss-pay li{ border-bottom:1px solid #e3dddd; padding:0.625rem 0.5rem; min-height:1.25rem; line-height:1.25rem; position:relative; background:#FFF;}
 .seccuss-pay li a{ display:block; padding-right:1.5rem; height:1.25rem; line-height:1.25rem;}
 .seccuss-pay li .icon_right{ position:absolute; right:0.25rem; top:0.625rem; transform:rotate(-90deg); -moz-transform:rotate(-90deg); -webkit-transform:rotate(-90deg);}
 .seccuss-pay li:last-child{ border-bottom:0;}

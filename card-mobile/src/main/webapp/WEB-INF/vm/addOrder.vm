@@ -143,13 +143,13 @@
             <div class="cardinfo">
                 <div class="card">
                     <div class="cardnum">
-                        <span class="title">卡&#8195;&#8195;号:</span>
-                        <span class="num">$card.getCardId()</span>
+                        <span class="title">卡号:</span>
+                        <span class="num">$card.getVendorCardId()</span>
                     </div>
                     <div class="carddate">
-                        <span class="title">备&#8195;&#8195;注:</span>
+                        <span class="title">备注:</span>
                         <span class="date">$card.getRemark()</span>
-                        <span class="money_title">余&#8195;&#8195;额:</span>
+                        <span class="money_title">余额:</span>
                         <span class="money_data">$card.getMoney()</span>
                     </div>
 
@@ -182,7 +182,7 @@
     </div>
     <div style="height:52px;"></div>
     <div class="add-order-footer">
-        <span id="btn"  onclick="_submit('$card.getCardId()')" class="add-order-footer-btn">提交订单</span>
+        <span id="btn"  onclick="_submit('$card.getCardId()','$card.getVendorCardId()')" class="add-order-footer-btn">提交订单</span>
         <div class="add-order-footer-text">应付总额: <span>¥<i id="j_priceShow">50</i></span></div>
     </div>
 </div>
@@ -197,7 +197,7 @@
         $priceShow.html(select_price);
     });
 
-    var _submit = function (cardId) {
+    var _submit = function (cardId,vendorCardId) {
         var skuId = 10050;
         var skuName = select_price + '元';
         var skuMoney = select_price;
@@ -206,7 +206,8 @@
             url: url,
             type: 'POST',
             data: {
-                cardId: cardId,
+                cardId:cardId,
+                vendorCardId: vendorCardId,
                 skuId: skuId,
                 skuName: skuName,
                 skuMoney: skuMoney
