@@ -26,6 +26,11 @@ public class User {
 	@NotBlank(message = "用户类型不能为空")
 	private String userType;    //用户类型
 
+	@NotNull(message = "模块权限不能为空")
+	private Integer moduleTypeLimits=0;
+	@NotNull(message = "方法权限不能为空")
+	private Integer methodTypeLimits=0;
+
 	@NotBlank(message = "用户名不能为空")
 	private String userName;    //用户名
 	@NotBlank(message = "密码不能为空")

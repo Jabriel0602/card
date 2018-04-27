@@ -1,0 +1,147 @@
+#set($title = "配置管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+<script src="/js/common/jquery.min.js"></script>
+
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <h3>配置编辑</h3>
+            <input type="hidden" id="index" name="index" value="$!index"/>
+            <table width="100%" style="text-align: left" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="vertical-align:middle; text-align:left;width: 8px; height:10px;">configKey</td>
+                    <td style="vertical-align:middle; text-align:left;width: 8px; height:10px;">
+                        <select id="configKey" name="configKey">
+                            #foreach($key in $configKeyEnumList)
+                                <option name="configOption" value='$key'>$!{key.getDesc()}</option>
+                            #end
+                        </select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="vertical-align:middle; text-align:left; height:10px;">configValue</td>
+                    <td style="vertical-align:middle; text-align:left; height:10px;">
+                        #if($!{config.getKey().equals("PLANE_DIVERTED")})
+                            <input type="text" id="configValue" name="configValue" value="$!{config.value}"
+                                   size="50"/><label id="label_value_select" style="text-align: center;color: #FF0000">请输入0~100数字</label>
+                        #elseif($!{config.getKey().equals("INDEX_DEFAULT_TAB")})
+                            <input type="text" id="configValue" name="configValue" value="$!{config.value}"
+                                   size="50"/><label style="text-align: center;color: #FF0000">内容为: TRAIN、PLANE、BUS、HOTEL</label>
+                        #elseif($!{config.getKey().equals("TRAIN_PHONE_SERVICE_SWITCH")})
+                            <input type="text" id="configValue" name="configValue" value="$!{config.value}"
+                                   size="50"/><label style="text-align: center;color: #FF0000">内容为: true、false</label>
+                        #else
+                            <input type="text" id="configValue" name="configValue" value="$!{config.value}"
+                                   size="50"/><label style="text-align: center;color: #FF0000">请输入正确URL格式 http  https</label>
+                        #end
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" onclick="onSubmit()" value="提交"/>&nbsp;&nbsp;
+                        <input type="button" onclick="comeback()" value="返回"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        jQuery('select[name=configKey]').val('$!oldKey');
+    });
+
+    var comeback = function () {
+        document.location.href = "/configs";
+    }
+
+    var onSubmit = function () {
+        var configKey = jQuery('select[name=configKey]').val();
+        if (configKey == null || jQuery.trim(configKey) == '') {
+            alert('[configKey]不能为空');
+            return;
+        }
+
+        var isUpdateOperate = document.getElementById("index").value;
+        if (isUpdateOperate == null || isUpdateOperate < 0) {
+            addImage();
+        } else {
+            updateAdImage();
+        }
+    }
+
+
+    <!--添加按钮 -->
+    var addImage = function () {
+        var configKey = $.trim(jQuery('select[name=configKey]').val());
+        var configValue = $.trim(document.getElementById("configValue").value);
+
+        var sure = confirm("确定添加配置？");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'POST',
+                url: '/configs',
+                data: {
+                    key: configKey,
+                    value: configValue
+                },
+                success: function (data) {
+                    if (data == 200) {
+                        alert("添加成功");
+                        comeback();
+                        return;
+                    } else if (data == 1) {
+                        alert("配置存在！");
+                    } else {
+                        alert("参数错误")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--修改按钮 -->
+    var updateAdImage = function () {
+        var configKey = $.trim(jQuery('select[name=configKey]').val());
+        var configValue = $.trim(document.getElementById("configValue").value);
+        var url = '/configs/' +$!index;
+        var sure = confirm("确定修改配置？");
+        if (sure == true) {
+            jQuery.ajax({
+                url: url,
+                type: 'PUT',
+                data: {
+                    key: configKey,
+                    value: configValue
+                },
+                success: function (data) {
+                    if (data == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (data == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+</script>

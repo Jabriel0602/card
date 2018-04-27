@@ -1,0 +1,191 @@
+<style type="text/css">
+    .tb-x1 table caption {
+        margin: 10px 0;
+    }
+
+    .string {
+        color: green;
+    }
+
+    .number {
+        color: darkorange;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: red;
+    }
+</style>
+#set($title = "缓存管理界面")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <h3>缓存管理</h3>
+
+    <form id="cacheSearchForm" action="/caches" method="GET">
+        查询条件：
+        <select name="pattern">
+            #foreach($key in $cacheKeyEnum)
+                <option name="cacheKey" value='${key.getValue()}'>${key.getDesc()}</option>
+            #end
+        </select>
+        <input type="submit" value="查询">
+    </form>
+</div>
+<div id="disposeDiv">
+    <div class="tb-x1 resultlist">
+        <div class="i-con1 table_list" style="word-break: break-all">
+            <div class="tb-x1 resultlist">
+                <div class="btns" align="center">
+                    <table width="100%" align="center">
+                        <tr>
+                            <th>序号</th>
+                            <th>缓存Key</th>
+                            <th>Value</th>
+                            <th>操作</th>
+                        </tr>
+
+                        #if($keyList && $keyList.size()>0)
+                            #foreach($key in $keyList)
+                                #set($count=$velocityCount)
+                                <tr>
+                                    <input type="hidden" id="key" name="key" value="$!key"/>
+                                    <td>$count</td>
+                                    <td>$!key</td>
+                                    <td>
+                                            <pre style="font:微软雅黑;text-align: left" id="$count" name="keyValue"
+                                                 width="80">
+                                            </pre>
+                                    </td>
+
+                                    <td style="vertical-align: top">
+                                        <input type="button" value="查询Value值" onclick="query('$!key','$!count')"/>
+                                        <input type="button" value="折叠" onclick="fold('$!count')"/>
+##屏蔽删除                              <input type="button" value="删除Key值" onclick="del('$!key')"/>
+                                    </td>
+                                </tr>
+                            #end
+                        #end
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                jQuery('select[name=pattern]').val('$!pattern');
+            });
+
+            var comeback = function () {
+                document.location.href = "/caches";
+            }
+
+            var fold = function (count) {
+                $("#" + count).html('');
+            }
+
+
+            var query = function (key, count) {
+                if (key == null || jQuery.trim(key) == '') {
+                    alert('key]不能为空');
+                    return;
+                }
+                if (count == null || jQuery.trim(count) == '') {
+                    alert('key]不能为空');
+                    return;
+                }
+                jQuery.ajax({
+                    url: "/caches/" + key,
+                    type: "GET",
+                    data: {
+                        "_charset_": "utf-8"
+                    },
+                    cache: false,
+                    async: true,
+                    success: function (data) {
+                        if (isJSON(data)) {
+                            $("#" + count).html(syntaxHighlight(data));
+                        } else {
+                            $("#" + count).html(data);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("查询缓存失败了：" + errorThrown);
+                    }
+                });
+            }
+
+            var del = function (key) {
+                if (key == null || jQuery.trim(key) == '') {
+                    alert('key]不能为空');
+                    return;
+                }
+
+                var sure = confirm("亲爱的超管 您真的要删除此Key值吗？");
+                if (sure) {
+                    jQuery.ajax({
+                        url: "/caches/" + key,
+                        type: "DELETE",
+                        data: {
+                            "_charset_": "utf-8"
+                        },
+                        cache: false,
+                        async: true,
+                        success: function (data) {
+                            if (data ==  200) {
+                                alert("删除成功");
+                                comeback();
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("删除缓存失败了：" + errorThrown);
+                        }
+                    });
+                }
+            }
+
+            var isJSON = function (str) {
+                if (typeof str == 'string') {
+                    try {
+                        JSON.parse(str);
+                        return true;
+                    } catch (e) {
+                        console.log(e);
+                        return false;
+                    }
+                }
+            }
+
+
+            var syntaxHighlight = function (json) {
+                json = JSON.stringify(JSON.parse(json), undefined, 2);
+                json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    var cls = 'number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'key';
+                        } else {
+                            cls = 'string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+            }
+
+        </script>
+

@@ -1,0 +1,152 @@
+#set($title = "任务管理界面")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a>
+    </div>
+</div>
+<div id="content">
+    <h3>定时任务管理</h3>
+</div>
+<div id="disposeDiv">
+    <div class="tb-x1 resultlist">
+        <div class="i-con1 table_list" style="word-break: break-all">
+            <div class="tb-x1 resultlist">
+
+                #if($taskAuthorityFlag)
+                    <div class="btns" align="center">
+                        <div style="color: #FF0000;text-align: left;">
+                            当前服务器IP：$!now_ip <br>
+                            Leader服务器IP:$!leader_ip
+                        </div>
+
+                        <table width="100%" align="center">
+                            <tr>
+                                <th>开关</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+
+                            <tr>
+                                <td>定时任务开关</td>
+                                <td>
+                                    <div id="taskSwitch">
+                                        #if($!taskSwitch)
+                                            <div style="color: #4fb920;text-align: center;">
+                                                开启
+                                            </div>
+                                        #else
+                                            <div style="color: #FF0000;text-align: center;">
+                                                关闭
+                                            </div>
+                                        #end
+                                    </div>
+                                    <input type="hidden" id="taskSwitchValue" value="$!taskSwitch"></input>
+
+                    </div>
+                    </td>
+                    <td>
+                        <input type="button" value="敲击开关" onclick="clickSwitch()"/>
+                    </td>
+                    </tr>
+                    </table>
+                    </br>
+                    </br>
+                    </br>
+                    <table width="100%" align="center">
+                        <tr>
+                            <th>定时任务业务模块</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr>
+                            <td>国内机票缓存定时更新任务</td>
+                            <td><input type="button" name="国内机票缓存" value="立即执行" onclick="update('plane')"/></td>
+                        </tr>
+                        <tr>
+                            <td>国际机票缓存定时更新任务</td>
+                            <td><input type="button" name="国际机票缓存" value="立即执行" onclick="update('i18nPlane')"/></td>
+                        </tr>
+                        <tr>
+                            <td>火车票缓存定时更新任务</td>
+                            <td><input type="button" name="火车票缓存" value="立即执行" onclick="update('train')"/></td>
+                        </tr>
+                        <tr>
+                            <td>汽车票缓存定时更新任务</td>
+                            <td><input type="button" name="汽车票缓存" value="立即执行" onclick="update('bus')"/></td>
+                        </tr>
+                        <tr>
+                            <td>国内酒店缓存定时更新任务</td>
+                            <td><input type="button" name="酒店缓存" value="立即执行" onclick="update('hotel')"/></td>
+                        </tr>
+                        <tr>
+                            <td>国际酒店缓存定时更新任务</td>
+                            <td><input type="button" name="国际酒店缓存" value="立即执行" onclick="update('i18nHotel')"/></td>
+                        </tr>
+                    </table>
+                #else
+                    <label style="text-align: center;color: #FF0000">您无权限访问</label>
+                #end
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+
+        var clickSwitch = function () {
+            jQuery.ajax({
+                url: "/tasks/clickTaskSwitch",
+                data: {
+                    "_charset_": "utf-8"
+                },
+                cache: false,
+                async: true,
+                success: function (data) {
+                    if (data) {
+                        $("#taskSwitch").html('<div style="color: #4fb920;text-align: center;">\n' + '开启\n' + '</div>');
+                        $("#taskSwitchValue").val('' + data);
+                    } else {
+                        $("#taskSwitch").html('<div style="color: #FF0000;text-align: center;">\n' + '关闭\n' + '</div>');
+                        $("#taskSwitchValue").val('' + data);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("操作失败：" + errorThrown);
+                }
+            });
+        }
+
+
+        var update = function (key) {
+            var taskSwitch = $("#taskSwitchValue").val();
+
+            if ("true" != taskSwitch) {
+                alert('开关未打开');
+                return;
+            }
+
+            if (key == null || jQuery.trim(key) == '') {
+                alert('key不能为空');
+                return;
+            }
+
+
+            jQuery.ajax({
+                url: "/tasks/" + key,
+                data: {
+                    "_charset_": "utf-8"
+                },
+                cache: false,
+                async: true,
+                success: function (data) {
+                    alert(data)
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("更新缓存失败了：" + errorThrown);
+                }
+            });
+        }
+
+    </script>
+

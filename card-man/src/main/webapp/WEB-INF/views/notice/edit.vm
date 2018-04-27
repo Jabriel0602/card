@@ -1,0 +1,266 @@
+#set($title = "公告管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+<script src="/js/common/jquery.min.js"></script>
+
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <h3>公告编辑</h3>
+            <input type="hidden" id="index" name="index" value="$!{index}"/>
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">公告描述</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input type="text" id="desc" name="desc" value="$!{notice.desc}"
+                               size="100"
+                               maxlength="100"
+                               placeholder="输入Notice 描述"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">跳转动作设置</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input name="flag" type="radio" value="0"
+                            #if( $!{notice.clickFlag.equals('0')})
+                               checked="checked"
+                            #end
+                               onclick="onCheck(0)">跳转链接
+                        </input>
+
+                        <input name="flag" type="radio" value="1"
+                            #if( $!{notice.clickFlag.equals('1')})
+                               checked="checked"
+                            #end
+                               onclick="onCheck(1)">弹窗</input>
+                        <input type="hidden" id="clickFlag" name="clickFlag" value="$!notice.clickFlag"/>
+                    </td>
+                </tr>
+
+
+                <tr id="displayFlag">
+                    #if( $!{notice.clickFlag.equals('0')})
+                        <td style="vertical-align:middle; text-align:right; height:28px;">跳转链接URL</td>
+                        <td style="vertical-align:middle; text-align:left; height:28px;">
+                            <input type="text" id="responseUrl" name="responseUrl"
+                                   value="$!{notice.responseUrl}"
+                                   size="100"
+                                   maxlength="500"
+                                   placeholder="输入跳转链接URL（格式：https://www.jd.com 或者http://www.jd.com）"/>
+                        </td>
+                        <input type="hidden" id="contentView" name="contentView" value="$!{notice.contentView}"/>
+                    #elseif($!{notice.clickFlag.equals('1')})
+                        <input type="hidden" id="responseUrl" name="responseUrl" value="$!{notice.responseUrl}"/>
+                        <td style="vertical-align:middle; text-align:right; height:28px;">弹窗内容</td>
+                        <td style="vertical-align:middle; text-align:left; height:28px;">
+                            <input type="text" id="contentView" name="contentView" value="$!{notice.contentView}"
+                                   size="100"
+                                   maxlength="500"
+                                   placeholder="请输入弹窗内容"/>
+                        </td>
+                    #end
+                </tr>
+
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">模块</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        $!moduleDesc
+                        <input type="hidden" id="moduleCode" name="moduleCode" value="$!moduleCode">
+                    </td>
+                </tr>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="button" onclick="onSubmit()" value="提交"/>&nbsp;&nbsp;
+                        <input type="button" onclick="comeback()" value="返回"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var comeback = function () {
+        document.location.href = "/notices?moduleCode=$moduleCode";
+    }
+
+    var onCheck = function (flag) {
+        jQuery("#clickFlag").html(flag);
+        jQuery("#clickFlag").val(flag);
+        if (flag == 0) {
+            jQuery("#displayFlag").html(
+                    "                            <td style=\"vertical-align:middle; text-align:right; height:28px;\">跳转链接URL</td>\n" +
+                    "                            <td style=\"vertical-align:middle; text-align:left; height:28px;\">\n" +
+                    "                                <input type=\"text\" id=\"responseUrl\" name=\"responseUrl\"\n" +
+                    "                                       value=\"$!{notice.responseUrl}\"\n" +
+                    "                                       size=\"100\"\n" +
+                    "                                       maxlength=\"500\"\n" +
+                    "                                       placeholder=\"输入跳转链接URL（格式：https://www.jd.com 或者//www.jd.com）\"/>\n" +
+                    "                            </td>"
+                    +
+                    "                        <input type=\"hidden\" id=\"contentView\" name=\"contentView\" value=\"$!{notice.contentView}\"/>\n"
+            );
+        }
+        else {
+            jQuery("#displayFlag").html(
+                    "                        <input type=\"hidden\" id=\"responseUrl\" name=\"responseUrl\" value=\"$!{notice.responseUrl}\"/>\n"
+                    +
+                    "                            <td style=\"vertical-align:middle; text-align:right; height:28px;\">弹窗内容</td>\n" +
+                    "                            <td style=\"vertical-align:middle; text-align:left; height:28px;\">\n" +
+                    "                                <input type=\"text\" id=\"contentView\" name=\"contentView\" value=\"$!{notice.contentView}\"\n" +
+                    "                                       size=\"100\"\n" +
+                    "                                       maxlength=\"500\"\n" +
+                    "                                       placeholder=\"请输入弹窗内容\"/>\n" +
+                    "                            </td>"
+            );
+        }
+    }
+
+    var onSubmit = function () {
+
+        var desc = jQuery('input[name=desc]').val();
+        if (desc == null || jQuery.trim(desc) == '') {
+            alert('[公告]字数不能为空');
+            return;
+        }
+        if (desc.length > 25) {
+            alert('[公告]字数不能超过25');
+            return;
+        }
+
+
+        var clickFlag = jQuery('input[id=clickFlag]').val();
+        if (clickFlag == null || jQuery.trim(clickFlag) == '') {
+            alert('[跳转动作设置]不能为空');
+            return;
+        }
+        if (clickFlag == 1) {
+            var contentView = jQuery('input[name=contentView]').val();
+            if (contentView == null || jQuery.trim(contentView) == '') {
+                alert('[弹窗内容]不能为空');
+                return;
+            }
+            if (contentView.length > 200) {
+                alert('[弹窗]字数不能超过200');
+                return;
+            }
+        } else {
+            var responseUrl = jQuery('input[name=responseUrl]').val();
+            if (responseUrl == null || jQuery.trim(responseUrl) == '') {
+                alert('[跳转链接]不能为空');
+                return;
+            }
+            if (responseUrl.length < 7 | responseUrl.length > 200) {
+                alert('[跳转链接]长度必须在7与200之间');
+                return;
+            }
+            if (jQuery.trim(responseUrl).substr(0, 4) != 'http') {
+                alert('[跳转链接格式错误]');
+                return;
+            }
+        }
+
+        var moduleCode = jQuery('input[name=moduleCode]').val();
+        if (moduleCode == null || jQuery.trim(moduleCode) == '') {
+            alert('模块描述]不能为空');
+            return;
+        }
+
+
+        var isUpdateOperate = document.getElementById("index").value;
+        if (isUpdateOperate == null || isUpdateOperate < 0) {
+            addNotice();
+        } else {
+            updateNotice();
+        }
+    }
+
+
+    <!--添加按钮 -->
+    var addNotice = function () {
+        var desc = $.trim(document.getElementById("desc").value);
+        var contentView = $.trim(jQuery('input[name=contentView]').val());
+        var responseUrl = $.trim(jQuery('input[name=responseUrl]').val());
+        var moduleCode = $.trim(document.getElementById("moduleCode").value);
+        var clickFlag = $.trim(document.getElementById("clickFlag").value);
+
+        var sure = confirm("确定添加公告");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'POST',
+                url: '/notices',
+                data: {
+                    moduleCode: moduleCode,
+                    desc: desc,
+                    contentView: contentView,
+                    responseUrl: responseUrl,
+                    clickFlag: clickFlag
+                },
+                success: function (data) {
+                    if (data ==  200) {
+                        alert("添加成功");
+                        comeback();
+                        return;
+                    } else if (data == 1) {
+                        alert("该用户已存在！");
+                    } else {
+                        alert("参数错误")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--修改按钮 -->
+    var updateNotice = function () {
+        var desc = $.trim(document.getElementById("desc").value);
+        var contentView = $.trim(jQuery('input[name=contentView]').val());
+        var responseUrl = $.trim(jQuery('input[name=responseUrl]').val());
+        var moduleCode = $.trim(document.getElementById("moduleCode").value);
+        var clickFlag = $.trim(document.getElementById("clickFlag").value);
+        var url = '/notices/' +$!index;
+        var sure = confirm("确定修改公告？");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'PUT',
+                url: url,
+                data: {
+                    moduleCode: moduleCode,
+                    desc: desc,
+                    contentView: contentView,
+                    responseUrl: responseUrl,
+                    clickFlag: clickFlag
+                },
+                success: function (data) {
+                    if (data ==  200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (data == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+</script>

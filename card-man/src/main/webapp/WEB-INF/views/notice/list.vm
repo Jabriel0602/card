@@ -1,0 +1,100 @@
+#set($title = "公告管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <th width="4%">序号</th>
+                    <th width="6%">渠道</th>
+                    <th width="10%">公告内容</th>
+                    <th width="16%">弹窗内容</th>
+                    <th width="16%">跳转链接</th>
+                    <th width="6%">跳转动作</th>
+                    <th width="12%">创建时间</th>
+                    <th width="12%">修改时间</th>
+                    <th width="8%">操作人</th>
+                    <th width="12%">操作</th>
+                </tr>
+                #if($noticeList && $noticeList.size() > 0)
+                    #foreach($notice in $noticeList)
+                        <tr>
+                            #set($count=$velocityCount)
+                            #set($index = $count - 1)
+                            <td>$!{count}</td>
+                            <td>$!{moduleDesc}</td>
+                            <td>$!{notice.desc}</td>
+                            <td>$!{notice.contentView}</td>
+                            <td>$!{notice.responseUrl}</td>
+                            <td>
+                                #if( $!{notice.clickFlag.equals('0')})
+                                    跳转链接
+                                #elseif($!{notice.clickFlag.equals('1')})
+                                    弹窗
+                                #end
+                            </td>
+                            <td>$!{notice.createdTime}</td>
+                            <td>$!{notice.modifiedTime}</td>
+                            <td>$!{notice.operator}</td>
+
+                            <td>
+                                #if($!{noticeAuthorityFlag})
+                                    <a href="/notices/$!index?moduleCode=$moduleCode">修改</a>&nbsp;&nbsp;
+                                    <input type="button" value="删除" onclick="delIcon($!moduleCode,$!index)"/>
+                                #else
+                                    <label style="text-align: center;color: #FF0000">无修改权限</label>
+                                #end
+
+                            </td>
+                        </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="10">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+            #if($!{noticeAuthorityFlag})
+                #if($noticeList.size()<1)
+                    <tr><a href="/notices/-1?moduleCode=$moduleCode"><input type="button" value="添加公告+"/></tr>
+                #else
+                    <label style="text-align: center;color: #FF0000">最多只能添加1个公告通知</label>
+                #end
+            #else
+                <label style="text-align: center;color: #FF0000">无添加权限</label>
+            #end
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    var delIcon = function (moduleCode, index) {
+        var moduleCode = $.trim(moduleCode);
+        var index = $.trim(index);
+        var tip = "确认删除当前公告吗？";
+        var url = '/notices/' + index + '/?moduleCode=' + moduleCode;
+        if (window.confirm(tip)) {
+            jQuery.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (data) {
+                    if (data > 0) {
+                        alert("操作成功");
+                    } else if (data ==  0) {
+                        alert("操作的数据不存在");
+                    } else {
+                        alert("参数错误")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了！");
+                }
+            })
+        }
+    }
+</script>

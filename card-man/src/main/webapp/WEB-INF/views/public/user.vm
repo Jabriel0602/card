@@ -1,0 +1,96 @@
+#set($title = "订单查询")
+<link rel="stylesheet" type="text/css" href="$!assetmodule.forpath("/pop-man/201007/skin/erpbase.css").build()"
+      media="all"/>
+<link rel="stylesheet" type="text/css" href="$!assetmodule.forpath("/pop-man/201007/skin/businessmanage.css").build()"
+      media="all"/>
+<hr/>
+<style type="text/css">
+    body, h2 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #faqbg {
+        background-color: #666666;
+        position: absolute;
+        z-index: 99;
+        left: 0;
+        top: 0;
+        display: none;
+        width: 100%;
+        height: 450px;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+    }
+
+    #faqdiv {
+        position: absolute;
+        width: 600px;
+        left: 25%;
+        top: 30%;
+        margin-left: 0px;
+        height: 450px;
+        z-index: 100;
+        background-color: #fff;
+        border: 1px #8FA4F5 solid;
+        padding: 1px;
+    }
+
+    #faqdiv h2 {
+        height: 25px;
+        font-size: 14px;
+        background-color: #8FA4F5;
+        position: relative;
+        padding-left: 10px;
+        line-height: 25px;
+    }
+
+    #faqdiv h2 a {
+        position: absolute;
+        right: 6px;
+        font-size: 12px;
+        color: #FF0000
+    }
+
+    #faqdiv .form {
+        padding: 10px;
+    }
+</style>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $(".but").click(function () {
+            var str = "";
+            $(".form").html(str);
+            $("#faqbg").css({display: "block", height: $(document).height()});
+            var yscroll = document.documentElement.scrollTop;
+            $("#faqdiv").css("top", "100px");
+            $("#faqdiv").css("display", "block");
+            document.documentElement.scrollTop = 0;
+        });
+        $(".close").click(function () {
+            $("#faqbg").css("display", "none");
+            $("#faqdiv").css("display", "none");
+        });
+    })
+</script>
+<form action="order_search.action" method="post" id="ordersearch" name="form">
+    <div id="content">
+        <div class="i-con1 table_list" style="word-break: break-all">
+            <div class="tb-x1 resultlist">
+                <table align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>passwd</th>
+                    </tr>
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.usrName}</td>
+                        <td>${user.passwd}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

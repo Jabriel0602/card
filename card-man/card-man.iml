@@ -2,7 +2,16 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext/applicationContext-ActiveMQ-consumer.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext/applicationContext-ActiveMQ-producer.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext/applicationContext-cache.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext/applicationContext-dao.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext/applicationContext-dataSource.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext/applicationContext-service.xml</file>
+        </fileset>
+      </configuration>
     </facet>
     <facet type="web" name="Web">
       <configuration>

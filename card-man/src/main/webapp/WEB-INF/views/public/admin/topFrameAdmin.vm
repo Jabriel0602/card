@@ -1,0 +1,76 @@
+#* @vtlvariable name="loginContext" type="com.jd.common.web.LoginContext" *#
+#set($layout="layout/empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>man</title>
+    <link rel="stylesheet" type="text/css" href="$!assetModule.forPath("/pop-man/201007/skin/erpbase.css").build()"
+          media="all"/>
+    <script type="text/javascript" src="$!assetModule.forPath("/jdf/lib/jquery-1.6.4.js").build()"></script>
+    <script type="text/javascript" src="$!assetModule.forPath("/pop-man/201007/js/pop.base.js").build()"></script>
+    <style type="text/css">
+        .sysname {
+            position: absolute;
+            width: 180px;
+            top: 15px;
+            right: 0;
+            color: #EA7500;
+            font-size: 15px;
+            font-weight: bold
+        }
+
+        .sysname2 {
+            position: absolute;
+            width: 330px;
+            top: 15px;
+            right: 0;
+            color: #EA7500;
+            font-size: 15px;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+
+<body id="topframe">
+<div id="header">
+    <div class="logo">
+        <img style="width: 60%" src="/img/common/logo.png"/>
+    </div>
+    <div class="fl">
+        <div class="login-info">您好，$!loginContext.getPin()！出行频道后台管理系统!<a href="/logout" target="_top">[退出]</a>
+        </div>
+        <div class="sysname2" style="font-size: large">出行频道后台管理系统</div>
+        <span class="clr"></span>
+
+        <div id="nav">
+            <ul>
+
+                #foreach($moduleTypeEnum in $ModuleTypeEnums)
+                    #if($moduleTypeLimitsMap.get(${moduleTypeEnum.getType()}))
+                        <li><span>
+                            <a href="/leftFrame?module=${moduleTypeEnum.getCode()}"
+                               target="leftFrame">${moduleTypeEnum.getDesc()}</a>
+                        </span>
+                        </li>
+                    #end
+                #end
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (function () {
+        $("#nav li").eq(0).addClass("curr");
+        $("#nav a").bind("click", function () {
+            $("#nav .curr").removeClass("curr");
+            var index = $("#nav a").index(this);
+            $("#nav li").eq(index).addClass("curr");
+        })
+    })()
+</script>
+
+</body>
+</html>

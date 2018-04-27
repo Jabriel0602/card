@@ -1,0 +1,270 @@
+#set($title = "ICON 管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+<script src="/js/common/jquery.min.js"></script>
+
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <h3>ICON编辑</h3>
+            <input type="hidden" id="index" name="index" value="$!index"/>
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">ICON描述</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input type="text" id="desc" name="desc" value="$!{icon.desc}"
+                               size="100"
+                               maxlength="100"
+                               placeholder="输入ICON 描述"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">ICON URL</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input type="text" id="imgUrl" name="imgUrl" value="$!{icon.imgUrl}"
+                               size="100"
+                               maxlength="500"
+                               placeholder="ICON URL（格式：https://www.jd.com 或者http://www.jd.com）"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">跳转链接URL</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input type="text" id="responseUrl" name="responseUrl"
+                               value="$!{icon.responseUrl}"
+                               size="100"
+                               maxlength="500"
+                               placeholder="输入跳转链接URL（格式：https://www.jd.com 或者http://www.jd.com）"/>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">是否需要登录</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input name="flag" type="radio" value="false"
+                            #if($!icon.isLogin.equals("false"))
+                               checked="checked"
+                            #end
+                               onclick="onCheck('false')">false</input>
+                        <input name="flag" type="radio" value="true"
+                            #if($!icon.isLogin.equals("true"))
+                               checked="checked"
+                            #end
+                               onclick="onCheck('true')">true</input>
+                        <input type="hidden" id="isLogin" name="isLogin" value="$!icon.isLogin"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">Label URL</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input type="text" id="labelUrl" name="labelUrl" value="$!{icon.label}"
+                               size="100"
+                               maxlength="500"
+                               placeholder="ICON URL（格式：https://www.jd.com 或者http://www.jd.com）"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">模块</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        $!moduleDesc
+                        <input type="hidden" id="moduleCode" name="moduleCode" value="$!moduleCode">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">区域</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        $!area
+                        <input type="hidden" id="area" name="area" value="$!area">
+                    </td>
+                </tr>
+
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="button" onclick="onSubmit()" value="提交"/>&nbsp;&nbsp;
+                        <input type="button" onclick="comeback()" value="返回"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var comeback = function () {
+        document.location.href = "/icons?moduleCode=$moduleCode&area=$area";
+    }
+
+    var onSubmit = function () {
+        var desc = jQuery('input[name=desc]').val();
+        if (desc == null || jQuery.trim(desc) == '') {
+            alert('[ICON 描述]不能为空');
+            return;
+        }
+        if (desc.length > 5) {
+            alert('[ICON活动名]长度不能大于5');
+            return;
+        }
+        var imgUrl = jQuery('input[name=imgUrl]').val();
+        if (imgUrl == null || jQuery.trim(imgUrl) == '') {
+            alert('[ICON 图片URL]不能为空');
+            return;
+        }
+        if (imgUrl.length < 7 | imgUrl.length > 200) {
+            alert('[ICON 图片URL]长度必须在7与200之间');
+            return;
+        }
+        if (jQuery.trim(imgUrl).substr(0, 4) != 'http') {
+            alert('[ICON URL格式错误]');
+            return;
+        }
+
+        var responseUrl = jQuery('input[name=responseUrl]').val();
+        if (responseUrl == null || jQuery.trim(responseUrl) == '') {
+            alert('[跳转链接]不能为空');
+            return;
+        }
+        if (responseUrl.length < 7 | responseUrl.length > 200) {
+            alert('[跳转链接]长度必须在8与200之间');
+            return;
+        }
+        if (jQuery.trim(responseUrl).substr(0, 4) != 'http') {
+            alert('[跳转链接格式错误]');
+            return;
+        }
+
+        var labelUrl = jQuery('input[name=labelUrl]').val();
+        if (labelUrl != null && jQuery.trim(labelUrl) != '') {
+            if (jQuery.trim(labelUrl).substr(0, 4) != 'http') {
+                alert('[URL格式错误]');
+                return;
+            }
+            if (labelUrl.length < 7 | labelUrl.length > 200) {
+                alert('[跳转链接]长度必须在8与200之间');
+                return;
+            }
+        }
+
+
+        var moduleCode = jQuery('input[name=moduleCode]').val();
+        if (moduleCode == null || jQuery.trim(moduleCode) == '') {
+            alert('模块描述]不能为空');
+            return;
+        }
+
+        var isLogin = jQuery('input[name=isLogin]').val();
+        if (isLogin == null || jQuery.trim(isLogin) == '') {
+            alert('是否需要登陆不能为空');
+            return;
+        }
+
+        var isUpdateOperate = document.getElementById("index").value;
+        if (isUpdateOperate == null || isUpdateOperate < 0) {
+            addIcon();
+        } else {
+            updateIcon();
+        }
+    }
+
+
+    <!--添加按钮 -->
+    var addIcon = function () {
+        var desc = $.trim(document.getElementById("desc").value);
+        var imgUrl = $.trim(document.getElementById("imgUrl").value);
+        var responseUrl = $.trim(document.getElementById("responseUrl").value);
+        var labelUrl = $.trim(document.getElementById("labelUrl").value);
+        var moduleCode = $.trim(document.getElementById("moduleCode").value);
+        var area = $.trim(document.getElementById("area").value);
+        var isLogin = $.trim(document.getElementById("isLogin").value);
+
+
+        var sure = confirm("确定添加ICON？");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'POST',
+                url: '/icons',
+                data: {
+                    desc: desc,
+                    imgUrl: imgUrl,
+                    label: labelUrl,
+                    responseUrl: responseUrl,
+                    moduleCode: moduleCode,
+                    area: area,
+                    isLogin: isLogin
+                },
+                success: function (data) {
+                    if (data ==  200) {
+                        alert("添加成功");
+                        comeback();
+                        return;
+                    } else if (data == 1) {
+                        alert("该用户已存在！");
+                    } else {
+                        alert("参数错误")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--修改按钮 -->
+    var updateIcon = function () {
+        var desc = $.trim(document.getElementById("desc").value);
+        var imgUrl = $.trim(document.getElementById("imgUrl").value);
+        var responseUrl = $.trim(document.getElementById("responseUrl").value);
+        var labelUrl = $.trim(document.getElementById("labelUrl").value);
+        var moduleCode = $.trim(document.getElementById("moduleCode").value);
+        var area = $.trim(document.getElementById("area").value);
+        var isLogin = $.trim(document.getElementById("isLogin").value);
+
+        var url = '/icons/' +$!index;
+        var sure = confirm("确定修改ICON?");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'PUT',
+                url: url,
+                data: {
+                    desc: desc,
+                    imgUrl: imgUrl,
+                    responseUrl: responseUrl,
+                    label: labelUrl,
+                    moduleCode: moduleCode,
+                    area: area,
+                    isLogin: isLogin
+                },
+                success: function (data) {
+                    if (data ==  200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (data == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    var onCheck = function (flag) {
+        jQuery("#isLogin").html(flag);
+        jQuery("#isLogin").val(flag)
+    }
+</script>

@@ -1,0 +1,220 @@
+#set($layout="layout/empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>man</title>
+    <script type="text/javascript" src="$!assetModule.forPath("/jdf/lib/jquery-1.6.4.js").build()"></script>
+    <link rel="stylesheet" type="text/css" href="$!assetModule.forPath("/pop-man/201007/skin/erpbase.css").build()"
+          media="all"/>
+    <script type="text/javascript" src="$!asseModule.forPath("/jdf/lib/jquery-1.6.4.js").build()"></script>
+</head>
+
+<body id="leftframe">
+<div id="popmenu"></div>
+<div id="control" class="control"></div>
+<script type="text/javascript">
+    (function () {
+        var moduleCode = window.location.toString().match(/module=(\d+)/)[1];
+        var jdMenu = {
+            _m1: [
+//                {
+//                    href: "/adimages?moduleCode=" + moduleCode,
+//                    text: "轮播图管理",
+//                    child: []
+//                }
+//                ,
+
+                {
+                    href: "/notices?moduleCode=" + moduleCode,
+                    text: "公告管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
+                    text: "A区ICON",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
+                    text: "C区ICON",
+                    child: []
+                }
+            ],
+            _m2: [
+//                {
+//                    href: "/adimages?moduleCode=" + moduleCode,
+//                    text: "轮播图管理",
+//                    child: []
+//                }
+//                ,
+                {
+                    href: "/notices?moduleCode=" + moduleCode,
+                    text: "公告管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
+                    text: "A区ICON",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
+                    text: "C区ICON",
+                    child: []
+                }
+            ],
+            _m4: [
+//                {
+//                    href: "/adimages?moduleCode=" + moduleCode,
+//                    text: "轮播图管理",
+//                    child: []
+//                }
+//                ,
+                {
+                    href: "/notices?moduleCode=" + moduleCode,
+                    text: "公告管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
+                    text: "A区ICON",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
+                    text: "C区ICON",
+                    child: []
+                }
+
+            ],
+            _m8: [
+//                {
+//                    href: "/adimages?moduleCode=" + moduleCode,
+//                    text: "轮播图管理",
+//                    child: []
+//                }
+//                ,
+                {
+                    href: "/notices?moduleCode=" + moduleCode,
+                    text: "公告管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
+                    text: "A区ICON",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
+                    text: "C区ICON",
+                    child: []
+                }
+            ],
+            _m16: [
+
+                {
+                    href: "/adimages?moduleCode=" + moduleCode,
+                    text: "轮播图管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/icons?moduleCode=" + moduleCode+"&area=",
+                    text: "ICON管理",
+                    child: []
+                }
+            ],
+            _m32: [
+                {
+                    href: "/authoritys",
+                    text: "权限管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/configs",
+                    text: "配置管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/caches",
+                    text: "缓存管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/tasks",
+                    text: "任务管理",
+                    child: []
+                }
+            ]
+        };
+
+        var initMenu = function (obj) {
+            parent.document.getElementsByTagName('frameset')[1].cols = '169,*';
+            document.getElementById('popmenu').style.display = "";
+            document.getElementById('control').className = "control";
+            var html = "";
+            for (var i = 0; i < obj.length; i++) {
+                var css = (i == 0) ? "curr" : "";
+                html += "<dl class='" + css + "'>";
+                html += "<dt><a href='" + obj[i].href + "' target='mainFrame'>" + obj[i].text + "</a></dt>";
+                html += "</dl>";
+            }
+            document.getElementById("popmenu").innerHTML = html;
+            parent.mainFrame.location = obj[0].href;
+        }
+
+
+        switch (moduleCode) {
+            case "1":
+                initMenu(jdMenu._m1);
+                break;
+            case "2":
+                initMenu(jdMenu._m2);
+                break;
+            case "4":
+                initMenu(jdMenu._m4);
+                break;
+            case "8":
+                initMenu(jdMenu._m8);
+                break;
+            case "16":
+                initMenu(jdMenu._m16);
+                break;
+            case "32":
+                initMenu(jdMenu._m32);
+                break;
+            default:
+                initMenu(jdMenu._m1);
+                break;
+        }
+    })();
+</script>
+<script type="text/javascript">
+    (function () {
+        jQuery("#popmenu a").bind("click", function () {
+            jQuery("#popmenu .curr").removeClass("curr");
+            var index = jQuery("#popmenu a").index(this);
+            jQuery("#popmenu dl").eq(index).addClass("curr");
+        });
+        jQuery("#control").bind("click", function () {
+            parent.document.getElementsByTagName('frameset')[1].cols = (parent.document.getElementsByTagName('frameset')[1].cols == '10,*') ? '169,*' : '10,*';
+            document.getElementById('popmenu').style.display = (document.getElementById('popmenu').style.display == 'none') ? '' : 'none';
+            document.getElementById('control').className = (document.getElementById('control').className == 'control') ? 'control switch' : 'control';
+        });
+    })()
+</script>
+</body>
+</html>

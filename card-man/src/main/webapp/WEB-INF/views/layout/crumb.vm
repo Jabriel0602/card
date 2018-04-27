@@ -1,0 +1,11 @@
+#* @vtlvariable name="thirdNavigate" type="java.util.List<java.lang.String>" *#
+#* @vtlvariable name="title" type="java.lang.String" *#
+#* @vtlvariable name="tableIndex" type="java.lang.Integer" *#
+<div id="posi">
+    <div>您当前的位置：
+        <a target="leftFrame" href="#">#if($!tableIndex==1)配置管理#{else}其它#end</a>
+        #if($thirdNavigate && $thirdNavigate.size() ==2)
+            &nbsp;&gt;&nbsp; <a href="${thirdNavigate.get(0)}">${thirdNavigate.get(1)}</a>
+        #end
+        &nbsp;&gt;&nbsp;$!{title}</div>
+</div>

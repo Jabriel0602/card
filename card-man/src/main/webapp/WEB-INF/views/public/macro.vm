@@ -1,0 +1,315 @@
+#macro(showSimpleError)
+    #if(!$!actionErrors.empty)
+        #foreach($str in $actionErrors)
+            $!str
+            #break
+        #end
+    #end
+#end
+
+#macro(taskView $Scheduler $model)
+<td>
+    #if($Scheduler.isStart==1)
+        <span style="color:green">启动</span>
+    #elseif($Scheduler.isStart==0)
+        <span style="color:red">停止</span>
+    #end
+</td>
+<td>
+    #if($Scheduler.isStart==1)
+        <a href="$homeModule.forPath("/worker/handler?status=stop&model=$model&jobTask=$Scheduler.key").build()">停止</a>
+    #elseif($Scheduler.isStart==0)
+        <a href="$homeModule.forPath("/worker/handler?status=start&model=$model&jobTask=$Scheduler.key").build()">启动</a>
+    #end
+</td>
+<td>
+    <a href="$homeModule.forPath("/worker/once?quartzBeanId=$Scheduler.triggerName&type=worker&model=$model").build()"
+       onclick="return checkConfirm();">执行</a>
+</td>
+<td>
+    $Scheduler.cronExpression
+</td>
+<td>
+    $Scheduler.key：$Scheduler.triggerName
+</td>
+<td>默认不随容器一同启动</td>
+#end
+#* @vtlvariable name="page" type="com.jd.common.util.base.PaginatedArrayList" *#
+#macro (showPage $module $page)
+    #if($page)
+        #set($pagePos = 2) ##当前页的尾巴长度
+    <em>共$!{page.totalItem}条</em>
+    <em>$!{page.pageSize}条/页</em>
+    <em>共$!{page.totalPage}页</em>
+        #if($!page.index>1)
+        <em>当前第$!{page.index}页</em>
+        #end
+
+        #if($page.previousPageAvailable) ##如果能向上翻页
+        <a class="prev" href="$module.put("pageIndex",1).build()">首页</a>
+        <a class="prev" href="$module.put("pageIndex",$!{page.previousPage}).build()">上一页<b></b></a>
+        #else
+        <span class="prev-disabled">首页</span>
+        <span class="prev-disabled">上一页<b></b></span>
+        #end
+
+        #foreach($i in [$pagePos..1]) ##增加前面的尾巴
+            #if($!page.index - $i > 1)
+                #set($pageIndex= $!page.index - $i)
+            <a href="$module.put("pageIndex",$pageIndex).build()">$pageIndex</a>
+            #end
+        #end
+    <a class="current">$!page.index</a> ##显示当前页号
+        #foreach($i in [1..$pagePos]) ##增加后面的尾巴
+            #if($!page.totalPage - $!page.index - $i > 0)
+                #set($pageIndex= $!page.index + $!i)
+            <a href="$module.put("pageIndex",$pageIndex).build()">$pageIndex</a>
+            #end
+        #end
+        #if($!page.totalPage - $!page.index > $pagePos+1) <span class="text">...</span> #end ##显示后面的省略号
+        #if($page.nextPageAvailable) ##显示后面的页
+        <a class="next" href="$module.put("pageIndex",$!{page.nextPage}).build()">下一页<b></b></a>
+        <a class="next" href="$module.put("pageIndex",$!{page.totalPage}).build()">末页</a>
+        #else
+        <span class="next-disabled">下一页<b></b></span>
+        <span class="next-disabled">末页</span>
+        #end
+    #end
+#end
+
+#* 支付类型 *#
+#macro(showPayType $selectedValue)
+    #foreach($i in [1,2,3,4,5,6,7,8,9,10,11,16,17,18,19,32,33,34,35,64,65])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showPayTypeName($i)</option>
+    #end
+#end
+
+#macro(showPayTypeName $status)
+    #if($status==1) 在线支付
+    #elseif($status==2) 余额支付
+    #elseif($status==3) 在线+余额
+    #elseif($status==4) 全品京券
+    #elseif($status==5) 在线+全品京券
+    #elseif($status==6) 余额+全品京券
+    #elseif($status==7) 在线+余额+全品京券
+    #elseif($status==8) 全品东券
+    #elseif($status==9) 在线+全品东券
+    #elseif($status==10) 余额+全品东券
+    #elseif($status==11) 在线+余额+全品东券
+    #elseif($status==16) 限品京券
+    #elseif($status==17) 在线+限品京券
+    #elseif($status==18) 余额+限品京券
+    #elseif($status==19) 在线+余额+限品京券
+    #elseif($status==32) 限品东券
+    #elseif($status==33) 在线+限品东券
+    #elseif($status==34) 余额+限品东券
+    #elseif($status==35) 在线+余额+限品东券
+    #elseif($status==64) 京豆支付
+    #elseif($status==65) 在线+京豆
+    #end
+#end
+
+
+#*圈存订单状态*#
+#macro(showCPULoadStatus $selectedValue)
+    #foreach($i in [0,1,2,3,4,5,6,7,8,9,10])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showCPULoadOrderStatusName($i)</option>
+    #end
+#end
+
+#macro(showCPULoadOrderStatusName $status)
+    #if($status==0) 已申请圈存
+    #elseif($status==1) 失败，状态仅到步骤1
+    #elseif($status==2) 失败，状态仅到步骤2
+    #elseif($status==3) 失败，状态仅到步骤3
+    #elseif($status==4) 失败，状态仅到步骤4
+    #elseif($status==5) 圈存成功
+    #elseif($status==6) 圈存失败，可投诉
+    #elseif($status==7) 圈存失败,已插入投诉任务
+    #elseif($status==8) 圈存失败,反馈中
+    #elseif($status==9) 圈存失败,反馈成功
+    #elseif($status==10) 圈存失败,反馈驳回
+    #end
+#end
+
+#* 订单状态 *#
+#macro(showStatus $selectedValue)
+    #foreach($i in [600,602,700,701,702,703,704,705,706,800,801,802,803,804,400,401,900,905,901,902,903,904])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showOrderStatusName($i)</option>
+    #end
+#end
+
+#macro(showOrderStatusName $status)
+    #if($status==600) 下单成功->待支付
+    #elseif($status==602) 下单成功->支付成功->待远程生单
+    #elseif($status==700) 下单成功->支付成功->生单失败->待退款
+    #elseif($status==701) 下单成功->支付成功->生单失败->待退款反馈
+    #elseif($status==702) 下单成功->支付成功->生单失败->退款成功
+    #elseif($status==703) 下单成功->支付成功->生单失败->退款失败
+    #elseif($status==704) 下单成功->支付成功->生单失败->退款驳回
+    #elseif($status==705) 下单成功->支付成功->生单成功->待通知
+    #elseif($status==706) 下单成功->支付成功->生单成功->支付成功通知完成
+    #elseif($status==800) 下单成功->支付成功->生单成功->支付成功通知失败
+    #elseif($status==801) 下单成功->支付成功->生单成功->支付成功通知失败
+    #elseif($status==802) 下单成功->支付成功->生单成功->支付成功通知失败->退款成功
+    #elseif($status==803) 下单成功->支付成功->生单成功->支付成功通知失败->退款失败
+    #elseif($status==804) 下单成功->支付成功->生单成功->支付成功通知失败->退款驳回
+    #elseif($status==900) 订单完成->已推商家退款
+    #elseif($status==905) 订单完成->申请退款拒绝(余额不足)
+    #elseif($status==901) 订单完成->已推商家退款->商家处理成功
+    #elseif($status==902) 订单完成->已推商家退款->商家处理成功->待退款反馈
+    #elseif($status==903) 订单完成->已推商家退款->商家处理成功->退款成功
+    #elseif($status==904) 订单完成->已推商家退款->商家处理成功->退款失败
+
+    #elseif($status==400) 下单成功->待支付->用户消单
+    #elseif($status==401) 下单成功->待支付->系统消单
+    #end
+#end
+
+#* 支付状态 *#
+#macro(showOrderStatus $selectedValue)
+    #foreach($i in [0,1,2,3,10,11])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showOrderStatusName($i)</option>
+    #end
+#end
+
+#* 表格列元素<td>限制显示内容长度 *#
+#macro(showTDLimitLength $value $length)
+    #if(!$value)
+    <td></td>
+    #elseif($value && $value.length() > $length)
+    <td title="$value">$value.substring(0,$length)..</td>
+    #else
+    <td title="$value">$value</td>
+    #end
+#end
+
+#* YN(数据是否有效)*#
+#macro(showOrderYn $selectedValue)
+    #foreach($i in [0,1])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showYnName($i)</option>
+    #end
+#end
+#macro(showYnName $status)
+    #if($status==0) 无效
+    #elseif($status==1) 有效
+    #end
+#end
+
+#*结算状态*#
+#macro(showFinaStatus $selectedValue)
+    #foreach($i in [0,1])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showFinaStatusName($i)</option>
+    #end
+#end
+#macro(showFinaStatusName $status)
+    #if($status==0) 未结算
+    #elseif($status==1) 已结算
+    #end
+#end
+
+#*退款状态*#
+#macro(showRefundStatus $selectedValue)
+    #foreach($i in [0,1,2,3])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showRefundStatusName($i)</option>
+    #end
+#end
+#macro(showRefundStatusName $status)
+    #if($status==0) 退款成功
+    #elseif($status==1) 退款失败
+    #elseif($status==2) 初始化
+    #elseif($status==3) 已经向网关申请退款
+    #end
+#end
+###退款类型#
+#macro(showRefundType $selectedValue)
+    #foreach($i in [0,3,5,6])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showRefundTypeName($i)</option>
+    #end
+#end
+#macro(showRefundTypeName $status)
+    #if($status==0) 整单退款
+    #elseif($status==3) 取消订单
+    #elseif($status==5) 取消订单，退还在线支付部分
+    #elseif($status==6) 售后整单退款
+    #end
+#end
+
+#*订单来源*#
+#macro(showOrderSource $selectedValue)
+    #foreach($i in [1,2,3,4])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showOrderSourceName($i)</option>
+    #end
+#end
+#macro(showOrderSourceName $status)
+    #if($status==1) 网站
+    #elseif($status==2) 移动端
+    #elseif($status==3) Onebox
+    #elseif($status==4) 金融app
+    #end
+#end
+
+#* 任务重试策略 *#
+#macro(showTaskRetryStrategy $selectedValue)
+    #foreach($i in [1,2,3])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showTaskRetryStrategyName($i)</option>
+    #end
+#end
+
+#macro(showTaskRetryStrategyName $status)
+    #if($status==1) 等时间间隔
+    #elseif($status==2) 增长时间间隔
+    #elseif($status==3) 指数时间间隔
+    #end
+#end
+
+#* 任务类型*#
+#macro(showTaskType $selectedValue)
+    #foreach($i in [11,12,13,14,10,15,16,17,18])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showTaskTypeName($i)</option>
+    #end
+#end
+
+#macro(showTaskTypeName $status)
+    #if($status==11) 充值消息
+    #elseif($status==12) 退款消息
+    #elseif($status==13) 短信通知
+    #elseif($status==14) 订单中间件通知
+    #elseif($status==10) 生单消息
+    #elseif($status==15) 逆向结算消息
+    #elseif($status==16) 通知商家退款消息
+    #elseif($status==17) 圈存查询
+    #elseif($status==18) 圈存投诉申请
+    #end
+#end
+
+#* 任务状态*#
+#macro(showExecuteStatus $selectedValue)
+    #foreach($i in [0,1,2,3])
+    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showExecuteStatusName($i)</option>
+    #end
+#end
+
+#macro(showExecuteStatusName $status)
+    #if($status==0) 初始化
+    #elseif($status==1) 已发送
+    #elseif($status==2) 执行成功
+    #elseif($status==3) 执行失败
+    #end
+#end
+
+#*权限管理*#
+###macro(showAuthoritySource $selectedValue)
+##    #foreach($i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31])
+##    <option value="$i" #if($selectedValue==$i)selected="selected" #end >#showAuthoritySourceName($i)</option>
+##    #end
+###end
+###macro(showAuthoritySourceName $status)
+##    #if($status==61)超级管理员
+##    #else $status
+##    #end
+
+
+###end
+
+

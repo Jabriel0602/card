@@ -1,0 +1,176 @@
+#set($title = "权限编辑")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" charset="gbk"
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+<script src="/js/common/jquery.min.js"></script>
+<script type="text/javascript" src="/js/timepicker/jquery-ui.min.js"></script>
+
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <h3>权限编辑</h3>
+            <input type="hidden" id="index" name="index" value="$!{index}"/>
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">ERP账号</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        <input type="text" id="userCode" name="userCode" value="$!{authority.userCode}"
+                               size="100"
+                               maxlength="100"
+                               placeholder="ERP账号"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">模块操作权限</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        #foreach($moduleTypeEnum in $ModuleTypeEnums)
+                            ${moduleTypeEnum.getDesc()}:
+                            <input type="checkbox" name="moduleTypeFlag"
+                                   value="${moduleTypeEnum.getCode()}"
+                                #if(${moduleTypeLimitsMap.get(${moduleTypeEnum.getType()})})
+                                   checked="checked"
+                                #end
+                                   onclick="check1()"/>
+                            <br/>
+                        #end
+                        模块权限值:<input type="button" id="moduleTypeLimits" value="$!{authority.moduleTypeLimits}"></input>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">方法操作权限</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        #foreach($methodTypeEnum in $MethodTypeEnums)
+                            ${methodTypeEnum.getDesc()}:
+                            <input type="checkbox" name="methodTypeFlag"
+                                   value="${methodTypeEnum.getCode()}"
+                                #if(${methodTypeLimitsMap.get(${methodTypeEnum.getType()})})
+                                   checked="checked"
+                                #end
+                                   onclick="check2()"/>
+                            <br/>
+                        #end
+                        方法权限值:<input type="button" id="methodTypeLimits" value="$!{authority.methodTypeLimits}"></input>
+                    </td>
+                </tr>
+                <input type="hidden" id="createTime" value="$!{authority.createTime}"/>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" onclick="submit()" value="提交"/>&nbsp;&nbsp;
+                        <input type="button" onclick="comeback()" value="返回"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var check1 = function () {
+        var totalallModule = 0;
+        $("[name='moduleTypeFlag']:checked").each(function () {
+            totalallModule = totalallModule + parseInt($(this).val());
+        });
+        jQuery("#moduleTypeLimits").html(totalallModule);
+        jQuery("#moduleTypeLimits").val(totalallModule);
+    }
+    var check2 = function () {
+        var totalallMethod = 0;
+
+        $("[name='methodTypeFlag']:checked").each(function () {
+            totalallMethod = totalallMethod + parseInt($(this).val());
+        });
+        jQuery("#methodTypeLimits").html(totalallMethod);
+        jQuery("#methodTypeLimits").val(totalallMethod);
+    }
+
+    var submit = function () {
+        var isUpdateOperate = document.getElementById("index").value;
+        if (isUpdateOperate == null || isUpdateOperate < 0) {
+            addUser();
+        } else {
+            updateUser();
+        }
+    }
+
+    var comeback = function () {
+        document.location.href = "/authoritys";
+    }
+
+    <!--添加按钮 -->
+    var addUser = function () {
+        var userCode = document.getElementById("userCode").value;
+        var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
+        var methodTypeLimits = document.getElementById("methodTypeLimits").value;
+
+        if (userCode == null || userCode == "") {
+            alert("用户ERP帐号不能为空！");
+            return;
+        }
+        var sure = confirm("确定添加管理员？");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'POST',
+                url: "$!homeModule.forPath('/authoritys').build()",
+                data: {moduleTypeLimits: moduleTypeLimits, methodTypeLimits: methodTypeLimits, userCode: userCode},
+                success: function (data) {
+                    if (data == 200) {
+                        alert("添加成功");
+                        comeback();
+                        return;
+                    } else if (data == 1) {
+                        alert("用户已存在");
+                    } else {
+                        alert("参数错误")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--修改按钮 -->
+    var updateUser = function () {
+        var userCode = document.getElementById("userCode").value;
+        var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
+        var methodTypeLimits = document.getElementById("methodTypeLimits").value;
+        var createTime = document.getElementById("createTime").value;
+
+        if (userCode == null || userCode == "") {
+            alert("用户ERP帐号不能为空！");
+            return;
+        }
+        var url = '/authoritys/' +$!index;
+        var sure = confirm("确定修改管理员？");
+        if (sure == true) {
+            jQuery.ajax({
+                type: 'PUT',
+                url: url,
+                data: {moduleTypeLimits: moduleTypeLimits, methodTypeLimits: methodTypeLimits, userCode: userCode},
+                success: function (data) {
+                    if (data ==  200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (data == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+</script>

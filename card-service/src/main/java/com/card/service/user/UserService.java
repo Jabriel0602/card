@@ -1,6 +1,9 @@
 package com.card.service.user;
 
 import java.util.List;
+import java.util.Map;
+
+import com.card.domain.MethodTypeEnum;
 import com.card.domain.user.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +21,26 @@ public interface UserService{
     User getUser(Long userId);
 
     User getUserByNameAndPassWord(String userName,String password);
+
+    User getCurrentUser();
+
+    /**
+     * 根据当前环境的ERP账号,获取方法权限
+     *
+     * @param
+     * @return
+     */
+    Boolean getMethodTypeLimitByCurrentUser(MethodTypeEnum methodTypeEnum);
+
+    /**
+     * 获取指定用户 Tab栏的权限 map
+     */
+    Map<String, Boolean> getModuleTypeLimitsMap(User user);
+
+    /**
+     * 获取指定用户 方法的权限 map
+     */
+    Map<String, Boolean> getMethodTypeLimitsMap(User user);
+
 
 }

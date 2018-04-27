@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:amq="http://www.springframework.org/schema/c" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <amq:connectionFactory id="amqConnectionFactory"
+                           brokerURL="tcp://localhost:61616"
+                           userName="admin"
+                           password="admin"/>
+
+    <!-- 配置JMS连接工长 -->
+    <bean id="connectionFactory"
+          class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory"/>
+        <property name="sessionCacheSize" value="100"/>
+    </bean>
+
+    <!--目的地，其实就是连接到哪个队列，如果是点对点，那么它的实现是Queue，如果是订阅模式，那它的实现是Topic-->
+    <!-- 定义消息队列（Queue） -->
+    <bean id="defaultQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 设置消息队列的名字 -->
+        <constructor-arg>
+            <value>Card-Task-Queue</value>
+        </constructor-arg>
+    </bean>
+
+    <!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="receiveTimeout" value="10000"/>
+        <!-- true是topic，false是queue，默认是false，此处显示写出false -->
+        <property name="pubSubDomain" value="false"/>
+    </bean>
+
+    <util:map id="queueMap" value-type="org.apache.activemq.command.ActiveMQQueue">
+        <entry key="${confirmQueue}" value-ref="confirmQueue" />
+        <entry key="${createOrderQueue}" value-ref="createOrderQueue" />
+        <entry key="${rechargeQueue}" value-ref="rechargeQueue" />
+        <entry key="${refundQueue}" value-ref="refundQueue" />
+    </util:map>
+
+    <!--对账消息队列-->
+    <bean id="confirmQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 设置消息队列的名字 -->
+        <constructor-arg>
+            <value>${confirmQueue}</value>
+        </constructor-arg>
+    </bean>
+
+    <!--生单消息队列-->
+    <bean id="createOrderQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg>
+            <value>${createOrderQueue}</value>
+        </constructor-arg>
+    </bean>
+
+    <!--充值消息队列-->
+    <bean id="rechargeQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg>
+            <value>${rechargeQueue}</value>
+        </constructor-arg>
+    </bean>
+
+    <!--退款消息队列-->
+    <bean id="refundQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg>
+            <value>${refundQueue}</value>
+        </constructor-arg>
+    </bean>
+
+</beans>

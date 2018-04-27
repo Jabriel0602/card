@@ -1,0 +1,79 @@
+#set($title = "配置管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <th>序号</th>
+                    <th>key</th>
+                    <th>value</th>
+                    <th>创建时间</th>
+                    <th>修改时间</th>
+                    <th>操作人</th>
+                    <th>操作</th>
+                </tr>
+                #if($configList && $configList.size() > 0)
+                    #foreach($config in $configList)
+                        <tr>
+                            #set($count=$velocityCount)
+                            #set($index = $count - 1)
+                            <td>$!{count}</td>
+                            <td>$!{config.keyDesc}</td>
+                            <td>$!{config.value}</td>
+                            <td>$!{config.createTime}</td>
+                            <td>$!{config.modifyTime}</td>
+                            <td>$!{config.operator}</td>
+                            <td>
+                                #if($configAuthorityFlag)
+                                    <a href="/configs/$!index">修改</a>
+                                #else
+                                    <label style="text-align: center;color: #FF0000">无权限修改</label>
+                                #end
+                            </td>
+                        </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="9">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+            #if($configAuthorityFlag)
+                <td><a href="/configs/-1"><input type="button" value="添加配置+"/></a></td>
+            #else
+                <label style="text-align: center;color: #FF0000">无添加权限</label>
+            #end
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    var delConfig = function (index) {
+        var index = $.trim(index);
+        var tip = "确认删除这条配置吗？";
+        var url = '/configs/' + index
+        if (window.confirm(tip)) {
+            jQuery.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (data) {
+                    if (data > 0) {
+                        alert("操作成功");
+                    } else if (data < 0) {
+                        alert("模块不存在");
+                    } else {
+                        alert("您删除的信息不存在")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了！");
+                }
+            })
+        }
+    }
+</script>

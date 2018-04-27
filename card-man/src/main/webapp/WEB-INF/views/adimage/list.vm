@@ -1,0 +1,201 @@
+#set($title = "轮播图管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <th width="4%">序号</th>
+                    <th width="6%">渠道</th>
+                    <th width="7%">权重</th>
+                    <th width="8%">轮播描述</th>
+                    <th width="15%">广告图</th>
+                    <th width="13%">创建及修改时间</th>
+                    <th width="13%">上下线时间</th>
+                    <th width="10%">操作人</th>
+                    <th width="6%">启用状态</th>
+                    <th width="6%">发布状态</th>
+                    <th width="12%">操作</th>
+                </tr>
+                #if($adImageList && $adImageList.size() > 0)
+                    #foreach($adImage in $adImageList)
+                        <tr>
+                            #set($count=$velocityCount)
+                            #set($index = $count - 1)
+                            <td>$!{count}</td>
+                            <td>$!{moduleDesc}</td>
+                            <td>
+                                <input name="adImageWeight$index" type="number" id="adImageWeight$index" style="width:90%"
+                                       value="$adImage.weight"
+                                       onchange="updateAdImageWeight('$index','$moduleCode',jQuery('#adImageWeight$index').val())"
+                                       />
+                            </td>
+                            <td>$!{adImage.desc}</td>
+                            <td>
+                                <a target="_blank" href="$!{adImage.responseUrl}">
+                                    <img width="90%" src="$!{adImage.imgUrl}"/>
+                            </td>
+                            <td>创:$!{adImage.createdTime}<br>
+                                修:$!{adImage.modifiedTime}
+                            </td>
+                            <td>起:$!{adImage.startTime}<br>
+                                止:$!{adImage.endTime}</td>
+                            <td>$!{adImage.operator}</td>
+                            <td>
+                                #if($!{adImage.putOn})
+                                    <label style="text-align: center;color:#35FF1B">启用</label>
+                                #else
+                                    <label style="text-align: center;color:#FF0000">停用</label>
+                                #end
+                            </td>
+                            <td>
+                                #if($!{adImage.releaseStatus})
+                                    <label style="text-align: center;color:#35FF1B">已发布</label>
+                                #else
+                                    <label style="text-align: center;color:#FF0000">未发布</label>
+                                #end
+                            </td>
+                            <td>
+                                #if($!{adimageAuthorityFlag})
+                                    #if($!{adImage.putOn})
+                                        <input type="button" value="停用"
+                                               onclick="updateAdImageSwitch($!index,$!moduleCode,false)"/>
+                                    #else
+                                        <input type="button" value="启用"
+                                               onclick="updateAdImageSwitch($!index,$!moduleCode,true)"/>
+                                    #end&nbsp;
+                                    <a href="/adimages/$!index?moduleCode=$moduleCode"> <input type="button" value="修改"></a>&nbsp;&nbsp;
+                                    <input type="button" value="删除" onclick="delAdImage($!moduleCode,$!index)"/>
+                                #else
+                                    <label style="text-align: center;color: #FF0000">无修改权限</label>
+                                #end
+                            </td>
+                        </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="11">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+            #if($!{adimageAuthorityFlag})
+                #if($adImageList.size()<20)
+                    <td><a href="/adimages/-1?moduleCode=$moduleCode"><input type="button" value="添加轮播图+"/></td>
+                #else
+                    <label style="text-align: center;color: #FF0000">最多只能添加20个轮播图</label>
+                #end
+            #else
+                <label style="text-align: center;color: #FF0000">无添加权限</label>
+            #end
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var comeback = function () {
+        document.location.href = "/adimages?moduleCode=$moduleCode";
+    }
+
+    var delAdImage = function (moduleCode, index) {
+        var moduleCode = $.trim(moduleCode);
+        var index = $.trim(index);
+        var tip = "确认删除此轮播图吗？";
+        var url = '/adimages/' + index + '/?moduleCode=' + moduleCode;
+        if (window.confirm(tip)) {
+            jQuery.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (data) {
+                    if (data > 0) {
+                        alert("操作成功");
+                    } else if (data < 0) {
+                        alert("模块不存在");
+                    } else {
+                        alert("您删除的信息不存在")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了！");
+                }
+            })
+        }
+    }
+
+
+    <!--停用启用 -->
+    var updateAdImageSwitch = function (index, moduleCode, putOnStatus) {
+        var url = '/adimages/' + index +'/putOn';
+        var sure = confirm("确定修改轮播图？");
+        if (sure == true) {
+            jQuery.ajax({
+                url: url,
+                type: 'PATCH',
+                data: {
+                    putOn: putOnStatus,
+                    moduleCode: moduleCode
+                },
+                success: function (data) {
+                    if (data == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (data == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--权重 -->
+    var updateAdImageWeight = function (index, moduleCode, weight) {
+        if(weight==''){
+            alert("权重不能为空")
+            comeback();
+            return;
+        }
+        if (weight < -500 || weight > 500) {
+            alert('权重范围应为[-500至500]');
+            comeback();
+            return;
+        }
+        var url = '/adimages/' + index +'/weight';
+        var sure = confirm("确定修改轮播图？");
+        if (sure == true) {
+            jQuery.ajax({
+                url: url,
+                type: 'PATCH',
+                data: {
+                    weight: weight,
+                    moduleCode: moduleCode
+                },
+                success: function (data) {
+                    if (data == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (data == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }else {
+            comeback();
+            return;
+        }
+    }
+</script>

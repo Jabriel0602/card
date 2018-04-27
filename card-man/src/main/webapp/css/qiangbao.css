@@ -1,0 +1,256 @@
+.qiangbao-wrap {
+  font-family: Microsoft YaHei;
+  width: 1048px;
+  margin: 100px auto;
+  background: #fff;
+  padding-right: 20px; }
+  .qiangbao-wrap .colore51c3d {
+    color: #e51c3d; }
+  .qiangbao-wrap .color47a6e6 {
+    color: #47a6e6; }
+  .qiangbao-wrap .color4fb920 {
+    color: #4fb920; }
+  .qiangbao-wrap a {
+    text-decoration: none; }
+  .qiangbao-wrap .qb-title {
+    color: #949494;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #7c7c7e; }
+    .qiangbao-wrap .qb-title a {
+      float: right;
+      color: #4aa7ea;
+      font-size: 12px;
+      font-weight: normal;
+      margin-top: 8px; }
+  .qiangbao-wrap .qb-search {
+    padding-top: 20px;
+    height: 50px;
+    border: 1px solid #dadada;
+    border-top: 0;
+    margin-bottom: 10px; }
+    .qiangbao-wrap .qb-search .infor {
+      float: left;
+      width: 231px;
+      padding-top: 1px; }
+      .qiangbao-wrap .qb-search .infor span {
+        width: 61px;
+        line-height: 28px;
+        color: #818181;
+        float: left;
+        text-align: right;
+        padding-right: 5px; }
+      .qiangbao-wrap .qb-search .infor input {
+        padding-left: 5px;
+        height: 26px;
+        line-height: 26px;
+        width: 155px;
+        float: left;
+        border: 1px solid #d8d8d8; }
+      .qiangbao-wrap .qb-search .infor.infor-wrong input {
+        color: #ec2a41;
+        border: 1px solid #ec2a41; }
+      .qiangbao-wrap .qb-search .infor.infor-select {
+        width: 168px; }
+        .qiangbao-wrap .qb-search .infor.infor-select select {
+          width: 100px;
+          border: 1px solid #d8d8d8;
+          height: 26px;
+          line-height: 26px; }
+    .qiangbao-wrap .qb-search .qb-btn {
+      padding-left: 50px;
+      height: 30px;
+      float: left; }
+      .qiangbao-wrap .qb-search .qb-btn a {
+        width: 75px;
+        height: 28px;
+        background: #48a7e7;
+        float: left;
+        margin-right: 20px;
+        display: inline;
+        line-height: 28px;
+        text-align: center;
+        color: #fff;
+        border: 1px solid #48a7e7;
+        border-radius: 5px; }
+        .qiangbao-wrap .qb-search .qb-btn a.qb-btn-gray {
+          background: none;
+          border: 1px solid #c7c7c7;
+          color: #343434; }
+        .qiangbao-wrap .qb-search .qb-btn a:hover {
+          text-decoration: none; }
+  .qiangbao-wrap .qb-list {
+    padding-bottom: 10px; }
+    .qiangbao-wrap .qb-list .qb-table {
+      width: 1048px;
+      border: 1px solid #d7d7d7;
+      border-bottom: 0; }
+      .qiangbao-wrap .qb-list .qb-table tr:hover {
+        background: #f6f6f6; }
+      .qiangbao-wrap .qb-list .qb-table th {
+        text-align: center;
+        height: 32px;
+        line-height: 32px;
+        color: #818181;
+        background: #ebebeb;
+        border-bottom: 1px solid #d7d7d7; }
+      .qiangbao-wrap .qb-list .qb-table td {
+        text-align: center;
+        border-bottom: 1px solid #d7d7d7;
+        height: 60px;
+        color: #333; }
+    .qiangbao-wrap .qb-list .no-result {
+      padding: 39px 0 45px 0;
+      border: 1px solid #d7d7d7;
+      border-top: 0;
+      line-height: 68px;
+      font-size: 16px;
+      color: #333;
+      font-family: Microsoft YaHei;
+      padding-left: 476px;
+      background: url(i/no-result.gif) 387px 39px no-repeat; }
+      .qiangbao-wrap .qb-list .no-result.no-result2 {
+        background: url(i/no-result.gif) 315px 39px no-repeat;
+        padding-left: 417px; }
+  .qiangbao-wrap .qb-query-result {
+    height: 63px;
+    line-height: 62px;
+    padding-left: 3px;
+    font-size: 16px;
+    color: #333; }
+    .qiangbao-wrap .qb-query-result a, .qiangbao-wrap .qb-query-result span {
+      color: #e51c3d; }
+
+.qiangbao-alert {
+  width: 600px;
+  height: 400px;
+  background: #fff;
+  border: 1px solid #c4c4c4;
+  position: absolute;
+  left: 40%;
+  margin-left: -214px;
+  top: 40%;
+  margin-top: -100px; }
+  .qiangbao-alert .qba-title {
+    height: 31px;
+    line-height: 30px;
+    background: #f5f5f5;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    padding-left: 30px; }
+    .qiangbao-alert .qba-title .close {
+      float: right;
+      background: url(i/qba-close.gif) 0 0 no-repeat;
+      width: 21px;
+      height: 21px;
+      margin: 4px 10px 0 0;
+      display: inline; }
+  .qiangbao-alert .qba-con {
+    padding-left: 60px; }
+    .qiangbao-alert .qba-con .status {
+      padding-top: 7px;
+      line-height: 44px;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold; }
+    .qiangbao-alert .qba-con .infor-wrap {
+      padding-bottom: 15px; }
+      .qiangbao-alert .qba-con .infor-wrap .infor {
+        padding-bottom: 8px;
+        height: 22px;
+        line-height: 22px; }
+        .qiangbao-alert .qba-con .infor-wrap .infor select {
+          width: 162px;
+          height: 20px;
+          border: 1px solid #c2c2c2; }
+        .qiangbao-alert .qba-con .infor-wrap .infor input {
+          float: left;
+          width: 155px;
+          height: 20px;
+          line-height: 20px;
+          border: 1px solid #c2c2c2;
+          padding-left: 5px; }
+        .qiangbao-alert .qba-con .infor-wrap .infor span {
+          float: left;
+          width: 64px; }
+        .qiangbao-alert .qba-con .infor-wrap .infor em {
+          float: left;
+          color: #e51c3d;
+          padding-left: 9px;
+          display: none;
+          font-style: normal; }
+        .qiangbao-alert .qba-con .infor-wrap .infor.infor-wrong input {
+          border: 1px solid #e51c3d;
+          color: #e51c3d; }
+        .qiangbao-alert .qba-con .infor-wrap .infor.infor-wrong em {
+          display: block; }
+  .qiangbao-alert .qba-btn {
+    text-align: right;
+    padding-right: 30px; }
+    .qiangbao-alert .qba-btn a {
+      display: inline-block;
+      width: 75px;
+      line-height: 22px;
+      height: 23px;
+      text-align: center;
+      color: #333;
+      border: 1px solid #b7b7b7;
+      border-radius: 3px; }
+      .qiangbao-alert .qba-btn a:hover {
+        text-decoration: none; }
+      .qiangbao-alert .qba-btn a.doing {
+        color: #a7a7a7;
+        background: #f3f3f3;
+        cursor: default; }
+  .qiangbao-alert.qiangbao-alert-details .qba-con {
+    padding-left: 114px; }
+    .qiangbao-alert.qiangbao-alert-details .qba-con .status {
+      padding-top: 27px;
+      line-height: 36px; }
+    .qiangbao-alert.qiangbao-alert-details .qba-con .infor {
+      height: 20px;
+      line-height: 20px;
+      padding-bottom: 0;
+      color: #333; }
+  .qiangbao-alert.qiangbao-alert-add-stock .add-stock-fail {
+    padding: 58px 0 40px 147px;
+    height: 28px;
+    line-height: 28px;
+    color: #333;
+    font-weight: bold;
+    background: url(i/qba-add-fail.gif) 102px 58px no-repeat; }
+  .qiangbao-alert.qiangbao-alert-add-stock .add-stock-succ {
+    padding: 58px 0 40px 147px;
+    height: 28px;
+    line-height: 28px;
+    color: #333;
+    font-weight: bold;
+    background: url(i/qba-add-succ.gif) 102px 58px no-repeat; }
+  .qiangbao-alert.qiangbao-alert-add-stock .add-stock {
+    padding-left: 60px; }
+    .qiangbao-alert.qiangbao-alert-add-stock .add-stock .project {
+      padding-top: 7px;
+      line-height: 44px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333; }
+      .qiangbao-alert.qiangbao-alert-add-stock .add-stock .project em {
+        font-style: normal; }
+    .qiangbao-alert.qiangbao-alert-add-stock .add-stock .upload {
+      overflow: hidden; }
+      .qiangbao-alert.qiangbao-alert-add-stock .add-stock .upload .title {
+        float: left;
+        width: 76px;
+        color: #333; }
+      .qiangbao-alert.qiangbao-alert-add-stock .add-stock .upload .upload-con {
+        float: left;
+        width: 236px; }
+        .qiangbao-alert.qiangbao-alert-add-stock .add-stock .upload .upload-con .file span {
+          display: block;
+          line-height: 24px; }
+      .qiangbao-alert.qiangbao-alert-add-stock .add-stock .upload .file-tips {
+        line-height: 16px;
+        color: #909090; }

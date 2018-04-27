@@ -1,0 +1,18 @@
+#* @vtlvariable name="returnUrl" type="java.lang.String" *#
+#* @vtlvariable name="loginUrl" type="java.lang.String" *#
+#* @vtlvariable name="pin" type="java.lang.String" *#
+#* @vtlvariable name="passwd" type="java.lang.String" *#
+#set($title="请登录")
+<h2>请登录。。</h2>
+
+<a href="$!{loginUrl}" target="_top">您还可以来这里登录</a> / <a href="$!homeModule.forPath("/index").build()">返回首页</a>
+<p>&nbsp;</p>
+<div style="margin-left:20px">
+    <form action="$!homeModule.forPath("/doLogin").build()" method="post">
+        <input type="hidden" name="returnUrl" value="$!{stringEscapeUtils.escapeHtml($!returnUrl)}"/>
+    ##        <input type="hidden" name="loginUrl" value="$!{stringEscapeUtils.escapeHtml($!loginUrl)}"/>
+        用户名：<input type="text" name="pin" value="$!stringEscapeUtils.escapeHtml($!pin)" /> #showSimpleFieldError("pin") <br/>
+        密&nbsp;&nbsp;码：<input type="text" name="passwd" value="123456"/> #showSimpleFieldError("passwd")<br/>
+        <input type="submit" value="登陆" />
+    </form>
+</div>

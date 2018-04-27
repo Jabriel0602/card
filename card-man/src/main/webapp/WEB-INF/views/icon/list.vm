@@ -1,0 +1,111 @@
+#set($title = "ICON管理")
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    #if($moduleCode!=16)
+                        <th>区域</th>
+                    #end
+                    <th>序号</th>
+                    <th>渠道</th>
+                    <th>活动名称</th>
+                    <th>活动ICON</th>
+                    <th>跳转链接</th>
+                    <th>活动打标</th>
+                    <th>是否需要登录</th>
+                    <th>创建时间</th>
+                    <th>修改时间</th>
+                    <th>操作人</th>
+                    <th>操作</th>
+                </tr>
+                #if($iconList && $iconList.size() > 0)
+                    #foreach($icon in $iconList)
+                        <tr>
+                            #set($count=$velocityCount)
+                            #set($index = $count - 1)
+                            #if($moduleCode!=16)
+                                <td width="4%">$!{area}</td>
+                            #end
+                            <td width="4%">$!{count}</td>
+                            <td width="6%">$!{moduleDesc}</td>
+                            <td width="8%">$!{icon.desc}</td>
+                            <td width="6%"><img width="80%" src="$!{icon.imgUrl}"></td>
+                            <td width="18%">$!{icon.responseUrl}</td>
+                            <td width="6%"><img width="80%" src="$!{icon.label}"></td>
+                            <td width="8%">$!{icon.isLogin}</td>
+                            <td width="12%">$!{icon.createdTime}</td>
+                            <td width="12%">$!{icon.modifiedTime}</td>
+                            <td width="12%">$!{icon.operator}</td>
+                            <td width="8%">
+                                #if($!{iconAuthorityFlag})
+                                    <a href="/icons/$!index?moduleCode=$moduleCode&area=$!area">修改</a>&nbsp;&nbsp;
+                                    <input type="button" value="删除" onclick="delIcon($!moduleCode,'$!area',$!index)"/>
+                                #else
+                                    <label style="text-align: center;color: #FF0000">无修改权限</label>
+                                #end
+                            </td>
+                        </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="12">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+            #if($!{iconAuthorityFlag})
+                #if($moduleCode!=16)
+                    #if($iconList.size()<4)
+                        <td><a href="/icons/-1?moduleCode=$moduleCode&area=$area"><input type="button" value="添加ICON+"/>
+                        </td>
+                    #else
+                        <label style="text-align: center;color: #FF0000">最多只能添加4个ICON</label>
+                    #end
+                #else
+                    #if($iconList.size()<8)
+                        <td><a href="/icons/-1?moduleCode=$moduleCode&area=$area"><input type="button" value="添加ICON+"/>
+                        </td>
+                    #else
+                        <label style="text-align: center;color: #FF0000">最多只能添加8个ICON</label>
+                    #end
+                #end
+            #else
+                <label style="text-align: center;color: #FF0000">无添加权限</label>
+            #end
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    var delIcon = function (moduleCode, area, index) {
+        var moduleCode = $.trim(moduleCode);
+        var area = $.trim(area);
+        var index = $.trim(index);
+        var tip = "确认删除当前ICON吗？";
+        var url = '/icons/' + index + '/?moduleCode=' + moduleCode + "&area=" + area;
+        if (window.confirm(tip)) {
+            jQuery.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (data) {
+                    if (data > 0) {
+                        alert("操作成功");
+                    } else if (data ==  0) {
+                        alert("操作的数据不存在");
+                    } else {
+                        alert("参数错误")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了！");
+                }
+            })
+        }
+    }
+</script>

@@ -6,11 +6,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- 引入性参数文件,只能用一次加载配置 -->
-    <context:property-placeholder location="classpath:important.properties,config.properties,common.properties,authen.properties"/>
+    <context:annotation-config></context:annotation-config>
 
-    <!--<import resource="applicationContext/applicationContext-ActiveMQ-consumer.xml"></import>-->
-    <!--<import resource="applicationContext/applicationContext-cache.xml"></import>-->
+    <!--整个Spring容器只能加载一次，多出加载会崩溃-->
+    <context:property-placeholder location="classpath:*.properties"/>
+    <import resource="applicationContext/applicationContext-ActiveMQ-producer.xml"></import>
+    <import resource="applicationContext/applicationContext-cache.xml"></import>
     <import resource="applicationContext/applicationContext-dao.xml"></import>
     <import resource="applicationContext/applicationContext-dataSource.xml"></import>
     <import resource="applicationContext/applicationContext-service.xml"></import>

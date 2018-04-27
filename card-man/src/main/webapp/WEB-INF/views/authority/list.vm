@@ -1,0 +1,98 @@
+#set($title = "权限管理")
+
+
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+
+<div id="content">
+    <h3>权限管理</h3>
+
+    <br>
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <div class="btns" align="center">
+                <table width="100%" align="center">
+                    <tr>
+                        <th>序号</th>
+                        <th>用户erp帐号</th>
+                        <th>模块权限</th>
+                        <th>方法权限</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>最后操作人</th>
+                        <th>操作</th>
+                    </tr>
+
+                    #if($authorityList && $authorityList.size()>0)
+                        #foreach($authority in $authorityList)
+                            #set($count=$velocityCount)
+
+                            <tr id="deleteUserCode">
+                                <input type="hidden" name="userCode" value="$!authority.userCode"/>
+                                <input type="hidden" name="moduleTypeLimits" value="$!authority.moduleTypeLimits"/>
+                                <input type="hidden" name="methodTypeLimits" value="$!authority.methodTypeLimits"/>
+                                <input type="hidden" name="createTime" value="$!authority.createTime"/>
+                                <input type="hidden" name="modifyTime" value="$!authority.modifyTime"/>
+                                <td>$count</td>
+                                <td>$!authority.userCode</td>
+                                <td>$!authority.moduleTypeLimits</td>
+                                <td>$!authority.methodTypeLimits</td>
+                                <td>$!date.format('yyyy-MM-dd HH:mm:ss',$!authority.createTime)</td>
+                                <td>$!date.format('yyyy-MM-dd HH:mm:ss',$!authority.modifyTime)</td>
+                                #set($index = $count - 1)
+                                <td>$!authority.operateUser</td>
+                                <td>
+                                    #if($authorityAuthorityFlag)
+                                        <a href="/authoritys/$index"><input type="button" value="修改"></a>
+                                        <input type="button" value="删除" onclick="deleteUser($index)"/>
+                                    #else
+                                        <label style="text-align: center;color: #FF0000">无权限操作</label>
+                                    #end
+                                </td>
+                            </tr>
+                        #end
+                    #end
+                    #if($authorityAuthorityFlag)
+                        <td><a href="/authoritys/-1"><input type="button" value="添加管理员+"/></td>
+                    #else
+                        <label style="text-align: center;color: #FF0000">无权限增加</label>
+                    #end
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        <!--删除按钮 -->
+        var deleteUser = function (index) {
+            var sure = confirm("确定删除该条记录？");
+            if (sure == true) {
+                var count = index;
+                jQuery.ajax({
+                    type: 'DELETE',
+                    url: '/authoritys/' +index,
+                    data: {
+                        index: count
+                    },
+                    success: function (data) {
+                        if (data > 0) {
+                            alert("操作成功");
+                        } else if (data ==  0) {
+                            alert("操作的数据不存在");
+                        } else {
+                            alert("参数错误")
+                        }
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert("出错了");
+                    }
+                })
+            } else {
+                return;
+            }
+        }
+
+
+    </script>
