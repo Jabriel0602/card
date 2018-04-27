@@ -1,6 +1,8 @@
 package com.card.manager.task;
 
 import com.card.domain.order.Order;
+import com.card.domain.refund.Refund;
+import com.card.domain.task.Task;
 
 /**
  * @author yangzhanbang
@@ -11,10 +13,12 @@ public interface TaskManager {
 
 	Order payment(Long orderId);
 
-	void supplierCreate(Long orderId);
+	void supplierCreateHandler(Long orderId);
 
-	void supplierRecharge(Long orderId);
+	void supplierRechargeHandler(Long orderId);
 
-	void refund(Long orderId);
+	void updateTaskAndRefund(Task task);
+
+	void refundHandler(Long orderId);
 
 }

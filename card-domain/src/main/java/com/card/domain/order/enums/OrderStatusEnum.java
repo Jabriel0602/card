@@ -20,14 +20,13 @@ public enum OrderStatusEnum {
 	CREATE_ING		(2100, "支付成功->生单中","生单中"),
 	CREATE_SUCCESS	(2200, "支付成功->生单成功","生单成功"),
 	CREATE_FAIL		(2400, "支付成功->生单失败","生单失败"),
+	CREATE_FAIL_REFUND_INT		(2401, "支付成功->生单失败->退款中","退款中"),
+	CREATE_FAIL_REFUND_SUCCESS	(2402, "支付成功->生单失败->退款成功","退款成功"),
+	CREATE_FAIL_REFUND_FAIL		(2404, "支付成功->生单失败->退款失败","退款失败"),
 
 	RECHARGE_ING	(2210, "支付成功->生单成功->充值中","充值中"),
 	RECHARGE_SUCCESS(2220, "支付成功->生单成功->充值成功","充值成功"),
 	RECHARGE_FAIL	(2240, "支付成功->生单成功->充值失败","充值失败"),
-
-	CREATE_FAIL_REFUND_INT		(2401, "支付成功->生单失败->退款中","退款中"),
-	CREATE_FAIL_REFUND_SUCCESS	(2402, "支付成功->生单失败->退款成功","退款成功"),
-	CREATE_FAIL_REFUND_FAIL		(2404, "支付成功->生单失败->退款失败","退款失败"),
 	RECHARGE_FAIL_REFUND_INT	(2241, "支付成功->生单成功->充值失败->退款中","退款中"),
 	RECHARGE_FAIL_REFUND_SUCCESS(2242, "支付成功->生单成功->充值失败->退款成功","退款成功"),
 	RECHARGE_FAIL_REFUND_FAIL	(2244, "支付成功->生单成功->充值失败->退款失败","退款失败");

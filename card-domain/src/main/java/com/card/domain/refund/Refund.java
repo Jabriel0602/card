@@ -24,12 +24,12 @@ public class Refund {
 	private Long refundId;        //退款id
 
 	@NotNull(message = "退款类型不能为空")
-	private Byte refundType;        //退款类型
+	private Integer refundType;        //退款类型
 
 	@NotNull(message = "退款金额不能为空")
-	private Long refundFee;        //退款金额
+	private Long money;        //退款金额
 	@NotNull(message = "退款状态不能为空")
-	private Byte refundStatus;    //退款状态
+	private Integer refundStatus;    //退款状态
 
 	@NotNull(message = "创建时间不能为空")
 	private Date createdTime;        //创建时间

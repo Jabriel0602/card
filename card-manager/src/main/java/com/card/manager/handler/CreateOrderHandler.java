@@ -43,18 +43,17 @@ public class CreateOrderHandler extends AbstractHandler {
 		}
 
 		//生单中--->生单成功
-		taskManager.supplierCreate(order.getOrderId());
-
-		/**
-		 * 任务执行中--->执行成功
-		 */
-		taskService.updateStatus(task.getTaskId(), TaskStatusEnum.EXCUTE.getCode(), TaskStatusEnum.SUCCESS.getCode());
-
+		taskManager.supplierCreateHandler(order.getOrderId());
 	}
 
 	@Override
 	public void fail(Task task) {
 		log.info("【生单任务执行失败】任务id:{},任务id:{}", task.getOrderId(), task.getTaskId());
 		taskService.updateStatus(task.getTaskId(), task.getExecuteStatus(), TaskStatusEnum.FAIL.getCode());
+
+		/**
+		 * 支付成功->生单失败->退款中
+		 */
+		taskManager.updateTaskAndRefund(task);
 	}
 }

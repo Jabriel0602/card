@@ -5,5 +5,5 @@ package com.card.domain.exception;
  * @date 2018/4/26 19:39
  * @desc
  */
-public class RechargeException {
+public class RechargeException extends Exception {
 }

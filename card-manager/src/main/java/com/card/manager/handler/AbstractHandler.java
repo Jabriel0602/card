@@ -28,12 +28,19 @@ public abstract class AbstractHandler implements Handler<Task>, MessageListener 
 			String taskString = tm.getText();
 			System.out.println("QueueMessageListener监听到了文本消息：" + taskString);
 			task = JSON.parseObject(taskString, Task.class);
-			// 乐观锁排重
+			/**
+			 * 乐观锁排重
+			 * 任务已发送--->执行中
+			 */
 			int count = taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.EXCUTE.getCode());
 			if (count == 0) {
 				log.info("the task has been executed. task=" + task);
 			}else {
 				handle(task);
+				/**
+				 * 任务执行中--->执行成功
+				 */
+				taskService.updateStatus(task.getTaskId(), TaskStatusEnum.EXCUTE.getCode(), TaskStatusEnum.SUCCESS.getCode());
 			}
 		} catch (Exception e) {
 			log.error("an error occur.{}", e);

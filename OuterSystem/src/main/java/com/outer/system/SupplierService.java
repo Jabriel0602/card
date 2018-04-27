@@ -9,4 +9,7 @@ public interface SupplierService {
 	Boolean createOrder() throws InterruptedException;
 
 	Boolean rechargeOrder() throws InterruptedException;
+
+	Boolean refundeOrder() throws InterruptedException;
+
 }

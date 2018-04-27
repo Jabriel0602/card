@@ -44,17 +44,16 @@ public class RechargeHandler extends AbstractHandler {
 		}
 
 		//订单充值中--->充值成功
-		taskManager.supplierRecharge(order.getOrderId());
-
-		/**
-		 * 任务执行中-->成功
-		 */
-		taskService.updateStatus(task.getTaskId(), TaskStatusEnum.EXCUTE.getCode(), TaskStatusEnum.SUCCESS.getCode());
-
+		taskManager.supplierRechargeHandler(order.getOrderId());
 	}
 
 	@Override
 	public void fail(Task task) {
-
+		log.info("【充值任务执行失败】任务id:{},任务id:{}", task.getOrderId(), task.getTaskId());
+		taskService.updateStatus(task.getTaskId(), task.getExecuteStatus(), TaskStatusEnum.FAIL.getCode());
+		/**
+		 * 支付成功->生单成功->充值失败->退款中
+		 */
+		taskManager.updateTaskAndRefund(task);
 	}
 }

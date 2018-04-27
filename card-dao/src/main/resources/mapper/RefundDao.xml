@@ -3,102 +3,80 @@
 <mapper namespace="com.card.dao.RefundDao">
     <!--auto generated Code-->
     <resultMap id="BaseResultMap" type="com.card.domain.refund.Refund">
-        <result column="id" property="id" jdbcType="BIGINT"/>
         <result column="order_id" property="orderId" jdbcType="BIGINT"/>
         <result column="refund_id" property="refundId" jdbcType="BIGINT"/>
-        <result column="refund_type" property="refundType" jdbcType="TINYINT"/>
-        <result column="refund_fee" property="refundFee" jdbcType="BIGINT"/>
-        <result column="refund_status" property="refundStatus" jdbcType="TINYINT"/>
+        <result column="refund_type" property="refundType" jdbcType="INTEGER"/>
+        <result column="money" property="money" jdbcType="BIGINT"/>
+        <result column="refund_status" property="refundStatus" jdbcType="INTEGER"/>
         <result column="created_time" property="createdTime" jdbcType="DATE"/>
         <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
         <result column="finish_time" property="finishTime" jdbcType="DATE"/>
         <result column="yn" property="yn" jdbcType="TINYINT"/>
-        <result column="page_index" property="pageIndex" jdbcType="INTEGER"/>
-        <result column="start_row" property="startRow" jdbcType="INTEGER"/>
-        <result column="page_size" property="pageSize" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--auto generated Code-->
     <sql id="Base_Column_List">
-        id,
         order_id,
         refund_id,
         refund_type,
-        refund_fee,
+        money,
         refund_status,
         created_time,
         modified_time,
         finish_time,
-        yn,
-        page_index,
-        start_row,
-        page_size
+        yn
     </sql>
 
     <!--auto generated Code-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="refund.id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="refund.orderId">
         INSERT INTO refund (
-            id,
             order_id,
             refund_id,
             refund_type,
-            refund_fee,
+            money,
             refund_status,
             created_time,
             modified_time,
             finish_time,
-            yn,
-            page_index,
-            start_row,
-            page_size
+            yn
         ) VALUES (
-            #{refund.id,jdbcType=BIGINT},
             #{refund.orderId,jdbcType=BIGINT},
             #{refund.refundId,jdbcType=BIGINT},
-            #{refund.refundType,jdbcType=TINYINT},
-            #{refund.refundFee,jdbcType=BIGINT},
-            #{refund.refundStatus,jdbcType=TINYINT},
+            #{refund.refundType,jdbcType=INTEGER},
+            #{refund.money,jdbcType=BIGINT},
+            #{refund.refundStatus,jdbcType=INTEGER},
             #{refund.createdTime,jdbcType=DATE},
             #{refund.modifiedTime,jdbcType=DATE},
             #{refund.finishTime,jdbcType=DATE},
-            #{refund.yn,jdbcType=TINYINT},
-            #{refund.pageIndex,jdbcType=INTEGER},
-            #{refund.startRow,jdbcType=INTEGER},
-            #{refund.pageSize,jdbcType=INTEGER}
+            #{refund.yn,jdbcType=TINYINT}
         )
     </insert>
 
     <!--auto generated Code-->
-    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="refund.id">
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="refund.orderId">
         INSERT INTO refund
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="refund.id!=null"> id,</if>
-            <if test="refund.orderId!=null"> order_id,</if>
-            <if test="refund.refundId!=null"> refund_id,</if>
-            <if test="refund.refundType!=null"> refund_type,</if>
-            <if test="refund.refundFee!=null"> refund_fee,</if>
-            <if test="refund.refundStatus!=null"> refund_status,</if>
-            <if test="refund.createdTime!=null"> created_time,</if>
-            <if test="refund.modifiedTime!=null"> modified_time,</if>
-            <if test="refund.finishTime!=null"> finish_time,</if>
-            <if test="refund.yn!=null"> yn,</if>
-            <if test="refund.pageIndex!=null"> page_index,</if>
-            <if test="refund.startRow!=null"> start_row,</if>
-            <if test="refund.pageSize!=null"> page_size,</if>
+            <if test="refund.orderId!=null">order_id,</if>
+            <if test="refund.refundId!=null">refund_id,</if>
+            <if test="refund.refundType!=null">refund_type,</if>
+            <if test="refund.money!=null">money,</if>
+            <if test="refund.refundStatus!=null">refund_status,</if>
+            <if test="refund.createdTime!=null">created_time,</if>
+            <if test="refund.modifiedTime!=null">modified_time,</if>
+            <if test="refund.finishTime!=null">finish_time,</if>
+            <if test="refund.yn!=null">yn,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="refund.id!=null">#{refund.id,jdbcType=BIGINT},
-            </if>
             <if test="refund.orderId!=null">#{refund.orderId,jdbcType=BIGINT},
             </if>
             <if test="refund.refundId!=null">#{refund.refundId,jdbcType=BIGINT},
             </if>
-            <if test="refund.refundType!=null">#{refund.refundType,jdbcType=TINYINT},
+            <if test="refund.refundType!=null">#{refund.refundType,jdbcType=INTEGER},
             </if>
-            <if test="refund.refundFee!=null">#{refund.refundFee,jdbcType=BIGINT},
+            <if test="refund.money!=null">#{refund.money,jdbcType=BIGINT},
             </if>
-            <if test="refund.refundStatus!=null">#{refund.refundStatus,jdbcType=TINYINT},
+            <if test="refund.refundStatus!=null">#{refund.refundStatus,jdbcType=INTEGER},
             </if>
             <if test="refund.createdTime!=null">#{refund.createdTime,jdbcType=DATE},
             </if>
@@ -107,12 +85,6 @@
             <if test="refund.finishTime!=null">#{refund.finishTime,jdbcType=DATE},
             </if>
             <if test="refund.yn!=null">#{refund.yn,jdbcType=TINYINT},
-            </if>
-            <if test="refund.pageIndex!=null">#{refund.pageIndex,jdbcType=INTEGER},
-            </if>
-            <if test="refund.startRow!=null">#{refund.startRow,jdbcType=INTEGER},
-            </if>
-            <if test="refund.pageSize!=null">#{refund.pageSize,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -124,19 +96,15 @@
         )VALUES
         <foreach collection="refunds" item="refund" index="index" separator=",">
             (
-            #{refund.id,jdbcType=BIGINT},
             #{refund.orderId,jdbcType=BIGINT},
             #{refund.refundId,jdbcType=BIGINT},
-            #{refund.refundType,jdbcType=TINYINT},
-            #{refund.refundFee,jdbcType=BIGINT},
-            #{refund.refundStatus,jdbcType=TINYINT},
+            #{refund.refundType,jdbcType=INTEGER},
+            #{refund.money,jdbcType=BIGINT},
+            #{refund.refundStatus,jdbcType=INTEGER},
             #{refund.createdTime,jdbcType=DATE},
             #{refund.modifiedTime,jdbcType=DATE},
             #{refund.finishTime,jdbcType=DATE},
-            #{refund.yn,jdbcType=TINYINT},
-            #{refund.pageIndex,jdbcType=INTEGER},
-            #{refund.startRow,jdbcType=INTEGER},
-            #{refund.pageSize,jdbcType=INTEGER}
+            #{refund.yn,jdbcType=TINYINT}
             )
         </foreach>
     </insert>
@@ -145,21 +113,51 @@
     <update id="update">
         UPDATE refund
         <set>
-            <if test="refund.id != null"> id= #{refund.id,jdbcType=BIGINT},</if>
-            <if test="refund.orderId != null"> order_id= #{refund.orderId,jdbcType=BIGINT},</if>
-            <if test="refund.refundId != null"> refund_id= #{refund.refundId,jdbcType=BIGINT},</if>
-            <if test="refund.refundType != null"> refund_type= #{refund.refundType,jdbcType=TINYINT},</if>
-            <if test="refund.refundFee != null"> refund_fee= #{refund.refundFee,jdbcType=BIGINT},</if>
-            <if test="refund.refundStatus != null"> refund_status= #{refund.refundStatus,jdbcType=TINYINT},</if>
-            <if test="refund.createdTime != null"> created_time= #{refund.createdTime,jdbcType=DATE},</if>
-            <if test="refund.modifiedTime != null"> modified_time= #{refund.modifiedTime,jdbcType=DATE},</if>
-            <if test="refund.finishTime != null"> finish_time= #{refund.finishTime,jdbcType=DATE},</if>
-            <if test="refund.yn != null"> yn= #{refund.yn,jdbcType=TINYINT},</if>
-            <if test="refund.pageIndex != null"> page_index= #{refund.pageIndex,jdbcType=INTEGER},</if>
-            <if test="refund.startRow != null"> start_row= #{refund.startRow,jdbcType=INTEGER},</if>
-            <if test="refund.pageSize != null"> page_size= #{refund.pageSize,jdbcType=INTEGER}</if>
+            <if test="refund.orderId != null">order_id= #{refund.orderId,jdbcType=BIGINT},</if>
+            <if test="refund.refundId != null">refund_id= #{refund.refundId,jdbcType=BIGINT},</if>
+            <if test="refund.refundType != null">refund_type= #{refund.refundType,jdbcType=INTEGER},</if>
+            <if test="refund.money != null">money= #{refund.money,jdbcType=BIGINT},</if>
+            <if test="refund.refundStatus != null">refund_status= #{refund.refundStatus,jdbcType=INTEGER},</if>
+            <if test="refund.createdTime != null">created_time= #{refund.createdTime,jdbcType=DATE},</if>
+            <if test="refund.modifiedTime != null">modified_time= #{refund.modifiedTime,jdbcType=DATE},</if>
+            <if test="refund.finishTime != null">finish_time= #{refund.finishTime,jdbcType=DATE},</if>
+            <if test="refund.yn != null">yn= #{refund.yn,jdbcType=TINYINT}</if>
         </set>
-        WHERE id = #{refund.id,jdbcType=BIGINT}
+        WHERE order_id = #{refund.orderId,jdbcType=BIGINT}
     </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM refund
+        WHERE
+        refund_id =#{refund.id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM refund
+        WHERE
+        <if test="refund.orderId != null">order_id= #{refund.orderId,jdbcType=BIGINT},</if>
+        <if test="refund.refundId != null">refund_id= #{refund.refundId,jdbcType=BIGINT},</if>
+        <if test="refund.refundType != null">refund_type= #{refund.refundType,jdbcType=INTEGER},</if>
+        <if test="refund.money != null">money= #{refund.money,jdbcType=BIGINT},</if>
+        <if test="refund.refundStatus != null">refund_status= #{refund.refundStatus,jdbcType=INTEGER},</if>
+        <if test="refund.createdTime != null">created_time= #{refund.createdTime,jdbcType=DATE},</if>
+        <if test="refund.modifiedTime != null">modified_time= #{refund.modifiedTime,jdbcType=DATE},</if>
+        <if test="refund.finishTime != null">finish_time= #{refund.finishTime,jdbcType=DATE},</if>
+        <if test="refund.yn != null">yn= #{refund.yn,jdbcType=TINYINT}</if>
+    </select>
+
+    <select id="selectByOrderId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM refund
+        WHERE
+        order_id=#{orderId,jdbcType=BIGINT}
+    </select>
+
+
 </mapper>
 

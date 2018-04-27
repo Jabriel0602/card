@@ -20,4 +20,10 @@ public class SupplierServiceImpl implements SupplierService{
 		Thread.sleep(2000);
 		return true;
 	}
+
+	@Override
+	public Boolean refundeOrder() throws InterruptedException {
+		Thread.sleep(2000);
+		return true;
+	}
 }

@@ -11,4 +11,10 @@ public interface RefundService{
     int insertList(List<Refund> refunds);
 
     int update(Refund refund);
+
+    Refund selectById(Long refundId);
+
+    Refund selectByOrderId(Long orderId);
+
+    List<Refund> selectByParam(Refund refund);
 }
