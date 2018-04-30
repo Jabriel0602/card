@@ -9,7 +9,7 @@
     <bean id="velocityConfigurer"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <!-- 模板存放的路径 -->
-        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+        <property name="resourceLoaderPath" value="/WEB-INF/views/"/>
         <!-- Velocity配置文件 -->
         <property name="configLocation" value="classpath:velocity.properties"/>
         <property name="velocityProperties">
