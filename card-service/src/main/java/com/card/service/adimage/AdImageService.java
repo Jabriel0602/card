@@ -2,7 +2,6 @@ package com.card.service.adimage;
 
 import java.util.List;
 import com.card.domain.adimage.AdImage;
-import org.apache.ibatis.annotations.Param;
 
 public interface AdImageService{
 

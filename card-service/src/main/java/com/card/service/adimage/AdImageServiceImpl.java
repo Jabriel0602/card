@@ -5,10 +5,12 @@ import com.card.domain.adimage.AdImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
+/**
+ * @author yangzhanbang
+ */
 @Service
 public class AdImageServiceImpl implements AdImageService {
 

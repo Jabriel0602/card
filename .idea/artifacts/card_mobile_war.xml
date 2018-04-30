@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="card-mobile:war">
-    <output-path>$PROJECT_DIR$/card-mobile/target</output-path>
-    <root id="archive" name="card-mobile.war">
-      <element id="artifact" artifact-name="card-mobile:war exploded" />
-    </root>
-  </artifact>
-</component>
