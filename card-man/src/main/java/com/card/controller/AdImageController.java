@@ -1,24 +1,33 @@
 package com.card.controller;
 
+import com.card.common.util.IdUtil;
+import com.card.common.util.LoginContext;
 import com.card.common.util.ValidatorUtils;
 import com.card.domain.MethodTypeEnum;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.result.APIResult;
 import com.card.service.adimage.AdImageService;
 import com.card.service.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 import java.util.List;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * @author yangzhanbang
  * @Email yangzhanbang@jd.com
  * @date 2018/3/6 16:09
  */
-@RestController
-@RequestMapping("/adimages")
+@Slf4j
+@Controller
+@RequestMapping("/adImages")
 public class AdImageController {
 	@Autowired
 	private UserService userService;
@@ -26,11 +35,14 @@ public class AdImageController {
 	@Autowired
 	private AdImageService adImageService;
 
+	@Autowired
+	private IdUtil idUtil;
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView queryAdImageByModuleType() {
 
 		AdImage adImage = new AdImage();
-		List<AdImage> adImageList = adImageService.findAllAdImage();
+		List<AdImage> adImageList = adImageService.findAllAdImagStatusOn();
 		Boolean limit = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.ADIMAGE);
 
 		ModelAndView mv = new ModelAndView();
@@ -59,6 +71,8 @@ public class AdImageController {
 		}
 		//修改页面
 		AdImage adImage = adImageService.findAdImageById(adImageId);
+		mv.addObject("adImageId", adImage.getId());
+
 		mv.addObject("adImage", adImage);
 
 		return mv;
@@ -67,18 +81,23 @@ public class AdImageController {
 	/**
 	 * 创建轮播图操作
 	 *
-	 * @param moduleCode
 	 * @param adImage
 	 * @return
 	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public APIResult<AdImage> addImage(Integer moduleCode, AdImage adImage) {
+	@ResponseBody
+	public APIResult<AdImage> addImage(AdImage adImage) {
 		//参数校验
 		try {
+			adImage.setId(idUtil.getId(IdUtil.SequenceEnum.ADIMAGE));
+			adImage.setOperator(String.valueOf(LoginContext.getUserId()));
+			adImage.setCreatedTime(new Date());
+			adImage.setModifiedTime(new Date());
 			ValidatorUtils.validate(adImage);
 			adImageService.insert(adImage);
 			return new APIResult<AdImage>(adImage);
 		} catch (Exception e) {
+			log.error("参数错误:{}",e);
 			return new APIResult<AdImage>(HttpStatus.EXPECTATION_FAILED.value(), adImage);
 		}
 	}
@@ -99,6 +118,8 @@ public class AdImageController {
 		}
 		//参数校验
 		try {
+			adImage.setModifiedTime(new Date());
+
 			ValidatorUtils.validate(adImage);
 			adImageService.update(adImage);
 			return new APIResult<>(adImage);
@@ -113,7 +134,8 @@ public class AdImageController {
 	 * @return
 	 */
 	@RequestMapping(value = "{adImageId}/weight", method = RequestMethod.PATCH)
-	public APIResult<AdImage> updateAdImageWeight(@PathVariable Long adImageId, Integer moduleCode, Integer weight) {
+	@ResponseBody
+	public APIResult<AdImage> updateAdImageWeight(@PathVariable Long adImageId,Integer weight) {
 
 		//获取adImage
 		AdImage oldAdimage = adImageService.findAdImageById(adImageId);
@@ -122,12 +144,15 @@ public class AdImageController {
 		}
 		AdImage adImage = oldAdimage;
 		adImage.setWeight(weight);
+		adImage.setModifiedTime(new Date());
+
 		//参数校验
 		try {
 			ValidatorUtils.validate(adImage);
 			adImageService.update(adImage);
 			return new APIResult<AdImage>(adImage);
 		} catch (Exception e) {
+			log.error("参数校验异常:{}",e);
 			return new APIResult<AdImage>(HttpStatus.EXPECTATION_FAILED.value(), adImage);
 		}
 
@@ -138,6 +163,7 @@ public class AdImageController {
 	 *
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "{adImageId}/putOn", method = RequestMethod.PATCH)
 	public APIResult<AdImage> updateAdImagePutOn(@PathVariable Long adImageId, Integer moduleCode, Boolean putOn) {
 		//获取adImage
@@ -147,6 +173,8 @@ public class AdImageController {
 		}
 		AdImage adImage = oldAdimage;
 		adImage.setPutOn(putOn);
+		adImage.setModifiedTime(new Date());
+
 		try {
 			ValidatorUtils.validate(adImage);
 			adImageService.update(adImage);
@@ -162,8 +190,9 @@ public class AdImageController {
 	 *
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/{adImageId}", method = RequestMethod.DELETE)
-	public APIResult<AdImage> delAdImage(@PathVariable Long adImageId, Integer moduleCode) {
+	public APIResult<AdImage> delAdImage(@PathVariable Long adImageId) {
 		AdImage adImage = adImageService.findAdImageById(adImageId);
 		if (adImage == null) {
 			return new APIResult<AdImage>(HttpStatus.EXPECTATION_FAILED.value(), adImage);

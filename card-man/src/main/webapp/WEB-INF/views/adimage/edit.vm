@@ -1,4 +1,7 @@
 #set($title = "轮播图管理")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
+</head>
 <div id="posi">
     <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
 </div>
@@ -15,15 +18,13 @@
     <div class="i-con1 table_list" style="word-break: break-all">
         <div class="tb-x1 resultlist">
             <h3>轮播图编辑</h3>
-            <input type="hidden" id="index" name="index" value="$!index"/>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">轮播图权重</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
                         <input name="adImageWeight" type="number" id="adImageWeight" style="width:90%"
-                               value="$adImage.weight" onchange="updateAdImageWeight('$index','$moduleCode',$adImage.weight)" onblur="if(value==''){value='1000'}"
-                               placeholder="权重范围[-500至500]"
-                        >
+                               value="$adImage.weight" onblur="if(value==''){value='1000'}"
+                               placeholder="权重范围[-500至500]"/>
 
                     </td>
                 </tr>
@@ -58,14 +59,6 @@
                 </tr>
 
                 <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">模块</td>
-                    <td style="vertical-align:middle; text-align:left; height:28px;">
-                        $!moduleDesc
-                        <input type="hidden" id="moduleCode" name="moduleCode" value="$!moduleCode">
-                    </td>
-                </tr>
-
-                <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">启用状态</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
                         <input type="radio" id="adImagePutOn" name="adImagePutOn" value="true"
@@ -80,7 +73,7 @@
                     <td style="vertical-align:middle; text-align:right; height:28px;">定时发布</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
                         <input type="search" id="adImageStartTimeStr" name="adImageStartTimeStr"
-                               value="$!{adImage.startTime}"
+                               value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getStartTime()})"
                                size="20"
                                placeholder="输入发布时间"/>
                     </td>
@@ -89,7 +82,7 @@
                     <td style="vertical-align:middle; text-align:right; height:28px;">定时取消发布</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
                         <input type="search" id="adImageEndTimeStr" name="adImageEndTimeStr"
-                               value="$!{adImage.endTime}"
+                               value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getEndTime()})"
                                size="20"
                                placeholder="输入取消发布时间"/>
                         &nbsp;&nbsp;<input type="button" onclick="MaxEndTime()" value="永久发布"/>(备注:点击按钮 定时取消发布时间为3018年)
@@ -111,7 +104,7 @@
 
 <script type="text/javascript">
     var comeback = function () {
-        document.location.href = "/adimages?moduleCode=$moduleCode";
+        document.location.href = "/adImages";
     }
 
     jQuery(document).ready(
@@ -199,11 +192,6 @@
             return;
         }
 
-        var moduleCode = jQuery('input[name=moduleCode]').val();
-        if (moduleCode == null || jQuery.trim(moduleCode) == '') {
-            alert('模块描述]不能为空');
-            return;
-        }
         var adImageEndTime = $.trim(document.getElementById("adImageEndTimeStr").value);
         var adImageStartTime = $.trim(document.getElementById("adImageStartTimeStr").value);
         var adImagePutOn = jQuery('input[name="adImagePutOn"]:checked').val();
@@ -224,7 +212,7 @@
             return;
         }
 
-        var isUpdateOperate = document.getElementById("index").value;
+        var isUpdateOperate = $adImageId;
         if (isUpdateOperate == null || isUpdateOperate < 0) {
             addImage();
         } else {
@@ -242,17 +230,15 @@
         var desc = $.trim(document.getElementById("desc").value);
         var imgUrl = $.trim(document.getElementById("imgUrl").value);
         var responseUrl = $.trim(document.getElementById("responseUrl").value);
-        var moduleCode = $.trim(document.getElementById("moduleCode").value);
         var sure = confirm("确定添加轮播图？");
         if (sure == true) {
             jQuery.ajax({
                 type: 'POST',
-                url: '/adimages',
+                url: '//127.0.0.1/adImages',
                 data: {
                     desc: desc,
                     imgUrl: imgUrl,
                     responseUrl: responseUrl,
-                    moduleCode: moduleCode,
                     weight: adimageWeight,
                     putOn: adImagePutOn,
                     startTime: adImageStartTimeStr,
@@ -260,11 +246,13 @@
 
                 },
                 success: function (data) {
-                    if (data == 200) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("添加成功");
                         comeback();
                         return;
-                    } else if (data == 1) {
+                    } else if (jsonObject.code == 1) {
                         alert("该用户已存在！");
                     } else {
                         alert("参数错误")
@@ -280,6 +268,7 @@
 
     <!--修改按钮 -->
     var updateAdImage = function () {
+        var id=$adImage.getId();
         var adImageEndTimeStr = $.trim(document.getElementById("adImageEndTimeStr").value);
         var adImageStartTimeStr = $.trim(document.getElementById("adImageStartTimeStr").value);
         var adImagePutOn = jQuery('input[name="adImagePutOn"]:checked').val();
@@ -287,25 +276,26 @@
         var desc = $.trim(document.getElementById("desc").value);
         var imgUrl = $.trim(document.getElementById("imgUrl").value);
         var responseUrl = $.trim(document.getElementById("responseUrl").value);
-        var moduleCode = $.trim(document.getElementById("moduleCode").value);
-        var url = '/adimages/' +$!index;
+        var url = '//127.0.0.1/adImages/' + '$!adImage.id';
         var sure = confirm("确定修改轮播图？");
         if (sure == true) {
             jQuery.ajax({
                 url: url,
                 type: 'PUT',
                 data: {
+                    id:id,
                     desc: desc,
                     imgUrl: imgUrl,
                     responseUrl: responseUrl,
-                    moduleCode: moduleCode,
                     weight: adimageWeight,
                     putOn: adImagePutOn,
                     startTime: adImageStartTimeStr,
                     endTime: adImageEndTimeStr
                 },
                 success: function (data) {
-                    if (data == 200) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("修改成功");
                         comeback();
                         return;

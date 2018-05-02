@@ -23,4 +23,6 @@ public interface UserDao {
 
 	User getUserByNameAndPassWord(@Param("userName") String userName,@Param("password") String password);
 
+	List<User> listUser();
+
 }

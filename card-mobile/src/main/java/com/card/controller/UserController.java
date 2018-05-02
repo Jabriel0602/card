@@ -3,6 +3,7 @@ package com.card.controller;
 import com.card.common.util.Base64Util;
 import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
+import com.card.common.util.ValidatorUtils;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.card.Card;
 import com.card.domain.result.APIResult;
@@ -18,11 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -115,6 +114,7 @@ public class UserController {
 		user.setCreateTime(new Date());
 		user.setModifyTime(new Date());
 		user.setUserType(UserTypeEnum.USER.getDesc());
+		validate(user);
 		user.setPassword(Base64Util.base64ForCharset(user.getPassword(), Charsets.UTF_8.name()));
 		userService.insertSelective(user);
 		map.put("message", "请妥善保管您的密码");
@@ -140,6 +140,7 @@ public class UserController {
 	 */
 	@PostMapping("/{userId}")
 	public String updateUser(@PathVariable Long userId, @Validated User user) {
+		validate(user);
 		userService.update(user);
 		return getUser(Maps.newHashMap());
 	}
@@ -155,6 +156,7 @@ public class UserController {
 	public APIResult<Boolean> updateUserName(@PathVariable Long userId, String userName) {
 		User user = userService.getUser(userId);
 		user.setUserName(userName);
+		validate(user);
 		int count = userService.update(user);
 		return new APIResult<>(count == 1);
 	}
@@ -170,6 +172,7 @@ public class UserController {
 	public APIResult<Boolean> updateUserBirth(@PathVariable Long userId, String birthday) {
 		User user = userService.getUser(userId);
 		user.setBirthday(birthday);
+		validate(user);
 		int count = userService.update(user);
 		return new APIResult<>(count == 1);
 	}
@@ -185,7 +188,27 @@ public class UserController {
 	public APIResult<Boolean> updateUserSex(@PathVariable Long userId, String sex) {
 		User user = userService.getUser(userId);
 		user.setSex(sex);
+		validate(user);
 		int count = userService.update(user);
 		return new APIResult<>(count == 1);
+	}
+
+	boolean validate(User user) {
+		if (user == null) {
+			return false;
+		}
+		try{
+			if(user.getModuleTypeLimits()>=4){
+				user.setUserType(UserTypeEnum.SUPER_MANAGE.getDesc());
+			}else if(user.getModuleTypeLimits()>=3) {
+				user.setUserType(UserTypeEnum.MANAGE.getDesc());
+			}else if(user.getModuleTypeLimits()>=1){
+				user.setUserType(UserTypeEnum.USER.getDesc());
+			}
+			ValidatorUtils.validate(user);
+		}catch (Exception e){
+			return false;
+		}
+		return true;
 	}
 }

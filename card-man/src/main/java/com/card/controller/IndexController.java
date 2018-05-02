@@ -61,6 +61,8 @@ public class IndexController {
 			mv.addObject("moduleTypeLimitsMap", moduleTypeLimitsMap);
 			mv.addObject("ModuleTypeEnums", ModuleTypeEnum.values());
 		}
+		mv.addObject("userId",userLevel.getUserId());
+		mv.addObject("userName",userLevel.getUserName());
 		mv.setViewName("public/admin/topFrameAdmin");
 		return mv;
 	}

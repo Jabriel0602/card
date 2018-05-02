@@ -4,6 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>出行频道后台</title>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
+    <script type="text/javascript" src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
 </head>
 
 <frameset rows="80,*" cols="*" frameborder="no" border="0" framespacing="0">
@@ -19,6 +21,7 @@
                         title="leftFrame"/>
         <frame src="#" name="mainFrame" id="mainFrame" title="mainFrame"/>
     </frameset>
+
 </frameset>
 <noframes>
     <body>

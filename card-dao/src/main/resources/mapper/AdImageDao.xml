@@ -4,7 +4,7 @@
     <!--auto generated Code-->
     <resultMap id="BaseResultMap" type="com.card.domain.adimage.AdImage">
         <result column="id" property="id" jdbcType="BIGINT"/>
-        <result column="`desc`" property="desc" jdbcType="VARCHAR"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR"/>
         <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
         <result column="response_url" property="responseUrl" jdbcType="VARCHAR"/>
         <result column="created_time" property="createdTime" jdbcType="DATE"/>
@@ -12,7 +12,6 @@
         <result column="operator" property="operator" jdbcType="VARCHAR"/>
         <result column="weight" property="weight" jdbcType="INTEGER"/>
         <result column="put_on" property="putOn" jdbcType="TINYINT"/>
-        <result column="release_status" property="releaseStatus" jdbcType="TINYINT"/>
         <result column="start_time" property="startTime" jdbcType="DATE"/>
         <result column="end_time" property="endTime" jdbcType="DATE"/>
     </resultMap>
@@ -28,7 +27,6 @@
         operator,
         weight,
         put_on,
-        release_status,
         start_time,
         end_time
     </sql>
@@ -44,7 +42,6 @@
             operator,
             weight,
             put_on,
-            release_status,
             start_time,
             end_time
         ) VALUES (
@@ -56,7 +53,6 @@
             #{adImage.operator,jdbcType=VARCHAR},
             #{adImage.weight,jdbcType=INTEGER},
             #{adImage.putOn,jdbcType=TINYINT},
-            #{adImage.releaseStatus,jdbcType=TINYINT},
             #{adImage.startTime,jdbcType=DATE},
             #{adImage.endTime,jdbcType=DATE}
         )
@@ -74,7 +70,6 @@
             <if test="adImage.operator!=null">operator,</if>
             <if test="adImage.weight!=null">weight,</if>
             <if test="adImage.putOn!=null">put_on,</if>
-            <if test="adImage.releaseStatus!=null">release_status,</if>
             <if test="adImage.startTime!=null">start_time,</if>
             <if test="adImage.endTime!=null">end_time,</if>
         </trim>
@@ -95,8 +90,6 @@
             <if test="adImage.weight!=null">#{adImage.weight,jdbcType=INTEGER},
             </if>
             <if test="adImage.putOn!=null">#{adImage.putOn,jdbcType=TINYINT},
-            </if>
-            <if test="adImage.releaseStatus!=null">#{adImage.releaseStatus,jdbcType=TINYINT},
             </if>
             <if test="adImage.startTime!=null">#{adImage.startTime,jdbcType=DATE},
             </if>
@@ -120,7 +113,6 @@
             #{adImage.operator,jdbcType=VARCHAR},
             #{adImage.weight,jdbcType=INTEGER},
             #{adImage.putOn,jdbcType=TINYINT},
-            #{adImage.releaseStatus,jdbcType=TINYINT},
             #{adImage.startTime,jdbcType=DATE},
             #{adImage.endTime,jdbcType=DATE}
             )
@@ -139,7 +131,6 @@
             <if test="adImage.operator != null">operator= #{adImage.operator,jdbcType=VARCHAR},</if>
             <if test="adImage.weight != null">weight= #{adImage.weight,jdbcType=INTEGER},</if>
             <if test="adImage.putOn != null">put_on= #{adImage.putOn,jdbcType=TINYINT},</if>
-            <if test="adImage.releaseStatus != null">release_status= #{adImage.releaseStatus,jdbcType=TINYINT},</if>
             <if test="adImage.startTime != null">start_time= #{adImage.startTime,jdbcType=DATE},</if>
             <if test="adImage.endTime != null">end_time= #{adImage.endTime,jdbcType=DATE}</if>
         </set>

@@ -1,4 +1,8 @@
 #set($title = "任务管理界面")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
+    <script type="text/javascript" src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
+</head>
 <div id="posi">
     <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a>
     </div>

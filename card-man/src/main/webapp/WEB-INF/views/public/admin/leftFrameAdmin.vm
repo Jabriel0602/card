@@ -5,10 +5,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>man</title>
-    <script type="text/javascript" src="$!assetModule.forPath("/jdf/lib/jquery-1.6.4.js").build()"></script>
-    <link rel="stylesheet" type="text/css" href="$!assetModule.forPath("/pop-man/201007/skin/erpbase.css").build()"
-          media="all"/>
-    <script type="text/javascript" src="$!asseModule.forPath("/jdf/lib/jquery-1.6.4.js").build()"></script>
+    <script type="text/javascript" src="http://misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
+    <script type="text/javascript" src="http://misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
 </head>
 
 <body id="leftframe">
@@ -19,124 +18,34 @@
         var moduleCode = window.location.toString().match(/module=(\d+)/)[1];
         var jdMenu = {
             _m1: [
-//                {
-//                    href: "/adimages?moduleCode=" + moduleCode,
-//                    text: "轮播图管理",
-//                    child: []
-//                }
-//                ,
-
                 {
-                    href: "/notices?moduleCode=" + moduleCode,
-                    text: "公告管理",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
-                    text: "A区ICON",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
-                    text: "C区ICON",
-                    child: []
-                }
-            ],
-            _m2: [
-//                {
-//                    href: "/adimages?moduleCode=" + moduleCode,
-//                    text: "轮播图管理",
-//                    child: []
-//                }
-//                ,
-                {
-                    href: "/notices?moduleCode=" + moduleCode,
-                    text: "公告管理",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
-                    text: "A区ICON",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
-                    text: "C区ICON",
-                    child: []
-                }
-            ],
-            _m4: [
-//                {
-//                    href: "/adimages?moduleCode=" + moduleCode,
-//                    text: "轮播图管理",
-//                    child: []
-//                }
-//                ,
-                {
-                    href: "/notices?moduleCode=" + moduleCode,
-                    text: "公告管理",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
-                    text: "A区ICON",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
-                    text: "C区ICON",
-                    child: []
-                }
-
-            ],
-            _m8: [
-//                {
-//                    href: "/adimages?moduleCode=" + moduleCode,
-//                    text: "轮播图管理",
-//                    child: []
-//                }
-//                ,
-                {
-                    href: "/notices?moduleCode=" + moduleCode,
-                    text: "公告管理",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=A",
-                    text: "A区ICON",
-                    child: []
-                }
-                ,
-                {
-                    href: "/icons?moduleCode=" + moduleCode + "&area=C",
-                    text: "C区ICON",
-                    child: []
-                }
-            ],
-            _m16: [
-
-                {
-                    href: "/adimages?moduleCode=" + moduleCode,
+                    href: "/adImages",
                     text: "轮播图管理",
                     child: []
                 }
                 ,
                 {
-                    href: "/icons?moduleCode=" + moduleCode+"&area=",
+                    href: "/icons",
                     text: "ICON管理",
                     child: []
                 }
             ],
-            _m32: [
+            _m2: [
                 {
-                    href: "/authoritys",
+                    href: "/orders",
+                    text: "订单管理",
+                    child: []
+                }
+                ,
+                {
+                    href: "/refunds",
+                    text: "退款管理",
+                    child: []
+                }
+            ],
+            _m4: [
+                {
+                    href: "/users",
                     text: "权限管理",
                     child: []
                 }
@@ -186,15 +95,6 @@
                 break;
             case "4":
                 initMenu(jdMenu._m4);
-                break;
-            case "8":
-                initMenu(jdMenu._m8);
-                break;
-            case "16":
-                initMenu(jdMenu._m16);
-                break;
-            case "32":
-                initMenu(jdMenu._m32);
                 break;
             default:
                 initMenu(jdMenu._m1);

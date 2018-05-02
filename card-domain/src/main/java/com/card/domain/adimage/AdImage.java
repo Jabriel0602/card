@@ -33,17 +33,17 @@ public class AdImage {
 	private Date modifiedTime;          //修改时间
 	@NotBlank(message = "operator不能为空")
 	private String operator;               //操作人
-	@Size(min = -50, max = 50,message = "weight范围区间[-50,50]")
+	@Min(value = -500, message = "权重不能低于-500")
+	@Max(value = 500, message = "权重不能高于500")
 	private Integer weight;                //权重
 	@NotNull(message = "putOn不能为空")
-	private Boolean putOn;                 //是否启用
-	@NotNull(message = "releaseStatus不能为空")
-	private Boolean releaseStatus;        //是否发布
+	private Boolean putOn=true;                 //是否启用
+	private Boolean releaseStatus=false;        //是否发布
 	@NotNull(message = "startTime不能为空")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startTime;              //开始时间
 	@NotNull(message = "endTime不能为空")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endTime;                //结束时间
 
 }

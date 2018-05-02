@@ -17,6 +17,7 @@
             <mvc:mapping path="/pay/**"/>
             <mvc:exclude-mapping path="/users/cookie/**"></mvc:exclude-mapping>
             <mvc:exclude-mapping path="/users/register/**"></mvc:exclude-mapping>
+            <mvc:exclude-mapping path="/users/registerPage"></mvc:exclude-mapping>
             <ref bean="loginInterrupt"/>
         </mvc:interceptor>
     </mvc:interceptors>

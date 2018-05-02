@@ -6,10 +6,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
     <title>man</title>
-    <link rel="stylesheet" type="text/css" href="$!assetModule.forPath("/pop-man/201007/skin/erpbase.css").build()"
+
+    <script type="text/javascript" src="http://misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
           media="all"/>
-    <script type="text/javascript" src="$!assetModule.forPath("/jdf/lib/jquery-1.6.4.js").build()"></script>
-    <script type="text/javascript" src="$!assetModule.forPath("/pop-man/201007/js/pop.base.js").build()"></script>
+    <script type="text/javascript" src="http://misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+
+
     <style type="text/css">
         .sysname {
             position: absolute;
@@ -40,18 +43,17 @@
         <img style="width: 60%" src="/img/common/logo.png"/>
     </div>
     <div class="fl">
-        <div class="login-info">您好，$!loginContext.getPin()！出行频道后台管理系统!<a href="/logout" target="_top">[退出]</a>
+        <div class="login-info">您好,id:$!userId,用户:$!userName！出行频道后台管理系统!<a href="/logout" target="_top">[退出]</a>
         </div>
         <div class="sysname2" style="font-size: large">出行频道后台管理系统</div>
         <span class="clr"></span>
 
         <div id="nav">
             <ul>
-
                 #foreach($moduleTypeEnum in $ModuleTypeEnums)
                     #if($moduleTypeLimitsMap.get(${moduleTypeEnum.getType()}))
                         <li><span>
-                            <a href="/leftFrame?module=${moduleTypeEnum.getCode()}"
+                            <a href="leftFrame?module=${moduleTypeEnum.getCode()}"
                                target="leftFrame">${moduleTypeEnum.getDesc()}</a>
                         </span>
                         </li>

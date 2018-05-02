@@ -17,12 +17,15 @@ public interface UserService{
 
     int update(User user);
 
+    int delete(Long userId);
 
     User getUser(Long userId);
 
     User getUserByNameAndPassWord(String userName,String password);
 
     User getCurrentUser();
+
+    List<User> getUserList();
 
     /**
      * 根据当前环境的ERP账号,获取方法权限

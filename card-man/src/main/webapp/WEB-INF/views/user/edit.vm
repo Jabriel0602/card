@@ -1,4 +1,10 @@
 #set($title = "权限编辑")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+    <script type="text/javascript"
+            src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
+</head>
 <div id="posi">
     <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
 </div>
@@ -13,17 +19,30 @@
     <div class="i-con1 table_list" style="word-break: break-all">
         <div class="tb-x1 resultlist">
             <h3>权限编辑</h3>
-            <input type="hidden" id="index" name="index" value="$!{index}"/>
+            <input type="hidden" id="index" name="index" value="$!{userId}"/>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">ERP账号</td>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">账号</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input type="text" id="userCode" name="userCode" value="$!{authority.userCode}"
-                               size="100"
-                               maxlength="100"
-                               placeholder="ERP账号"/>
+                        $!{authority.getUserId()}
                     </td>
                 </tr>
+
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">用户名</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        $!{authority.getUserName()}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">用户名</td>
+                    <td style="vertical-align:middle; text-align:left; height:28px;">
+                        $!{authority.getUserType()}
+                    </td>
+                </tr>
+
                 <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">模块操作权限</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
@@ -91,7 +110,7 @@
     }
 
     var submit = function () {
-        var isUpdateOperate = document.getElementById("index").value;
+        var isUpdateOperate = '!$authority.getOperator()';
         if (isUpdateOperate == null || isUpdateOperate < 0) {
             addUser();
         } else {
@@ -100,12 +119,15 @@
     }
 
     var comeback = function () {
-        document.location.href = "/authoritys";
+        document.location.href = "/users";
     }
 
     <!--添加按钮 -->
     var addUser = function () {
-        var userCode = document.getElementById("userCode").value;
+        var userCode = $authority.getUserId();
+        var userName = '$authority.getUserName()';
+        var userType = '$authority.getUserType()';
+
         var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
         var methodTypeLimits = document.getElementById("methodTypeLimits").value;
 
@@ -117,14 +139,22 @@
         if (sure == true) {
             jQuery.ajax({
                 type: 'POST',
-                url: "$!homeModule.forPath('/authoritys').build()",
-                data: {moduleTypeLimits: moduleTypeLimits, methodTypeLimits: methodTypeLimits, userCode: userCode},
+                url: '/users',
+                data: {
+                    moduleTypeLimits: moduleTypeLimits,
+                    methodTypeLimits: methodTypeLimits,
+                    userCode: userCode,
+                    userName: userName,
+                    userType: userType,
+                },
                 success: function (data) {
-                    if (data == 200) {
+                    var json = JSON.stringify(data);
+                    var jsonObject = JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("添加成功");
                         comeback();
                         return;
-                    } else if (data == 1) {
+                    } else if (jsonObject.code == 1) {
                         alert("用户已存在");
                     } else {
                         alert("参数错误")
@@ -140,7 +170,7 @@
 
     <!--修改按钮 -->
     var updateUser = function () {
-        var userCode = document.getElementById("userCode").value;
+        var userCode = $authority.getUserId();
         var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
         var methodTypeLimits = document.getElementById("methodTypeLimits").value;
         var createTime = document.getElementById("createTime").value;
@@ -149,7 +179,7 @@
             alert("用户ERP帐号不能为空！");
             return;
         }
-        var url = '/authoritys/' +$!index;
+        var url = '/users/' +$!userId;
         var sure = confirm("确定修改管理员？");
         if (sure == true) {
             jQuery.ajax({
@@ -157,11 +187,13 @@
                 url: url,
                 data: {moduleTypeLimits: moduleTypeLimits, methodTypeLimits: methodTypeLimits, userCode: userCode},
                 success: function (data) {
-                    if (data ==  200) {
+                    var json = JSON.stringify(data);
+                    var jsonObject = JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("修改成功");
                         comeback();
                         return;
-                    } else if (data == 0) {
+                    } else if (jsonObject.code == 0) {
                         alert("用户不存在")
                     } else {
                         alert("参数错误")

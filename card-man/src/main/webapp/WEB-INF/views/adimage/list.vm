@@ -1,4 +1,10 @@
 #set($title = "轮播图管理")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+     <script type="text/javascript"
+            src="/js/common/jquery.min.js"></script>
+</head>
 <div id="posi">
     <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
 </div>
@@ -8,9 +14,8 @@
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <th width="4%">序号</th>
-                    <th width="6%">渠道</th>
                     <th width="7%">权重</th>
-                    <th width="8%">轮播描述</th>
+                    <th width="8%">轮播图描述</th>
                     <th width="15%">广告图</th>
                     <th width="13%">创建及修改时间</th>
                     <th width="13%">上下线时间</th>
@@ -19,29 +24,28 @@
                     <th width="6%">发布状态</th>
                     <th width="12%">操作</th>
                 </tr>
+
                 #if($adImageList && $adImageList.size() > 0)
                     #foreach($adImage in $adImageList)
                         <tr>
                             #set($count=$velocityCount)
-                            #set($index = $count - 1)
                             <td>$!{count}</td>
-                            <td>$!{moduleDesc}</td>
                             <td>
-                                <input name="adImageWeight$index" type="number" id="adImageWeight$index" style="width:90%"
+                                <input name="adImageWeight$adImage.id" type="number" id="adImageWeight$adImage.id"
+                                       style="width:90%"
                                        value="$adImage.weight"
-                                       onchange="updateAdImageWeight('$index','$moduleCode',jQuery('#adImageWeight$index').val())"
-                                       />
+                                       onchange="updateAdImageWeight('$adImage.id',jQuery('#adImageWeight$adImage.id').val())"/>
                             </td>
                             <td>$!{adImage.desc}</td>
                             <td>
                                 <a target="_blank" href="$!{adImage.responseUrl}">
                                     <img width="90%" src="$!{adImage.imgUrl}"/>
                             </td>
-                            <td>创:$!{adImage.createdTime}<br>
-                                修:$!{adImage.modifiedTime}
+                            <td>创:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getCreatedTime()})<br>
+                                修:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getModifiedTime()})
                             </td>
-                            <td>起:$!{adImage.startTime}<br>
-                                止:$!{adImage.endTime}</td>
+                            <td>起:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getStartTime()})<br>
+                                止:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getEndTime()})</td>
                             <td>$!{adImage.operator}</td>
                             <td>
                                 #if($!{adImage.putOn})
@@ -61,13 +65,13 @@
                                 #if($!{adimageAuthorityFlag})
                                     #if($!{adImage.putOn})
                                         <input type="button" value="停用"
-                                               onclick="updateAdImageSwitch($!index,$!moduleCode,false)"/>
+                                               onclick="updateAdImageSwitch($!adImage.id,false)"/>
                                     #else
                                         <input type="button" value="启用"
-                                               onclick="updateAdImageSwitch($!index,$!moduleCode,true)"/>
+                                               onclick="updateAdImageSwitch($!adImage.id,true)"/>
                                     #end&nbsp;
-                                    <a href="/adimages/$!index?moduleCode=$moduleCode"> <input type="button" value="修改"></a>&nbsp;&nbsp;
-                                    <input type="button" value="删除" onclick="delAdImage($!moduleCode,$!index)"/>
+                                    <a href="/adImages/$!adImage.id"> <input type="button" value="修改"></a>
+                                    <input type="button" value="删除" onclick="delAdImage($!adImage.id)"/>
                                 #else
                                     <label style="text-align: center;color: #FF0000">无修改权限</label>
                                 #end
@@ -82,7 +86,7 @@
             </table>
             #if($!{adimageAuthorityFlag})
                 #if($adImageList.size()<20)
-                    <td><a href="/adimages/-1?moduleCode=$moduleCode"><input type="button" value="添加轮播图+"/></td>
+                    <td><a href="/adImages/-1"><input type="button" value="添加轮播图+"/></td>
                 #else
                     <label style="text-align: center;color: #FF0000">最多只能添加20个轮播图</label>
                 #end
@@ -96,22 +100,23 @@
 <script type="text/javascript">
 
     var comeback = function () {
-        document.location.href = "/adimages?moduleCode=$moduleCode";
+        document.location.href = "/adImages";
     }
 
-    var delAdImage = function (moduleCode, index) {
-        var moduleCode = $.trim(moduleCode);
-        var index = $.trim(index);
+    var delAdImage = function (adImageId) {
+        var adImageId = $.trim(adImageId);
         var tip = "确认删除此轮播图吗？";
-        var url = '/adimages/' + index + '/?moduleCode=' + moduleCode;
+        var url = '//127.0.0.1/adImages/' + adImageId;
         if (window.confirm(tip)) {
             jQuery.ajax({
                 type: 'DELETE',
                 url: url,
                 success: function (data) {
-                    if (data > 0) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("操作成功");
-                    } else if (data < 0) {
+                    } else if (jsonObject.code < 0) {
                         alert("模块不存在");
                     } else {
                         alert("您删除的信息不存在")
@@ -127,8 +132,8 @@
 
 
     <!--停用启用 -->
-    var updateAdImageSwitch = function (index, moduleCode, putOnStatus) {
-        var url = '/adimages/' + index +'/putOn';
+    var updateAdImageSwitch = function (adImageId, putOnStatus) {
+        var url = '//127.0.0.1/adImages/' + adImageId + '/putOn';
         var sure = confirm("确定修改轮播图？");
         if (sure == true) {
             jQuery.ajax({
@@ -136,14 +141,15 @@
                 type: 'PATCH',
                 data: {
                     putOn: putOnStatus,
-                    moduleCode: moduleCode
                 },
                 success: function (data) {
-                    if (data == 200) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("修改成功");
                         comeback();
                         return;
-                    } else if (data == 0) {
+                    } else if (jsonObject.code == 0) {
                         alert("用户不存在")
                     } else {
                         alert("参数错误")
@@ -157,8 +163,8 @@
     }
 
     <!--权重 -->
-    var updateAdImageWeight = function (index, moduleCode, weight) {
-        if(weight==''){
+    var updateAdImageWeight = function (adImageId, weight) {
+        if (weight == '') {
             alert("权重不能为空")
             comeback();
             return;
@@ -168,22 +174,24 @@
             comeback();
             return;
         }
-        var url = '/adimages/' + index +'/weight';
+        var url = '//127.0.0.1/adImages/' + adImageId + '/weight';
         var sure = confirm("确定修改轮播图？");
         if (sure == true) {
-            jQuery.ajax({
+            $.ajax({
                 url: url,
                 type: 'PATCH',
                 data: {
-                    weight: weight,
-                    moduleCode: moduleCode
+                    adImageId: adImageId,
+                    weight: weight
                 },
                 success: function (data) {
-                    if (data == 200) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("修改成功");
                         comeback();
                         return;
-                    } else if (data == 0) {
+                    } else if (jsonObject.code == 0) {
                         alert("用户不存在")
                     } else {
                         alert("参数错误")
@@ -193,7 +201,7 @@
                     alert("出错了");
                 }
             })
-        }else {
+        } else {
             comeback();
             return;
         }
