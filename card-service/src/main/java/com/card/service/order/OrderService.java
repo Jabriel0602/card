@@ -20,4 +20,6 @@ public interface OrderService{
 
     List<Order> findAllOrder(Long userId);
 
+    List<Order> findAllOrderWithParam(Order order);
+
 }

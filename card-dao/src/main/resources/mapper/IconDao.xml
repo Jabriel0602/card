@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.card.dao.IconDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.card.domain.icon.Icon">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR"/>
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="response_url" property="responseUrl" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="DATE"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="INTEGER"/>
+        <result column="put_on" property="putOn" jdbcType="TINYINT"/>
+        <result column="release_status" property="releaseStatus" jdbcType="TINYINT"/>
+        <result column="start_time" property="startTime" jdbcType="DATE"/>
+        <result column="end_time" property="endTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        `desc`,
+        img_url,
+        response_url,
+        created_time,
+        modified_time,
+        operator,
+        weight,
+        put_on,
+        release_status,
+        start_time,
+        end_time
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="icon.id">
+        INSERT INTO icon (
+            id,
+            `desc`,
+            img_url,
+            response_url,
+            created_time,
+            modified_time,
+            operator,
+            weight,
+            put_on,
+            release_status,
+            start_time,
+            end_time
+        ) VALUES (
+            #{icon.id,jdbcType=BIGINT},
+            #{icon.desc,jdbcType=VARCHAR},
+            #{icon.imgUrl,jdbcType=VARCHAR},
+            #{icon.responseUrl,jdbcType=VARCHAR},
+            #{icon.createdTime,jdbcType=DATE},
+            #{icon.modifiedTime,jdbcType=DATE},
+            #{icon.operator,jdbcType=VARCHAR},
+            #{icon.weight,jdbcType=INTEGER},
+            #{icon.putOn,jdbcType=TINYINT},
+            #{icon.releaseStatus,jdbcType=TINYINT},
+            #{icon.startTime,jdbcType=DATE},
+            #{icon.endTime,jdbcType=DATE}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="icon.id">
+        INSERT INTO icon
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="icon.id!=null"> id,</if>
+            <if test="icon.desc!=null"> desc,</if>
+            <if test="icon.imgUrl!=null"> img_url,</if>
+            <if test="icon.responseUrl!=null"> response_url,</if>
+            <if test="icon.createdTime!=null"> created_time,</if>
+            <if test="icon.modifiedTime!=null"> modified_time,</if>
+            <if test="icon.operator!=null"> operator,</if>
+            <if test="icon.weight!=null"> weight,</if>
+            <if test="icon.putOn!=null"> put_on,</if>
+            <if test="icon.releaseStatus!=null"> release_status,</if>
+            <if test="icon.startTime!=null"> start_time,</if>
+            <if test="icon.endTime!=null"> end_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="icon.id!=null">#{icon.id,jdbcType=BIGINT},
+            </if>
+            <if test="icon.desc!=null">#{icon.desc,jdbcType=VARCHAR},
+            </if>
+            <if test="icon.imgUrl!=null">#{icon.imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="icon.responseUrl!=null">#{icon.responseUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="icon.createdTime!=null">#{icon.createdTime,jdbcType=DATE},
+            </if>
+            <if test="icon.modifiedTime!=null">#{icon.modifiedTime,jdbcType=DATE},
+            </if>
+            <if test="icon.operator!=null">#{icon.operator,jdbcType=VARCHAR},
+            </if>
+            <if test="icon.weight!=null">#{icon.weight,jdbcType=INTEGER},
+            </if>
+            <if test="icon.putOn!=null">#{icon.putOn,jdbcType=TINYINT},
+            </if>
+            <if test="icon.releaseStatus!=null">#{icon.releaseStatus,jdbcType=TINYINT},
+            </if>
+            <if test="icon.startTime!=null">#{icon.startTime,jdbcType=DATE},
+            </if>
+            <if test="icon.endTime!=null">#{icon.endTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO icon (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="icons" item="icon" index="index" separator=",">
+            (
+            #{icon.id,jdbcType=BIGINT},
+            #{icon.desc,jdbcType=VARCHAR},
+            #{icon.imgUrl,jdbcType=VARCHAR},
+            #{icon.responseUrl,jdbcType=VARCHAR},
+            #{icon.createdTime,jdbcType=DATE},
+            #{icon.modifiedTime,jdbcType=DATE},
+            #{icon.operator,jdbcType=VARCHAR},
+            #{icon.weight,jdbcType=INTEGER},
+            #{icon.putOn,jdbcType=TINYINT},
+            #{icon.releaseStatus,jdbcType=TINYINT},
+            #{icon.startTime,jdbcType=DATE},
+            #{icon.endTime,jdbcType=DATE}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE icon
+        <set>
+            <if test="icon.id != null"> id= #{icon.id,jdbcType=BIGINT},</if>
+            <if test="icon.desc != null"> desc= #{icon.desc,jdbcType=VARCHAR},</if>
+            <if test="icon.imgUrl != null"> img_url= #{icon.imgUrl,jdbcType=VARCHAR},</if>
+            <if test="icon.responseUrl != null"> response_url= #{icon.responseUrl,jdbcType=VARCHAR},</if>
+            <if test="icon.createdTime != null"> created_time= #{icon.createdTime,jdbcType=DATE},</if>
+            <if test="icon.modifiedTime != null"> modified_time= #{icon.modifiedTime,jdbcType=DATE},</if>
+            <if test="icon.operator != null"> operator= #{icon.operator,jdbcType=VARCHAR},</if>
+            <if test="icon.weight != null"> weight= #{icon.weight,jdbcType=INTEGER},</if>
+            <if test="icon.putOn != null"> put_on= #{icon.putOn,jdbcType=TINYINT},</if>
+            <if test="icon.releaseStatus != null"> release_status= #{icon.releaseStatus,jdbcType=TINYINT},</if>
+            <if test="icon.startTime != null"> start_time= #{icon.startTime,jdbcType=DATE},</if>
+            <if test="icon.endTime != null"> end_time= #{icon.endTime,jdbcType=DATE}</if>
+        </set>
+        WHERE id = #{icon.id,jdbcType=BIGINT}
+    </update>
+
+
+
+    <select id="findAllIcon" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM icon
+    </select>
+
+    <select id="findIconById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM icon
+        WHERE id= #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM icon
+        WHERE id= #{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>
+

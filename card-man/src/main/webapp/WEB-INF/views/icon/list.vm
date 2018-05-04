@@ -1,53 +1,77 @@
 #set($title = "ICON管理")
 <head>
-    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
-    <script type="text/javascript" src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+     <script type="text/javascript"
+            src="/js/common/jquery.min.js"></script>
 </head>
 <div id="posi">
     <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
 </div>
 <div id="content">
-    <div class="i-con1 table_list" style="word-break: break-all">
+    <div class="i-con1 table_list" style="word-break: break-all" style="word-break: break-all">
         <div class="tb-x1 resultlist">
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                    #if($moduleCode!=16)
-                        <th>区域</th>
-                    #end
-                    <th>序号</th>
-                    <th>渠道</th>
-                    <th>活动名称</th>
-                    <th>活动ICON</th>
-                    <th>跳转链接</th>
-                    <th>活动打标</th>
-                    <th>是否需要登录</th>
-                    <th>创建时间</th>
-                    <th>修改时间</th>
-                    <th>操作人</th>
-                    <th>操作</th>
+                    <th width="4%">序号</th>
+                    <th width="7%">权重</th>
+                    <th width="8%">ICON描述</th>
+                    <th width="15%">广告图</th>
+                    <th width="13%">创建及修改时间</th>
+                    <th width="13%">上下线时间</th>
+                    <th width="10%">操作人</th>
+                    <th width="6%">启用状态</th>
+                    <th width="6%">发布状态</th>
+                    <th width="12%">操作</th>
                 </tr>
+
                 #if($iconList && $iconList.size() > 0)
                     #foreach($icon in $iconList)
                         <tr>
                             #set($count=$velocityCount)
-                            #set($index = $count - 1)
-                            #if($moduleCode!=16)
-                                <td width="4%">$!{area}</td>
-                            #end
-                            <td width="4%">$!{count}</td>
-                            <td width="6%">$!{moduleDesc}</td>
-                            <td width="8%">$!{icon.desc}</td>
-                            <td width="6%"><img width="80%" src="$!{icon.imgUrl}"></td>
-                            <td width="18%">$!{icon.responseUrl}</td>
-                            <td width="6%"><img width="80%" src="$!{icon.label}"></td>
-                            <td width="8%">$!{icon.isLogin}</td>
-                            <td width="12%">$!{icon.createdTime}</td>
-                            <td width="12%">$!{icon.modifiedTime}</td>
-                            <td width="12%">$!{icon.operator}</td>
-                            <td width="8%">
+                            <td>$!{count}</td>
+                            <td>
+                                <input name="iconWeight$icon.id" type="number" id="iconWeight$icon.id"
+                                       style="width:90%"
+                                       value="$icon.weight"
+                                       onchange="updateIconWeight('$icon.id',jQuery('#iconWeight$icon.id').val())"/>
+                            </td>
+                            <td>$!{icon.desc}</td>
+                            <td>
+                                <a target="_blank" href="$!{icon.responseUrl}">
+                                    <img width="90%" src="$!{icon.imgUrl}"/>
+                            </td>
+                            <td>创:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{icon.getCreatedTime()})<br>
+                                修:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{icon.getModifiedTime()})
+                            </td>
+                            <td>起:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{icon.getStartTime()})<br>
+                                止:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{icon.getEndTime()})</td>
+                            <td>$!{icon.operator}</td>
+                            <td>
+                                #if($!{icon.putOn})
+                                    <label style="text-align: center;color:#35FF1B">启用</label>
+                                #else
+                                    <label style="text-align: center;color:#FF0000">停用</label>
+                                #end
+                            </td>
+                            <td>
+                                #if($!{icon.releaseStatus})
+                                    <label style="text-align: center;color:#35FF1B">已发布</label>
+                                #else
+                                    <label style="text-align: center;color:#FF0000">未发布</label>
+                                #end
+                            </td>
+                            <td>
                                 #if($!{iconAuthorityFlag})
-                                    <a href="/icons/$!index?moduleCode=$moduleCode&area=$!area">修改</a>&nbsp;&nbsp;
-                                    <input type="button" value="删除" onclick="delIcon($!moduleCode,'$!area',$!index)"/>
+                                    #if($!{icon.putOn})
+                                        <input type="button" value="停用"
+                                               onclick="updateIconSwitch($!icon.id,false)"/>
+                                    #else
+                                        <input type="button" value="启用"
+                                               onclick="updateIconSwitch($!icon.id,true)"/>
+                                    #end&nbsp;
+                                    <a href="/icons/$!icon.id"> <input type="button" value="修改"></a>
+                                    <input type="button" value="删除" onclick="delIcon($!icon.id)"/>
                                 #else
                                     <label style="text-align: center;color: #FF0000">无修改权限</label>
                                 #end
@@ -56,25 +80,15 @@
                     #end
                 #else
                     <tr>
-                        <td colspan="12">没有相关数据显示！</td>
+                        <td colspan="11">没有相关数据显示！</td>
                     </tr>
                 #end
             </table>
             #if($!{iconAuthorityFlag})
-                #if($moduleCode!=16)
-                    #if($iconList.size()<4)
-                        <td><a href="/icons/-1?moduleCode=$moduleCode&area=$area"><input type="button" value="添加ICON+"/>
-                        </td>
-                    #else
-                        <label style="text-align: center;color: #FF0000">最多只能添加4个ICON</label>
-                    #end
+                #if($iconList.size()<4)
+                    <td><a href="/icons/-1"><input type="button" value="添加ICON+"/></td>
                 #else
-                    #if($iconList.size()<8)
-                        <td><a href="/icons/-1?moduleCode=$moduleCode&area=$area"><input type="button" value="添加ICON+"/>
-                        </td>
-                    #else
-                        <label style="text-align: center;color: #FF0000">最多只能添加8个ICON</label>
-                    #end
+                    <label style="text-align: center;color: #FF0000">最多只能添加4个ICON</label>
                 #end
             #else
                 <label style="text-align: center;color: #FF0000">无添加权限</label>
@@ -85,24 +99,27 @@
 </div>
 <script type="text/javascript">
 
+    var comeback = function () {
+        document.location.href = "/icons";
+    }
 
-    var delIcon = function (moduleCode, area, index) {
-        var moduleCode = $.trim(moduleCode);
-        var area = $.trim(area);
-        var index = $.trim(index);
-        var tip = "确认删除当前ICON吗？";
-        var url = '/icons/' + index + '/?moduleCode=' + moduleCode + "&area=" + area;
+    var delIcon = function (iconId) {
+        var iconId = $.trim(iconId);
+        var tip = "确认删除此ICON吗？";
+        var url = '//127.0.0.1/icons/' + iconId;
         if (window.confirm(tip)) {
             jQuery.ajax({
                 type: 'DELETE',
                 url: url,
                 success: function (data) {
-                    if (data > 0) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
                         alert("操作成功");
-                    } else if (data ==  0) {
-                        alert("操作的数据不存在");
+                    } else if (jsonObject.code < 0) {
+                        alert("模块不存在");
                     } else {
-                        alert("参数错误")
+                        alert("您删除的信息不存在")
                     }
                     window.location.reload();
                 },
@@ -110,6 +127,83 @@
                     alert("出错了！");
                 }
             })
+        }
+    }
+
+
+    <!--停用启用 -->
+    var updateIconSwitch = function (iconId, putOnStatus) {
+        var url = '//127.0.0.1/icons/' + iconId + '/putOn';
+        var sure = confirm("确定修改ICON？");
+        if (sure == true) {
+            jQuery.ajax({
+                url: url,
+                type: 'PATCH',
+                data: {
+                    putOn: putOnStatus,
+                },
+                success: function (data) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (jsonObject.code == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--权重 -->
+    var updateIconWeight = function (iconId, weight) {
+        if (weight == '') {
+            alert("权重不能为空")
+            comeback();
+            return;
+        }
+        if (weight < -500 || weight > 500) {
+            alert('权重范围应为[-500至500]');
+            comeback();
+            return;
+        }
+        var url = '//127.0.0.1/icons/' + iconId + '/weight';
+        var sure = confirm("确定修改ICON？");
+        if (sure == true) {
+            $.ajax({
+                url: url,
+                type: 'PATCH',
+                data: {
+                    iconId: iconId,
+                    weight: weight
+                },
+                success: function (data) {
+                    var json=JSON.stringify(data);
+                    var jsonObject=JSON.parse(json);
+                    if (jsonObject.code == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (jsonObject.code == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        } else {
+            comeback();
+            return;
         }
     }
 </script>

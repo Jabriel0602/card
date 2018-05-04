@@ -1,8 +1,10 @@
--- auto Generated on 2018-04-27 15:35:09 
--- DROP TABLE IF EXISTS refund; 
+-- auto Generated on 2018-05-04 14:27:37
+-- DROP TABLE IF EXISTS refund;
 CREATE TABLE refund(
 	order_id BIGINT (15) NOT NULL  COMMENT '订单id',
 	refund_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '退款id',
+	user_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '用户id',
+	card_id BIGINT (15) NOT NULL DEFAULT -1 COMMENT '卡号',
 	refund_type INT (11) NOT NULL DEFAULT -1 COMMENT '退款类型',
 	money BIGINT (15) NOT NULL DEFAULT -1 COMMENT '退款金额',
 	refund_status INT (11) NOT NULL DEFAULT -1 COMMENT '退款状态',

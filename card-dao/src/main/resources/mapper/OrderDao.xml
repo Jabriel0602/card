@@ -216,7 +216,6 @@
             <if test="order.skuMoney != null">sku_money= #{order.skuMoney,jdbcType=BIGINT},</if>
             <if test="order.cardId != null">card_id= #{order.cardId,jdbcType=VARCHAR},</if>
             <if test="order.vendorCardId != null"> vendor_card_id= #{order.vendorCardId,jdbcType=BIGINT},</if>
-
             <if test="order.cardType != null">card_type= #{order.cardType,jdbcType=VARCHAR},</if>
             <if test="order.userId != null">user_id= #{order.userId,jdbcType=BIGINT},</if>
             <if test="order.phone != null">phone= #{order.phone,jdbcType=VARCHAR},</if>
@@ -258,6 +257,35 @@
         <include refid="Base_Column_List"></include>
         from `order`
         <if test="userId != null">where user_id= #{userId,jdbcType=BIGINT}</if>
+    </select>
+
+    <select id="findAllOrderWithParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        from `order`
+        WHERE
+        1=1
+        <if test="order.orderId != null">AND order_id= #{order.orderId,jdbcType=BIGINT}</if>
+        <if test="order.skuId != null">AND sku_id= #{order.skuId,jdbcType=VARCHAR}</if>
+        <if test="order.skuName != null">AND sku_name= #{order.skuName,jdbcType=VARCHAR}</if>
+        <if test="order.skuMoney != null">AND sku_money= #{order.skuMoney,jdbcType=BIGINT}</if>
+        <if test="order.cardId != null">AND card_id= #{order.cardId,jdbcType=VARCHAR}</if>
+        <if test="order.vendorCardId != null">AND  vendor_card_id= #{order.vendorCardId,jdbcType=BIGINT}</if>
+        <if test="order.cardType != null">AND card_type= #{order.cardType,jdbcType=VARCHAR}</if>
+        <if test="order.userId != null">AND user_id= #{order.userId,jdbcType=BIGINT}</if>
+        <if test="order.phone != null">AND phone= #{order.phone,jdbcType=VARCHAR}</if>
+        <if test="order.submitTime != null">AND submit_time= #{order.submitTime,jdbcType=DATE}</if>
+        <if test="order.payNo != null">AND pay_no= #{order.payNo,jdbcType=VARCHAR}</if>
+        <if test="order.money != null">AND money= #{order.money,jdbcType=BIGINT}</if>
+        <if test="order.payTime != null">AND pay_time= #{order.payTime,jdbcType=DATE}</if>
+        <if test="order.payStatus != null">AND pay_status= #{order.payStatus,jdbcType=INTEGER}</if>
+        <if test="order.rechargeStatus != null">AND recharge_status= #{order.rechargeStatus,jdbcType=INTEGER}</if>
+        <if test="order.refundStatus != null">AND refund_status= #{order.refundStatus,jdbcType=INTEGER}</if>
+        <if test="order.orderStatus != null">AND order_status= #{order.orderStatus,jdbcType=INTEGER}</if>
+        <if test="order.finaStatus != null">AND fina_status= #{order.finaStatus,jdbcType=INTEGER}</if>
+        <if test="order.createdTime != null">AND created_time= #{order.createdTime,jdbcType=DATE}</if>
+        <if test="order.modifyTime != null">AND modify_time= #{order.modifyTime,jdbcType=DATE}</if>
+        <if test="order.yn != null">AND yn= #{order.yn,jdbcType=TINYINT}</if>
     </select>
 
 

@@ -1,0 +1,206 @@
+#set($title = "轮播图管理")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+    <script type="text/javascript"
+            src="/js/common/jquery.min.js"></script>
+</head>
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+
+
+    <div class="i-con1 table_list" style="word-break: break-all" style="word-break: break-all">
+        <form action="/orders" method="get">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td>
+                        订单编号<input id="queryRefundId" name="refundId" type="text" value="$!refund.refundId"/>
+                    </td>
+                    <td>
+                        退款编号<input id="queryOrderId" name="orderId" type="text" value="$!refund.orderId"/>
+                    </td>
+                    <td>
+                        充值卡号<input id="queryCardId" name="cardId" type="text" value="$!refund.cardId">
+                    </td>
+                    <td>
+                        用户id<input id="queryUserPin" name="userId" type="text" value="$!refund.userId">
+                    </td>
+                    <td>
+                        订单状态
+                        <select id="queryOrderStatus" name="orderStatus">
+                            <option name="orderStatus" value=""></option>
+                            #foreach($key in $RefundStatusEnum)
+                                <option name="orderStatus" value="$key.code">$!{key.desc}</option>
+                            #end
+                        </select>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="6">
+                        <input type="hidden" name="page" value="1">
+                        <input type="submit" value="提交"/>
+                        &nbsp; &nbsp;
+                        <input type="reset" value="重置"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <br>
+
+
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <th width="4%">序号</th>
+                    <th width="6%">退款号</th>
+                    <th width="6%">订单号</th>
+                    <th width="6%">用户id</th>
+                    <th width="8%">卡号</th>
+                    <th width="7%">退款金额</th>
+                    <th width="20%">退款状态</th>
+                    <th width="13%">创建时间</th>
+                    <th width="13%">修改时间</th>
+                    <th width="5%">操作</th>
+                </tr>
+
+                #if($refund && $refundList.size() > 0)
+                    #foreach($refund in $refundList)
+                        <tr>
+                            #set($count=$velocityCount)
+                            <td>$!{count}</td>
+                            <td>$!{refund.refundId}</td>
+                            <td>$!{refund.orderId}</td>
+                            <td>$!{refund.userId}</td>
+                            <td>$!{refund.cardId}</td>
+                            <td>$!{refund.money}</td>
+                            <td>$RefundStatusEnum.getRefundStatusEnum($!refund.refundStatus).desc</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{refund.getCreatedTime()})</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{refund.getModifiedTime()})</td>
+                            <td>详情</td>
+                        </tr>
+                    #end
+                #else
+
+                    <tr>
+                        <td colspan="11">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var comeback = function () {
+        document.location.href = "/adImages";
+    }
+
+    var delAdImage = function (adImageId) {
+        var adImageId = $.trim(adImageId);
+        var tip = "确认删除此轮播图吗？";
+        var url = '//127.0.0.1/adImages/' + adImageId;
+        if (window.confirm(tip)) {
+            jQuery.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (data) {
+                    var json = JSON.stringify(data);
+                    var jsonObject = JSON.parse(json);
+                    if (jsonObject.code == 200) {
+                        alert("操作成功");
+                    } else if (jsonObject.code < 0) {
+                        alert("模块不存在");
+                    } else {
+                        alert("您删除的信息不存在")
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("出错了！");
+                }
+            })
+        }
+    }
+
+
+    <!--停用启用 -->
+    var updateAdImageSwitch = function (adImageId, putOnStatus) {
+        var url = '//127.0.0.1/adImages/' + adImageId + '/putOn';
+        var sure = confirm("确定修改轮播图？");
+        if (sure == true) {
+            jQuery.ajax({
+                url: url,
+                type: 'PATCH',
+                data: {
+                    putOn: putOnStatus,
+                },
+                success: function (data) {
+                    var json = JSON.stringify(data);
+                    var jsonObject = JSON.parse(json);
+                    if (jsonObject.code == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (jsonObject.code == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
+    }
+
+    <!--权重 -->
+    var updateAdImageWeight = function (adImageId, weight) {
+        if (weight == '') {
+            alert("权重不能为空")
+            comeback();
+            return;
+        }
+        if (weight < -500 || weight > 500) {
+            alert('权重范围应为[-500至500]');
+            comeback();
+            return;
+        }
+        var url = '//127.0.0.1/adImages/' + adImageId + '/weight';
+        var sure = confirm("确定修改轮播图？");
+        if (sure == true) {
+            $.ajax({
+                url: url,
+                type: 'PATCH',
+                data: {
+                    adImageId: adImageId,
+                    weight: weight
+                },
+                success: function (data) {
+                    var json = JSON.stringify(data);
+                    var jsonObject = JSON.parse(json);
+                    if (jsonObject.code == 200) {
+                        alert("修改成功");
+                        comeback();
+                        return;
+                    } else if (jsonObject.code == 0) {
+                        alert("用户不存在")
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        } else {
+            comeback();
+            return;
+        }
+    }
+</script>

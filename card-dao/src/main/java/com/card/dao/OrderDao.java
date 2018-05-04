@@ -22,4 +22,7 @@ public interface OrderDao {
     Order selectByOrderId(@Param("orderId") Long orderId);
 
     List<Order> findAllOrder(@Param("userId") Long userId);
+
+    List<Order> findAllOrderWithParam(@Param("order") Order order);
+
 }

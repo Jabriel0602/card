@@ -1,4 +1,4 @@
-#set($title = "ICON管理")
+#set($title = "轮播图管理")
 <head>
     <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
 </head>
@@ -17,30 +17,30 @@
 <div id="content">
     <div class="i-con1 table_list" style="word-break: break-all">
         <div class="tb-x1 resultlist">
-            <h3>ICON编辑</h3>
+            <h3>轮播图编辑</h3>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">ICON权重</td>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">轮播图权重</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input name="iconWeight" type="number" id="iconWeight" style="width:90%"
-                               value="$icon.weight" onblur="if(value==''){value='1000'}"
+                        <input name="adImageWeight" type="number" id="adImageWeight" style="width:90%"
+                               value="$adImage.weight" onblur="if(value==''){value='1000'}"
                                placeholder="权重范围[-500至500]"/>
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">ICON描述</td>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">轮播图描述</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input type="text" id="desc" name="desc" value="$!{icon.desc}"
+                        <input type="text" id="desc" name="desc" value="$!{adImage.desc}"
                                size="100"
                                maxlength="100"
-                               placeholder="输入ICON描述"/>
+                               placeholder="输入轮播图描述"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">ICONURL</td>
+                    <td style="vertical-align:middle; text-align:right; height:28px;">轮播图URL</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input type="text" id="imgUrl" name="imgUrl" value="$!{icon.imgUrl}"
+                        <input type="text" id="imgUrl" name="imgUrl" value="$!{adImage.imgUrl}"
                                size="100"
                                maxlength="500"
                                placeholder="输入广告图URL（格式：https://www.jd.com 或者http://www.jd.com）"/>
@@ -51,7 +51,7 @@
                     <td style="vertical-align:middle; text-align:right; height:28px;">跳转链接URL</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
                         <input type="text" id="responseUrl" name="responseUrl"
-                               value="$!{icon.responseUrl}"
+                               value="$!{adImage.responseUrl}"
                                size="100"
                                maxlength="500"
                                placeholder="输入跳转链接URL（格式：https://www.jd.com 或者http://www.jd.com）"/>
@@ -61,19 +61,19 @@
                 <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">启用状态</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input type="radio" id="iconPutOn" name="iconPutOn" value="true"
-                            #if($!icon.putOn == true) checked="checked" #end
+                        <input type="radio" id="adImagePutOn" name="adImagePutOn" value="true"
+                            #if($!adImage.putOn == true) checked="checked" #end
                         />启用
-                        <input type="radio" id="iconPutOn" name="iconPutOn" value="false"
-                            #if($!icon.putOn == false) checked="checked" #end
+                        <input type="radio" id="adImagePutOn" name="adImagePutOn" value="false"
+                            #if($!adImage.putOn == false) checked="checked" #end
                         />停用
                     </td>
                 </tr>
                 <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">定时发布</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input type="search" id="iconStartTimeStr" name="iconStartTimeStr"
-                               value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!{icon.getStartTime()})"
+                        <input type="search" id="adImageStartTimeStr" name="adImageStartTimeStr"
+                               value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getStartTime()})"
                                size="20"
                                placeholder="输入发布时间"/>
                     </td>
@@ -81,8 +81,8 @@
                 <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">定时取消发布</td>
                     <td style="vertical-align:middle; text-align:left; height:28px;">
-                        <input type="search" id="iconEndTimeStr" name="iconEndTimeStr"
-                               value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!{icon.getEndTime()})"
+                        <input type="search" id="adImageEndTimeStr" name="adImageEndTimeStr"
+                               value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getEndTime()})"
                                size="20"
                                placeholder="输入取消发布时间"/>
                         &nbsp;&nbsp;<input type="button" onclick="MaxEndTime()" value="永久发布"/>(备注:点击按钮 定时取消发布时间为3018年)
@@ -104,12 +104,12 @@
 
 <script type="text/javascript">
     var comeback = function () {
-        document.location.href = "/icons";
+        document.location.href = "/adImages";
     }
 
     jQuery(document).ready(
             function () {
-                jQuery("#iconStartTimeStr").datetimepicker({
+                jQuery("#adImageStartTimeStr").datetimepicker({
                     dateFormat: "yy-mm-dd",
                     timeFormat: "HH:mm:ss",
                     controlType: 'select',
@@ -122,7 +122,7 @@
                     minute: 0,
                     second: 0
                 });
-                jQuery("#iconEndTimeStr").datetimepicker({
+                jQuery("#adImageEndTimeStr").datetimepicker({
                     dateFormat: "yy-mm-dd",
                     timeFormat: "HH:mm:ss",
                     controlType: 'select',
@@ -140,41 +140,41 @@
 
 
     var MaxEndTime = function () {
-        jQuery('#iconEndTimeStr').val('3018-06-18 12:00:00');
+        jQuery('#adImageEndTimeStr').val('3018-06-18 12:00:00');
     }
 
     var onSubmit = function () {
 
-        var iconWeight = jQuery('input[name=iconWeight]').val();
-        if (iconWeight == null || jQuery.trim(iconWeight) == '') {
+        var adimageWeight = jQuery('input[name=adImageWeight]').val();
+        if (adimageWeight == null || jQuery.trim(adimageWeight) == '') {
             alert('权重不能为空');
             return;
         }
-        if (iconWeight < -500 || iconWeight > 500) {
+        if (adimageWeight < -500 || adimageWeight > 500) {
             alert('权重范围应为[-500至500]');
             return;
         }
 
         var desc = jQuery('input[name=desc]').val();
         if (desc == null || jQuery.trim(desc) == '') {
-            alert('[ICON描述]不能为空');
+            alert('[轮播图描述]不能为空');
             return;
         }
         if (desc.length > 500) {
-            alert('[ICON描述]长度不能大于500');
+            alert('[轮播图描述]长度不能大于500');
             return;
         }
         var imgUrl = jQuery('input[name=imgUrl]').val();
         if (imgUrl == null || jQuery.trim(imgUrl) == '') {
-            alert('[ICONURL]不能为空');
+            alert('[轮播图URL]不能为空');
             return;
         }
         if (imgUrl.length < 7 | imgUrl.length > 200) {
-            alert('[ICONURL]长度必须在7与200之间');
+            alert('[轮播图URL]长度必须在7与200之间');
             return;
         }
         if (jQuery.trim(imgUrl).substr(0, 4) != 'http') {
-            alert('[ICONURL格式错误]');
+            alert('[轮播图URL格式错误]');
             return;
         }
 
@@ -192,57 +192,57 @@
             return;
         }
 
-        var iconEndTime = $.trim(document.getElementById("iconEndTimeStr").value);
-        var iconStartTime = $.trim(document.getElementById("iconStartTimeStr").value);
-        var iconPutOn = jQuery('input[name="iconPutOn"]:checked').val();
-        if (iconPutOn == null || jQuery.trim(iconPutOn) == '') {
+        var adImageEndTime = $.trim(document.getElementById("adImageEndTimeStr").value);
+        var adImageStartTime = $.trim(document.getElementById("adImageStartTimeStr").value);
+        var adImagePutOn = jQuery('input[name="adImagePutOn"]:checked').val();
+        if (adImagePutOn == null || jQuery.trim(adImagePutOn) == '') {
             alert('是否启用不能为空');
             return;
         }
-        if (iconStartTime == null || jQuery.trim(iconStartTime) == '') {
+        if (adImageStartTime == null || jQuery.trim(adImageStartTime) == '') {
             alert('发布时间不能为空');
             return;
         }
-        if (iconEndTime == null || jQuery.trim(iconEndTime) == '') {
+        if (adImageEndTime == null || jQuery.trim(adImageEndTime) == '') {
             alert('取消发布时间不能为空');
             return;
         }
-        if (iconEndTime != "" && iconEndTime < iconStartTime) {
+        if (adImageEndTime != "" && adImageEndTime < adImageStartTime) {
             alert('取消发布时间不能小于发布时间');
             return;
         }
 
-        var isUpdateOperate = $iconId;
+        var isUpdateOperate = $adImageId;
         if (isUpdateOperate == null || isUpdateOperate < 0) {
             addImage();
         } else {
-            updateIcon();
+            updateAdImage();
         }
     }
 
 
     <!--添加按钮 -->
     var addImage = function () {
-        var iconEndTimeStr = $.trim(document.getElementById("iconEndTimeStr").value);
-        var iconStartTimeStr = $.trim(document.getElementById("iconStartTimeStr").value);
-        var iconPutOn = jQuery('input[name="iconPutOn"]:checked').val();
-        var iconWeight = jQuery('input[name=iconWeight]').val();
+        var adImageEndTimeStr = $.trim(document.getElementById("adImageEndTimeStr").value);
+        var adImageStartTimeStr = $.trim(document.getElementById("adImageStartTimeStr").value);
+        var adImagePutOn = jQuery('input[name="adImagePutOn"]:checked').val();
+        var adimageWeight = jQuery('input[name=adImageWeight]').val();
         var desc = $.trim(document.getElementById("desc").value);
         var imgUrl = $.trim(document.getElementById("imgUrl").value);
         var responseUrl = $.trim(document.getElementById("responseUrl").value);
-        var sure = confirm("确定添加ICON？");
+        var sure = confirm("确定添加轮播图？");
         if (sure == true) {
             jQuery.ajax({
                 type: 'POST',
-                url: '//127.0.0.1/icons',
+                url: '//127.0.0.1/adImages',
                 data: {
                     desc: desc,
                     imgUrl: imgUrl,
                     responseUrl: responseUrl,
-                    weight: iconWeight,
-                    putOn: iconPutOn,
-                    startTime: iconStartTimeStr,
-                    endTime: iconEndTimeStr
+                    weight: adimageWeight,
+                    putOn: adImagePutOn,
+                    startTime: adImageStartTimeStr,
+                    endTime: adImageEndTimeStr
 
                 },
                 success: function (data) {
@@ -267,17 +267,17 @@
     }
 
     <!--修改按钮 -->
-    var updateIcon = function () {
-        var id=$icon.getId();
-        var iconEndTimeStr = $.trim(document.getElementById("iconEndTimeStr").value);
-        var iconStartTimeStr = $.trim(document.getElementById("iconStartTimeStr").value);
-        var iconPutOn = jQuery('input[name="iconPutOn"]:checked').val();
-        var iconWeight = jQuery('input[name=iconWeight]').val();
+    var updateAdImage = function () {
+        var id=$adImage.getId();
+        var adImageEndTimeStr = $.trim(document.getElementById("adImageEndTimeStr").value);
+        var adImageStartTimeStr = $.trim(document.getElementById("adImageStartTimeStr").value);
+        var adImagePutOn = jQuery('input[name="adImagePutOn"]:checked').val();
+        var adimageWeight = jQuery('input[name=adImageWeight]').val();
         var desc = $.trim(document.getElementById("desc").value);
         var imgUrl = $.trim(document.getElementById("imgUrl").value);
         var responseUrl = $.trim(document.getElementById("responseUrl").value);
-        var url = '//127.0.0.1/icons/' + '$!icon.id';
-        var sure = confirm("确定修改ICON？");
+        var url = '//127.0.0.1/adImages/' + '$!adImage.id';
+        var sure = confirm("确定修改轮播图？");
         if (sure == true) {
             jQuery.ajax({
                 url: url,
@@ -287,10 +287,10 @@
                     desc: desc,
                     imgUrl: imgUrl,
                     responseUrl: responseUrl,
-                    weight: iconWeight,
-                    putOn: iconPutOn,
-                    startTime: iconStartTimeStr,
-                    endTime: iconEndTimeStr
+                    weight: adimageWeight,
+                    putOn: adImagePutOn,
+                    startTime: adImageStartTimeStr,
+                    endTime: adImageEndTimeStr
                 },
                 success: function (data) {
                     var json=JSON.stringify(data);
