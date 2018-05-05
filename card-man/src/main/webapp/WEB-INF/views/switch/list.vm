@@ -1,0 +1,95 @@
+#set($title = "配置管理")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+    <script type="text/javascript"
+            src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
+</head>
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <th>开关</th>
+                    <th>开关描述</th>
+                    <th>状态描述</th>
+                    <th>创建时间</th>
+                    <th>修改时间</th>
+                    <th>操作人</th>
+                    <th>操作</th>
+                </tr>
+                #if($switchList && $switchList.size() > 0)
+                    #foreach($switch in $switchList)
+                        <tr>
+                            <td>$!{switch.switchId}</td>
+                            <td>$!{switch.switchDesc}</td>
+                            <td>
+                                #if($!{switch.switchStatusDesc}=='开启')
+                                    <label style="text-align: center;color:#35FF1B">开启</label>
+                                #else
+                                    <label style="text-align: center;color:#FF0000">关闭</label>
+                                #end
+                            </td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{switch.createdTime})</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{switch.modifiedTime})</td>
+                            <td>$!{switch.operator}</td>
+                            <td>
+
+                            ##                                #if($switchAuthorityFlag)
+                                #if($!{switch.getSwitchStatus()}>0)
+                                    <input type="button" value="停用" onclick="updateSwitch('$switch.switchId')"/>
+                                #else
+                                    <input type="button" value="启用" onclick="updateSwitch('$switch.switchId')"/>
+                                #end
+                            ##                                #else
+                            ##                                    <label style="text-align: center;color: #FF0000">无权限修改</label>
+                            ##                                #end
+                            </td>
+                        </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="9">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var comeback = function () {
+        document.location.href = "/switchs";
+    }
+
+    <!--停用启用 -->
+    var updateSwitch = function (switchId) {
+        var url = '//127.0.0.1/switchs/'+switchId;
+        jQuery.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                switchId: switchId,
+            },
+            success: function (data) {
+                var json = JSON.stringify(data);
+                var jsonObject = JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    alert("修改成功");
+                    comeback();
+                    return;
+                } else if (jsonObject.code == 0) {
+                    alert("用户不存在")
+                } else {
+                    alert("参数错误")
+                }
+            },
+            error: function () {
+                alert("出错了");
+            }
+        })
+    }
+</script>

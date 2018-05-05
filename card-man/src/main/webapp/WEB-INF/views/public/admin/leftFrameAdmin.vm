@@ -51,8 +51,8 @@
                 }
                 ,
                 {
-                    href: "/configs",
-                    text: "配置管理",
+                    href: "/switchs",
+                    text: "开关管理",
                     child: []
                 }
                 ,

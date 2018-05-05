@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.card.dao.CardSwitchDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.card.domain.switchs.CardSwitch">
+        <result column="switch_id" property="switchId" jdbcType="BIGINT"/>
+        <result column="switch_desc" property="switchDesc" jdbcType="VARCHAR"/>
+        <result column="switch_status" property="switchStatus" jdbcType="INTEGER"/>
+        <result column="switch_status_desc" property="switchStatusDesc" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="DATE"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        switch_id,
+        switch_desc,
+        switch_status,
+        switch_status_desc,
+        created_time,
+        modified_time,
+        operator
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="cardSwitch.switchId">
+        INSERT INTO card_switch (
+            switch_id,
+            switch_desc,
+            switch_status,
+            switch_status_desc,
+            created_time,
+            modified_time,
+            operator
+        ) VALUES (
+            #{cardSwitch.switchId,jdbcType=BIGINT},
+            #{cardSwitch.switchDesc,jdbcType=VARCHAR},
+            #{cardSwitch.switchStatus,jdbcType=INTEGER},
+            #{cardSwitch.switchStatusDesc,jdbcType=VARCHAR},
+            #{cardSwitch.createdTime,jdbcType=DATE},
+            #{cardSwitch.modifiedTime,jdbcType=DATE},
+            #{cardSwitch.operator,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="cardSwitch.switchId">
+        INSERT INTO card_switch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cardSwitch.switchId!=null"> switch_id,</if>
+            <if test="cardSwitch.switchDesc!=null"> switch_desc,</if>
+            <if test="cardSwitch.switchStatus!=null"> switch_status,</if>
+            <if test="cardSwitch.switchStatusDesc!=null"> switch_status_desc,</if>
+            <if test="cardSwitch.createdTime!=null"> created_time,</if>
+            <if test="cardSwitch.modifiedTime!=null"> modified_time,</if>
+            <if test="cardSwitch.operator!=null"> operator,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cardSwitch.switchId!=null">#{cardSwitch.switchId,jdbcType=BIGINT},
+            </if>
+            <if test="cardSwitch.switchDesc!=null">#{cardSwitch.switchDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="cardSwitch.switchStatus!=null">#{cardSwitch.switchStatus,jdbcType=INTEGER},
+            </if>
+            <if test="cardSwitch.switchStatusDesc!=null">#{cardSwitch.switchStatusDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="cardSwitch.createdTime!=null">#{cardSwitch.createdTime,jdbcType=DATE},
+            </if>
+            <if test="cardSwitch.modifiedTime!=null">#{cardSwitch.modifiedTime,jdbcType=DATE},
+            </if>
+            <if test="cardSwitch.operator!=null">#{cardSwitch.operator,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO card_switch (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="cardSwitchs" item="cardSwitch" index="index" separator=",">
+            (
+            #{cardSwitch.switchId,jdbcType=BIGINT},
+            #{cardSwitch.switchDesc,jdbcType=VARCHAR},
+            #{cardSwitch.switchStatus,jdbcType=INTEGER},
+            #{cardSwitch.switchStatusDesc,jdbcType=VARCHAR},
+            #{cardSwitch.createdTime,jdbcType=DATE},
+            #{cardSwitch.modifiedTime,jdbcType=DATE},
+            #{cardSwitch.operator,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE card_switch
+        <set>
+            <if test="cardSwitch.switchId != null"> switch_id= #{cardSwitch.switchId,jdbcType=BIGINT},</if>
+            <if test="cardSwitch.switchDesc != null"> switch_desc= #{cardSwitch.switchDesc,jdbcType=VARCHAR},</if>
+            <if test="cardSwitch.switchStatus != null"> switch_status= #{cardSwitch.switchStatus,jdbcType=INTEGER},</if>
+            <if test="cardSwitch.switchStatusDesc != null"> switch_status_desc= #{cardSwitch.switchStatusDesc,jdbcType=VARCHAR},</if>
+            <if test="cardSwitch.createdTime != null"> created_time= #{cardSwitch.createdTime,jdbcType=DATE},</if>
+            <if test="cardSwitch.modifiedTime != null"> modified_time= #{cardSwitch.modifiedTime,jdbcType=DATE},</if>
+            <if test="cardSwitch.operator != null"> operator= #{cardSwitch.operator,jdbcType=VARCHAR}</if>
+        </set>
+        WHERE switch_id = #{cardSwitch.switchId,jdbcType=BIGINT}
+    </update>
+
+    <select id="select" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        card_switch
+        WHERE switch_id = #{switchId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        card_switch
+    </select>
+</mapper>
+
