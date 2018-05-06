@@ -69,7 +69,7 @@
         INSERT INTO icon
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="icon.id!=null"> id,</if>
-            <if test="icon.desc!=null"> desc,</if>
+            <if test="icon.desc!=null"> `desc`,</if>
             <if test="icon.imgUrl!=null"> img_url,</if>
             <if test="icon.responseUrl!=null"> response_url,</if>
             <if test="icon.createdTime!=null"> created_time,</if>
@@ -138,7 +138,7 @@
         UPDATE icon
         <set>
             <if test="icon.id != null"> id= #{icon.id,jdbcType=BIGINT},</if>
-            <if test="icon.desc != null"> desc= #{icon.desc,jdbcType=VARCHAR},</if>
+            <if test="icon.desc != null"> `desc`= #{icon.desc,jdbcType=VARCHAR},</if>
             <if test="icon.imgUrl != null"> img_url= #{icon.imgUrl,jdbcType=VARCHAR},</if>
             <if test="icon.responseUrl != null"> response_url= #{icon.responseUrl,jdbcType=VARCHAR},</if>
             <if test="icon.createdTime != null"> created_time= #{icon.createdTime,jdbcType=DATE},</if>

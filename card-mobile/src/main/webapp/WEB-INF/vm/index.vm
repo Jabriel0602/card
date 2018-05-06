@@ -40,8 +40,7 @@
                 <li>
                     <div>
                         <a draggable="false" href="$icon.getResponseUrl()">
-                            <img draggable="false" alt=""
-                                 src="$icon.getImgUrl()"><br>
+                            <img draggable="false" alt="" src="$icon.getImgUrl()"><br>
                             <span>$icon.getDesc()</span>
                         </a>
                     </div>

@@ -91,7 +91,7 @@ public class IconController {
 		//参数校验
 		try {
 			icon.setId(idUtil.getId(IdUtil.SequenceEnum.ADIMAGE));
-			icon.setOperator(String.valueOf(LoginContext.getUserId()));
+			icon.setOperator(LoginContext.getUserName());
 			icon.setCreatedTime(new Date());
 			icon.setModifiedTime(new Date());
 			ValidatorUtils.validate(icon);
@@ -120,7 +120,7 @@ public class IconController {
 		//参数校验
 		try {
 			icon.setModifiedTime(new Date());
-
+			icon.setOperator(LoginContext.getUserName());
 			ValidatorUtils.validate(icon);
 			iconService.update(icon);
 			return new APIResult<>(icon);

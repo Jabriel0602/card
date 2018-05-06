@@ -60,8 +60,8 @@ public class LoginContext {
 
 	public static String getUserName() {
 		//todo
-		return SESSION_INFO.get().getUserName();
-//		return "test";
+//		return SESSION_INFO.get().getUserName();
+		return "test";
 	}
 
 	public static void setUserId(Long userId) {
@@ -70,8 +70,8 @@ public class LoginContext {
 
 	public static Long getUserId() {
 		//todo
-		return SESSION_INFO.get().getUserId();
-//		return 1066L;
+//		return SESSION_INFO.get().getUserId();
+		return 1066L;
 	}
 
 	public static String getIP() {

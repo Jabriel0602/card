@@ -88,7 +88,7 @@ public class AdImageController {
 		//参数校验
 		try {
 			adImage.setId(idUtil.getId(IdUtil.SequenceEnum.ADIMAGE));
-			adImage.setOperator(String.valueOf(LoginContext.getUserId()));
+			adImage.setOperator(LoginContext.getUserName());
 			adImage.setCreatedTime(new Date());
 			adImage.setModifiedTime(new Date());
 			ValidatorUtils.validate(adImage);
@@ -117,6 +117,7 @@ public class AdImageController {
 		//参数校验
 		try {
 			adImage.setModifiedTime(new Date());
+			adImage.setOperator(LoginContext.getUserName());
 
 			ValidatorUtils.validate(adImage);
 			adImageService.update(adImage);

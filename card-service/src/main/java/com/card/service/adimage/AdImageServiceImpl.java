@@ -62,14 +62,18 @@ public class AdImageServiceImpl implements AdImageService {
 		return 0;
 	}
 
+	/**
+	 * 返回排序值
+	 * @return
+	 */
 	@Override
 	public List<AdImage> findAllAdImage() {
-		return adImageDao.findAllAdImage();
+		return sortAdImage(adImageDao.findAllAdImage());
 	}
 
 	@Override
 	public List<AdImage> findAllAdImageWithStatus() {
-		List<AdImage> adImageList = adImageDao.findAllAdImage();
+		List<AdImage> adImageList = findAllAdImage();
 		for (AdImage adImage : adImageList) {
 			checkPutOn(adImage);
 		}

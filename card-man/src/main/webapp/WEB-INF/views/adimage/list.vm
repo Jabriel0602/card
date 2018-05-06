@@ -39,7 +39,7 @@
                             <td>$!{adImage.desc}</td>
                             <td>
                                 <a target="_blank" href="$!{adImage.responseUrl}">
-                                    <img width="90%" src="$!{adImage.imgUrl}"/>
+                                    <img style="width: 180px;height: 100px;" src="$!{adImage.imgUrl}"/>
                             </td>
                             <td>创:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getCreatedTime()})<br>
                                 修:$!date.format('yyyy-MM-dd HH:mm:ss ',$!{adImage.getModifiedTime()})

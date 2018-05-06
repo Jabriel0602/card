@@ -1,13 +1,14 @@
 package com.card.service.icon;
 
 import com.card.dao.IconDao;
-import com.card.domain.adimage.AdImage;
 import com.card.domain.icon.Icon;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -23,27 +24,51 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public int insert(Icon icon) {
-		return IconDao.insert(icon);
+		Integer count= IconDao.insert(icon);
+		if(count==1){
+			sortIcon(findAllIcon());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
 	public int insertSelective(Icon icon) {
-		return IconDao.insertSelective(icon);
+		Integer count= IconDao.insertSelective(icon);
+		if(count==1){
+			sortIcon(findAllIcon());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
-	public int insertList(List<Icon> IconDaos) {
-		return IconDao.insertList(IconDaos);
+	public int insertList(List<Icon> iconList) {
+		Integer count= IconDao.insertList(iconList);
+		if(count==1){
+			sortIcon(findAllIcon());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
 	public int update(Icon icon) {
-		return IconDao.update(icon);
+		Integer count = IconDao.update(icon);
+		if (count == 1) {
+			sortIcon(findAllIcon());
+			return count;
+		}
+		return 0;
 	}
 
+	/**
+	 * 返回有序值
+	 * @return
+	 */
 	@Override
 	public List<Icon> findAllIcon() {
-		return IconDao.findAllIcon();
+		return sortIcon(IconDao.findAllIcon());
 	}
 
 	@Override
@@ -66,7 +91,7 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public List<Icon> findAllIconWithStatus() {
-		List<Icon> IconDaoList = IconDao.findAllIcon();
+		List<Icon> IconDaoList = findAllIcon();
 		for (Icon icon :IconDaoList) {
 			checkPutOn(icon);
 		}
@@ -80,7 +105,12 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public int delete(Long id) {
-		return IconDao.delete(id);
+		Integer count = IconDao.delete(id);
+		if (count == 1) {
+			sortIcon(findAllIcon());
+			return count;
+		}
+		return 0;
 	}
 
 	/**
@@ -106,5 +136,15 @@ public class IconServiceImpl implements IconService {
 		} else {
 			icon.setReleaseStatus(false);
 		}
+	}
+
+	private List<Icon> sortIcon(List<Icon> iconList) {
+		Collections.sort(iconList, new Comparator<Icon>() {
+			@Override
+			public int compare(Icon o1, Icon o2) {
+				return o1.getWeight() - o2.getWeight();
+			}
+		});
+		return iconList;
 	}
 }
