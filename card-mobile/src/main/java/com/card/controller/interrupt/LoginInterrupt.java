@@ -2,7 +2,9 @@ package com.card.controller.interrupt;
 
 import com.alibaba.fastjson.JSON;
 import com.card.common.util.LoginContext;
+import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -20,6 +22,8 @@ import java.util.Map;
 @Slf4j
 public class LoginInterrupt extends HandlerInterceptorAdapter {
 
+	@Autowired
+	private UserService userService;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		Long userId = null;
@@ -29,6 +33,7 @@ public class LoginInterrupt extends HandlerInterceptorAdapter {
 				if (cookie.getName().equals("card_user_cookie")) {
 					userId = Long.valueOf(cookie.getValue());
 					LoginContext.setUserId(userId);
+					LoginContext.setUserName(userService.getUser(userId).getUserName());
 					return true;
 				}
 			}

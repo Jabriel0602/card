@@ -18,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 import java.util.List;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
-
 /**
  * @author yangzhanbang
  * @Email yangzhanbang@jd.com
@@ -42,7 +40,7 @@ public class AdImageController {
 	public ModelAndView queryAdImageByModuleType() {
 
 		AdImage adImage = new AdImage();
-		List<AdImage> adImageList = adImageService.findAllAdImagStatusOn();
+		List<AdImage> adImageList = adImageService.findAllAdImageWithStatus();
 		Boolean limit = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.ADIMAGE);
 
 		ModelAndView mv = new ModelAndView();

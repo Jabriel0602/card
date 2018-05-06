@@ -1,7 +1,9 @@
 package com.card.service.icon;
 
 import com.card.dao.IconDao;
+import com.card.domain.adimage.AdImage;
 import com.card.domain.icon.Icon;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,25 @@ public class IconServiceImpl implements IconService {
 	}
 
 	@Override
-	public List<Icon> findAllAdImagStatusOn() {
+	public List<Icon> findAllIconStatusOn() {
+		List<Icon> iconList = findAllIconWithStatus();
+		List<Icon> iconListStatusOn= Lists.newArrayList();
+		for (Icon icon : iconList) {
+			if(icon.getPutOn()){
+				iconListStatusOn.add(icon);
+			}
+			/**
+			 * 最多4个
+			 */
+			if(iconListStatusOn.size()>=4){
+				return iconListStatusOn;
+			}
+		}
+		return iconListStatusOn;
+	}
+
+	@Override
+	public List<Icon> findAllIconWithStatus() {
 		List<Icon> IconDaoList = IconDao.findAllIcon();
 		for (Icon icon :IconDaoList) {
 			checkPutOn(icon);

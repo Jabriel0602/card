@@ -1,7 +1,7 @@
 package com.card.controller;
 
-import com.card.domain.adimage.AdImage;
-import com.card.service.adimage.AdImageService;
+import com.card.domain.icon.Icon;
+import com.card.service.icon.IconService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +16,11 @@ import java.util.List;
  * @date 2018/3/6 16:09
  */
 @Controller
-@RequestMapping("/adImages")
-public class AdImageController {
+@RequestMapping("/icons")
+public class IconController {
 
 	@Autowired
-	private AdImageService adImageService;
-
+	private IconService iconService;
 
 	/**
 	 * 未使用 在index出使用
@@ -29,7 +28,7 @@ public class AdImageController {
 	 */
 	@GetMapping("")
 	@ResponseBody
-	public List<AdImage> listAdImage() {
-		return adImageService.findAllAdImageStatusOn();
+	public List<Icon> listIcon() {
+		return iconService.findAllIconStatusOn();
 	}
 }

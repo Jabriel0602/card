@@ -40,7 +40,7 @@ public class Refund {
 
 	@NotNull(message = "创建时间不能为空")
 	private Date createdTime;        //创建时间
-	@NotBlank(message = "修改时间不能为空")
+	@NotNull(message = "修改时间不能为空")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date modifiedTime;    //修改时间
 	@NotNull(message = "完成时间不能为空")

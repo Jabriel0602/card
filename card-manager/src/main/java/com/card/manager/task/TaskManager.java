@@ -17,7 +17,13 @@ public interface TaskManager {
 
 	void supplierRechargeHandler(Long orderId);
 
-	void updateTaskAndRefund(Task task);
+	/**
+	 * 更新订单
+	 * 更新退款
+	 * 插入task
+	 * @param orderId
+	 */
+	void updateTaskAndRefund(Long orderId);
 
 	void refundHandler(Long orderId);
 

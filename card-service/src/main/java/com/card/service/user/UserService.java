@@ -21,6 +21,8 @@ public interface UserService{
 
     User getUser(Long userId);
 
+    User getUserByName(String userName);
+
     User getUserByNameAndPassWord(String userName,String password);
 
     User getCurrentUser();

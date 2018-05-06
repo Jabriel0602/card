@@ -13,7 +13,7 @@ input,select{vertical-align:middle;}
 input{ font-size:0.875rem;}
 body{word-break:break-all;font: 100%/1 "SimSun", "Microsoft YaHei", "Arial", sans-serif;
     -webkit-text-size-adjust: none;}
-html,body{height: 100%; background:#fbf7f8; }
+html,body{height: 100%; background:#ecf1f7; }
 table {border-collapse: collapse}
 /*娓呮娴姩*/
 .clearfix{ *zoom:1;}
@@ -133,7 +133,7 @@ a.btn_gray:hover{border:1px solid #d0caca; background-color:#d0caca;}
 .icon_comm_04{background-image:url(http://s.demo.shangquanquan.com/wx/img/standard/icon/icon_comm_04.png);vertical-align:top; }
 .icon_comm_05{background-image:url(http://s.demo.shangquanquan.com/wx/img/standard/icon/icon_comm_05.png); vertical-align:top;}
 .favor_white{display:inline-block; height:0.875rem; width:0.875rem; background-image:url(http://s.demo.shangquanquan.com/wx/img/standard/icon/favor_white.png); vertical-align:top; background-position:center center; background-repeat:no-repeat;background-size:0.875rem 0.875rem;}
-.header{  left:0; top:0; width:100%; text-align:center; font-size:1rem; border-bottom:1px solid #d0caca; line-height:2.625rem; height:2.625rem; background-color:#f9f3f3; position:fixed; z-index:10000; color:#726868}
+.header{  left:0; top:0; width:100%; text-align:center; font-family: 微软雅黑; font-size:1rem; border-bottom:1px solid #d0caca; line-height:2.625rem; height:2.625rem; background-color:#ffffff; position:fixed; z-index:10000; color:#726868}
 .header .loge_icon{ padding:0.25rem;  height:2.125rem; vertical-align:top;}
 .header .back{ transform:rotate(90deg); -webkit-transform:rotate(90deg); -moz-transform:rotate(90deg); position:absolute; padding:1rem 0.68rem ; top:50%; left:0.25rem;margin-top:-1rem;}
 .header .more{  position:absolute; padding:0.68rem 1.18rem; top:0rem; left:0rem;}

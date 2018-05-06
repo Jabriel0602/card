@@ -1,10 +1,10 @@
-.page{max-width: 720px;overflow: auto;background: #f2f2f2;}
+.page{max-width: 720px;overflow: auto;background: #ecf1f7;}
 .register{overflow: hidden;}
 .tip{margin-top: 18px;padding-top: 18px;}
-.tip1{font-size: 15px;font-weight:bold;color:#cb2517;margin-top: 15px;margin-left: 4.4%;}
-.tip2{margin-top: 15px;margin-left: 4.6%;margin-bottom: 6.5%;font-size: 11px;line-height:1.5;color: #b4b4b4}
+.tip1{font-size: 15px;font-weight:bold;color:#cb2517;margin-top: 15px;margin-left: 8px;}
+.tip2{margin-top: 8px;margin-left: 8px;margin-bottom: 8px;font-size: 11px;line-height:1.5;color: #b4b4b4}
 .form form ul li i img{position: absolute;margin-top: 18px;margin-left: 24px;}
-.mip {background: #fff;border: 1px solid #d8d8d8;border-radius:3px;margin:2px;height:51px;font-size:15px;color:#b4b4b4;line-height: 3.4;width: 83%;padding-left: 15.7%;-webkit-appearance: none;}
+.mip {background: #fff;border: 1px solid #d8d8d8;border-radius:3px;margin:2px;height:51px;font-size:15px;color:#b4b4b4;line-height: 3.4;width: 98%;padding-left: 15.7%;-webkit-appearance: none;}
 .key{width: 50%;}
 .getkey {width:28%;float:right;overflow:hidden;color:#ffffff;background-color: #f35142;height: 55px;line-height:55px;text-align:center;border-radius: 5px;border: none;margin:3px 1%;font-size: 14px;-webkit-appearance: none;}
 .mask{width: 28%;background-color: rgba(255,255,255,0.5);height: 56px;border-radius: 3px;float: right;margin-right: -29%;margin-top: 0.5%;z-index: 999;}

@@ -169,6 +169,20 @@
         AND task_id =#{taskId,jdbcType=BIGINT}
         AND yn=1
     </update>
+
+    <select id="selectTaskByOrderId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        task
+        WHERE
+        execute_status = 1
+        AND task_type = #{taskType,jdbcType=INTEGER}
+        AND order_id =#{orderId,jdbcType=BIGINT}
+        AND retry_times &lt;= max_retry_times
+        AND yn=1
+    </select>
+
     <select id="selectTaskInitial" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"></include>
@@ -179,8 +193,8 @@
         AND
         retry_times &lt;= max_retry_times
         AND yn=1
-        LIMIT #{size}
     </select>
+
 
 </mapper>
 

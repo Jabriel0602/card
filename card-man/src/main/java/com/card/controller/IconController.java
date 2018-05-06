@@ -40,10 +40,10 @@ public class IconController {
 	private IdUtil idUtil;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView queryIconByModuleType() {
+	public ModelAndView queryIcon() {
 
 		Icon icon = new Icon();
-		List<Icon> iconList = iconService.findAllAdImagStatusOn();
+		List<Icon> iconList = iconService.findAllIconWithStatus();
 		Boolean limit = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.ADIMAGE);
 
 		ModelAndView mv = new ModelAndView();

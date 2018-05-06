@@ -1,8 +1,9 @@
 package com.card.common.util;
 
-import com.google.common.base.Strings;
-import lombok.Data;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class LoginContext {
 
 	private static final ThreadLocal<SessionInfo> SESSION_INFO = new ThreadLocal<SessionInfo>() {
@@ -59,8 +60,8 @@ public class LoginContext {
 
 	public static String getUserName() {
 		//todo
-//		return SESSION_INFO.get().getUserName();
-		return "test";
+		return SESSION_INFO.get().getUserName();
+//		return "test";
 	}
 
 	public static void setUserId(Long userId) {
@@ -69,8 +70,8 @@ public class LoginContext {
 
 	public static Long getUserId() {
 		//todo
-//		return SESSION_INFO.get().getUserId();
-		return 1066L;
+		return SESSION_INFO.get().getUserId();
+//		return 1066L;
 	}
 
 	public static String getIP() {

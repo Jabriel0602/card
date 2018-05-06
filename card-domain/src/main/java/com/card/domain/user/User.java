@@ -47,9 +47,9 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date modifyTime;    //修改时间
 	@NotBlank(message = "操作人不能为空")
-	private String operator;    //操作人
+	private String operator="system";    //操作人
 	@NotNull(message = "是否有效不能为空")
-	private Byte yn;            //是否有效 0无效 1有效
+	private Byte yn=1;            //是否有效 0无效 1有效
 
 
 

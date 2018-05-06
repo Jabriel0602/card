@@ -15,8 +15,9 @@
 
 <link rel="stylesheet" href="/css/register.css">
 <script src="/js/zepto.min.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
 
-<body onload="load()">
+<body onload="_load()">
 <!--html start-->
 <div class="page">
     <header class="header">
@@ -30,14 +31,15 @@
             <div class="tip2">请妥善管理您的密码</div>
         </div>
         <div class="form">
-            <form action="/users" method="post">
+            <form id="register_form" action="/users/register" method="post">
                 <ul>
 
                     <li>
                         <i>
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/usericon.png">
                         </i>
-                        <input class="mip" type="input" id="userName" placeholder="请输入用户名" onblur="_validateUserName()">
+                        <input class="mip" type="input" id="userName" name="userName" placeholder="请输入用户名"
+                               onblur="_validateUserName()">
                         <div class="merr hide" id="userNameTip">此处为必填项</div>
                     </li>
 
@@ -45,7 +47,8 @@
                         <i>
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
-                        <input class="mip" type="input" id="passWord" placeholder="请输入密码" onblur="_validatePassword()">
+                        <input class="mip" type="input" id="passWord" name="password" placeholder="请输入密码"
+                               onblur="_validatePassword()">
                         <div class="merr hide" id="passWordTip">此处为必填项</div>
                     </li>
 
@@ -53,8 +56,7 @@
                         <i>
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
-                        <input class="mip" type="input" id="sex" placeholder="性别" onblur="_validateSex()">
-                    ##                        <div class="mask hide" id="mask"></div>
+                        <input class="mip" type="input" id="sex" placeholder="性别" name="sex" onblur="_validateSex()">
                         <div class="merr hide" id="sexTip">此处为必填项</div>
                     </li>
 
@@ -62,8 +64,8 @@
                         <i>
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
-                        <input class="mip" type="input" id="birthday" placeholder="生日" onblur="_validateBirthday">
-                    ##                        <div class="mask hide" id="mask"></div>
+                        <input class="mip" type="input" id="birthday" name="birthday" placeholder="生日"
+                               onblur="_validateBirthday()">
                         <div class="merr hide" id="birthdayTip">此处为必填项</div>
                     </li>
 
@@ -71,22 +73,18 @@
                         <i>
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
                         </i>
-                        <input class="mip" type="input" id="phone" placeholder="手机" onblur="_validatePhone()">
-                    ##                        <div class="mask hide" id="mask"></div>
+                        <input class="mip" type="input" id="phone" name="phone" placeholder="手机"
+                               onblur="_validatePhone()">
                         <div class="merr hide" id="phoneTip">此处为必填项</div>
                     </li>
 
 
                     <li>
                         <div>
-                            <input class="mbt1" id="j_sb" type="submit" value="注册">
+                            <input class="mbt1" id="j_sb" type="button" onclick="_submit()" value="注册">
                         </div>
                     </li>
-                    <li>
-                        <div class="mbox">
-                            <input type="checkbox" id="agreement" checked>我已同意《<a href="#">公交卡在线充值系统相关协议</a>》
-                        </div>
-                    </li>
+
                 </ul>
             </form>
         </div>
@@ -97,76 +95,222 @@
 
 <!--html end-->
 <script type="text/javascript">
-    var load = function () {
-        //给同意宝龙会员协议勾选框添加事件
-        var agreement = document.getElementById("agreement");
-        agreement.onclick = function () {
-            var j_sb = document.getElementById("j_sb");
-            if (this.checked) {
-                j_sb.setAttribute("style", "background-color:#f35142");
-                j_sb.disabled = false;
-            } else {
-                j_sb.setAttribute("style", "background-color:#bababa");
-                j_sb.disabled = true;
-            }
+
+    var _load = function () {
+        var userName = jQuery('#userName').val();
+        userName.onblur = function () {
+            _validateUserName(this);
+        };
+        var password = jQuery('#passWord').val();
+        password.onblur = function () {
+            _validatePassword(this);
+        };
+        var sex = jQuery('#sex').val();
+        sex.onblur = function () {
+            _validateSex(this);
+        };
+        var birthday = jQuery('#birthday').val();
+        birthday.onblur = function () {
+            _validateBirthday(this);
+        };
+        var phone = jQuery('#phone').val();
+        phone.onblur = function () {
+            _validatePhone(this);
         };
     };
 
+    var _showErrorMessage = function (messId, message, show) {
+        if (messId == null) return;
+        var Tip = document.getElementById(messId);
+        if (show === true) {
+            Tip.setAttribute("class", "merr");
+            Tip.innerHTML = message;
+        } else {
+            Tip.setAttribute("class", "merr hide");
+        }
+    };
+
+
     var _validateUserName = function () {
-        var userName = document.getElementById("userName");
-        if (userName == null | userName.size() == 0) {
-            alert("用户名不能为空");
+        var userName = jQuery('#userName').val();
+        if (userName == null | userName.length == 0) {
+            _showErrorMessage("userNameTip", "用户名不能为空！", true);
+            userName.focus();
             return;
         }
+        var url = '//127.0.0.1/users/userName';
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+                userName: userName
+            },
+            dataType: 'json',
+            success: function (data) {
+                var json = JSON.stringify(data);
+                var jsonObject = JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    if (!jsonObject.data) {
+                        _showErrorMessage("userNameTip", "用户名已存在！", true);
+                        userName.focus();
+                        return;
+                    }
+                    _showErrorMessage('userNameTip', false);
+                } else {
+                    alert("参数错误")
+                }
+            },
+            error: function () {
+                alert("出错了");
+            }
+        })
     }
 
-    var _validatepassword = function () {
-        var password = document.getElementById("password");
+    var _validatePassword = function () {
+        var password = jQuery('#passWord').val();
         if (password == null) {
-            alert("密码不能为空");
+            _showErrorMessage("passWordTip", "密码不能为空！", true);
+            password.focus();
             return;
         }
-        if (password.size() < 6) {
-            alert("密码不能少于6位");
+        if (password.length < 6) {
+            _showErrorMessage("passWordTip", "密码不能少于6位！", true);
+            password.focus();
             return;
         }
+        _showErrorMessage('passWordTip', false);
+    }
+
+    var _validateSex = function () {
+        var sex = jQuery('#sex').val();
+        if (sex == null | sex.length == 0) {
+            _showErrorMessage("sexTip", "性别不能为空！", true);
+            sex.focus();
+            return;
+        }
+        _showErrorMessage('sexTip', false);
     }
 
 
     var _validatePhone = function () {
-        var phone = document.getElementById("phonenum");
-        var phoneValue = phone.value;
-        if (phoneValue.length == 0) {
-            _showPhoneMessage('请输入手机号码！', true);
+        var phone = jQuery('#phone').val();
+
+        if (phone.length == 0) {
+            _showErrorMessage("phoneTip", '请输入手机号码！', true);
             phone.focus();
             return;
         }
-        if (phoneValue.length != 11) {
-            _showPhoneMessage('请输入有效的手机号码！', true);
+        if (phone.length != 11) {
+            _showErrorMessage("phoneTip", '请输入有效的手机号码！', true);
             phone.focus();
             return;
         }
 
         var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-        if (!phoneReg.test(phoneValue)) {
-            //alert('请输入有效的手机号码！');
-            _showPhoneMessage('请输入有效的手机号码！', true);
+        if (!phoneReg.test(phone)) {
+            _showErrorMessage("phoneTip", '请输入有效的手机号码！', true);
             phone.focus();
             return;
         }
 
-        _showPhoneMessage(false);
+        _showErrorMessage("phoneTip", false);
     }
 
-    var _showPhoneMessage = function (message, show) {
-        var phoneTip = document.getElementById("phonetip");
-        if (show === true) {
-            phoneTip.setAttribute("class", "merr");
-            phoneTip.innerHTML = message;
-        } else {
-            phoneTip.setAttribute("class", "merr hide");
+    var _validateBirthday = function () {
+        var birthday = jQuery('#birthday').val();
+
+        if (birthday == null | birthday.length == 0) {
+            _showErrorMessage("birthdayTip", "生日不能为空！", true);
+            birthday.focus();
+            return;
+        }
+        _showErrorMessage('birthdayTip', false);
+    }
+
+    var _submit = function () {
+
+        var userName = jQuery('#userName').val();
+        if (userName == null | userName.length == 0) {
+            _showErrorMessage("userNameTip", "用户名不能为空！", true);
+            userName.focus();
+            return;
+        }
+        var url = '//127.0.0.1/users/userName';
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+                userName: userName
+            },
+            dataType: 'json',
+            success: function (data) {
+                var json = JSON.stringify(data);
+                var jsonObject = JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    if (!jsonObject.data) {
+                        _showErrorMessage("userNameTip", "用户名已存在！", true);
+                        userName.focus();
+                        return;
+                    }
+                    _showErrorMessage('userNameTip', false);
+                } else {
+                    alert("参数错误")
+                }
+            },
+            error: function () {
+                alert("出错了");
+            }
+        })
+
+        var passWord = jQuery('#passWord').val();
+        if (passWord == null) {
+            _showErrorMessage("passWordTip", "密码不能为空！", true);
+            passWord.focus();
+            return;
+        }
+        if (passWord.length < 6) {
+            _showErrorMessage("passWordTip", "密码不能少于6位！", true);
+            passWord.focus();
+            return;
         }
 
+
+        var sex = jQuery('#sex').val();
+        if (sex == null | sex.length == 0) {
+            _showErrorMessage("sexTip", "性别不能为空！", true);
+            sex.focus();
+            return;
+        }
+        _showErrorMessage('sexTip', false);
+
+        var birthday = jQuery('#birthday').val();
+        if (birthday == null | sex.birthday == 0) {
+            _showErrorMessage("birthdayTip", "生日不能为空！", true);
+            sex.focus();
+            return;
+        }
+        _showErrorMessage('birthdayTip', false);
+
+        var phone = jQuery('#phone').val();
+        if (phone.length == 0) {
+            _showErrorMessage("phoneTip", '请输入手机号码！', true);
+            phone.focus();
+            return;
+        }
+        if (phone.length != 11) {
+            _showErrorMessage("phoneTip", '请输入有效的手机号码！', true);
+            phone.focus();
+            return;
+        }
+        var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if (!phoneReg.test(phone)) {
+            _showErrorMessage("phoneTip", '请输入有效的手机号码！', true);
+            phone.focus();
+            return;
+        }
+        _showErrorMessage("phoneTip", false);
+
+        jQuery('#register_form').submit();
     };
 
 </script>

@@ -1,5 +1,6 @@
 package com.card.service.icon;
 
+import com.card.domain.adimage.AdImage;
 import com.card.domain.icon.Icon;
 
 import java.util.List;
@@ -16,8 +17,9 @@ public interface IconService{
 
     List<Icon> findAllIcon();
 
-    List<Icon> findAllAdImagStatusOn();
+    List<Icon> findAllIconStatusOn();
 
+    List<Icon> findAllIconWithStatus();
 
     Icon findIconById(Long id);
 

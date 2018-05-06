@@ -1,4 +1,4 @@
-.page{max-width: 720px;overflow: auto;background: #f2f2f2;}
+.page{max-width: 720px;overflow: auto;background: #ecf1f7;}
 .hyk{overflow: hidden;padding: 0 10px;}
 .cardinfo{
     width: 100%;
@@ -9,36 +9,40 @@
     background-size: 100% 100%;
     position: relative;
 }
-.card{text-align:left;margin:2% 2px;padding: 20px 10px;font-size: 15px;}
-.cardnum{
-    font-size: 19px;
+.card{text-align:left;margin:2% 2px;padding: 10px;font-size: 13px;}
+.card-line{
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
     color: #fff;
-    margin-bottom: 30px;
 }
-.cardnum .title{
-    font-size: 19px;
-    color: #fff;
+.card-line .tips{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 2px 4px;
+    border-radius: 3px;
+    background: #0b46e1;
+    height: 22px;
+    line-height: 20px;
+}
+.card-green{
+    color:#8ab6f3;
 }
 .carddate{
-    font-size: 19px;
     color: #fff;
-    margin-bottom: 30px;
 }
 .carddate .title{
-    font-size: 19px;
     color: #fff;
 }
 
 .carddate .money_money{
-    font-size: 19px;
     color: #fff;
     position: absolute;
     align-content: right;
     text-align: right;
 }
 
-.carddate .money_data{
-    font-size: 19px;
+.money_data{
     color: #8ab6f3;
     position: absolute;
     align-content: right;

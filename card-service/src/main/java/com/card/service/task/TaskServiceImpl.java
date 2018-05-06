@@ -51,4 +51,9 @@ public class TaskServiceImpl implements TaskService {
 		return taskDao.selectTaskInitial(size);
 	}
 
+	@Override
+	public List<Task> selectTaskByOrderId(Long orderId,Integer taskType) {
+		return taskDao.selectTaskByOrderId(orderId,taskType);
+	}
+
 }

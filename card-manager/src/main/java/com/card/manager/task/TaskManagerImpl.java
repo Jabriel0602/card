@@ -1,7 +1,6 @@
 package com.card.manager.task;
 
 import com.card.common.util.IdUtil;
-import com.card.common.util.LoginContext;
 import com.card.common.util.ValidatorUtils;
 import com.card.domain.YnEnum;
 import com.card.domain.card.Card;
@@ -20,6 +19,7 @@ import com.card.service.order.OrderService;
 import com.card.service.refund.RefundService;
 import com.card.service.task.TaskService;
 import com.outer.system.SupplierService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +32,7 @@ import java.util.UUID;
  * @date 2018/4/14 9:36
  * @desc
  */
+@Slf4j
 @Service
 public class TaskManagerImpl implements TaskManager {
 
@@ -64,8 +65,9 @@ public class TaskManagerImpl implements TaskManager {
 	@Override
 	@Transactional
 	public Order payment(Long orderId) {
-		Long userId = LoginContext.getUserId();
 		Order order = orderService.selectByOrderId(orderId);
+		log.info("订单:{} 当前状态:{}",order.getOrderId(),OrderStatusEnum.getDescByCode(order.getOrderStatus()));
+
 		/**
 		 * 模拟台账系统
 		 */
@@ -79,6 +81,7 @@ public class TaskManagerImpl implements TaskManager {
 		order.setModifyTime(new Date());
 		ValidatorUtils.validate(order);
 		orderService.update(order);
+		log.info("订单:{} 当前状态:{}",order.getOrderId(),OrderStatusEnum.getDescByCode(order.getOrderStatus()));
 		Task createTask = TaskTypeEnum.ORDER_CREATE.buildTask(orderId, idUtil.getId(IdUtil.SequenceEnum.TASK));
 		ValidatorUtils.validate(createTask);
 		taskService.insertSelective(createTask);
@@ -110,10 +113,12 @@ public class TaskManagerImpl implements TaskManager {
 		 */
 		if (flag) {
 			Order order = orderService.selectByOrderId(orderId);
+			log.info("订单:{} 当前状态:{}",order.getOrderId(),OrderStatusEnum.getDescByCode(order.getOrderStatus()));
 			order.setOrderStatus(OrderStatusEnum.CREATE_SUCCESS.getCode());
 			order.setModifyTime(new Date());
 			ValidatorUtils.validate(order);
 			Integer count = orderService.update(order);
+			log.info("订单:{} 当前状态:{}",order.getOrderId(),OrderStatusEnum.getDescByCode(order.getOrderStatus()));
 			if (count != 1) {
 				throw new RuntimeException("更新订单失败");
 			}
@@ -145,19 +150,21 @@ public class TaskManagerImpl implements TaskManager {
 		 */
 		if (flag) {
 			Order order = orderService.selectByOrderId(orderId);
-
+			Card card = cardService.findCardById(order.getCardId());
 			synchronized (this) {
-				Card card = cardService.findCardById(order.getCardId());
+				log.info("订单:{},card:{} 充值前 余额:{}",order.getOrderId(),card.getCardId(),card.getMoney());
 				card.setMoney(card.getMoney() + order.getMoney());
 				card.setModifiedTime(new Date());
 				cardService.update(card);
+				log.info("订单:{},card:{} 充值后 余额:{}",order.getOrderId(),card.getCardId(),card.getMoney());
 			}
-
+			log.info("订单:{} 当前状态:{}",order.getOrderId(),OrderStatusEnum.getDescByCode(order.getOrderStatus()));
 			order.setOrderStatus(OrderStatusEnum.RECHARGE_SUCCESS.getCode());
 			order.setModifyTime(new Date());
 			order.setFinaStatus(FinaStatusEnum.HAVE_JIESUAN.getCode());
 			ValidatorUtils.validate(order);
 			Integer count = orderService.update(order);
+			log.info("订单:{} 当前状态:{}",order.getOrderId(),OrderStatusEnum.getDescByCode(order.getOrderStatus()));
 			if (count != 1) {
 				throw new RuntimeException("更新订单失败");
 			}
@@ -169,14 +176,14 @@ public class TaskManagerImpl implements TaskManager {
 	 * 插入退款任务
 	 * 插入退款记录
 	 *
-	 * @param task
+	 * @param orderId
 	 */
 	@Override
 	@Transactional
-	public void updateTaskAndRefund(Task task) {
-		Order order = orderService.selectByOrderId(task.getOrderId());
+	public void updateTaskAndRefund(Long orderId) {
+		Order order = orderService.selectByOrderId(orderId);
 		Integer orderStatus = OrderStatusEnum.CREATE_FAIL.getCode();
-		if (order.getOrderStatus() > OrderStatusEnum.RECHARGE_FAIL.getCode()) {
+		if (order.getOrderStatus() > OrderStatusEnum.CREATE_SUCCESS.getCode()) {
 			orderStatus = OrderStatusEnum.RECHARGE_FAIL.getCode();
 		}
 		order.setOrderStatus(orderStatus);
@@ -192,6 +199,9 @@ public class TaskManagerImpl implements TaskManager {
 		Refund refundOrder = new Refund();
 		refundOrder.setRefundId(idUtil.getId(IdUtil.SequenceEnum.REFUND));
 		refundOrder.setOrderId(order.getOrderId());
+		refundOrder.setCardId(order.getCardId());
+		refundOrder.setMoney(order.getMoney());
+		refundOrder.setUserId(order.getUserId());
 		refundOrder.setCreatedTime(new Date());
 		refundOrder.setModifiedTime(new Date());
 		refundOrder.setFinishTime(new Date());
@@ -215,6 +225,7 @@ public class TaskManagerImpl implements TaskManager {
 		Boolean flag = false;
 		try {
 			flag = supplierService.refundeOrder();
+			log.info("已经通知供应商退款 orderId:{}",orderId);
 		} catch (InterruptedException e) {
 			throw new RuntimeException("调用供应商接口失败");
 		}
@@ -226,5 +237,32 @@ public class TaskManagerImpl implements TaskManager {
 		Refund refund = refundService.selectByOrderId(orderId);
 		refund.setRefundStatus(RefundStatusEnum.REFUND_SUCCESS.getCode());
 		refundService.update(refund);
+
+		Card card=cardService.findCardById(refund.getCardId());
+		if(card.getMoney()>=refund.getMoney()){
+			synchronized (this){
+				log.info("card:{} 退款前 余额:{}",card.getCardId(),card.getMoney());
+				card.setMoney(card.getMoney()-refund.getMoney());
+				card.setModifiedTime(new Date());
+				cardService.update(card);
+				log.info("card:{} 退款后 余额:{}",card.getCardId(),card.getMoney());
+			}
+		}else {
+			log.info("余额不足无法退款 refundId:{},card.getMoney():{},refund.getMoney():{}",refund.getRefundId(),card.getMoney(),refund.getMoney());
+			throw new RuntimeException("余额不足无法退款");
+		}
+		Order order=orderService.selectByOrderId(orderId);
+		order.setModifyTime(new Date());
+
+
+		/**
+		 * 状态 >= 生单成功 则设置为 充值失败(失败可以使 人工强制失败 和系统错误失败)
+		 */
+		Integer orderStatus=OrderStatusEnum.CREATE_FAIL_REFUND_SUCCESS.getCode();
+		if (order.getOrderStatus() >= OrderStatusEnum.CREATE_SUCCESS.getCode()) {
+			orderStatus = OrderStatusEnum.RECHARGE_FAIL_REFUND_SUCCESS.getCode();
+		}
+		order.setOrderStatus(orderStatus);
+		orderService.update(order);
 	}
 }

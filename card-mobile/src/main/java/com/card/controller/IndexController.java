@@ -3,8 +3,10 @@ package com.card.controller;
 import com.card.common.util.LoginContext;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.card.Card;
+import com.card.domain.icon.Icon;
 import com.card.service.adimage.AdImageService;
 import com.card.service.card.CardService;
+import com.card.service.icon.IconService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +33,13 @@ public class IndexController {
 	@Autowired
 	private CardService cardService;
 
+	@Autowired
+	private IconService iconService;
+
 	@GetMapping("")
 	public String index(Map map, HttpServletRequest request) {
-		List<AdImage> adImageList = adImageService.findAllAdImage();
+		List<AdImage> adImageList = adImageService.findAllAdImageStatusOn();
+		List<Icon> iconList = iconService.findAllIconStatusOn();
 
 		Long userId = null;
 		Cookie[] cookies = request.getCookies();
@@ -51,6 +57,8 @@ public class IndexController {
 		}
 		map.put("adImage", new AdImage());
 		map.put("adImageList", adImageList);
+		map.put("icon", new Icon());
+		map.put("iconList", iconList);
 		map.put("card", new Card());
 		map.put("cardList", cardList);
 

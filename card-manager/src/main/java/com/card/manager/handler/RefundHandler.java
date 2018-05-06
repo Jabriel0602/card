@@ -29,6 +29,7 @@ public class RefundHandler extends AbstractHandler{
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
 	private RefundService refundService;
 
 	@Override
@@ -41,9 +42,12 @@ public class RefundHandler extends AbstractHandler{
 			throw new RuntimeException("生单异常,订单不存在");
 		}
 
-		Integer orderStatus = OrderStatusEnum.RECHARGE_FAIL_REFUND_INT.getCode();
-		if (order.getOrderStatus() >= OrderStatusEnum.RECHARGE_FAIL.getCode()) {
-			orderStatus = OrderStatusEnum.CREATE_FAIL_REFUND_INT.getCode();
+		Integer orderStatus = OrderStatusEnum.CREATE_FAIL_REFUND_INT.getCode();
+		/**
+		 * 状态 >= 生单成功 则设置为 充值失败(失败可以使 人工强制失败 和系统错误失败)
+		 */
+		if (order.getOrderStatus() >= OrderStatusEnum.CREATE_SUCCESS.getCode()) {
+			orderStatus = OrderStatusEnum.RECHARGE_FAIL_REFUND_INT.getCode();
 		}
 		/**
 		 *	充值失败-->退款中
@@ -57,11 +61,14 @@ public class RefundHandler extends AbstractHandler{
 		/*
 		 *退款初始化-->向供应商申请退款
 		 */
+		if(refund==null){
+			log.error("对应订单 退款单 不存在orderId:{}",order.getOrderId());
+		}
 		refund.setRefundStatus(RefundStatusEnum.REFUND_APPLYING.getCode());
 		refundService.update(refund);
 
 		/**
-		 * 退款中-->退款失败
+		 * 退款中-->退款失败/退款成功
 		 */
 		taskManager.refundHandler(task.getOrderId());
 

@@ -15,8 +15,9 @@ public interface AdImageService{
 
     List<AdImage> findAllAdImage();
 
-    List<AdImage> findAllAdImagStatusOn();
+    List<AdImage> findAllAdImageWithStatus();
 
+    List<AdImage> findAllAdImageStatusOn();
 
     AdImage findAdImageById(Long id);
 

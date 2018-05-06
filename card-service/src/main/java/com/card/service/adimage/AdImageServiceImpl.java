@@ -2,10 +2,13 @@ package com.card.service.adimage;
 
 import com.card.dao.AdImageDao;
 import com.card.domain.adimage.AdImage;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -21,22 +24,42 @@ public class AdImageServiceImpl implements AdImageService {
 
 	@Override
 	public int insert(AdImage adImage) {
-		return adImageDao.insert(adImage);
+		Integer count= adImageDao.insert(adImage);
+		if(count==1){
+			sortAdImage(findAllAdImage());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
 	public int insertSelective(AdImage adImage) {
-		return adImageDao.insertSelective(adImage);
+		Integer count= adImageDao.insertSelective(adImage);
+		if(count==1){
+			sortAdImage(findAllAdImage());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
 	public int insertList(List<AdImage> adImages) {
-		return adImageDao.insertList(adImages);
+		Integer count= adImageDao.insertList(adImages);
+		if(count==1){
+			sortAdImage(findAllAdImage());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
 	public int update(AdImage adImage) {
-		return adImageDao.update(adImage);
+		Integer count = adImageDao.update(adImage);
+		if (count == 1) {
+			sortAdImage(findAllAdImage());
+			return count;
+		}
+		return 0;
 	}
 
 	@Override
@@ -45,12 +68,24 @@ public class AdImageServiceImpl implements AdImageService {
 	}
 
 	@Override
-	public List<AdImage> findAllAdImagStatusOn() {
+	public List<AdImage> findAllAdImageWithStatus() {
 		List<AdImage> adImageList = adImageDao.findAllAdImage();
-		for (AdImage adImage :adImageList) {
+		for (AdImage adImage : adImageList) {
 			checkPutOn(adImage);
 		}
 		return adImageList;
+	}
+
+	@Override
+	public List<AdImage> findAllAdImageStatusOn() {
+		List<AdImage> adImageList = findAllAdImageWithStatus();
+		List<AdImage> adImageListStatusOn= Lists.newArrayList();
+		for (AdImage adImage : adImageList) {
+			if(adImage.getPutOn()){
+				adImageListStatusOn.add(adImage);
+			}
+		}
+		return adImageListStatusOn;
 	}
 
 	@Override
@@ -60,7 +95,12 @@ public class AdImageServiceImpl implements AdImageService {
 
 	@Override
 	public int delete(Long id) {
-		return adImageDao.delete(id);
+		Integer count = adImageDao.delete(id);
+		if (count == 1) {
+			sortAdImage(findAllAdImage());
+			return count;
+		}
+		return 0;
 	}
 
 	/**
@@ -86,5 +126,15 @@ public class AdImageServiceImpl implements AdImageService {
 		} else {
 			adImage.setReleaseStatus(false);
 		}
+	}
+
+	private List<AdImage> sortAdImage(List<AdImage> adImageList) {
+		Collections.sort(adImageList, new Comparator<AdImage>() {
+			@Override
+			public int compare(AdImage o1, AdImage o2) {
+				return o1.getWeight() - o2.getWeight();
+			}
+		});
+		return adImageList;
 	}
 }

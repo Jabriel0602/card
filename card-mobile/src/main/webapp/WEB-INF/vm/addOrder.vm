@@ -48,6 +48,7 @@
         height: 42px;
         background: #fff;
         border-top:1px solid #888;
+        z-index: 10;
     }
     .add-order-footer-btn{
         position: absolute;

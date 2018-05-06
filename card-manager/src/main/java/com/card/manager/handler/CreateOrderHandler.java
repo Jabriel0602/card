@@ -54,6 +54,6 @@ public class CreateOrderHandler extends AbstractHandler {
 		/**
 		 * 支付成功->生单失败->退款中
 		 */
-		taskManager.updateTaskAndRefund(task);
+		taskManager.updateTaskAndRefund(task.getOrderId());
 	}
 }

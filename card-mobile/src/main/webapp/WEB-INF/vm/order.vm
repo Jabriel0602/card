@@ -3,6 +3,7 @@
 <meta charset="utf-8"/>
 <title>优惠券</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+##<meta http-equiv="refresh" content="6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
@@ -17,11 +18,111 @@
 <link rel="stylesheet" href="/css/g.css">
 <link rel="stylesheet" href="/css/coupon.css">
 <script src="/js/silder.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<style>
+    .yct-list {
+        background: #ecf1f7;
+        padding-bottom: 50px;
+    }
 
-<head>
-    <meta charset="utf-8"/>
-    <title>优惠券</title>
-</head>
+    .yct-item {
+        margin-bottom: 10px;
+        border-top: 1px solid #e3e5e9;
+        border-bottom: 1px solid #e3e5e9;
+    }
+
+    .yct-item a {
+        display: block;
+    }
+
+    .yct-item-title {
+        height: 32px;
+        line-height: 32px;
+        font-size: 13px;
+        color: #000;
+        padding: 0 8px;
+        background: #fff;
+    }
+
+    .yct-item-title .fright {
+        float: right;
+        height: 32px;
+        line-height: 32px;
+    }
+
+    .yct-item-main {
+        padding: 14px;
+        font-size: 12px;
+        background: #f8f8f8;
+    }
+
+    .yct-item-main .fleft {
+        float: left;
+        width: 52px;
+        line-height: 52px;
+        border-radius: 4px;
+        font-size: 0;
+    }
+
+    .yct-item-main .fleft img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 4px;
+    }
+
+    .yct-item-content {
+        margin-left: 62px;
+    }
+
+    .yct-item-name {
+        height: 30px;
+        line-height: 30px;
+        font-size: 100%;
+        color: #000;
+    }
+
+    .yct-item-msg {
+        height: 18px;
+        line-hgeight: 18px;
+        font-size: 100%;
+        color: #999;
+    }
+
+    .yct-item-footer {
+        height: 34px;
+        line-height: 34px;
+        text-align: right;
+        padding: 0 8px;
+        background: #fff;
+        font-size: 13px;
+    }
+
+    .yct-item-footer span {
+        font-size: 14px;
+    }
+
+    .yct-item-footertopay {
+        padding: 4px 8px;
+        text-align: right;
+        background: #fff;
+        border-top: 1px solid #e3e5e9;
+    }
+
+    .yct-item-footertopay span {
+        display: inline-block;
+        vertical-align: middle;
+        color: #e4393c;
+        border: 1px solid #e4393c;
+        border-radius: 4px;
+        padding: 0 8px;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+    }
+</style>
+
 ##<body onload="load()">
 <!--html start-->
 <div class="page">
@@ -40,27 +141,28 @@
                 #end
             </ul>
         </div>
-
-        <div class="filter">
-            <ul class="clearfix">
-                <a href="#">
-                    <li id="storesdown">
-                        全部商户
-                        <img src="/image/down.png">
+    ##icon
+        <div class="section" draggable="false">
+            <ul class="secnav clearfix">
+                #foreach($icon in $iconList)
+                    <li>
+                        <div>
+                            <a draggable="false" href="$icon.getResponseUrl()">
+                                <img draggable="false" alt=""
+                                     src="$icon.getImgUrl()"><br>
+                                <span>$icon.getDesc()</span>
+                            </a>
+                        </div>
                     </li>
-                </a>
-                <a href="#">
-                    <li id="typesdown">
-                        全部类型
-                        <img src="/image/down.png">
-                    </li>
-                </a>
+                #end
             </ul>
         </div>
+
+
         <div class="filterpanel" id="filterpanel">
             <div class="alltype" id="allstores">
                 <ul class="clearfix">
-                    <li class="checked">全部楼层</li>
+                    <li class="checked" data-href="//baidu.com">全部楼层</li>
                     <li>1层</li>
                     <li>2层</li>
                     <li>3层</li>
@@ -77,32 +179,54 @@
                 </ul>
             </div>
         </div>
-        <div class="hdlist">
 
-            <ul class="list">
-                #foreach($order in $orderList)
-                    <li>
-                        <div>
-                            <a class="clearfix" href="#">
-                                <span class="hdpic"><img height="8" width="8" src="/image/bus.png"></span>
-                            ##
-                                <span class="hdxq">
-                                    <span class="time">卡号:$order.getVendorCardId()</span>
-                                    #if("未支付"==${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())})
-                                        <span class="tickettype">未支付</span>
-                                        <span class="tickettype" style="background-color:rgba(234, 97, 0, 1)"
-                                              onclick="document.location.href='//127.0.0.1/pay/submitPage?orderId=$order.getOrderId()'">去支付</span>
-                                    #else
-                                        <span class="tickettype">${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())}</span>
-                                    #end
-                                </span>
-                                <span class="limit cost">￥$order.getMoney()</span>
-                            </a>
-                        </div>
-                    </li>
+        <div class="hdlist">
+            <ul class="yct-list">
+                #if($orderList.size()>0)
+                    #foreach($order in $orderList)
+                        <li class="yct-item">
+                            <div class="yct-item-title">
+                                一卡通充值
+                                #if("充值成功"==${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())})
+                                    <span class="fright">${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())}</span>
+                                #elseif("退款成功"==${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())})
+                                    <span class="fright">${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())}</span>
+                                #else
+                                    <span class="fright"
+                                          style="color: #cb2517">${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())}</span>
+                                #end
+                            </div>
+                            <div class="yct-item-main">
+                                <div class="clearfix">
+                                    <div class="fleft"><img height="8" width="8" src="/image/bus.png"></div>
+                                    <div class="yct-item-content">
+                                        <div class="yct-item-name">已充值充值$order.getSkuMoney()元</div>
+                                        <div class="yct-item-msg">卡号：$order.getVendorCardId()</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            #if("未支付"==${orderStatusEnum.getSimpleDescByCode($order.getOrderStatus())})
+                                <div class="yct-item-footer">
+                                    等待付款：<span>¥ $order.getSkuMoney()</span>
+                                </div>
+
+                                <div class="yct-item-footertopay">
+                                    <span onclick="document.location.href='//127.0.0.1/pay/submitPage?orderId=$order.getOrderId()'">去支付</span>
+                                </div>
+                            #else
+                                <div class="yct-item-footer">
+                                    实付款：<span>¥ $order.getMoney()</span>
+                                </div>
+                            #end
+                        </li>
+                    #end
+                #else
+                    订单列表为空
                 #end
             </ul>
         </div>
+
 
     </div>
 
@@ -165,11 +289,48 @@
                     break;
             }
         };
-        ## var $storesdown = $('#storesdown'),
-        ##         $typesdown = $('#typesdown'),
-        ##         $filterpanel = $('#filterpanel'),
-        ##         $allstores = $('#allstores'),
-        ##         $alltype = $('#alltype');
+
+        var sssstoresdown = $('#storesdown'),
+                ssstypesdown = $('#typesdown'),
+                sssfilterpanel = $('#filterpanel'),
+                sssallstores = $('#allstores'),
+                sssalltype = $('#alltype'),
+                storeFlag = 0,
+                typesFlag = 0;
+        sssfilterpanel.on('click', 'li', function () {
+            // alert($(this).text());
+            window.location.href = $(this).data('href');
+        });
+
+        sssstoresdown.on('click', function () {
+            if (storeFlag == 1) {
+                storeFlag = 0;
+                sssfilterpanel.hide().css('display', 'none');
+                sssallstores.hide().css('display', 'none');
+                sssalltype.hide().css('display', 'none');
+            } else {
+                sssfilterpanel.show().css('display', 'block');
+                sssallstores.show().css('display', 'block');
+                sssalltype.hide().css('display', 'none');
+                storeFlag = 1;
+                typesFlag = 0;
+            }
+        });
+        ssstypesdown.on('click', function () {
+            if (typesFlag == 1) {
+                console.log(111);
+                typesFlag = 0;
+                sssfilterpanel.hide().css('display', 'none');
+                sssallstores.hide().css('display', 'none');
+                sssalltype.hide().css('display', 'none');
+            } else {
+                sssfilterpanel.show().css('display', 'block');
+                sssallstores.show().css('display', 'none');
+                sssalltype.hide().css('display', 'block');
+                storeFlag = 0;
+                typesFlag = 1;
+            }
+        });
         // var load = function () {
         //     var storesdown = document.getElementById("storesdown");
         //     var typesdown = document.getElementById("typesdown");
@@ -213,6 +374,37 @@
         //
         //     };
         // };
+        var _back = function () {
+            document.location.href = "//127.0.0.1/orders";
+        }
+        var _refund = function (orderId) {
+            var url = '//127.0.0.1/refunds';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    orderId: orderId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var json = JSON.stringify(data);
+                    var jsonObject = JSON.parse(json);
+                    if (jsonObject.code == 200) {
+                        if (jsonObject.data.size == 0) {
+                            return;
+                        }
+                        alert(jsonObject.data)
+                        _back();
+                        return;
+                    } else {
+                        alert("参数错误")
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+            })
+        }
 
     </script>
 

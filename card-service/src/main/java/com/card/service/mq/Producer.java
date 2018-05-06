@@ -48,7 +48,7 @@ public class Producer {
 		}
 		Destination destination = taskMessage.getQueue();
 		String msg = taskMessage.getTaskString();
-		System.out.println(Thread.currentThread().getName() + " 向队列" + taskMessage.getQueue() + "发送消息---------------------->" + msg);
+		System.out.println("消息发送:"+Thread.currentThread().getName() + " 向队列" + taskMessage.getQueue() + "发送消息:" + msg);
 		jmsTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {

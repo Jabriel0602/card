@@ -5,6 +5,7 @@ import com.card.common.util.LoginContext;
 import com.card.domain.YnEnum;
 import com.card.domain.adimage.AdImage;
 import com.card.domain.card.CardTypeEnum;
+import com.card.domain.icon.Icon;
 import com.card.domain.order.Order;
 import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.pay.FinaStatusEnum;
@@ -14,6 +15,7 @@ import com.card.domain.refund.enums.RefundStatusEnum;
 import com.card.domain.result.APIResult;
 import com.card.domain.user.User;
 import com.card.service.adimage.AdImageService;
+import com.card.service.icon.IconService;
 import com.card.service.order.OrderService;
 import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,9 @@ public class OrderController {
 	@Autowired
 	private IdUtil idUtil;
 
+	@Autowired
+	private IconService iconService;
+
 	@GetMapping("")
 	public String listOrder(Map map) {
 		/**
@@ -54,10 +59,13 @@ public class OrderController {
 		 */
 		List<Order> orderList = orderService.findAllOrder(LoginContext.getUserId());
 		List<AdImage> adImageList = adImageService.findAllAdImage();
+		List<Icon> iconList = iconService.findAllIconStatusOn();
 		map.put("orderStatusEnum",OrderStatusEnum.class);
 		map.put("adImage", new AdImage());
 		map.put("adImageList", adImageList);
 		map.put("orderList", orderList);
+		map.put("icon", new Icon());
+		map.put("iconList", iconList);
 		return "order";
 	}
 

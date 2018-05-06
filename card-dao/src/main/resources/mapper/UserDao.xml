@@ -183,6 +183,14 @@
         </set>
         WHERE user_id = #{userId,jdbcType=BIGINT}
     </update>
+
+    <select id="getUserByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from user
+        WHERE user_name = #{userName,jdbcType=VARCHAR}
+    </select>
+
     <select id="getUserByNameAndPassWord" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"></include>
@@ -197,5 +205,6 @@
         from user
         WHERE yn= 1
     </select>
+
 </mapper>
 

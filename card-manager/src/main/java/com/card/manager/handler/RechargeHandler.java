@@ -54,6 +54,6 @@ public class RechargeHandler extends AbstractHandler {
 		/**
 		 * 支付成功->生单成功->充值失败->退款中
 		 */
-		taskManager.updateTaskAndRefund(task);
+		taskManager.updateTaskAndRefund(task.getOrderId());
 	}
 }

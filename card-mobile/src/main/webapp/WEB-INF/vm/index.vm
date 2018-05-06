@@ -36,76 +36,59 @@
 
     <div class="section" draggable="false">
         <ul class="secnav clearfix">
-            <li>
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/food.png"><br>
-                        <span>餐饮</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/map.png"><br>
-                        <span>商城导航</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/wifi.png"><br>
-                        <span>免费WIFI</span>
-                    </a>
-                </div>
-            </li>
-            <li class="lastsecnav">
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/park.png"><br>
-                        <span>停车</span>
-                    </a>
-                </div>
-            </li>
+            #foreach($icon in $iconList)
+                <li>
+                    <div>
+                        <a draggable="false" href="$icon.getResponseUrl()">
+                            <img draggable="false" alt=""
+                                 src="$icon.getImgUrl()"><br>
+                            <span>$icon.getDesc()</span>
+                        </a>
+                    </div>
+                </li>
+            #end
         </ul>
     </div>
 
 ##  公交卡
 
     <div style="padding-bottom: 60px;" class="page">
-        #foreach($card in $cardList)
+        #if($cardList.size()==0)
+            <a style="font-family: 微软雅黑; font-size:14px;color:#638fff;background: #e9efff;border: 1px solid #5e8fff;display:block;margin:10px 8px;height:94px;line-height:94px;text-align:center;"
+               href="http://127.0.0.1/html/addCard.html">
+                <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#638fff;border:1px solid #638fff;text-align:center;line-height:20px;vertical-align: middle;">+</span>
+                添加卡片
+            </a>
+        #else
+            #foreach($card in $cardList)
 
-            <div class="hyk">
-                <div class="cardinfo">
-                    <div class="card">
-                        <div class="cardnum">
-                            <span class="title">卡号:</span>
-                            <span class="num">$card.getVendorCardId()</span>
-                        </div>
-                        <div class="carddate">
-                            <span class="title">备注:</span>
-                            <span class="date">$card.getRemark()</span>
-                            <span class="money_title">余额:</span>
-                            <span class="money_data">$card.getMoney()</span>
-                        </div>
-                        <div class="card-btn">
-                            <span><a href="//127.0.0.1/cards/$card.getCardId()/editPage">编辑</a> </span>
-                            <span><a href="//127.0.0.1/cards/$card.getCardId()/orders/new">充值</a> </span>
+                <div class="hyk">
+                    <div class="cardinfo">
+                        <div class="card" style="font-family: 微软雅黑;">
+                            <div class="card-line">
+                                <span class="tips">$card.getRemark()</span>
+                            </div>
+                            <div class="card-line cardnum card-green">
+                                <span class="num">$card.getVendorCardId()</span>
+                            </div>
+                            <div class="card-line">
+                                <span class="money_data">余额:$card.getMoney()元</span>
+                            </div>
+                            <div class="card-btn">
+                                <span><a href="//127.0.0.1/cards/$card.getCardId()/editPage">编辑</a> </span>
+                                <span><a href="//127.0.0.1/cards/$card.getCardId()/orders/new">充值</a> </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            #end
+            <a style="display:block;height:34px;line-height:34px;font-size:14px;color:#fff;background:#6892ff;text-align:center;margin:0 10px;border-radius:3px;"
+               href="http://127.0.0.1/html/addCard.html">
+                <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#fff;border:1px solid #fff;text-align:center;line-height:20px;vertical-align: middle;">+</span>
+                添加卡片
+            </a>
         #end
-        <a style="display:block;height:34px;line-height:34px;font-size:14px;color:#fff;background:#6892ff;text-align:center;margin:0 10px;border-radius:3px;"
-           href="http://127.0.0.1/html/addCard.html">
-            <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#fff;border:1px solid #fff;text-align:center;line-height:20px;vertical-align: middle;">+</span>
-            添加卡片
-        </a>
+
     </div>
     <div class="footblock">
         <ul class="footerlist clearfix">

@@ -20,4 +20,7 @@ public interface TaskService{
 
     List<Task> selectTaskInitial(int size);
 
+    List<Task> selectTaskByOrderId(Long orderId,Integer taskType);
+
+
 }

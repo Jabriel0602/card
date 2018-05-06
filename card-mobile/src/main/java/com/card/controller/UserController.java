@@ -58,7 +58,7 @@ public class UserController {
 		User user = userService.getUserByNameAndPassWord(userName, password);
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
-			cookie.setMaxAge(3600*24*7);
+			cookie.setMaxAge(3600 * 24 * 7);
 			cookie.setDomain("127.0.0.1");
 			cookie.setPath("/");
 			response.addCookie(cookie);
@@ -81,7 +81,7 @@ public class UserController {
 	 */
 	@PostMapping("/cookieClear")
 	public String logout(HttpServletRequest request, HttpServletResponse response, Map map) {
-		User user= userService.getUser(LoginContext.getUserId());
+		User user = userService.getUser(LoginContext.getUserId());
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
 			cookie.setDomain("127.0.0.1");
@@ -103,6 +103,16 @@ public class UserController {
 		return "register";
 	}
 
+
+	/**
+	 * 是用户名是否存在
+	 */
+	@GetMapping("/userName")
+	@ResponseBody
+	public APIResult<Boolean> userNameNotUsed(String userName,Map map) {
+		User user = userService.getUserByName(userName);
+		return new APIResult<>(user==null);
+	}
 
 
 	/**
@@ -197,16 +207,16 @@ public class UserController {
 		if (user == null) {
 			return false;
 		}
-		try{
-			if(user.getModuleTypeLimits()>=4){
+		try {
+			if (user.getModuleTypeLimits() >= 4) {
 				user.setUserType(UserTypeEnum.SUPER_MANAGE.getDesc());
-			}else if(user.getModuleTypeLimits()>=3) {
+			} else if (user.getModuleTypeLimits() >= 3) {
 				user.setUserType(UserTypeEnum.MANAGE.getDesc());
-			}else if(user.getModuleTypeLimits()>=1){
+			} else if (user.getModuleTypeLimits() >= 1) {
 				user.setUserType(UserTypeEnum.USER.getDesc());
 			}
 			ValidatorUtils.validate(user);
-		}catch (Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 		return true;

@@ -18,7 +18,7 @@ hr{display:block;height:1px;border:0;border-top:1px solid #cccccc;margin:1em 0;p
 input, select{vertical-align:middle}
 body{background: #fff;}
 a{color: #000;text-decoration: none;}
-.clearfix:after {visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
+.clearfix:after {visibility: hidden;display: block;font-family: 微软雅黑; font-size: 0;content: " ";clear: both;height: 0;}
 .clearfix{display: inline-table;}
 * html .clearfix{height: 1%;}
 .clearfix{display: block;}

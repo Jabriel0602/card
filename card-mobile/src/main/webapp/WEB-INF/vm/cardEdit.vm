@@ -29,7 +29,7 @@
 
         <div class="tip">
             <div class="tip1">温馨提示</div>
-            <div class="tip2">请输入正确的卡号</div>
+##            <div class="tip2">请输入正确的卡号</div>
         </div>
         <div class="form">
             <form>
@@ -39,7 +39,7 @@
                         <i>
                             <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/usericon.png">
                         </i>
-                        <input class="mip" type="button" id="vendorCardId" name="vendorCardId" value="$card.getVendorCardId()"
+                        <input class="mip" style="text-align: left" type="button" id="vendorCardId" name="vendorCardId" value="$card.getVendorCardId()"
                                onblur="_validateCardId()">
                         <div class="merr hide" id="vendorCardIdTip">此处为必填项</div>
                     </li>
