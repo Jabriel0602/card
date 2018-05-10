@@ -183,6 +183,45 @@
         AND yn=1
     </select>
 
+    <select id="selectAllTask" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        task
+        WHERE
+        yn=1
+    </select>
+
+    <select id="selectTaskByParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        task
+        WHERE
+        1=1
+        <if test="task.taskId != null">AND task_id= #{task.taskId,jdbcType=BIGINT},</if>
+        <if test="task.taskType != null">AND task_type= #{task.taskType,jdbcType=INTEGER}</if>
+        <if test="task.taskDesc != null">AND task_desc= #{task.taskDesc,jdbcType=VARCHAR}</if>
+        <if test="task.orderId != null">AND order_id= #{task.orderId,jdbcType=BIGINT}</if>
+        <if test="task.retryStrategy != null">AND retry_strategy= #{task.retryStrategy,jdbcType=INTEGER}</if>
+        <if test="task.retryTimes != null">AND retry_times= #{task.retryTimes,jdbcType=INTEGER}</if>
+        <if test="task.maxRetryTimes != null">AND max_retry_times= #{task.maxRetryTimes,jdbcType=INTEGER}</if>
+        <if test="task.executeStatus != null">AND execute_status= #{task.executeStatus,jdbcType=INTEGER}</if>
+        <if test="task.nextExecuteTime != null">AND next_execute_time= #{task.nextExecuteTime,jdbcType=DATE}</if>
+        <if test="task.createdTime != null">AND created_time= #{task.createdTime,jdbcType=DATE}</if>
+        <if test="task.modifiedTime != null">AND modified_time= #{task.modifiedTime,jdbcType=DATE}</if>
+        <if test="task.yn != null">AND yn= #{task.yn,jdbcType=TINYINT}</if>
+    </select>
+
+    <select id="selectTaskById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        task
+        WHERE
+        task_Id = #{taskId,jdbcType=INTEGER}
+    </select>
+
     <select id="selectTaskInitial" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"></include>
@@ -193,6 +232,7 @@
         AND
         retry_times &lt;= max_retry_times
         AND yn=1
+        limit #{size,jdbcType=INTEGER}
     </select>
 
 

@@ -125,6 +125,7 @@ public class IconController {
 			iconService.update(icon);
 			return new APIResult<>(icon);
 		} catch (Exception e) {
+			log.error("修改ICON异常"+e);
 			return new APIResult<Icon>(HttpStatus.EXPECTATION_FAILED.value(), icon);
 		}
 	}

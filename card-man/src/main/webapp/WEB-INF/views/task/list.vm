@@ -1,0 +1,138 @@
+#set($title = "任务管理")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+    <script type="text/javascript"
+            src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
+</head>
+<div id="posi">
+    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+</div>
+<div id="content">
+    <div class="i-con1 table_list" style="word-break: break-all">
+        <form action="/tasks" method="get">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td>
+                        订单编号<input id="queryOrderId" name="orderId" type="text" value="$!task.orderId"/>
+                    </td>
+                    <td>
+                        任务编号<input id="queryTaskId" name="taskId" type="text" value="$!task.taskId">
+                    </td>
+                    <br>
+
+                    <td>
+                        任务类型
+                        <select id="queryTaskStatus" name="taskDesc">
+                            <option name="taskDesc" value=""></option>
+                            #foreach($key in $TaskTypeEnums)
+                                <option name="taskDesc" value="$key.desc">$!{key.desc}</option>
+                            #end
+                        </select>
+                    </td>
+
+                    <td>
+                        任务执行状态
+                        <select id="queryTaskStatus" name="executeStatus">
+                            <option name="executeStatus" value=""></option>
+                            #foreach($key in $TaskStatusEnums)
+                                <option name="executeStatus" value="$key.code">$!{key.desc}</option>
+                            #end
+                        </select>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+                    <td colspan="6">
+                        <input type="hidden" name="page" value="1">
+                        <input type="submit" value="提交"/>
+                        &nbsp; &nbsp;
+                        <input type="reset" value="重置"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <br>
+
+
+        <div class="tb-x1 resultlist">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <th>序号</th>
+                    <th>任务Id</th>
+                    <th>任务类型</th>
+                    <th>订单Id</th>
+                    <th>重试次数</th>
+                    <th>最大重试次数</th>
+                    <th>执行状态</th>
+                    <th>下次执行时间</th>
+                    <th>创建时间</th>
+                    <th>修改时间</th>
+                    <th>操作人</th>
+                    <th>操作</th>
+                </tr>
+                #if($taskList && $taskList.size() > 0)
+                    #foreach($task in $taskList)
+                        <tr>
+                            #set($count=$velocityCount)
+                            <td>$!{count}</td>
+                            <td>$!{task.taskId}</td>
+                            <td>$!{task.taskDesc}</td>
+                            <td>$!{task.orderId}</td>
+                            <td>$!{task.retryTimes}</td>
+                            <td>$!{task.maxRetryTimes}</td>
+                            <td>$TaskStatusEnum.getEnumByCode($!{task.executeStatus}).getDesc()</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{task.nextExecuteTime})</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{task.createdTime})</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{task.modifiedTime})</td>
+                            <td>$!{task.operator}</td>
+                            <td>
+                                <input type="button" value="任务初始化" onclick="initTask('$task.taskId')"/>
+                            </td>
+                        </tr>
+                    #end
+                #else
+                    <tr>
+                        <td colspan="9">没有相关数据显示！</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var comeback = function () {
+        document.location.href = "/tasks";
+    }
+
+    <!--停用启用 -->
+    var initTask = function (taskId) {
+        var url = '//127.0.0.1/tasks/' + taskId;
+        jQuery.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                taskId: taskId,
+            },
+            success: function (data) {
+                var json = JSON.stringify(data);
+                var jsonObject = JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    alert("修改成功");
+                    comeback();
+                    return;
+                } else if (jsonObject.code == 0) {
+                    alert("数据")
+                } else {
+                    alert("参数错误")
+                }
+            },
+            error: function () {
+                alert("出错了");
+            }
+        })
+    }
+</script>

@@ -20,6 +20,12 @@ public interface TaskDao {
 
     List<Task> selectTaskByOrderId(@Param("orderId") Long orderId,@Param("taskType") Integer taskType);
 
+    List<Task> selectAllTask();
+
+    List<Task> selectTaskByParam(@Param("task") Task task);
+
+    Task selectTaskById(@Param("taskId") Long taskId);
+
     List<Task> selectTaskInitial(int size);
 
 }

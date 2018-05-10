@@ -40,4 +40,13 @@ public enum TaskStatusEnum {
 		this.desc = desc;
 	}
 
+	public static TaskStatusEnum getEnumByCode(Integer code){
+		for (TaskStatusEnum taskStatusEnum:TaskStatusEnum.values()) {
+			if(taskStatusEnum.getCode().equals(code)){
+				return taskStatusEnum;
+			}
+		}
+		return null;
+	}
+
 }

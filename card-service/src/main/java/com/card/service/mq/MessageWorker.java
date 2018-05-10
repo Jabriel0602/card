@@ -28,8 +28,11 @@ public class MessageWorker {
 	@Autowired
 	private TaskService taskService;
 
+	/**
+	 * 秒 分 时 每月某日 月 周几 Year
+	 */
 //	每隔两分钟执行一次
-	@Scheduled(cron = "*/1 * * * * ?")
+	@Scheduled(cron = "* */2 * * * ?")
 	public void sendTask() {
 
 		List<Task> taskList = taskService.selectTaskInitial(SIZE);

@@ -47,6 +47,21 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	public Task selectTaskById(Long taskId) {
+		return taskDao.selectTaskById(taskId);
+	}
+
+	@Override
+	public List<Task> selectTaskByParam(Task task) {
+		return taskDao.selectTaskByParam(task);
+	}
+
+	@Override
+	public List<Task> selectAllTask() {
+		return taskDao.selectAllTask();
+	}
+
+	@Override
 	public List<Task> selectTaskInitial(int size) {
 		return taskDao.selectTaskInitial(size);
 	}

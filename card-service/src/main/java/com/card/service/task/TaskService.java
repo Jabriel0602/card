@@ -18,6 +18,12 @@ public interface TaskService{
 
     boolean isFail(Task task);
 
+    Task selectTaskById(Long taskId);
+
+    List<Task> selectTaskByParam(Task task);
+
+    List<Task> selectAllTask();
+
     List<Task> selectTaskInitial(int size);
 
     List<Task> selectTaskByOrderId(Long orderId,Integer taskType);
