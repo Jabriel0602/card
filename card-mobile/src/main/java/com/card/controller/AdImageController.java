@@ -30,6 +30,6 @@ public class AdImageController {
 	@GetMapping("")
 	@ResponseBody
 	public List<AdImage> listAdImage() {
-		return adImageService.findAllAdImageStatusOn();
+		return adImageService.findAllAdImageStatusOnWithCache();
 	}
 }

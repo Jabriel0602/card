@@ -7,6 +7,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Date;
  * Description：
  */
 @Data
-public class Icon {
+public class Icon implements Serializable {
 	/**
 	 * 日期只需要判断非空非null，因为如果日期格式错误，无法转换成data
 	 */
@@ -40,8 +41,8 @@ public class Icon {
 	@Max(value = 500, message = "权重不能高于500")
 	private Integer weight;                //权重
 	@NotNull(message = "putOn不能为空")
-	private Boolean putOn=true;                 //是否启用
-	private Boolean releaseStatus=false;        //是否发布
+	private Boolean putOn = true;                 //是否启用
+	private Boolean releaseStatus = false;        //是否发布
 	@NotNull(message = "startTime不能为空")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startTime;              //开始时间

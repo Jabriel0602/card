@@ -1,7 +1,10 @@
 package com.card.service.adimage;
 
+
+import com.card.common.util.RedisUtil;
 import com.card.dao.AdImageDao;
 import com.card.domain.adimage.AdImage;
+import com.card.domain.constant.CacheKeyEnum;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +25,13 @@ public class AdImageServiceImpl implements AdImageService {
 	@Autowired
 	private AdImageDao adImageDao;
 
+	@Autowired
+	private RedisUtil redisUtil;
+
 	@Override
 	public int insert(AdImage adImage) {
-		Integer count= adImageDao.insert(adImage);
-		if(count==1){
+		Integer count = adImageDao.insert(adImage);
+		if (count == 1) {
 			sortAdImage(findAllAdImage());
 			return count;
 		}
@@ -34,8 +40,8 @@ public class AdImageServiceImpl implements AdImageService {
 
 	@Override
 	public int insertSelective(AdImage adImage) {
-		Integer count= adImageDao.insertSelective(adImage);
-		if(count==1){
+		Integer count = adImageDao.insertSelective(adImage);
+		if (count == 1) {
 			sortAdImage(findAllAdImage());
 			return count;
 		}
@@ -44,8 +50,8 @@ public class AdImageServiceImpl implements AdImageService {
 
 	@Override
 	public int insertList(List<AdImage> adImages) {
-		Integer count= adImageDao.insertList(adImages);
-		if(count==1){
+		Integer count = adImageDao.insertList(adImages);
+		if (count == 1) {
 			sortAdImage(findAllAdImage());
 			return count;
 		}
@@ -64,6 +70,7 @@ public class AdImageServiceImpl implements AdImageService {
 
 	/**
 	 * 返回排序值
+	 *
 	 * @return
 	 */
 	@Override
@@ -83,13 +90,23 @@ public class AdImageServiceImpl implements AdImageService {
 	@Override
 	public List<AdImage> findAllAdImageStatusOn() {
 		List<AdImage> adImageList = findAllAdImageWithStatus();
-		List<AdImage> adImageListStatusOn= Lists.newArrayList();
+		List<AdImage> adImageListStatusOn = Lists.newArrayList();
 		for (AdImage adImage : adImageList) {
-			if(adImage.getPutOn()){
+			if (adImage.getPutOn()) {
 				adImageListStatusOn.add(adImage);
 			}
 		}
 		return adImageListStatusOn;
+	}
+
+	@Override
+	public List<AdImage> findAllAdImageStatusOnWithCache() {
+		List<AdImage> adImageList = (List<AdImage>)redisUtil.get(CacheKeyEnum.CARD_ADIMAGES.getValue());
+		if (adImageList == null || adImageList.size() == 0) {
+			adImageList = findAllAdImageStatusOn();
+			redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(), adImageList);
+		}
+		return adImageList;
 	}
 
 	@Override

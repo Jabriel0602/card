@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * Description：
  */
 @Data
-public class AdImage {
+public class AdImage implements Serializable {
 	/**
 	 * 日期只需要判断非空非null，因为如果日期格式错误，无法转换成data
 	 */

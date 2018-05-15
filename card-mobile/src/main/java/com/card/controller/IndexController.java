@@ -38,8 +38,8 @@ public class IndexController {
 
 	@GetMapping("")
 	public String index(Map map, HttpServletRequest request) {
-		List<AdImage> adImageList = adImageService.findAllAdImageStatusOn();
-		List<Icon> iconList = iconService.findAllIconStatusOn();
+		List<AdImage> adImageList = adImageService.findAllAdImageStatusOnWithCache();
+		List<Icon> iconList = iconService.findAllIconStatusOnWithCache();
 
 		Long userId = null;
 		Cookie[] cookies = request.getCookies();

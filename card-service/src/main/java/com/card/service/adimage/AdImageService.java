@@ -19,6 +19,8 @@ public interface AdImageService{
 
     List<AdImage> findAllAdImageStatusOn();
 
+    List<AdImage> findAllAdImageStatusOnWithCache();
+
     AdImage findAdImageById(Long id);
 
     int delete(Long id);

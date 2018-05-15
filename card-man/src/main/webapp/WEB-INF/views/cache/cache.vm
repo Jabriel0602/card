@@ -24,8 +24,15 @@
     }
 </style>
 #set($title = "缓存管理界面")
+<head>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+    <script type="text/javascript"
+            src="/js/common/jquery.min.js"></script>
+</head>
 <div id="posi">
-    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+    <div>您当前的位置：<a href="#">交通卡在线充值系统后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+
 </div>
 <div id="content">
     <h3>缓存管理</h3>
@@ -33,9 +40,12 @@
     <form id="cacheSearchForm" action="/caches" method="GET">
         查询条件：
         <select name="pattern">
+            <option name="cacheKey" value=''></option>
             #foreach($key in $cacheKeyEnum)
                 <option name="cacheKey" value='${key.getValue()}'>${key.getDesc()}</option>
             #end
+            <option name="cacheKey" value='*'>ALL</option>
+
         </select>
         <input type="submit" value="查询">
     </form>
@@ -59,17 +69,17 @@
                                 <tr>
                                     <input type="hidden" id="key" name="key" value="$!key"/>
                                     <td>$count</td>
-                                    <td>$!key</td>
+                                    <td style="vertical-align: top">$!key</td>
                                     <td>
-                                            <pre style="font:微软雅黑;text-align: left" id="$count" name="keyValue"
+                                            <pre style="font:微软雅黑;text-align: left" id="$!key" name="keyValue"
                                                  width="80">
                                             </pre>
                                     </td>
 
                                     <td style="vertical-align: top">
-                                        <input type="button" value="查询Value值" onclick="query('$!key','$!count')"/>
-                                        <input type="button" value="折叠" onclick="fold('$!count')"/>
-##屏蔽删除                              <input type="button" value="删除Key值" onclick="del('$!key')"/>
+                                        <input type="button" value="查询Value值" onclick="query('$!key')"/>
+                                        <input type="button" value="折叠" onclick="fold('$!key')"/>
+                                        <input type="button" value="删除Key值" onclick="del('$!key')"/>
                                     </td>
                                 </tr>
                             #end
@@ -90,20 +100,17 @@
                 document.location.href = "/caches";
             }
 
-            var fold = function (count) {
-                $("#" + count).html('');
+            var fold = function (key) {
+                $("#" + key).html('');
             }
 
 
-            var query = function (key, count) {
+            var query = function (key) {
                 if (key == null || jQuery.trim(key) == '') {
                     alert('key]不能为空');
                     return;
                 }
-                if (count == null || jQuery.trim(count) == '') {
-                    alert('key]不能为空');
-                    return;
-                }
+
                 jQuery.ajax({
                     url: "/caches/" + key,
                     type: "GET",
@@ -113,10 +120,14 @@
                     cache: false,
                     async: true,
                     success: function (data) {
-                        if (isJSON(data)) {
-                            $("#" + count).html(syntaxHighlight(data));
-                        } else {
-                            $("#" + count).html(data);
+                        var json = JSON.stringify(data);
+                        var jsonObject = JSON.parse(json);
+                        if (jsonObject.code == 200) {
+                            if (isJSON(jsonObject.data)) {
+                                $("#" + key).html(syntaxHighlight(jsonObject.data));
+                            } else {
+                                $("#" + key).html(jsonObject.data);
+                            }
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -142,7 +153,9 @@
                         cache: false,
                         async: true,
                         success: function (data) {
-                            if (data ==  200) {
+                            var json = JSON.stringify(data);
+                            var jsonObject = JSON.parse(json);
+                            if (jsonObject.code == 200) {
                                 alert("删除成功");
                                 comeback();
                             }

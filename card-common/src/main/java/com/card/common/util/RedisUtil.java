@@ -1,5 +1,6 @@
 package com.card.common.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
@@ -25,20 +26,27 @@ public class RedisUtil {
 	}
 
 
-	public void set(String key, Object value,Long second) {
+	public void set(String key, Object value, Long second) {
 		ValueOperations valueOperations = redisTemplate.opsForValue();
-		valueOperations.set(key, value,second,TimeUnit.SECONDS);
+		valueOperations.set(key, value, second, TimeUnit.SECONDS);
 		//BoundValueOperations的理解对保存的值做一些细微的操作
 //        BoundValueOperations boundValueOperations = redisTemplate.boundValueOps(key);
 	}
 
 	public void set(String key, Object value) {
 		ValueOperations valueOperations = redisTemplate.opsForValue();
-		valueOperations.set(key, value);
+		String jsonString = JSONObject.toJSONString(value);
+		valueOperations.set(key, jsonString);
 	}
 
-		public Object get(String key) {
-		return redisTemplate.opsForValue().get(key);
+	public Object get(String key) {
+		String jsonString= (String) redisTemplate.opsForValue().get(key);
+		return JSONObject.parse(jsonString);
+	}
+
+	public String getJSONString(String key) {
+		String jsonString= (String) redisTemplate.opsForValue().get(key);
+		return jsonString;
 	}
 
 	public void setList(String key, List<?> value) {
@@ -72,5 +80,9 @@ public class RedisUtil {
 
 	public void delete(String key) {
 		redisTemplate.delete(key);
+	}
+
+	public Set keys(String pattern) {
+		return redisTemplate.keys(pattern);
 	}
 }

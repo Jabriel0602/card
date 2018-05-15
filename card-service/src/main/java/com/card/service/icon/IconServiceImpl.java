@@ -1,6 +1,9 @@
 package com.card.service.icon;
 
+import com.alibaba.fastjson.JSONObject;
+import com.card.common.util.RedisUtil;
 import com.card.dao.IconDao;
+import com.card.domain.constant.CacheKeyEnum;
 import com.card.domain.icon.Icon;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +25,13 @@ public class IconServiceImpl implements IconService {
 	@Autowired
 	private IconDao IconDao;
 
+	@Autowired
+	private RedisUtil redisUtil;
+
 	@Override
 	public int insert(Icon icon) {
-		Integer count= IconDao.insert(icon);
-		if(count==1){
+		Integer count = IconDao.insert(icon);
+		if (count == 1) {
 			sortIcon(findAllIcon());
 			return count;
 		}
@@ -34,8 +40,8 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public int insertSelective(Icon icon) {
-		Integer count= IconDao.insertSelective(icon);
-		if(count==1){
+		Integer count = IconDao.insertSelective(icon);
+		if (count == 1) {
 			sortIcon(findAllIcon());
 			return count;
 		}
@@ -44,8 +50,8 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public int insertList(List<Icon> iconList) {
-		Integer count= IconDao.insertList(iconList);
-		if(count==1){
+		Integer count = IconDao.insertList(iconList);
+		if (count == 1) {
 			sortIcon(findAllIcon());
 			return count;
 		}
@@ -64,6 +70,7 @@ public class IconServiceImpl implements IconService {
 
 	/**
 	 * 返回有序值
+	 *
 	 * @return
 	 */
 	@Override
@@ -74,15 +81,15 @@ public class IconServiceImpl implements IconService {
 	@Override
 	public List<Icon> findAllIconStatusOn() {
 		List<Icon> iconList = findAllIconWithStatus();
-		List<Icon> iconListStatusOn= Lists.newArrayList();
+		List<Icon> iconListStatusOn = Lists.newArrayList();
 		for (Icon icon : iconList) {
-			if(icon.getPutOn()){
+			if (icon.getPutOn()) {
 				iconListStatusOn.add(icon);
 			}
 			/**
 			 * 最多4个
 			 */
-			if(iconListStatusOn.size()>=4){
+			if (iconListStatusOn.size() >= 4) {
 				return iconListStatusOn;
 			}
 		}
@@ -90,9 +97,19 @@ public class IconServiceImpl implements IconService {
 	}
 
 	@Override
+	public List<Icon> findAllIconStatusOnWithCache() {
+		List<Icon> iconList = (List<Icon>) redisUtil.get(CacheKeyEnum.CARD_ICONS.getValue());
+		if (iconList == null || iconList.size() == 0) {
+			iconList = findAllIconStatusOn();
+			redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(), iconList);
+		}
+		return iconList;
+	}
+
+	@Override
 	public List<Icon> findAllIconWithStatus() {
 		List<Icon> IconDaoList = findAllIcon();
-		for (Icon icon :IconDaoList) {
+		for (Icon icon : IconDaoList) {
 			checkPutOn(icon);
 		}
 		return IconDaoList;

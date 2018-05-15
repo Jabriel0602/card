@@ -13,7 +13,7 @@ public enum MethodTypeEnum {
 
 	ICON(4, "ICON", "ICON活动"),
 
-	CONFIG(8, "CONFIG", "配置管理"),
+	SWITCH(8, "SWITCH", "开关管理"),
 
 	CACHE(16, "CACHE", "缓存管理"),
 

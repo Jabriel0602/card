@@ -43,9 +43,9 @@
         <img style="width: 60%" src="/img/common/logo.png"/>
     </div>
     <div class="fl">
-        <div class="login-info">您好,id:$!userId,用户:$!userName！出行频道后台管理系统!<a href="/logout" target="_top">[退出]</a>
+        <div class="login-info">您好,id:$!userId,用户:$!userName！交通卡在线充值系统后台管理系统!<a href="/logout" target="_top">[退出]</a>
         </div>
-        <div class="sysname2" style="font-size: large">出行频道后台管理系统</div>
+        <div class="sysname2" style="font-size: large">交通卡在线充值系统后台管理系统</div>
         <span class="clr"></span>
 
         <div id="nav">

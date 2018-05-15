@@ -1,6 +1,6 @@
 #set($title = "公告管理")
 <div id="posi">
-    <div>您当前的位置：<a href="#">出行频道后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
+    <div>您当前的位置：<a href="#">交通卡在线充值系统后台</a>&nbsp;&gt;&nbsp;<a href="#">$title</a></div>
 </div>
 <div id="content">
     <div class="i-con1 table_list" style="word-break: break-all">

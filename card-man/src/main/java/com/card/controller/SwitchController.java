@@ -1,9 +1,11 @@
 package com.card.controller;
 
+import com.card.domain.MethodTypeEnum;
 import com.card.domain.result.APIResult;
 import com.card.domain.switchs.CardSwitch;
 import com.card.domain.switchs.SwitchEnum;
 import com.card.service.switchs.SwitchService;
+import com.card.service.user.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/switchs")
 public class SwitchController {
+
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private SwitchService switchService;
 
@@ -32,6 +37,8 @@ public class SwitchController {
 		for (SwitchEnum switchEnum:SwitchEnum.values()) {
 			cardSwitchList.add(switchService.select(switchEnum.getCode()));
 		}
+		Boolean switchFlag = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.SWITCH);
+		map.put("switchFlag",switchFlag);
 		map.put("switch",new CardSwitch());
 		map.put("SwitchEnums",SwitchEnum.values());
 		map.put("SwitchEnum",SwitchEnum.class);

@@ -29,6 +29,6 @@ public class IconController {
 	@GetMapping("")
 	@ResponseBody
 	public List<Icon> listIcon() {
-		return iconService.findAllIconStatusOn();
+		return iconService.findAllIconStatusOnWithCache();
 	}
 }
