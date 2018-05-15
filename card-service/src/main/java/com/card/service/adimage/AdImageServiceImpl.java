@@ -1,6 +1,7 @@
 package com.card.service.adimage;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.card.common.util.RedisUtil;
 import com.card.dao.AdImageDao;
 import com.card.domain.adimage.AdImage;
@@ -101,7 +102,7 @@ public class AdImageServiceImpl implements AdImageService {
 
 	@Override
 	public List<AdImage> findAllAdImageStatusOnWithCache() {
-		List<AdImage> adImageList = (List<AdImage>)redisUtil.get(CacheKeyEnum.CARD_ADIMAGES.getValue());
+		List<AdImage> adImageList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ADIMAGES.getValue()),AdImage.class);
 		if (adImageList == null || adImageList.size() == 0) {
 			adImageList = findAllAdImageStatusOn();
 			redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(), adImageList);

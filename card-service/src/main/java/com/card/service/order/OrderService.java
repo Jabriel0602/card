@@ -5,6 +5,11 @@ import com.card.domain.order.Order;
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderService{
+    /**
+     * 下单开关是否打开
+     * @return
+     */
+    boolean isSwitchOn();
 
     int insert(Order order);
 

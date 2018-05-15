@@ -3,6 +3,7 @@ package com.card.service.icon;
 import com.alibaba.fastjson.JSONObject;
 import com.card.common.util.RedisUtil;
 import com.card.dao.IconDao;
+import com.card.domain.adimage.AdImage;
 import com.card.domain.constant.CacheKeyEnum;
 import com.card.domain.icon.Icon;
 import com.google.common.collect.Lists;
@@ -98,7 +99,8 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public List<Icon> findAllIconStatusOnWithCache() {
-		List<Icon> iconList = (List<Icon>) redisUtil.get(CacheKeyEnum.CARD_ICONS.getValue());
+		List<Icon> iconList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ICONS.getValue()),Icon.class);
+
 		if (iconList == null || iconList.size() == 0) {
 			iconList = findAllIconStatusOn();
 			redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(), iconList);

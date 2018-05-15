@@ -13,10 +13,12 @@ import com.card.domain.pay.PayStatusEnum;
 import com.card.domain.pay.RechargeStatusEnum;
 import com.card.domain.refund.enums.RefundStatusEnum;
 import com.card.domain.result.APIResult;
+import com.card.domain.switchs.SwitchEnum;
 import com.card.domain.user.User;
 import com.card.service.adimage.AdImageService;
 import com.card.service.icon.IconService;
 import com.card.service.order.OrderService;
+import com.card.service.switchs.SwitchService;
 import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,9 @@ public class OrderController {
 	@Autowired
 	private IconService iconService;
 
+	@Autowired
+	private SwitchService switchService;
+
 	@GetMapping("")
 	public String listOrder(Map map) {
 		/**
@@ -72,7 +77,9 @@ public class OrderController {
 	@PostMapping("")
 	@ResponseBody
 	public APIResult<Long> submitOrder(Order order) {
-
+		if(!orderService.isSwitchOn()){
+			return new APIResult<>(400,0L);
+		}
 		User user = userService.getUser(LoginContext.getUserId());
 		order.setOrderId(idUtil.getId(IdUtil.SequenceEnum.ORDER));
 		order.setUserId(LoginContext.getUserId());

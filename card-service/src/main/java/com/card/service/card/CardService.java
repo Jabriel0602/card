@@ -6,6 +6,8 @@ import com.card.domain.card.Card;
 
 public interface CardService {
 
+	boolean isSwitchOn();
+
 	int insert(Card card);
 
 	int insertSelective(Card card);

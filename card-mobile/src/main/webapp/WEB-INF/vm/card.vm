@@ -56,7 +56,7 @@
                     </li>
                     <li>
                         <div class="mbox">
-                            <input type="checkbox" id="agreement" checked>我已同意《<a href="#">宝龙会员协议</a>》
+                            <input type="checkbox" id="agreement" checked>我已同意《<a href="#">会员协议</a>》
                         </div>
                     </li>
                 </ul>

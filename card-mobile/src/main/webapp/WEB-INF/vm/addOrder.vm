@@ -20,8 +20,8 @@
 
 <body>
 <style>
-    .rechargeList li{
-        float:left;
+    .rechargeList li {
+        float: left;
         text-align: center;
         height: 50px;
         line-height: 50px;
@@ -29,28 +29,31 @@
         position: relative;
         width: 33.3%;
         float: left;
-        background:#fff;
+        background: #fff;
         border-right: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
     }
-    .rechargeList li.active{
+
+    .rechargeList li.active {
         z-index: 1;
         border-top: 1px solid #f23030;
         border-left: 1px solid #f23030;
         border-color: #f23030;
         color: #f23030;
     }
-    .add-order-footer{
+
+    .add-order-footer {
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
         height: 42px;
         background: #fff;
-        border-top:1px solid #888;
+        border-top: 1px solid #888;
         z-index: 10;
     }
-    .add-order-footer-btn{
+
+    .add-order-footer-btn {
         position: absolute;
         right: 0;
         top: 0;
@@ -62,20 +65,23 @@
         background: #f23030;
         color: #fff;
     }
-    .add-order-footer-text{
-        margin-right:134px;
+
+    .add-order-footer-text {
+        margin-right: 134px;
         height: 42px;
         line-height: 42px;
         text-align: right;
         font-size: 12px;
         color: #252525;
     }
-    .add-order-footer-text span{
+
+    .add-order-footer-text span {
         color: #f23030;
-        font-weight:normal;
-        font-size:14px;
+        font-weight: normal;
+        font-size: 14px;
     }
-    .add-order-footer-texti{
+
+    .add-order-footer-texti {
         font-style: normal;
     }
 </style>
@@ -96,64 +102,53 @@
         </ul>
     </div>
 
-
     <div class="section" draggable="false">
         <ul class="secnav clearfix">
-            <li>
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/food.png"><br>
-                        <span>餐饮</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/map.png"><br>
-                        <span>商城导航</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/wifi.png"><br>
-                        <span>免费WIFI</span>
-                    </a>
-                </div>
-            </li>
-            <li class="lastsecnav">
-                <div>
-                    <a draggable="false" href="#">
-                        <img draggable="false" alt=""
-                             src="/image/park.png"><br>
-                        <span>停车</span>
-                    </a>
-                </div>
-            </li>
+            #foreach($icon in $iconList)
+                <li>
+                    <div>
+                        <a draggable="false" href="$icon.getResponseUrl()">
+                            <img draggable="false" alt="" src="$icon.getImgUrl()"><br>
+                            <span>$icon.getDesc()</span>
+                        </a>
+                    </div>
+                </li>
+            #end
         </ul>
     </div>
 
 ##  公交卡
     <div class="page">
+##        <div class="hyk">
+##            <div class="cardinfo">
+##                <div class="card">
+##                    <div class="cardnum">
+##                        <span class="title">卡号:</span>
+##                        <span class="num">$card.getVendorCardId()</span>
+##                    </div>
+##                    <div class="carddate">
+##                        <span class="title">备注:</span>
+##                        <span class="date">$card.getRemark()</span>
+##                        <span class="money_title">余额:</span>
+##                        <span class="money_data">$card.getMoney()</span>
+##                    </div>
+##
+##                </div>
+##            </div>
+##        </div>
+
         <div class="hyk">
             <div class="cardinfo">
-                <div class="card">
-                    <div class="cardnum">
-                        <span class="title">卡号:</span>
+                <div class="card" style="font-family: 微软雅黑;">
+                    <div class="card-line">
+                        <span class="tips">$card.getRemark()</span>
+                    </div>
+                    <div class="card-line cardnum card-green">
                         <span class="num">$card.getVendorCardId()</span>
                     </div>
-                    <div class="carddate">
-                        <span class="title">备注:</span>
-                        <span class="date">$card.getRemark()</span>
-                        <span class="money_title">余额:</span>
-                        <span class="money_data">$card.getMoney()</span>
+                    <div class="card-line">
+                        <span class="money_data">余额:$card.getMoney()元</span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -183,7 +178,7 @@
     </div>
     <div style="height:52px;"></div>
     <div class="add-order-footer">
-        <span id="btn"  onclick="_submit('$card.getCardId()','$card.getVendorCardId()')" class="add-order-footer-btn">提交订单</span>
+        <span id="btn" onclick="_submit('$card.getCardId()','$card.getVendorCardId()')" class="add-order-footer-btn">提交订单</span>
         <div class="add-order-footer-text">应付总额: <span>¥<i id="j_priceShow">50</i></span></div>
     </div>
 </div>
@@ -191,14 +186,15 @@
 <script type="text/javascript">
     Silder({"id": "banner", "creObjClassN": "numb", "titCellPadding": 0, "titCellMargin": 0, "play": true});
     var select_price = 50;
-    var $priceShow = $('#j_priceShow');
-    $('#j_priceSelect li').on('click',function(){
+    var $priceShow =
+    $('#j_priceShow');
+    $('#j_priceSelect li').on('click', function () {
         $(this).addClass('active').siblings().removeClass('active');
         select_price = parseInt($(this).data('price'));
-        $priceShow.html(select_price);
+            $priceShow.html(select_price);
     });
 
-    var _submit = function (cardId,vendorCardId) {
+    var _submit = function (cardId, vendorCardId) {
         var skuId = 10050;
         var skuName = select_price + '元';
         var skuMoney = select_price;
@@ -207,7 +203,7 @@
             url: url,
             type: 'POST',
             data: {
-                cardId:cardId,
+                cardId: cardId,
                 vendorCardId: vendorCardId,
                 skuId: skuId,
                 skuName: skuName,
@@ -220,6 +216,9 @@
                 if (jsonObject.code == 200) {
                     //跳转到支付页面
                     document.location.href = "//127.0.0.1/pay/submitPage?orderId=" + orderId;
+                    return;
+                } else if (jsonObject.code == 400) {
+                    alert("商品暂时停售");
                     return;
                 } else {
                     alert("修改失败");

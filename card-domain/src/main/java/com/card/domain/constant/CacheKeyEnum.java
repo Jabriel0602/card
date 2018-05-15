@@ -26,7 +26,7 @@ public enum  CacheKeyEnum {
 	/**
 	 * switch数据
 	 */
-	CARD_CONFIG("CARD_CONFIG", "系统配置数据", 60*60*24*7);
+	CARD_SWITCH("CARD_SWITCH", "开关配置", 60*60*24*7);
 
 
 

@@ -2,6 +2,9 @@ package com.card.service.order;
 
 import com.card.dao.OrderDao;
 import com.card.domain.order.Order;
+import com.card.domain.switchs.SwitchEnum;
+import com.card.domain.switchs.SwitchStatusEnum;
+import com.card.service.switchs.SwitchService;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,14 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderDao orderDao;
+
+    @Autowired
+    private SwitchService switchService;
+
+    @Override
+    public boolean isSwitchOn() {
+        return switchService.select(SwitchEnum.SUBMIT_ORDER_SWITCH.getCode()).getSwitchStatus().equals(SwitchStatusEnum.SWITCH_ON.getCode());
+    }
 
     @Override
     public int insert(Order order){
