@@ -45,9 +45,9 @@
                 <li class="ckearfix"><input type="checkbox" checked="true" value="$order.getSkuMoney()" style="display:none"/><i
                         class="ched ched_ed"></i><i class="icon"><img src="/image/weixin.png"/></i>
                     微信支付 <span class="fr f_ea4a66">$order.getSkuMoney()元</span></li>
-                <li class="ckearfix"><input type="checkbox" value="$order.getSkuMoney()" style="display:none"/><i class="ched"></i><i
-                        class="icon"><img src="/image/weixin.png"/></i> 其它支付方案 <span
-                        class="fr f_ea4a66">$order.getSkuMoney()元</span></li>
+##                <li class="ckearfix"><input type="checkbox" value="$order.getSkuMoney()" style="display:none"/><i class="ched"></i><i
+##                        class="icon"><img src="/image/weixin.png"/></i> 其它支付方案 <span
+##                        class="fr f_ea4a66">$order.getSkuMoney()元</span></li>
             </ul>
             <div class="pdlr16 mgt8"><input type="button" class="btn_red btn-h40 b-r-4 mgt8"
                                             onclick="_submit('$order.getOrderId()')"

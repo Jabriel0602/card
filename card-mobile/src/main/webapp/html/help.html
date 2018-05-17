@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>个人资料</title>
+    <title>帮助中心</title>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,84 +26,11 @@
 <!--html start-->
 <div class="page">
     <header class="header">
-        <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 个人资料
+        <a href="javascript:history.go(-1)" class="back comm_20_down"></a> 帮助中心
     </header>
 
-    <div class="info">
-        <div class="setlist">
-            <ul class="clearfix list">
-                <li id="setname">
-                    <img src="/image/name.png" class="frontpic">
-                    <span class="text">用户名</span>
-                    <img class="endpic" src="/image/rightarrow.png">
-                    <span class="value" id="name">$!user.getUserName()</span>
-                </li>
-                <li id="setgender">
-                    <img src="/image/gender.png" class="frontpic">
-                    <span class="text">性别</span>
-                    <img class="endpic" src="/image/rightarrow.png">
-                    <span class="value" id="gender">$!user.getSex()</span>
-                </li>
-                <li id="setdate">
-                    <img src="/image/date.png" class="frontpic">
-                    <span class="text">出生年月</span>
-                    <img class="endpic" src="/image/rightarrow.png">
-                    <span class="value" id="date">$!user.getBirthday()</span>
-                </li>
-            </ul>
 
-            <form id="_cookieClearForm" action="//127.0.0.1/users/cookieClear" method="post">
-            </form>
 
-            <a style="display:block;position:relative;top:20px;height:34px;line-height:34px;font-size:14px;color:#fff;background:#eb4a42;text-align:center;margin:0 10px;border-radius:3px;"
-               onclick="$('#_cookieClearForm').submit();">
-            退 出 登 录
-            </a>
-
-        </div>
-        <div class="mask_personal hidden" id="namemask">
-            <div class="inputname">
-                <div class="top">修改昵称</div>
-                <input type="text" placeholder="请输入新的昵称" id="newname">
-                <p>请输入4-10个字符，支持中文、英文、数字、"-"、"_"</p>
-                <ul class="clearfix confirm">
-                    <li class="cancel" onclick="showObj('namemask','no');">取消</li>
-                    <li onclick="confirmSetName()">确定</li>
-                </ul>
-            </div>
-        </div>
-        <div class="mask_personal hidden" id="gendermask">
-            <div class="choosegender">
-                <div class="top">请选择性别</div>
-                <ul class="clearfix gender">
-                    <li><span>男</span><input type="radio" name="sex" value="男"
-                        #if($user.getSex()=='男') checked
-                        #end
-                    ></li>
-                    <li><span>女</span><input type="radio" name="sex" value="女"
-                        #if($user.getSex()=='女') checked
-                        #end
-                    ></li>
-                </ul>
-                <ul class="clearfix confirm">
-                    <li class="cancel" onclick="showObj('gendermask','no');">取消</li>
-                    <li onclick="confirmSetSex();">确定</li>
-                </ul>
-            </div>
-        </div>
-        <div class="mask_personal hidden" id="datemask">
-            <div class="choosedate">
-                <div class="top">请选择出生年月</div>
-                <input id="birthday" type="date" value="" placeholder="请选择日期"/>
-                <ul class="clearfix confirm">
-                    <li class="cancel" onclick="showObj('datemask','no');">取消</li>
-                    <li onclick="confirmSetDate();">确定</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-##    foot
     <div class="footblock">
         <ul class="footerlist clearfix">
             <li>
@@ -275,3 +202,5 @@
 </script>
 </body>
 </html>
+微信:66666666
+电话:18888888888

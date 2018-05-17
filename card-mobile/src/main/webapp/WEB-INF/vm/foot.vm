@@ -13,7 +13,7 @@
         </li>
         <li>
             <div>
-                <a href="#" class="footyh">
+                <a href="/html/help.html" class="footyh">
                     <span class="iconfont icon-help"></span><br>
                     <span>帮助中心</span>
                 </a>
