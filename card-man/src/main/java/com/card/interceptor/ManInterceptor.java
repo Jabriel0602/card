@@ -60,6 +60,7 @@ public class ManInterceptor extends HandlerInterceptorAdapter {
 				if (cookie.getName().equals("card_user_cookie")) {
 					userId = Long.valueOf(cookie.getValue());
 					LoginContext.setUserId(userId);
+					LoginContext.setUserName(userService.getUser(userId).getUserName());
 					return true;
 				}
 			}
@@ -73,11 +74,11 @@ public class ManInterceptor extends HandlerInterceptorAdapter {
 		if (accept.contains("json") || "XMLHttpRequest".equals(xhq)) {
 			Map<String, String> map = new HashMap();
 			map.put("code", "notLogin");//未登录
-			map.put("loginURL", "http://127.0.0.1/users/loginPage");
+			map.put("loginURL", "/users/loginPage");
 			ajaxResponse(response, JSON.toJSONString(map));
 			return;
 		}
-		response.sendRedirect("http://127.0.0.1/users/loginPage");
+		response.sendRedirect("/users/loginPage");
 	}
 
 	private void ajaxResponse(HttpServletResponse response, String jsonMsg) {

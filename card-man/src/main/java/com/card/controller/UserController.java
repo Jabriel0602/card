@@ -59,18 +59,17 @@ public class UserController {
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
 			cookie.setMaxAge(3600 * 24 * 7);
-			cookie.setDomain("127.0.0.1");
+			cookie.setDomain("");
 			cookie.setPath("/");
 			response.addCookie(cookie);
-			List<AdImage> adImageList = adImageService.findAllAdImage();
-			List<Card> cardList = cardService.findCard(user.getUserId());
-			map.put("adImage", new AdImage());
-			map.put("adImageList", adImageList);
-			map.put("card", new Card());
-			map.put("cardList", cardList);
+
+			Map moduleTypeLimitsMap = userService.getModuleTypeLimitsMap(user);
+			map.put("moduleTypeLimitsMap", moduleTypeLimitsMap);
+			map.put("ModuleTypeEnums", ModuleTypeEnum.values());
+
 			return "index";
 		}
-		map.put("message", "用户名或密码错误");
+		map.put("message", "请输入用户名和密码");
 		return "public/login";
 	}
 
@@ -99,7 +98,7 @@ public class UserController {
 	 *
 	 * @return
 	 */
-	@PostMapping("/loginPage")
+	@GetMapping("/loginPage")
 	public String loginPage(Map map) {
 
 		map.put("message", "请输入用户名和密码");

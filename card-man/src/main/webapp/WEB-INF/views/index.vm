@@ -9,12 +9,12 @@
 </head>
 
 <frameset rows="80,*" cols="*" frameborder="no" border="0" framespacing="0">
-    <frame src="topFrame" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame"/>
+    <frame src="/topFrame" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame"/>
     <frameset rows="*" cols="169,*" framespacing="0" frameborder="no" border="0">
         <frame
             #foreach($moduleTypeEnum in $ModuleTypeEnums)
                 #if($moduleTypeLimitsMap.get(${moduleTypeEnum.getType()}))
-                        src="leftFrame?module=${moduleTypeEnum.getCode()}"
+                        src="/leftFrame?module=${moduleTypeEnum.getCode()}"
                 #end
             #end
                         name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame"
