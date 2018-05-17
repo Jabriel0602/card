@@ -59,7 +59,7 @@ public class UserController {
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
 			cookie.setMaxAge(3600 * 24 * 7);
-			cookie.setDomain("127.0.0.1");
+			cookie.setDomain("");
 			cookie.setPath("/");
 			response.addCookie(cookie);
 			List<AdImage> adImageList = adImageService.findAllAdImage();
@@ -84,7 +84,7 @@ public class UserController {
 		User user = userService.getUser(LoginContext.getUserId());
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
-			cookie.setDomain("127.0.0.1");
+			cookie.setDomain("");
 			cookie.setPath("/");
 			cookie.setMaxAge(0);
 			response.addCookie(cookie);

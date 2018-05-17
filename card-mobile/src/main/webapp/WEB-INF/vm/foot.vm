@@ -5,7 +5,7 @@
     <ul class="footerlist clearfix">
         <li class="footsy">
             <div>
-                <a href="http://127.0.0.1/index">
+                <a href="/index">
                     <span class="iconfont icon-home"></span><br>
                     <span>首页</span>
                 </a>
@@ -21,7 +21,7 @@
         </li>
         <li>
             <div>
-                <a href="//127.0.0.1/orders" class="footsh">
+                <a href="/orders" class="footsh">
                     <span class="iconfont icon-order"></span><br>
                     <span>我的订单</span>
                 </a>
@@ -29,7 +29,7 @@
         </li>
         <li>
             <div>
-                <a href="//127.0.0.1/users" class="footwd">
+                <a href="/users" class="footwd">
                     <span class="iconfont icon-member"></span><br>
                     <span>个人中心</span>
                 </a>

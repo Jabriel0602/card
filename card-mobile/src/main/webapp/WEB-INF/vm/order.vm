@@ -212,7 +212,7 @@
                                 </div>
 
                                 <div class="yct-item-footertopay">
-                                    <span onclick="document.location.href='//127.0.0.1/pay/submitPage?orderId=$order.getOrderId()'">去支付</span>
+                                    <span onclick="document.location.href='/pay/submitPage?orderId=$order.getOrderId()'">去支付</span>
                                 </div>
                             #else
                                 <div class="yct-item-footer">
@@ -234,7 +234,7 @@
         <ul class="footerlist clearfix">
             <li>
                 <div>
-                    <a href="http://127.0.0.1/index">
+                    <a href="/index">
                         <span class="iconfont icon-home"></span><br>
                         <span>首页</span>
                     </a>
@@ -250,7 +250,7 @@
             </li>
             <li class="footsy">
                 <div>
-                    <a href="//127.0.0.1/orders" class="footsh">
+                    <a href="/orders" class="footsh">
                         <span class="iconfont icon-order"></span><br>
                         <span>我的订单</span>
                     </a>
@@ -258,7 +258,7 @@
             </li>
             <li>
                 <div>
-                    <a href="//127.0.0.1/users" class="footwd">
+                    <a href="/users" class="footwd">
                         <span class="iconfont icon-member"></span><br>
                         <span>个人中心</span>
                     </a>

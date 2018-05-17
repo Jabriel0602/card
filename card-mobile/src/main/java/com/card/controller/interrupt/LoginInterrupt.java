@@ -48,11 +48,11 @@ public class LoginInterrupt extends HandlerInterceptorAdapter {
 		if (accept.contains("json") || "XMLHttpRequest".equals(xhq)) {
 			Map<String, String> map = new HashMap();
 			map.put("code", "notLogin");//未登录
-			map.put("loginURL", "http://127.0.0.1/html/login.html");
+			map.put("loginURL", "/html/login.html");
 			ajaxResponse(response, JSON.toJSONString(map));
 			return;
 		}
-		response.sendRedirect("http://127.0.0.1/html/login.html");
+		response.sendRedirect("/html/login.html");
 	}
 
 	private void ajaxResponse(HttpServletResponse response, String jsonMsg) {

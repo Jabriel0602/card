@@ -12,7 +12,6 @@
         <result column="operator" property="operator" jdbcType="VARCHAR"/>
         <result column="weight" property="weight" jdbcType="INTEGER"/>
         <result column="put_on" property="putOn" jdbcType="TINYINT"/>
-        <result column="release_status" property="releaseStatus" jdbcType="TINYINT"/>
         <result column="start_time" property="startTime" jdbcType="DATE"/>
         <result column="end_time" property="endTime" jdbcType="DATE"/>
     </resultMap>
@@ -28,7 +27,6 @@
         operator,
         weight,
         put_on,
-        release_status,
         start_time,
         end_time
     </sql>
@@ -45,7 +43,6 @@
             operator,
             weight,
             put_on,
-            release_status,
             start_time,
             end_time
         ) VALUES (
@@ -58,7 +55,6 @@
             #{icon.operator,jdbcType=VARCHAR},
             #{icon.weight,jdbcType=INTEGER},
             #{icon.putOn,jdbcType=TINYINT},
-            #{icon.releaseStatus,jdbcType=TINYINT},
             #{icon.startTime,jdbcType=DATE},
             #{icon.endTime,jdbcType=DATE}
         )
@@ -101,9 +97,7 @@
             </if>
             <if test="icon.putOn!=null">#{icon.putOn,jdbcType=TINYINT},
             </if>
-            <if test="icon.releaseStatus!=null">#{icon.releaseStatus,jdbcType=TINYINT},
-            </if>
-            <if test="icon.startTime!=null">#{icon.startTime,jdbcType=DATE},
+           <if test="icon.startTime!=null">#{icon.startTime,jdbcType=DATE},
             </if>
             <if test="icon.endTime!=null">#{icon.endTime,jdbcType=DATE},
             </if>
@@ -126,7 +120,6 @@
             #{icon.operator,jdbcType=VARCHAR},
             #{icon.weight,jdbcType=INTEGER},
             #{icon.putOn,jdbcType=TINYINT},
-            #{icon.releaseStatus,jdbcType=TINYINT},
             #{icon.startTime,jdbcType=DATE},
             #{icon.endTime,jdbcType=DATE}
             )
@@ -146,7 +139,6 @@
             <if test="icon.operator != null"> operator= #{icon.operator,jdbcType=VARCHAR},</if>
             <if test="icon.weight != null"> weight= #{icon.weight,jdbcType=INTEGER},</if>
             <if test="icon.putOn != null"> put_on= #{icon.putOn,jdbcType=TINYINT},</if>
-            <if test="icon.releaseStatus != null"> release_status= #{icon.releaseStatus,jdbcType=TINYINT},</if>
             <if test="icon.startTime != null"> start_time= #{icon.startTime,jdbcType=DATE},</if>
             <if test="icon.endTime != null"> end_time= #{icon.endTime,jdbcType=DATE}</if>
         </set>

@@ -7,19 +7,17 @@ package com.card.domain;
 
 public enum MethodTypeEnum {
 
-	NOTICE(1, "NOTICE", "公告"),
+	ADIMAGE(1, "ADIMAGE", "轮播图"),
 
-	ADIMAGE(2, "ADIMAGE", "轮播图"),
+	ICON(2, "ICON", "ICON活动"),
 
-	ICON(4, "ICON", "ICON活动"),
+	SWITCH(4, "SWITCH", "开关管理"),
 
-	SWITCH(8, "SWITCH", "开关管理"),
+	CACHE(8, "CACHE", "缓存管理"),
 
-	CACHE(16, "CACHE", "缓存管理"),
+	TASK(16, "TASK", "任务管理"),
 
-	TASK(32, "TASK", "任务管理"),
-
-	AUTHORITY(64, "AUTHORITY", "权限管理");
+	AUTHORITY(32, "AUTHORITY", "权限管理");
 
 	private Integer code;
 	private String type;

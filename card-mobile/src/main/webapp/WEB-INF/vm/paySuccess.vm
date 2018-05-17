@@ -48,8 +48,8 @@
             </ul>
         </div>
         <div class="pdlr16 mgt12">
-            <a href="//127.0.0.1/index" class="btn-h40 btn_red b-r-4">返回首页</a>
-            <a href="//127.0.0.1/cards/$order.getCardId()/orders/new" class="btn-h40 btn_b_red mgt12 b-r-4">继续充值</a>
+            <a href="/index" class="btn-h40 btn_red b-r-4">返回首页</a>
+            <a href="/cards/$order.getCardId()/orders/new" class="btn-h40 btn_b_red mgt12 b-r-4">继续充值</a>
 
         </div>
     </section>

@@ -49,7 +49,7 @@
                         class="icon"><img src="/image/weixin.png"/></i> 其它支付方案 <span
                         class="fr f_ea4a66">$order.getSkuMoney()元</span></li>
             </ul>
-            <div class="pdlr16 mgt8"><input type="buttom" class="btn_red btn-h40 b-r-4 mgt8"
+            <div class="pdlr16 mgt8"><input type="button" class="btn_red btn-h40 b-r-4 mgt8"
                                             onclick="_submit('$order.getOrderId()')"
                                             value="确定支付"/></div>
         </form>
@@ -58,7 +58,7 @@
 <script>
 
     var _submit = function (orderId) {
-        var url = '//127.0.0.1/pay';
+        var url = '/pay';
         $.ajax({
             url: url,
             type: 'POST',
@@ -71,7 +71,7 @@
                 if (jsonObject.code == 200) {
                     var orderId = jsonObject.data.orderId;
                     //跳转到支付成功页
-                    document.location.href = '//127.0.0.1/pay/success?orderId=' + orderId;
+                    document.location.href = '/pay/success?orderId=' + orderId;
                     return;
                 } else {
                     alert("修改失败");

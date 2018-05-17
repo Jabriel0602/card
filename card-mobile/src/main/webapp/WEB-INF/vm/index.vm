@@ -54,7 +54,7 @@
     <div style="padding-bottom: 60px;" class="page">
         #if($cardList.size()==0)
             <a style="font-family: 微软雅黑; font-size:14px;color:#638fff;background: #e9efff;border: 1px solid #5e8fff;display:block;margin:10px 8px;height:94px;line-height:94px;text-align:center;"
-               href="http://127.0.0.1/html/addCard.html">
+               href="/html/addCard.html">
                 <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#638fff;border:1px solid #638fff;text-align:center;line-height:20px;vertical-align: middle;">+</span>
                 添加卡片
             </a>
@@ -74,15 +74,15 @@
                                 <span class="money_data">余额:$card.getMoney()元</span>
                             </div>
                             <div class="card-btn">
-                                <span><a href="//127.0.0.1/cards/$card.getCardId()/editPage">编辑</a> </span>
-                                <span><a href="//127.0.0.1/cards/$card.getCardId()/orders/new">充值</a> </span>
+                                <span><a href="/cards/$card.getCardId()/editPage">编辑</a> </span>
+                                <span><a href="/cards/$card.getCardId()/orders/new">充值</a> </span>
                             </div>
                         </div>
                     </div>
                 </div>
             #end
             <a style="display:block;height:34px;line-height:34px;font-size:14px;color:#fff;background:#6892ff;text-align:center;margin:0 10px;border-radius:3px;"
-               href="http://127.0.0.1/html/addCard.html">
+               href="/html/addCard.html">
                 <span style="display:inline-block;width:20px;height:20px;border-radius:20px;font-size:20px;color:#fff;border:1px solid #fff;text-align:center;line-height:20px;vertical-align: middle;">+</span>
                 添加卡片
             </a>
@@ -93,7 +93,7 @@
         <ul class="footerlist clearfix">
             <li class="footsy">
                 <div>
-                    <a href="http://127.0.0.1/index">
+                    <a href="/index">
                         <span class="iconfont icon-home"></span><br>
                         <span>首页</span>
                     </a>
@@ -101,7 +101,7 @@
             </li>
             <li>
                 <div>
-                    <a href="help" class="footyh">
+                    <a href="/help" class="footyh">
                         <span class="iconfont icon-help"></span><br>
                         <span>帮助中心</span>
                     </a>
@@ -109,7 +109,7 @@
             </li>
             <li>
                 <div>
-                    <a href="//127.0.0.1/orders" class="footsh">
+                    <a href="/orders" class="footsh">
                         <span class="iconfont icon-order"></span><br>
                         <span>我的订单</span>
                     </a>
@@ -117,7 +117,7 @@
             </li>
             <li>
                 <div>
-                    <a href="//127.0.0.1/users" class="footwd">
+                    <a href="/users" class="footwd">
                         <span class="iconfont icon-member"></span><br>
                         <span>个人中心</span>
                     </a>

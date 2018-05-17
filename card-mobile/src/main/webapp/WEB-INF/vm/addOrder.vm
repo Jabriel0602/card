@@ -198,7 +198,7 @@
         var skuId = 10050;
         var skuName = select_price + '元';
         var skuMoney = select_price;
-        var url = '//127.0.0.1/orders';
+        var url = '/orders';
         $.ajax({
             url: url,
             type: 'POST',
@@ -215,7 +215,7 @@
                 var orderId = jsonObject.data;
                 if (jsonObject.code == 200) {
                     //跳转到支付页面
-                    document.location.href = "//127.0.0.1/pay/submitPage?orderId=" + orderId;
+                    document.location.href = "/pay/submitPage?orderId=" + orderId;
                     return;
                 } else if (jsonObject.code == 400) {
                     alert("商品暂时停售");
