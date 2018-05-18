@@ -1,10 +1,127 @@
-#set($title="请登录")
-<h2>请登录。。</h2>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="ie-stand">
+    <title>ERP登录</title>
+    <!-- S DNS预解析 -->
+    <link rel="dns-prefetch" href="">
+    <!-- E DNS预解析 -->
+    <link rel="stylesheet" href="/css/login-min.css">
+</head>
+<body>
 
-<div style="margin-left:20px">
-    <form action="/users/cookie" method="post">
-        用户名：<input type="text" name="userName"/>
-        密&nbsp;&nbsp;码：<input type="text" name="password"/> <br/>
-        <input type="submit" value="登陆"/>
-    </form>
+<div class="login">
+    <div class="valign_wrap">
+        <!-- +.withqrc 切换 -->
+        <div class="login_pop">
+            <div class="login_pop_inner login_withpc">
+                <!--[if lt IE 8]><span class="login_withpc_logo"></span><![endif]-->
+
+                <form  action="/users/cookie" class="login_form"  method="post" name="login_form">
+                    <input type="hidden" id="fp" name="fp">
+                    <!-- +.warn +.focus +.hide -->
+                    <div class="login_form_row account"><label class="login_form_label"><i class="login_form_icon"></i>
+                        <div class="login_form_inp"><input class="login_form_inp_input" type="text" id="username" name="userName" placeholder="账号">
+                        </div>
+                    </label></div>
+                    <div class="login_form_row password"><label class="login_form_label"><i class="login_form_icon"></i>
+                        <div class="login_form_inp"><input class="login_form_inp_input" type="password" id="password" name="password" placeholder="密码">
+                        </div>
+                    </label></div>
+
+##                    <div class="login_form_row findback"><a href="/sso/findpwd/index">忘记密码？</a></div>
+                    <div class="login_form_row formsubmit"><input class="formsubmit_btn" type="submit"
+                                                                  value="登&nbsp;&nbsp;录"></div>
+                    <div class="login_form_row warntip hide"><i class="warntip_icon"></i><span class="warntip_text"></span>
+                    </div>
+                </form>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <!--[if lt IE 8]><span class="valign_after"></span><![endif]-->
 </div>
+
+<script src="//ssa.jd.com/res/js/jquery.min.js"></script>
+<script src="//ssa.jd.com/res/tools/md5.min.js?v=1523941693799" type="text/javascript"></script>
+<script src="//payrisk.jd.com/js/td.js?v=1523941693799" type="text/javascript"></script>
+<script>
+    $(function () {
+        var timeout = false;
+        var returnUrl = "http://transport.man.jd.com/";
+        var qrCheck;
+
+        function refreshImage() {
+            var now = new Date();
+            $("#qr_image").attr("src", "/sso/image?v=33&t=" + now.getTime());
+            stopCheck();
+            startCheck();
+            $('.warntip').hide();
+        }
+
+        function stopCheck() {
+            if (qrCheck != null) {
+                timeout = true;
+                window.clearInterval(qrCheck);
+            }
+        }
+
+        function startCheck() {
+            timeout = false;
+            qrCheck = window.setInterval(check, 1000);
+        }
+
+        function show_notice(content){
+            $('.warntip_text').html(content);
+            $('.warntip').show();
+        }
+
+
+        $('.login_form_inp_input').focus(function () {
+            $('.login_form_row.focus').removeClass('focus');
+            $(this).parents('.login_form_row').addClass('focus');
+        }).blur(function () {
+            $('.login_form_row.focus').removeClass('focus');
+        });
+        $('.login_style').click(function () {
+            $('.login_pop').toggleClass('withqrc');
+            if($('.login_pop').hasClass("withqrc")){
+                refreshImage();
+            }else{
+                stopCheck();
+            }
+        });
+
+        $("#refresh_code").click(function () {
+            refreshImage();
+        });
+
+        $('.formsubmit_btn').click(function (event) {
+            if($("#username").val() ==""){
+                $('.login_form_row.account').addClass('warn');
+                event.preventDefault();
+            }
+            if($("#password").val() ==""){
+                $('.login_form_row.password').addClass('warn');
+                event.preventDefault();
+            }
+        });
+
+        if($.trim($('.warntip_text').html())!=""){
+            $('.warntip').show();
+        }
+
+        $("#jetui_erp_gx_close").click(function () {
+            $("#erp_gx").hide();
+        });
+
+
+
+    });
+</script>
+</body>
+</html>
