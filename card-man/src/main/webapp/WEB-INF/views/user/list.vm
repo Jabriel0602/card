@@ -1,7 +1,9 @@
 #set($title = "权限管理")
 <head>
-    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css" media="all"/>
-    <script type="text/javascript" src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
+          media="all"/>
+    <script type="text/javascript"
+            src="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,pop-man/201007/js/pop.base.js"></script>
 </head>
 
 <div id="posi">
@@ -37,8 +39,10 @@
                                 <input type="hidden" name="userCode" value="$!authority.userCode"/>
                                 <input type="hidden" name="moduleTypeLimits" value="$!authority.moduleTypeLimits"/>
                                 <input type="hidden" name="methodTypeLimits" value="$!authority.methodTypeLimits"/>
-                                <input type="hidden" name="createTime" value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!authority.createTime)"/>
-                                <input type="hidden" name="modifyTime" value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!authority.modifyTime)"/>
+                                <input type="hidden" name="createTime"
+                                       value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!authority.createTime)"/>
+                                <input type="hidden" name="modifyTime"
+                                       value="$!date.format('yyyy-MM-dd HH:mm:ss ',$!authority.modifyTime)"/>
                                 <td>$count</td>
                                 <td>$!authority.getUserId()</td>
                                 <td>$!authority.getUserName()</td>
@@ -52,7 +56,7 @@
                                 <td>
                                     #if($authorityAuthorityFlag)
                                         <a href="/users/$authority.userId"><input type="button" value="修改"></a>
-                                        <input type="button" value="删除" onclick="deleteUser($index)"/>
+                                        <input type="button" value="删除" onclick="deleteUser($authority.getUserId())"/>
                                     #else
                                         <label style="text-align: center;color: #FF0000">无权限操作</label>
                                     #end
@@ -60,11 +64,13 @@
                             </tr>
                         #end
                     #end
-                    #if($authorityAuthorityFlag)
-                        <td><a href="/users/-1"><input type="button" value="添加管理员+"/></td>
-                    #else
-                        <label style="text-align: center;color: #FF0000">无权限增加</label>
-                    #end
+                    <td>
+                        #if($authorityAuthorityFlag)
+                        <a href="/users/-1"><input type="button" value="添加管理员+"/>
+                        #else
+                            <label style="text-align: center;color: #FF0000">无权限增加</label>
+                        #end
+                    </td>
                 </table>
             </div>
         </div>
@@ -78,16 +84,16 @@
                 var count = index;
                 jQuery.ajax({
                     type: 'DELETE',
-                    url: '/users/' +index,
+                    url: '/users/' + index,
                     data: {
                         index: count
                     },
                     success: function (data) {
-                        var json=JSON.stringify(data);
-                        var jsonObject=JSON.parse(json);
+                        var json = JSON.stringify(data);
+                        var jsonObject = JSON.parse(json);
                         if (jsonObject.code == 200) {
                             alert("操作成功");
-                        } else if (jsonObject.code ==  0) {
+                        } else if (jsonObject.code == 0) {
                             alert("操作的数据不存在");
                         } else {
                             alert("参数错误")

@@ -1,4 +1,4 @@
-#set($title = "配置管理")
+#set($title = "开关管理")
 <head>
     <link rel="stylesheet" type="text/css" href="http://misc.360buyimg.com/pop-man/201007/skin/erpbase.css"
           media="all"/>
@@ -38,15 +38,15 @@
                             <td>$!{switch.operator}</td>
                             <td>
 
-                            ##                                #if($switchAuthorityFlag)
-                                #if($!{switch.getSwitchStatus()}>0)
-                                    <input type="button" value="停用" onclick="updateSwitch('$switch.switchId')"/>
+                                #if($switchAuthorityFlag)
+                                    #if($!{switch.getSwitchStatus()}>0)
+                                        <input type="button" value="停用" onclick="updateSwitch('$switch.switchId')"/>
+                                    #else
+                                        <input type="button" value="启用" onclick="updateSwitch('$switch.switchId')"/>
+                                    #end
                                 #else
-                                    <input type="button" value="启用" onclick="updateSwitch('$switch.switchId')"/>
+                                    <label style="text-align: center;color: #FF0000">无权限修改</label>
                                 #end
-                            ##                                #else
-                            ##                                    <label style="text-align: center;color: #FF0000">无权限修改</label>
-                            ##                                #end
                             </td>
                         </tr>
                     #end
@@ -67,7 +67,7 @@
 
     <!--停用启用 -->
     var updateSwitch = function (switchId) {
-        var url = '//127.0.0.1/switchs/'+switchId;
+        var url = '//127.0.0.1/switchs/' + switchId;
         jQuery.ajax({
             url: url,
             type: 'PUT',

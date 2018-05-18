@@ -4,6 +4,7 @@ package com.card.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.card.common.util.LoginContext;
 import com.card.domain.user.User;
+import com.card.domain.user.UserTypeEnum;
 import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ManInterceptor extends HandlerInterceptorAdapter {
 
 		if(isLogin(request,response)){
 			User user = userService.getUser(LoginContext.getUserId());
-			if(user==null){
+			if(user==null||user.getUserType().equals(UserTypeEnum.USER.getDesc())){
 				/**\
 				 * todo 无权限 提醒
 				 */

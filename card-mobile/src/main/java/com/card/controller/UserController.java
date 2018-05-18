@@ -211,9 +211,9 @@ public class UserController {
 			if (user.getModuleTypeLimits() >= 4) {
 				user.setUserType(UserTypeEnum.SUPER_MANAGE.getDesc());
 			} else if (user.getModuleTypeLimits() >= 3) {
-				user.setUserType(UserTypeEnum.MANAGE.getDesc());
+				user.setUserType(UserTypeEnum.KF_MANAGE.getDesc());
 			} else if (user.getModuleTypeLimits() >= 1) {
-				user.setUserType(UserTypeEnum.USER.getDesc());
+				user.setUserType(UserTypeEnum.YY_MANAGE.getDesc());
 			}
 			ValidatorUtils.validate(user);
 		} catch (Exception e) {

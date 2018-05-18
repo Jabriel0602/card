@@ -21,27 +21,28 @@
             <h3>权限编辑</h3>
             <input type="hidden" id="index" name="index" value="$!{userId}"/>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">账号</td>
-                    <td style="vertical-align:middle; text-align:left; height:28px;">
-                        $!{authority.getUserId()}
-                    </td>
-                </tr>
+                #if($userId>0)
+                    <tr>
+                        <td style="vertical-align:middle; text-align:right; height:28px;">账号</td>
+                        <td style="vertical-align:middle; text-align:left; height:28px;">
+                            $!{authority.getUserId()}
+                        </td>
+                    </tr>
 
-
-                <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">用户名</td>
-                    <td style="vertical-align:middle; text-align:left; height:28px;">
-                        $!{authority.getUserName()}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="vertical-align:middle; text-align:right; height:28px;">用户名</td>
-                    <td style="vertical-align:middle; text-align:left; height:28px;">
-                        $!{authority.getUserType()}
-                    </td>
-                </tr>
+                    <tr>
+                        <td style="vertical-align:middle; text-align:right; height:28px;">用户类型</td>
+                        <td style="vertical-align:middle; text-align:left; height:28px;">
+                            $!{authority.getUserType()}
+                        </td>
+                    </tr>
+                #else
+                    <tr>
+                        <td style="vertical-align:middle; text-align:right; height:28px;">账号</td>
+                        <td style="vertical-align:middle; text-align:left; height:28px;">
+                            <input type="input" id="userId" name="userId" placeholder="请输入已存在的用户id">
+                        </td>
+                    </tr>
+                #end
 
                 <tr>
                     <td style="vertical-align:middle; text-align:right; height:28px;">模块操作权限</td>
@@ -110,76 +111,77 @@
     }
 
     var submit = function () {
-        var isUpdateOperate = '!$authority.getOperator()';
-        if (isUpdateOperate == null || isUpdateOperate < 0) {
-            addUser();
-        } else {
-            updateUser();
-        }
+    ## var isUpdateOperate = '!$authority.getOperator()';
+    ## if (isUpdateOperate == null || isUpdateOperate < 0) {
+    ##     addUser();
+    ## } else {
+        updateUser();
+        // }
     }
 
     var comeback = function () {
         document.location.href = "/users";
     }
 
-    <!--添加按钮 -->
-    var addUser = function () {
-        var userCode = $authority.getUserId();
-        var userName = '$authority.getUserName()';
-        var userType = '$authority.getUserType()';
-
-        var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
-        var methodTypeLimits = document.getElementById("methodTypeLimits").value;
-
-        if (userCode == null || userCode == "") {
-            alert("用户ERP帐号不能为空！");
-            return;
-        }
-        var sure = confirm("确定添加管理员？");
-        if (sure == true) {
-            jQuery.ajax({
-                type: 'POST',
-                url: '/users',
-                data: {
-                    moduleTypeLimits: moduleTypeLimits,
-                    methodTypeLimits: methodTypeLimits,
-                    userCode: userCode,
-                    userName: userName,
-                    userType: userType,
-                },
-                success: function (data) {
-                    var json = JSON.stringify(data);
-                    var jsonObject = JSON.parse(json);
-                    if (jsonObject.code == 200) {
-                        alert("添加成功");
-                        comeback();
-                        return;
-                    } else if (jsonObject.code == 1) {
-                        alert("用户已存在");
-                    } else {
-                        alert("参数错误")
-                    }
-                    window.location.reload();
-                },
-                error: function () {
-                    alert("出错了");
-                }
-            })
-        }
-    }
+    ## <!--添加按钮 -->
+    ## var addUser = function () {
+    ##     var userCode = $authority.getUserId();
+    ##     var userName = '$authority.getUserName()';
+    ##     var userType = '$authority.getUserType()';
+    ##
+    ##     var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
+    ##     var methodTypeLimits = document.getElementById("methodTypeLimits").value;
+    ##
+    ##     if (userCode == null || userCode == "") {
+    ##         alert("用户ERP帐号不能为空！");
+    ##         return;
+    ##     }
+    ##     var sure = confirm("确定添加管理员？");
+    ##     if (sure == true) {
+    ##         jQuery.ajax({
+    ##             type: 'POST',
+    ##             url: '/users',
+    ##             data: {
+    ##                 moduleTypeLimits: moduleTypeLimits,
+    ##                 methodTypeLimits: methodTypeLimits,
+    ##                 userCode: userCode,
+    ##                 userName: userName,
+    ##                 userType: userType,
+    ##             },
+    ##             success: function (data) {
+    ##                 var json = JSON.stringify(data);
+    ##                 var jsonObject = JSON.parse(json);
+    ##                 if (jsonObject.code == 200) {
+    ##                     alert("添加成功");
+    ##                     comeback();
+    ##                     return;
+    ##                 } else if (jsonObject.code == 1) {
+    ##                     alert("用户已存在");
+    ##                 } else {
+    ##                     alert("参数错误")
+    ##                 }
+    ##                 window.location.reload();
+    ##             },
+    ##             error: function () {
+    ##                 alert("出错了");
+    ##             }
+    ##         })
+    ##     }
+    ## }
 
     <!--修改按钮 -->
     var updateUser = function () {
-        var userCode = $authority.getUserId();
+        var userCode = $("#userId").val();
         var moduleTypeLimits = document.getElementById("moduleTypeLimits").value;
         var methodTypeLimits = document.getElementById("methodTypeLimits").value;
-        var createTime = document.getElementById("createTime").value;
-
+        if (userCode == null || userCode == "") {
+            userCode= $userId;
+        }
         if (userCode == null || userCode == "") {
             alert("用户ERP帐号不能为空！");
             return;
         }
-        var url = '/users/' +$!userId;
+        var url = '/users/' +userCode;
         var sure = confirm("确定修改管理员？");
         if (sure == true) {
             jQuery.ajax({
@@ -193,10 +195,8 @@
                         alert("修改成功");
                         comeback();
                         return;
-                    } else if (jsonObject.code == 0) {
-                        alert("用户不存在")
                     } else {
-                        alert("参数错误")
+                        alert("修改失败")
                     }
                 },
                 error: function () {

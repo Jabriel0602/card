@@ -8,8 +8,9 @@ package com.card.domain.user;
  */
 public enum UserTypeEnum {
 	USER			(1,"普通用户"),
-	MANAGE			(2,"企业客服"),
-	SUPER_MANAGE	(4,"系统管理");
+	YY_MANAGE		(2,"运营管理"),
+	KF_MANAGE		(4,"客服管理"),
+	SUPER_MANAGE	(8,"系统管理");
 
 	private Integer code;
 

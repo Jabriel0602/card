@@ -38,7 +38,7 @@ public class SwitchController {
 			cardSwitchList.add(switchService.select(switchEnum.getCode()));
 		}
 		Boolean switchFlag = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.SWITCH);
-		map.put("switchFlag",switchFlag);
+		map.put("switchAuthorityFlag",switchFlag);
 		map.put("switch",new CardSwitch());
 		map.put("SwitchEnums",SwitchEnum.values());
 		map.put("SwitchEnum",SwitchEnum.class);

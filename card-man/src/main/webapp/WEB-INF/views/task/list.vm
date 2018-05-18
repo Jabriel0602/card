@@ -89,8 +89,14 @@
                             <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{task.modifiedTime})</td>
                             <td>$!{task.operator}</td>
                             <td>
-                                <input type="button" value="任务初始化" onclick="initTask('$task.taskId')"/>
+
+                                #if($taskAuthorityFlag)
+                                    <input type="button" value="任务初始化" onclick="initTask('$task.taskId')"/>
+                                #else
+                                    <label style="text-align: center;color: #FF0000">无权限操作</label>
+                                #end
                             </td>
+
                         </tr>
                     #end
                 #else
@@ -110,7 +116,7 @@
 
     <!--停用启用 -->
     var initTask = function (taskId) {
-        var url = '//127.0.0.1/tasks/' + taskId;
+        var url = '/tasks/' + taskId;
         jQuery.ajax({
             url: url,
             type: 'PUT',

@@ -53,7 +53,7 @@
                 #foreach($moduleTypeEnum in $ModuleTypeEnums)
                     #if($moduleTypeLimitsMap.get(${moduleTypeEnum.getType()}))
                         <li><span>
-                            <a href="leftFrame?module=${moduleTypeEnum.getCode()}"
+                            <a href="/leftFrame?module=${moduleTypeEnum.getCode()}"
                                target="leftFrame">${moduleTypeEnum.getDesc()}</a>
                         </span>
                         </li>

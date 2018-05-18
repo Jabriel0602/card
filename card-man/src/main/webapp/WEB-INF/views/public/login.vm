@@ -1,9 +1,6 @@
 #set($title="请登录")
 <h2>请登录。。</h2>
 
-<a href="$!{loginUrl}" target="_top">您还可以来这里登录</a>
-<a href="/").build()">返回首页</a>
-<p>&nbsp;</p>
 <div style="margin-left:20px">
     <form action="/users/cookie" method="post">
         用户名：<input type="text" name="userName"/>

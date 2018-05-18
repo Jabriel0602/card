@@ -1,11 +1,13 @@
 package com.card.controller;
 
+import com.card.domain.MethodTypeEnum;
 import com.card.domain.order.enums.OrderStatusEnum;
 import com.card.domain.result.APIResult;
 import com.card.domain.task.Task;
 import com.card.domain.task.enums.TaskStatusEnum;
 import com.card.domain.task.enums.TaskTypeEnum;
 import com.card.service.task.TaskService;
+import com.card.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -27,9 +29,14 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
+	@Autowired
+	private UserService userService;
+
 	@GetMapping("")
 	public String listTask(Map map,Task task){
 		List<Task> taskList=taskService.selectTaskByParam(task);
+		Boolean taskFlag = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.TASK);
+		map.put("taskAuthorityFlag",taskFlag);
 		map.put("taskList",taskList);
 		map.put("task",new Task());
 		map.put("TaskStatusEnums",TaskStatusEnum.values());

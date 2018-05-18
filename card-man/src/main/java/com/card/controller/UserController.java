@@ -56,7 +56,7 @@ public class UserController {
 	public String login(@RequestParam(required = true) String userName, @RequestParam(required = true) String password, HttpServletRequest request, HttpServletResponse response, Map map) {
 
 		User user = userService.getUserByNameAndPassWord(userName, password);
-		if (user != null) {
+		if (user != null || !user.getUserType().equals(UserTypeEnum.USER.getDesc())) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
 			cookie.setMaxAge(3600 * 24 * 7);
 			cookie.setDomain("");
@@ -209,17 +209,17 @@ public class UserController {
 		if (user == null) {
 			return false;
 		}
-		try{
-			if(user.getModuleTypeLimits()>=4){
+		try {
+			if (user.getModuleTypeLimits() >= 4) {
 				user.setUserType(UserTypeEnum.SUPER_MANAGE.getDesc());
-			}else if(user.getModuleTypeLimits()>=3) {
-				user.setUserType(UserTypeEnum.MANAGE.getDesc());
-			}else if(user.getModuleTypeLimits()>=1){
-				user.setUserType(UserTypeEnum.USER.getDesc());
+			} else if (user.getModuleTypeLimits() >= 3) {
+				user.setUserType(UserTypeEnum.KF_MANAGE.getDesc());
+			} else if (user.getModuleTypeLimits() >= 1) {
+				user.setUserType(UserTypeEnum.YY_MANAGE.getDesc());
 			}
 			user.setOperator(LoginContext.getUserName());
 			ValidatorUtils.validate(user);
-		}catch (Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
