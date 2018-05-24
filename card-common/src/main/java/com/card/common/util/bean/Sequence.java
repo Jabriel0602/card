@@ -205,7 +205,13 @@ public class Sequence {
 	}
 
 	static class Step {
+		/**
+		 * 步长的 当前id值
+		 */
 		private long currentValue;
+		/**
+		 * 步长的 最大id值
+		 */
 		private long endValue;
 
 		Step(long currentValue, long endValue) {

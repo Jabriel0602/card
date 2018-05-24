@@ -10,11 +10,11 @@ import lombok.Data;
  */
 public enum TaskStatusEnum {
 
-	INITIAL(1, "初始化"),
-	SEND(2, "已发送"),
-	EXCUTE(4, "开始执行"),
-	SUCCESS(8, "执行成功"),
-	FAIL(16, "执行失败");
+	INITIAL(1	, "初始化"),
+	SEND(	2	, "已发送"),
+	EXCUTE(	4	, "开始执行"),
+	SUCCESS(8	, "执行成功"),
+	FAIL(	16	, "执行失败");
 
 	private Integer code;     //二进制唯一标识
 	private String desc;        //状态中文描述

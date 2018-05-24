@@ -30,20 +30,23 @@ public class SequenceUtil {
 		this.sequenceMap = sequenceMap;
 	}
 
-	public long get(String name) {
+	public long get(String idName) {
 		Sequence sequence = null;
 		if (this.sequenceMap != null) {
-			sequence = (Sequence)this.sequenceMap.get(name);
+			/**
+			 * 从sequenceMap中获取 idName 对应的 下一个id值
+			 */
+			sequence = (Sequence)this.sequenceMap.get(idName);
 		}
 
 		if (sequence == null) {
 			if (this.defaultSequence != null) {
-				return this.defaultSequence.get(name);
+				return this.defaultSequence.get(idName);
 			} else {
-				throw new RuntimeException("sequence " + name + " undefined!");
+				throw new RuntimeException("sequence " + idName + " undefined!");
 			}
 		} else {
-			return sequence.get(name);
+			return sequence.get(idName);
 		}
 	}
 }

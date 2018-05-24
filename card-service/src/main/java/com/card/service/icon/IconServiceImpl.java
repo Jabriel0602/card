@@ -81,31 +81,35 @@ public class IconServiceImpl implements IconService {
 
 	@Override
 	public List<Icon> findAllIconStatusOn() {
-		List<Icon> iconList = findAllIconWithStatus();
-		List<Icon> iconListStatusOn = Lists.newArrayList();
-		for (Icon icon : iconList) {
-			if (icon.getPutOn()) {
-				iconListStatusOn.add(icon);
-			}
-			/**
-			 * 最多4个
-			 */
-			if (iconListStatusOn.size() >= 4) {
-				return iconListStatusOn;
-			}
-		}
-		return iconListStatusOn;
+		List<Icon> iconList = findAllIcon();
+		return fitterStatusOn(iconList);
 	}
 
+	/**
+	 * 获取 处于上架状态的 ICON
+	 */
 	@Override
 	public List<Icon> findAllIconStatusOnWithCache() {
-		List<Icon> iconList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ICONS.getValue()),Icon.class);
+		List<Icon> iconList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ICONS.getValue()), Icon.class);
 
 		if (iconList == null || iconList.size() == 0) {
 			iconList = findAllIconStatusOn();
-			redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(), iconList);
+			/**
+			 * 数据库值为空也要缓存 防止大量请求每次都打得数据库
+			 */
+			if(iconList!=null){
+				redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(), iconList,CacheKeyEnum.CARD_ICONS.getExp());
+			}else {
+				//防止缓存穿透
+				redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(),CacheKeyEnum.CARD_ICONS.getDefaultValue(),300L);
+			}
 		}
-		return iconList;
+
+
+		/**
+		 * 过滤缓存中 已经下架的ICON
+		 */
+		return fitterStatusOn(iconList);
 	}
 
 	@Override
@@ -165,5 +169,25 @@ public class IconServiceImpl implements IconService {
 			}
 		});
 		return iconList;
+	}
+
+	private List<Icon> fitterStatusOn(List<Icon> iconList) {
+		List<Icon> iconListStatusOn = Lists.newArrayList();
+		for (Icon icon : iconList) {
+			/**
+			 * 设置
+			 */
+			checkPutOn(icon);
+			if (icon.getPutOn()) {
+				iconListStatusOn.add(icon);
+			}
+			/**
+			 * 最多4个
+			 */
+			if (iconListStatusOn.size() >= 4) {
+				return iconListStatusOn;
+			}
+		}
+		return iconListStatusOn;
 	}
 }

@@ -28,9 +28,9 @@ public class RedisUtil {
 
 	public void set(String key, Object value, Long second) {
 		ValueOperations valueOperations = redisTemplate.opsForValue();
-		valueOperations.set(key, value, second, TimeUnit.SECONDS);
-		//BoundValueOperations的理解对保存的值做一些细微的操作
-//        BoundValueOperations boundValueOperations = redisTemplate.boundValueOps(key);
+		String jsonString = JSONObject.toJSONString(value);
+
+		valueOperations.set(key, jsonString, second, TimeUnit.SECONDS);
 	}
 
 	public void set(String key, Object value) {

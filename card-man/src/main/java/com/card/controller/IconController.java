@@ -90,7 +90,7 @@ public class IconController {
 	public APIResult<Icon> addImage(Icon icon) {
 		//参数校验
 		try {
-			icon.setId(idUtil.getId(IdUtil.SequenceEnum.ADIMAGE));
+			icon.setId(idUtil.getId(IdUtil.SequenceEnum.ICON));
 			icon.setOperator(LoginContext.getUserName());
 			icon.setCreatedTime(new Date());
 			icon.setModifiedTime(new Date());

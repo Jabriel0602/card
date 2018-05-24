@@ -19,34 +19,32 @@ public class IdUtil {
 		this.sequenceUtil = sequenceUtil;
 	}
 
+	/**
+	 * 获取 该表的下一个id值
+	 */
 	public synchronized long getId(SequenceEnum sequenceEnum) {
 		return sequenceUtil.get(sequenceEnum.getName());
 	}
 
 	/**
-	 * id常量
+	 * id常量 枚举
 	 */
-
 	public enum SequenceEnum {
 		CARD(1, "CARD_ID"),
-		TASK(2, "TASK_ID"),
-		ORDER(3, "ORDER_ID"),
-		ORDER_DETAIL(4, "ORDER_DETAIL_ID"),
-		SMS(5, "SMS_ID"),
-		REFUND(6, "REFUND_ID"),
-		CONFIG(7, "CONFIG_ID"),
-		USER(8, "USER_ID"),
-		ADIMAGE(9, "ADIMAGE_ID");
-
+		ORDER(2, "ORDER_ID"),
+		REFUND(3, "REFUND_ID"),
+		SWITCH(4, "SWITCH_ID"),
+		USER(5, "USER_ID"),
+		ICON(6, "ICON_ID"),
+		ADIMAGE(7, "ADIMAGE_ID"),
+		TASK(8, "TASK_ID");
 
 		private Integer code;
 		private String name;
-
 		SequenceEnum(Integer code, java.lang.String name) {
 			this.code = code;
 			this.name = name;
 		}
-
 		public Integer getCode() {
 			return code;
 		}

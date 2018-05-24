@@ -91,23 +91,31 @@ public class AdImageServiceImpl implements AdImageService {
 	@Override
 	public List<AdImage> findAllAdImageStatusOn() {
 		List<AdImage> adImageList = findAllAdImageWithStatus();
-		List<AdImage> adImageListStatusOn = Lists.newArrayList();
-		for (AdImage adImage : adImageList) {
-			if (adImage.getPutOn()) {
-				adImageListStatusOn.add(adImage);
-			}
-		}
-		return adImageListStatusOn;
+		return fitterStatusOn(adImageList);
 	}
 
+	/**
+	 * 获取 处于上架状态 AdImage
+	 */
 	@Override
 	public List<AdImage> findAllAdImageStatusOnWithCache() {
 		List<AdImage> adImageList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ADIMAGES.getValue()),AdImage.class);
 		if (adImageList == null || adImageList.size() == 0) {
-			adImageList = findAllAdImageStatusOn();
-			redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(), adImageList);
+			adImageList = findAllAdImage();
+			/**
+			 * 数据库值为空也要缓存 防止大量请求每次都打得数据库
+			 */
+			if(adImageList!=null){
+				redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(), adImageList,CacheKeyEnum.CARD_ADIMAGES.getExp());
+			}else {
+				//防止缓存穿透
+				redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(),CacheKeyEnum.CARD_ADIMAGES.getDefaultValue(),300L);
+			}
 		}
-		return adImageList;
+		/**
+		 * 过滤缓存中 已经下架的AdImage
+		 */
+		return fitterStatusOn(adImageList);
 	}
 
 	@Override
@@ -158,5 +166,25 @@ public class AdImageServiceImpl implements AdImageService {
 			}
 		});
 		return adImageList;
+	}
+
+	private List<AdImage> fitterStatusOn(List<AdImage> adImageList) {
+		List<AdImage> adImageListStatusOn = Lists.newArrayList();
+		for (AdImage adImage : adImageList) {
+			/**
+			 * 更新发布状态
+			 */
+			checkPutOn(adImage);
+			if (adImage.getPutOn()) {
+				adImageListStatusOn.add(adImage);
+			}
+			/**
+			 * 最多4个
+			 */
+			if (adImageListStatusOn.size() >= 4) {
+				return adImageListStatusOn;
+			}
+		}
+		return adImageListStatusOn;
 	}
 }

@@ -120,11 +120,18 @@ public class UserController {
 	 */
 	@PostMapping("/register")
 	public String register(User user, Map map) {
+		/**
+		 * 获取 user表的主键id
+		 */
 		user.setUserId(idUtil.getId(IdUtil.SequenceEnum.USER));
 		user.setCreateTime(new Date());
 		user.setModifyTime(new Date());
 		user.setUserType(UserTypeEnum.USER.getDesc());
+		/**
+		 * user 属性合法性校验
+		 */
 		validate(user);
+		//明文密码 加密后在存入数据库
 		user.setPassword(Base64Util.base64ForCharset(user.getPassword(), Charsets.UTF_8.name()));
 		userService.insertSelective(user);
 		map.put("message", "请妥善保管您的密码");

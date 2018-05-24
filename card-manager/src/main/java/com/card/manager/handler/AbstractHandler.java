@@ -26,7 +26,7 @@ public abstract class AbstractHandler implements Handler<Task>, MessageListener 
 		Task task = null;
 		try {
 			String taskString = tm.getText();
-			System.out.println("QueueMessageListener监听到了文本消息：" + taskString);
+			log.info("QueueMessageListener监听到了文本消息：{}", taskString);
 			task = JSON.parseObject(taskString, Task.class);
 			/**
 			 * 乐观锁排重
@@ -34,8 +34,8 @@ public abstract class AbstractHandler implements Handler<Task>, MessageListener 
 			 */
 			int count = taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.EXCUTE.getCode());
 			if (count == 0) {
-				log.info("the task has been executed. task=" + task);
-			}else {
+				log.info("the task has been executed. task:{}", task);
+			} else {
 				handle(task);
 				/**
 				 * 任务执行中--->执行成功
