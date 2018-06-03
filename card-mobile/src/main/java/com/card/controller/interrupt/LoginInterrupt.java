@@ -6,6 +6,7 @@ import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class LoginInterrupt extends HandlerInterceptorAdapter {
 
-	@Value("${cookie.domain}")
+	@Value("${cookie.name}")
 	private String cookieName;
 	@Autowired
 	private UserService userService;

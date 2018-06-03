@@ -52,7 +52,7 @@ public class UserController {
 	private String cookieDomain;
 
 
-	@Value("${cookie.domain}")
+	@Value("${cookie.name}")
 	private String cookieName;
 	/**
 	 * 登录
