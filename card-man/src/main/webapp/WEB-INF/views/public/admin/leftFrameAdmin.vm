@@ -42,6 +42,12 @@
                     text: "退款管理",
                     child: []
                 }
+                ,
+                {
+                    href: "/refunds/page",
+                    text: "在线退款",
+                    child: []
+                }
             ],
             _m4: [
                 {

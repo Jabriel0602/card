@@ -63,8 +63,8 @@ public class OrderController {
 		 * 从cookie获取userId
 		 */
 		List<Order> orderList = orderService.findAllOrder(LoginContext.getUserId());
-		List<AdImage> adImageList = adImageService.findAllAdImage();
-		List<Icon> iconList = iconService.findAllIconStatusOn();
+		List<AdImage> adImageList = adImageService.findAllAdImageStatusOnWithCache();
+		List<Icon> iconList = iconService.findAllIconStatusOnWithCache();
 		map.put("orderStatusEnum",OrderStatusEnum.class);
 		map.put("adImage", new AdImage());
 		map.put("adImageList", adImageList);

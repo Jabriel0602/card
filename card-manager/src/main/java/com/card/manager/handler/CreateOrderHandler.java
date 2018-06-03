@@ -25,12 +25,17 @@ public class CreateOrderHandler extends AbstractHandler {
 	@Autowired
 	private OrderService orderService;
 
+	/**
+	 * 供应商生单模块
+	 * @param task
+	 */
 	@Override
 	public void handle(Task task) {
 		/**
 		 * 支付成功--->生单中
 		 */
-		Integer orderCount = orderService.updateStatus(task.getOrderId(), OrderStatusEnum.PAY_SUCCESS.getCode(), OrderStatusEnum.CREATE_ING.getCode());
+		Integer orderCount = orderService.updateStatus(task.getOrderId(), OrderStatusEnum.PAY_SUCCESS.getCode(),
+				OrderStatusEnum.CREATE_ING.getCode());
 
 		if (orderCount != 1) {
 			return;

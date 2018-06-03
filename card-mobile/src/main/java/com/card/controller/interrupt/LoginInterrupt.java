@@ -5,6 +5,7 @@ import com.card.common.util.LoginContext;
 import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -22,6 +23,8 @@ import java.util.Map;
 @Slf4j
 public class LoginInterrupt extends HandlerInterceptorAdapter {
 
+	@Value("${cookie.domain}")
+	private String cookieName;
 	@Autowired
 	private UserService userService;
 	@Override
@@ -30,7 +33,7 @@ public class LoginInterrupt extends HandlerInterceptorAdapter {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("card_user_cookie")) {
+				if (cookie.getName().equals(cookieName)) {
 					userId = Long.valueOf(cookie.getValue());
 					LoginContext.setUserId(userId);
 					LoginContext.setUserName(userService.getUser(userId).getUserName());

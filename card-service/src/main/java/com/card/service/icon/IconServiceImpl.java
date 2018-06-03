@@ -3,7 +3,6 @@ package com.card.service.icon;
 import com.alibaba.fastjson.JSONObject;
 import com.card.common.util.RedisUtil;
 import com.card.dao.IconDao;
-import com.card.domain.adimage.AdImage;
 import com.card.domain.constant.CacheKeyEnum;
 import com.card.domain.icon.Icon;
 import com.google.common.collect.Lists;
@@ -90,7 +89,7 @@ public class IconServiceImpl implements IconService {
 	 */
 	@Override
 	public List<Icon> findAllIconStatusOnWithCache() {
-		List<Icon> iconList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ICONS.getValue()), Icon.class);
+		List<Icon> iconList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ICONS.getKey()), Icon.class);
 
 		if (iconList == null || iconList.size() == 0) {
 			iconList = findAllIconStatusOn();
@@ -98,10 +97,10 @@ public class IconServiceImpl implements IconService {
 			 * 数据库值为空也要缓存 防止大量请求每次都打得数据库
 			 */
 			if(iconList!=null){
-				redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(), iconList,CacheKeyEnum.CARD_ICONS.getExp());
+				redisUtil.set(CacheKeyEnum.CARD_ICONS.getKey(), iconList,CacheKeyEnum.CARD_ICONS.getExp());
 			}else {
 				//防止缓存穿透
-				redisUtil.set(CacheKeyEnum.CARD_ICONS.getValue(),CacheKeyEnum.CARD_ICONS.getDefaultValue(),300L);
+				redisUtil.set(CacheKeyEnum.CARD_ICONS.getKey(),CacheKeyEnum.CARD_ICONS.getDefaultValue(),300L);
 			}
 		}
 

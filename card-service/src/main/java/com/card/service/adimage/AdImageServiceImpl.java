@@ -99,17 +99,21 @@ public class AdImageServiceImpl implements AdImageService {
 	 */
 	@Override
 	public List<AdImage> findAllAdImageStatusOnWithCache() {
-		List<AdImage> adImageList = JSONObject.parseArray(redisUtil.getJSONString(CacheKeyEnum.CARD_ADIMAGES.getValue()),AdImage.class);
+		List<AdImage> adImageList = JSONObject.parseArray(
+				redisUtil.getJSONString(CacheKeyEnum.CARD_ADIMAGES.getKey()),AdImage.class);
 		if (adImageList == null || adImageList.size() == 0) {
 			adImageList = findAllAdImage();
 			/**
 			 * 数据库值为空也要缓存 防止大量请求每次都打得数据库
 			 */
 			if(adImageList!=null){
-				redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(), adImageList,CacheKeyEnum.CARD_ADIMAGES.getExp());
+				redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getKey()
+						, adImageList,CacheKeyEnum.CARD_ADIMAGES.getExp());
 			}else {
 				//防止缓存穿透
-				redisUtil.set(CacheKeyEnum.CARD_ADIMAGES.getValue(),CacheKeyEnum.CARD_ADIMAGES.getDefaultValue(),300L);
+				redisUtil.set(
+				CacheKeyEnum.CARD_ADIMAGES.getKey()
+						,CacheKeyEnum.CARD_ADIMAGES.getDefaultValue(),300L);
 			}
 		}
 		/**
@@ -151,7 +155,8 @@ public class AdImageServiceImpl implements AdImageService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (adImage.getPutOn() && startDate.getTime() < System.currentTimeMillis() && System.currentTimeMillis() < endDate.getTime()) {
+		if (adImage.getPutOn() && startDate.getTime() < System.currentTimeMillis()
+				&& System.currentTimeMillis() < endDate.getTime()) {
 			adImage.setReleaseStatus(true);
 		} else {
 			adImage.setReleaseStatus(false);
@@ -179,7 +184,7 @@ public class AdImageServiceImpl implements AdImageService {
 				adImageListStatusOn.add(adImage);
 			}
 			/**
-			 * 最多4个
+			 * 最多获取前四个广告图
 			 */
 			if (adImageListStatusOn.size() >= 4) {
 				return adImageListStatusOn;

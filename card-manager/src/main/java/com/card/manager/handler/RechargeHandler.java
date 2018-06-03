@@ -25,6 +25,10 @@ public class RechargeHandler extends AbstractHandler {
 	@Autowired
 	private OrderService orderService;
 
+	/**
+	 * 供应商充值模块
+	 * @param task
+	 */
 	@Override
 	public void handle(Task task) {
 
@@ -32,7 +36,8 @@ public class RechargeHandler extends AbstractHandler {
 		 * 生单成功--->充值中
 		 */
 
-		Integer orderCount = orderService.updateStatus(task.getOrderId(), OrderStatusEnum.CREATE_SUCCESS.getCode(), OrderStatusEnum.RECHARGE_ING.getCode());
+		Integer orderCount = orderService.updateStatus(task.getOrderId(), OrderStatusEnum.CREATE_SUCCESS.getCode(),
+				OrderStatusEnum.RECHARGE_ING.getCode());
 
 		if (orderCount != 1) {
 			return;

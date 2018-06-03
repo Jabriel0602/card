@@ -15,6 +15,7 @@ import com.card.service.user.UserService;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,30 +37,37 @@ import java.util.Map;
 public class UserController {
 
 	@Autowired
-	IdUtil idUtil;
+	private IdUtil idUtil;
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@Autowired
-	AdImageService adImageService;
+	private AdImageService adImageService;
 
 	@Autowired
-	CardService cardService;
+	private CardService cardService;
 
+	@Value("${cookie.domain}")
+	private String cookieDomain;
+
+
+	@Value("${cookie.domain}")
+	private String cookieName;
 	/**
 	 * 登录
 	 *
 	 * @return
 	 */
 	@PostMapping("/cookie")
-	public String login(@RequestParam(required = true) String userName, @RequestParam(required = true) String password, HttpServletRequest request, HttpServletResponse response, Map map) {
+	public String login(@RequestParam(required = true) String userName, @RequestParam(required = true) String password,
+						HttpServletRequest request, HttpServletResponse response, Map map) {
 
 		User user = userService.getUserByNameAndPassWord(userName, password);
 		if (user != null) {
-			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
+			Cookie cookie = new Cookie(cookieName, user.getUserId().toString());
 			cookie.setMaxAge(3600 * 24 * 7);
-			cookie.setDomain("");
+			cookie.setDomain(cookieDomain);
 			cookie.setPath("/");
 			response.addCookie(cookie);
 			List<AdImage> adImageList = adImageService.findAllAdImage();

@@ -54,11 +54,19 @@ public class CardController {
 	@PostMapping("")
 	@ResponseBody
 	public APIResult<String> saveCard(Card card, HttpServletRequest request) {
-		if(!cardService.isSwitchOn()){
-			return new APIResult<>(HttpStatus.FORBIDDEN.value(),"系统升级中，禁止添加公交卡");
+		if (!cardService.isSwitchOn()) {
+			return new APIResult<>(HttpStatus.FORBIDDEN.value(), "系统升级中，禁止添加公交卡");
 		}
-		if(cardService.findCardByVendorCardIdAndUserID(card.getVendorCardId(),LoginContext.getUserId())!=null){
-			return new APIResult<String>(HttpStatus.EXPECTATION_FAILED.value(),"该卡片已添加");
+		Card cardHaven = cardService.findCardByVendorCardIdAndUserID(card.getVendorCardId(), LoginContext.getUserId());
+		if (cardHaven != null) {
+			if (cardHaven.getYn().equals(YnEnum.Y.getCode())) {
+				return new APIResult<String>(HttpStatus.EXPECTATION_FAILED.value(), "该卡片已添加");
+			}else {
+				cardHaven.setYn(YnEnum.N.getCode());
+				cardHaven.setModifiedTime(new Date());
+				cardService.update(cardHaven);
+				return new APIResult<String>("卡片添加成功");
+			}
 		}
 		card.setCardId(idUtil.getId(IdUtil.SequenceEnum.CARD));
 		card.setUserId(LoginContext.getUserId());
@@ -67,15 +75,15 @@ public class CardController {
 		card.setCreateTime(new Date());
 		card.setModifiedTime(new Date());
 		ValidatorUtils.validate(card);
-		try{
+		try {
 			int count = cardService.insert(card);
-			if(count==1){
+			if (count == 1) {
 				return new APIResult<String>("卡片添加成功");
 			}
-		}catch (Exception e){
-			return new APIResult<String>(HttpStatus.FORBIDDEN.value(),"卡片添加错误，请检查卡片号");
+		} catch (Exception e) {
+			return new APIResult<String>(HttpStatus.FORBIDDEN.value(), "卡片添加错误，请检查卡片号");
 		}
-		return new APIResult<String>(HttpStatus.FORBIDDEN.value(),"卡片添加错误，请检查卡片号");
+		return new APIResult<String>(HttpStatus.FORBIDDEN.value(), "卡片添加错误，请检查卡片号");
 	}
 
 	@GetMapping("/{cardId}/editPage")
@@ -95,8 +103,12 @@ public class CardController {
 	}
 
 	@DeleteMapping("/{cardId}")
-	public int removeCard(@PathVariable Long cardId) {
-		return cardService.deleteById(cardId);
+	@ResponseBody
+	public APIResult<Integer> removeCard(@PathVariable Long cardId) {
+		Card card = cardService.findCardById(cardId);
+		card.setYn(YnEnum.N.getCode());
+		card.setModifiedTime(new Date());
+		return new APIResult<>(cardService.update(card));
 	}
 
 

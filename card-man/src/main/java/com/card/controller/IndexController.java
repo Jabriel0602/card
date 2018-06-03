@@ -25,7 +25,7 @@ import java.util.Map;
 public class IndexController {
 
 	@Value("${cookie.name}")
-	private String cookieServer;
+	private String cookieName;
 	@Value("${cookie.domain}")
 	private String domain;
 
@@ -89,7 +89,7 @@ public class IndexController {
 
 	private void clearCookies(HttpServletResponse response) {
 		//erp cookie
-		Cookie cookie = new Cookie(cookieServer, null);
+		Cookie cookie = new Cookie(cookieName, null);
 		cookie.setMaxAge(0);
 		cookie.setDomain(domain);
 		cookie.setPath("/");

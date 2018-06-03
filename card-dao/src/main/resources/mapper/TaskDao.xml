@@ -201,7 +201,7 @@
         1=1
         <if test="task.taskId != null">AND task_id= #{task.taskId,jdbcType=BIGINT},</if>
         <if test="task.taskType != null">AND task_type= #{task.taskType,jdbcType=INTEGER}</if>
-        <if test="task.taskDesc != null">AND task_desc= #{task.taskDesc,jdbcType=VARCHAR}</if>
+        <if test="task.taskDesc != null&amp;task.taskDesc!=''">AND task_desc= #{task.taskDesc,jdbcType=VARCHAR}</if>
         <if test="task.orderId != null">AND order_id= #{task.orderId,jdbcType=BIGINT}</if>
         <if test="task.retryStrategy != null">AND retry_strategy= #{task.retryStrategy,jdbcType=INTEGER}</if>
         <if test="task.retryTimes != null">AND retry_times= #{task.retryTimes,jdbcType=INTEGER}</if>

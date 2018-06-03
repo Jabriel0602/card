@@ -2,7 +2,7 @@ package com.card.domain;
 
 /**
  * MAN 端 需要做增删改权限控制的功能(方法)  枚举
- *   code 二进制算法,前端屏蔽增删改功能
+ *   code 二进制算法
  */
 
 public enum MethodTypeEnum {
@@ -18,9 +18,17 @@ public enum MethodTypeEnum {
 	TASK(16, "TASK", "任务管理"),
 
 	AUTHORITY(32, "AUTHORITY", "权限管理");
-
+	/**
+	 * 二进制值
+	 */
 	private Integer code;
+	/**
+	 * 方法 名
+	 */
 	private String type;
+	/**
+	 * 方法 名 中文描述
+	 */
 	private String desc;
 
 	MethodTypeEnum(Integer code, String type, String desc) {

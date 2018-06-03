@@ -14,6 +14,7 @@ import com.card.service.adimage.AdImageService;
 import com.card.service.card.CardService;
 import com.card.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,16 +37,22 @@ import java.util.Map;
 public class UserController {
 
 	@Autowired
-	IdUtil idUtil;
+	private IdUtil idUtil;
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@Autowired
-	AdImageService adImageService;
+	private AdImageService adImageService;
 
 	@Autowired
-	CardService cardService;
+	private CardService cardService;
+
+	@Value("${cookie.name}")
+	private String cookieName;
+
+	@Value("${cookie.domain}")
+	private String cookieDomain;
 
 	/**
 	 * 登录
@@ -57,10 +64,10 @@ public class UserController {
 
 		User user = userService.getUserByNameAndPassWord(userName, password);
 		if (user != null || !user.getUserType().equals(UserTypeEnum.USER.getDesc())) {
-			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
+			Cookie cookie = new Cookie(cookieName, user.getUserId().toString());
 			cookie.setMaxAge(3600 * 24 * 7);
 			cookie.setDomain("");
-			cookie.setPath("/");
+			cookie.setPath(cookieDomain);
 			response.addCookie(cookie);
 
 			Map moduleTypeLimitsMap = userService.getModuleTypeLimitsMap(user);
@@ -196,12 +203,11 @@ public class UserController {
 	 * @param user
 	 */
 	private void formatUser(User user, User oldUser) {
-		user.setModifyTime(new Date());
-		user.setOperator(LoginContext.getUserName());
+		oldUser.setModifyTime(new Date());
+		oldUser.setOperator(LoginContext.getUserName());
 		if (oldUser != null) {//更新操作
-			user.setCreateTime(oldUser.getCreateTime());
-		} else {
-			user.setCreateTime(new Date());
+			oldUser.setModuleTypeLimits(user.getModuleTypeLimits());
+			oldUser.setMethodTypeLimits(user.getMethodTypeLimits());
 		}
 	}
 
@@ -212,7 +218,7 @@ public class UserController {
 		try {
 			if (user.getModuleTypeLimits() >= 4) {
 				user.setUserType(UserTypeEnum.SUPER_MANAGE.getDesc());
-			} else if (user.getModuleTypeLimits() >= 3) {
+			} else if (user.getModuleTypeLimits() >= 2) {
 				user.setUserType(UserTypeEnum.KF_MANAGE.getDesc());
 			} else if (user.getModuleTypeLimits() >= 1) {
 				user.setUserType(UserTypeEnum.YY_MANAGE.getDesc());

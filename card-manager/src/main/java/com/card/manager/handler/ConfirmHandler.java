@@ -30,6 +30,7 @@ public class ConfirmHandler extends AbstractHandler {
 
 	/**
 	 * 目前无用，正式投产时候 消费 对账消息
+	 * 对账模块
 	 * 目前 模拟支付
 	 * @param task
 	 */

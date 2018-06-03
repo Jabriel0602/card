@@ -48,7 +48,7 @@
             </ul>
         </div>
         <div class="pdlr16 mgt12">
-            <a href="/index" class="btn-h40 btn_red b-r-4">返回首页</a>
+            <a href="/" class="btn-h40 btn_red b-r-4">返回首页</a>
             <a href="/cards/$order.getCardId()/orders/new" class="btn-h40 btn_b_red mgt12 b-r-4">继续充值</a>
 
         </div>

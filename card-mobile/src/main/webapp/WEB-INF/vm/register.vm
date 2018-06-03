@@ -36,7 +36,7 @@
 
                     <li>
                         <i>
-                            <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/usericon.png">
+                            <img src="/image/用户.png" height="19px" width="19px">
                         </i>
                         <input class="mip" type="input" id="userName" name="userName" placeholder="请输入用户名"
                                onblur="_validateUserName()">
@@ -45,7 +45,7 @@
 
                     <li>
                         <i>
-                            <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
+                            <img src="/image/密码.png" height="19px" width="19px">
                         </i>
                         <input class="mip" type="input" id="passWord" name="password" placeholder="请输入密码"
                                onblur="_validatePassword()">
@@ -54,7 +54,7 @@
 
                     <li>
                         <i>
-                            <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
+                            <img src="/image/性别.png" width="19px" height="19px">
                         </i>
                         <input class="mip" type="input" id="sex" placeholder="性别" name="sex" onblur="_validateSex()">
                         <div class="merr hide" id="sexTip">此处为必填项</div>
@@ -71,7 +71,7 @@
 
                     <li>
                         <i>
-                            <img src="http://s.demo.shangquanquan.com/wx/img/baolong/html5/register/yzm.png">
+                            <img src="/image/手机.png" width="19px" height="19px">
                         </i>
                         <input class="mip" type="input" id="phone" name="phone" placeholder="手机"
                                onblur="_validatePhone()">

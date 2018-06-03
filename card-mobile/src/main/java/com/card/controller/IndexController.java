@@ -24,7 +24,7 @@ import java.util.Map;
  * @desc
  */
 @Controller
-@RequestMapping("/index")
+@RequestMapping("")
 public class IndexController {
 
 	@Autowired

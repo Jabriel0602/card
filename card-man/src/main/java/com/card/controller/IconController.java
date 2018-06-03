@@ -44,7 +44,7 @@ public class IconController {
 
 		Icon icon = new Icon();
 		List<Icon> iconList = iconService.findAllIconWithStatus();
-		Boolean limit = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.ADIMAGE);
+		Boolean limit = userService.getMethodTypeLimitByCurrentUser(MethodTypeEnum.ICON);
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("icon", icon);

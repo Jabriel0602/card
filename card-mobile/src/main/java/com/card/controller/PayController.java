@@ -69,6 +69,9 @@ public class PayController {
 	@ResponseBody
 	public APIResult<Order> payment(Long orderId) {
 
+		/**
+		 * fixme 调用支付模块系统 插入对账消息
+		 */
 		Order order = taskManager.payment(orderId);
 
 		return new APIResult<>(order);

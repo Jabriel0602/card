@@ -222,7 +222,9 @@
                         </li>
                     #end
                 #else
-                    订单列表为空
+                    <li class="yct-item" style="text-align: center">
+                        您的订单列表为空
+                    </li>
                 #end
             </ul>
         </div>
@@ -234,7 +236,7 @@
         <ul class="footerlist clearfix">
             <li>
                 <div>
-                    <a href="/index">
+                    <a href="/">
                         <span class="iconfont icon-home"></span><br>
                         <span>首页</span>
                     </a>

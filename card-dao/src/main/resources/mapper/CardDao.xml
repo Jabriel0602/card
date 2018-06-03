@@ -142,7 +142,9 @@
         SELECT
         <include refid="Base_Column_List"></include>
         FROM card
-        <if test="userId != null">WHERE user_id = #{userId,jdbcType=BIGINT}</if>;
+        WHERE yn=1
+        <if test="userId != null">and user_id = #{userId,jdbcType=BIGINT}</if>;
+
     </select>
 
     <select id="findCardByVendorCardIdAndUserID" resultType="com.card.domain.card.Card">

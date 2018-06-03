@@ -8,6 +8,7 @@ import com.card.domain.user.UserTypeEnum;
 import com.card.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -27,6 +28,8 @@ public class ManInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private UserService userService;
 
+	@Value("${cookie.name}")
+	private String cookieName;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -58,7 +61,7 @@ public class ManInterceptor extends HandlerInterceptorAdapter {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("card_user_cookie")) {
+				if (cookie.getName().equals(cookieName)) {
 					userId = Long.valueOf(cookie.getValue());
 					LoginContext.setUserId(userId);
 					LoginContext.setUserName(userService.getUser(userId).getUserName());

@@ -2,17 +2,17 @@ package com.card.domain;
 
 public enum ModuleTypeEnum {
 
-
 	COMMON(1, "COMMON", "运营模块"),
 
 	CUSTOMER(2, "CUSTOMER", "客服模块"),
 
 	SYSTEM(4, "SYSTEM", "系统管理");
 
-	//二进制
+	//二进制码
 	private Integer code;
-	//tab 栏类型
+	//tab栏类型值
 	private String type;
+	//tab栏中文描述
 	private String desc;
 
 	ModuleTypeEnum(Integer code, String type, String desc) {

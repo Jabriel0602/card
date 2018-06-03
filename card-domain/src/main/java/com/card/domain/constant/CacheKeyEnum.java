@@ -33,24 +33,24 @@ public enum  CacheKeyEnum {
 	 */
 	CARD_SWITCH("CARD_SWITCH", "开关配置", 60*60*24*3,JSON.toJSONString(SwitchStatusEnum.SWITCH_ON.getCode()));
 
-	private String value;//值
+	private String key;//值
 	private String desc;//中文描述
 	private long exp;    //单位：秒
 	private String defaultValue;
 
-	CacheKeyEnum(String value, String desc, int exp,String defaultValue) {
-		this.value = value;
+	CacheKeyEnum(String key, String desc, int exp,String defaultValue) {
+		this.key = key;
 		this.desc = desc;
 		this.exp = exp;
 		this.defaultValue=defaultValue;
 	}
 
-	public String getValue() {
-		return value;
+	public String getKey() {
+		return key;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public String getDesc() {
@@ -81,18 +81,18 @@ public enum  CacheKeyEnum {
 	@Override
 	public String toString() {
 		return "CacheKeyEnum{" +
-				"value='" + value + '\'' +
+				"key='" + key + '\'' +
 				", desc='" + desc + '\'' +
 				", exp=" + exp +
 				", defaultValue='" + defaultValue + '\'' +
 				'}';
 	}
 	public String format(Object... values) {
-		return String.format(value, values) + "_NEW2018";
+		return String.format(key, values) + "_NEW2018";
 	}
 	public static CacheKeyEnum getCacheKeyEnum(String value) {
 		for (CacheKeyEnum cacheKeyEnum : CacheKeyEnum.values()) {
-			if (cacheKeyEnum.getValue().equals(value)) {
+			if (cacheKeyEnum.getKey().equals(value)) {
 				return cacheKeyEnum;
 			}
 		}

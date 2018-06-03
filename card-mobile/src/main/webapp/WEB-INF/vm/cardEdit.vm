@@ -59,6 +59,12 @@
                         </div>
                     </li>
 
+                    <li>
+                        <div>
+                            <input class="btn_red btn-h40 b-r-4 mgt8" id="j_sb" onclick="_delete()" value="删除卡片">
+                        </div>
+                    </li>
+
                 </ul>
             </form>
         </div>
@@ -115,6 +121,30 @@
     var _index_page=function () {
         document.location.href = "//127.0.0.1/index";
     }
+
+    var _delete = function () {
+        var url = '//127.0.0.1/cards/${card.getCardId()}';
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function (data) {
+                var json=JSON.stringify(data);
+                var jsonObject=JSON.parse(json);
+                if (jsonObject.code == 200) {
+                    alert("修改成功");
+                    _index_page();
+                    return;
+                } else if (data == 0) {
+                    alert("用户不存在")
+                } else {
+                    alert("参数错误")
+                }
+            },
+            error: function () {
+                alert("出错了");
+            }
+        })
+    };
 
 
     var _submit = function () {
