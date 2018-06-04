@@ -34,6 +34,10 @@ public class AdImageServiceImpl implements AdImageService {
 		Integer count = adImageDao.insert(adImage);
 		if (count == 1) {
 			sortAdImage(findAllAdImage());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -44,6 +48,10 @@ public class AdImageServiceImpl implements AdImageService {
 		Integer count = adImageDao.insertSelective(adImage);
 		if (count == 1) {
 			sortAdImage(findAllAdImage());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -54,6 +62,10 @@ public class AdImageServiceImpl implements AdImageService {
 		Integer count = adImageDao.insertList(adImages);
 		if (count == 1) {
 			sortAdImage(findAllAdImage());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -64,6 +76,10 @@ public class AdImageServiceImpl implements AdImageService {
 		Integer count = adImageDao.update(adImage);
 		if (count == 1) {
 			sortAdImage(findAllAdImage());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;

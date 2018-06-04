@@ -33,6 +33,10 @@ public class IconServiceImpl implements IconService {
 		Integer count = IconDao.insert(icon);
 		if (count == 1) {
 			sortIcon(findAllIcon());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -43,6 +47,10 @@ public class IconServiceImpl implements IconService {
 		Integer count = IconDao.insertSelective(icon);
 		if (count == 1) {
 			sortIcon(findAllIcon());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -53,6 +61,10 @@ public class IconServiceImpl implements IconService {
 		Integer count = IconDao.insertList(iconList);
 		if (count == 1) {
 			sortIcon(findAllIcon());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -63,6 +75,10 @@ public class IconServiceImpl implements IconService {
 		Integer count = IconDao.update(icon);
 		if (count == 1) {
 			sortIcon(findAllIcon());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;
@@ -130,6 +146,10 @@ public class IconServiceImpl implements IconService {
 		Integer count = IconDao.delete(id);
 		if (count == 1) {
 			sortIcon(findAllIcon());
+			/**
+			 * 有变化删除缓存
+			 */
+			redisUtil.delete(CacheKeyEnum.CARD_ICONS.getKey());
 			return count;
 		}
 		return 0;

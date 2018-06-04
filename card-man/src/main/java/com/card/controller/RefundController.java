@@ -50,6 +50,7 @@ public class RefundController {
 	}
 
 
+	@ResponseBody
 	@PostMapping("")
 	public APIResult<Map> addRefund(String orderIds) {
 		Map map=orderManager.refund(orderIds);

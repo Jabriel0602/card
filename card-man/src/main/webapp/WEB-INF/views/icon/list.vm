@@ -106,7 +106,7 @@
     var delIcon = function (iconId) {
         var iconId = $.trim(iconId);
         var tip = "确认删除此ICON吗？";
-        var url = '//127.0.0.1/icons/' + iconId;
+        var url = '/icons/' + iconId;
         if (window.confirm(tip)) {
             jQuery.ajax({
                 type: 'DELETE',
@@ -133,7 +133,7 @@
 
     <!--停用启用 -->
     var updateIconSwitch = function (iconId, putOnStatus) {
-        var url = '//127.0.0.1/icons/' + iconId + '/putOn';
+        var url = '/icons/' + iconId + '/putOn';
         var sure = confirm("确定修改ICON？");
         if (sure == true) {
             jQuery.ajax({
@@ -174,7 +174,7 @@
             comeback();
             return;
         }
-        var url = '//127.0.0.1/icons/' + iconId + '/weight';
+        var url = '/icons/' + iconId + '/weight';
         var sure = confirm("确定修改ICON？");
         if (sure == true) {
             $.ajax({

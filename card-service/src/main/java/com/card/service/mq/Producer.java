@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.card.domain.task.Task;
 import com.card.domain.task.TaskMessage;
 import com.card.domain.task.enums.TaskTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @Email yangzhanbang@jd.com
  * @date 2018/3/6 19:35
  */
+@Slf4j
 @Service
 public class Producer {
 
@@ -33,7 +35,11 @@ public class Producer {
 
 	public void sendTask(Task task) {
 		TaskMessage message = buildMessage(task);
-		sendMessage(message);
+		try{
+			sendMessage(message);
+		}catch (Exception e){
+			throw new RuntimeException();
+		}
 	}
 
 	/**
@@ -48,7 +54,7 @@ public class Producer {
 		}
 		Destination destination = taskMessage.getQueue();
 		String msg = taskMessage.getTaskString();
-		System.out.println("消息发送:"+Thread.currentThread().getName() + " 向队列" + taskMessage.getQueue() + "发送消息:" + msg);
+		log.info("消息发送:"+Thread.currentThread().getName() + " 向队列" + taskMessage.getQueue() + "发送消息:" + msg);
 		jmsTemplate.send(destination, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {

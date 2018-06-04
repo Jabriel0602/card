@@ -377,10 +377,10 @@
         //     };
         // };
         var _back = function () {
-            document.location.href = "//127.0.0.1/orders";
+            document.location.href = "/orders";
         }
         var _refund = function (orderId) {
-            var url = '//127.0.0.1/refunds';
+            var url = '/refunds';
             $.ajax({
                 url: url,
                 type: 'POST',

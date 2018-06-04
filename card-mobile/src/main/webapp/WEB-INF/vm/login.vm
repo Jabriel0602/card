@@ -60,7 +60,7 @@
                     </li>
                     <li>
                         <div class="mbox">
-                            <a class="reg" href="//127.0.0.1/users/registerPage">免费注册</a>
+                            <a class="reg" href="/users/registerPage">免费注册</a>
                         </div>
                     </li>
                 </ul>

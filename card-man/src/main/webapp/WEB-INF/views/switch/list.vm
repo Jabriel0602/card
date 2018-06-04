@@ -67,7 +67,7 @@
 
     <!--停用启用 -->
     var updateSwitch = function (switchId) {
-        var url = '//127.0.0.1/switchs/' + switchId;
+        var url = '/switchs/' + switchId;
         jQuery.ajax({
             url: url,
             type: 'PUT',

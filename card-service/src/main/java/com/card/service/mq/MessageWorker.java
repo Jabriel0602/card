@@ -39,9 +39,16 @@ public class MessageWorker {
 		}
 	}
 
-	@Transactional
-	public void sendTaskManager(Task task){
-		taskService.updateStatus(task.getTaskId(),TaskStatusEnum.INITIAL.getCode(),TaskStatusEnum.SEND.getCode());
-		producer.sendTask(task);
+	public void sendTaskManager(Task task) {
+		taskService.updateStatus(task.getTaskId(), TaskStatusEnum.INITIAL.getCode(), TaskStatusEnum.SEND.getCode());
+		try {
+			producer.sendTask(task);
+		} catch (Exception e) {
+			/**
+			 * 手动回滚
+			 */
+			log.error("消息生产者发送消息异常:{}",e);
+			taskService.updateStatus(task.getTaskId(), TaskStatusEnum.SEND.getCode(), TaskStatusEnum.INITIAL.getCode());
+		}
 	}
 }

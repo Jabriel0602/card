@@ -234,7 +234,7 @@
         if (sure == true) {
             jQuery.ajax({
                 type: 'POST',
-                url: '//127.0.0.1/adImages',
+                url: '/adImages',
                 data: {
                     desc: desc,
                     imgUrl: imgUrl,
@@ -276,7 +276,7 @@
         var desc = $.trim(document.getElementById("desc").value);
         var imgUrl = $.trim(document.getElementById("imgUrl").value);
         var responseUrl = $.trim(document.getElementById("responseUrl").value);
-        var url = '//127.0.0.1/adImages/' + '$!adImage.id';
+        var url = '/adImages/' + '$!adImage.id';
         var sure = confirm("确定修改轮播图？");
         if (sure == true) {
             jQuery.ajax({

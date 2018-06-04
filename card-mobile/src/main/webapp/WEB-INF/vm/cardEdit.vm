@@ -119,11 +119,11 @@
     };
     
     var _index_page=function () {
-        document.location.href = "//127.0.0.1/index";
+        document.location.href = "/index";
     }
 
     var _delete = function () {
-        var url = '//127.0.0.1/cards/${card.getCardId()}';
+        var url = '/cards/${card.getCardId()}';
         $.ajax({
             url: url,
             type: 'DELETE',
@@ -164,7 +164,7 @@
 
 
         var remark=$("#remark").val();
-        var url = '//127.0.0.1/cards/${card.getCardId()}';
+        var url = '/cards/${card.getCardId()}';
         $.ajax({
             url: url,
             type: 'PUT',

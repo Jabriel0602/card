@@ -106,7 +106,7 @@
     var delAdImage = function (adImageId) {
         var adImageId = $.trim(adImageId);
         var tip = "确认删除此轮播图吗？";
-        var url = '//127.0.0.1/adImages/' + adImageId;
+        var url = '/adImages/' + adImageId;
         if (window.confirm(tip)) {
             jQuery.ajax({
                 type: 'DELETE',
@@ -133,7 +133,7 @@
 
     <!--停用启用 -->
     var updateAdImageSwitch = function (adImageId, putOnStatus) {
-        var url = '//127.0.0.1/adImages/' + adImageId + '/putOn';
+        var url = '/adImages/' + adImageId + '/putOn';
         var sure = confirm("确定修改轮播图？");
         if (sure == true) {
             jQuery.ajax({
@@ -174,7 +174,7 @@
             comeback();
             return;
         }
-        var url = '//127.0.0.1/adImages/' + adImageId + '/weight';
+        var url = '/adImages/' + adImageId + '/weight';
         var sure = confirm("确定修改轮播图？");
         if (sure == true) {
             $.ajax({

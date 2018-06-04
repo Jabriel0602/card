@@ -37,7 +37,7 @@
             <div class="tip2">请输入正确的卡号</div>
         </div>
         <div class="form">
-            <form action="//127.0.0.1/cards" method="post">
+            <form action="/cards" method="post">
                 <ul>
 
                     <li>
@@ -104,7 +104,7 @@
         _showErrorMessage('remarkTip', false);
 
 
-        var url = '//127.0.0.1/cards';
+        var url = '/cards';
         var vendorCardId = $("#vendorCardId").val();
         var remark = $("#remark").val();
         $.ajax({
@@ -119,7 +119,7 @@
                 var jsonObject = JSON.parse(json);
                 if (jsonObject.code == 200) {
                     //跳转到首页
-                    document.location.href = '//127.0.0.1/index';
+                    document.location.href = '/index';
                     return;
                 } else if (jsonObject.code == 403) {
                     alert(jsonObject.data);

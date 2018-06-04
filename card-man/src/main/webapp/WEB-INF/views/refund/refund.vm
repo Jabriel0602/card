@@ -12,23 +12,21 @@
 
 
     <div class="i-con1 table_list" style="word-break: break-all" style="word-break: break-all">
-        <form action="/refunds" method="post">
             <tr>
                 <td>
                     输入退款订单，多个订单之间用,分隔<br>
-                    <input id="queryRefundId" name="orderIds" type="text" style="height: 40%;width: 80%" value=""/>
+                    <input id="orderIds" name="orderIds" type="text" style="height: 40%;width: 80%" value=""/>
                 </td>
 
             <tr>
                 <br>
                 <br>
                 <td colspan="6">
-                    <input type="submit" value="提交"/>
+                    <input type="submit" onclick="refund()" value="提交"/>
                     &nbsp; &nbsp;
                     <input type="reset" value="重置"/>
                 </td>
             </tr>
-        </form>
         <br>
     </div>
 </div>
@@ -39,51 +37,22 @@
         document.location.href = "/adImages";
     }
 
-    var delAdImage = function (adImageId) {
-        var adImageId = $.trim(adImageId);
-        var tip = "确认删除此轮播图吗？";
-        var url = '//127.0.0.1/adImages/' + adImageId;
-        if (window.confirm(tip)) {
-            jQuery.ajax({
-                type: 'DELETE',
-                url: url,
-                success: function (data) {
-                    var json = JSON.stringify(data);
-                    var jsonObject = JSON.parse(json);
-                    if (jsonObject.code == 200) {
-                        alert("操作成功");
-                    } else if (jsonObject.code < 0) {
-                        alert("模块不存在");
-                    } else {
-                        alert("您删除的信息不存在")
-                    }
-                    window.location.reload();
-                },
-                error: function () {
-                    alert("出错了！");
-                }
-            })
-        }
-    }
-
-
-    <!--停用启用 -->
-    var updateAdImageSwitch = function (adImageId, putOnStatus) {
-        var url = '//127.0.0.1/adImages/' + adImageId + '/putOn';
-        var sure = confirm("确定修改轮播图？");
+    var refund = function () {
+        var orderIds=$('#orderIds').val();
+        var url = '/refunds';
+        var sure = confirm("确定要进行人工退款吗？");
         if (sure == true) {
             jQuery.ajax({
                 url: url,
-                type: 'PATCH',
+                type: 'POST',
                 data: {
-                    putOn: putOnStatus,
+                    orderIds: orderIds,
                 },
                 success: function (data) {
                     var json = JSON.stringify(data);
                     var jsonObject = JSON.parse(json);
                     if (jsonObject.code == 200) {
-                        alert("修改成功");
-                        comeback();
+                        alert(JSON.stringify(jsonObject.data)+"等订单，已插入退款任务");
                         return;
                     } else if (jsonObject.code == 0) {
                         alert("用户不存在")
@@ -98,48 +67,4 @@
         }
     }
 
-    <!--权重 -->
-    var updateAdImageWeight = function (adImageId, weight) {
-        if (weight == '') {
-            alert("权重不能为空")
-            comeback();
-            return;
-        }
-        if (weight < -500 || weight > 500) {
-            alert('权重范围应为[-500至500]');
-            comeback();
-            return;
-        }
-        var url = '//127.0.0.1/adImages/' + adImageId + '/weight';
-        var sure = confirm("确定修改轮播图？");
-        if (sure == true) {
-            $.ajax({
-                url: url,
-                type: 'PATCH',
-                data: {
-                    adImageId: adImageId,
-                    weight: weight
-                },
-                success: function (data) {
-                    var json = JSON.stringify(data);
-                    var jsonObject = JSON.parse(json);
-                    if (jsonObject.code == 200) {
-                        alert("修改成功");
-                        comeback();
-                        return;
-                    } else if (jsonObject.code == 0) {
-                        alert("用户不存在")
-                    } else {
-                        alert("参数错误")
-                    }
-                },
-                error: function () {
-                    alert("出错了");
-                }
-            })
-        } else {
-            comeback();
-            return;
-        }
-    }
 </script>

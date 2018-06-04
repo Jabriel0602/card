@@ -2,8 +2,10 @@ package com.card.controller;
 
 import com.card.common.util.IdUtil;
 import com.card.common.util.LoginContext;
+import com.card.common.util.RedisUtil;
 import com.card.common.util.ValidatorUtils;
 import com.card.domain.MethodTypeEnum;
+import com.card.domain.constant.CacheKeyEnum;
 import com.card.domain.icon.Icon;
 import com.card.domain.result.APIResult;
 import com.card.service.icon.IconService;
@@ -38,6 +40,9 @@ public class IconController {
 
 	@Autowired
 	private IdUtil idUtil;
+
+	@Autowired
+	private RedisUtil redisUtil;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView queryIcon() {
