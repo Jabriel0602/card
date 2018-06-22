@@ -119,7 +119,7 @@
                 var jsonObject = JSON.parse(json);
                 if (jsonObject.code == 200) {
                     //跳转到首页
-                    document.location.href = '/index';
+                    document.location.href = '/';
                     return;
                 } else if (jsonObject.code == 403) {
                     alert(jsonObject.data);

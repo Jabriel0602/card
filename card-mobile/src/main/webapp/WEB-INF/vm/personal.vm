@@ -30,6 +30,9 @@
     </header>
 
     <div class="info">
+
+
+
         <div class="setlist">
             <ul class="clearfix list">
                 <li id="setname">
@@ -73,23 +76,42 @@
             </div>
         </div>
         <div class="mask_personal hidden" id="gendermask">
-            <div class="choosegender">
-                <div class="top">请选择性别</div>
-                <ul class="clearfix gender">
-                    <li><span>男</span><input type="radio" name="sex" value="男"
-                        #if($user.getSex()=='男') checked
-                        #end
-                    ></li>
-                    <li><span>女</span><input type="radio" name="sex" value="女"
-                        #if($user.getSex()=='女') checked
-                        #end
-                    ></li>
-                </ul>
-                <ul class="clearfix confirm">
-                    <li class="cancel" onclick="showObj('gendermask','no');">取消</li>
-                    <li onclick="confirmSetSex();">确定</li>
-                </ul>
+            <div class="mask hidden" id="gendermask">
+                <div class="choosegender">
+                    <div class="top" style="font-size:112%;">请选择性别</div>
+                    <style>
+                        .gender li input{
+                            -webkit-appearance: radio;
+                        }
+                        .gender li span{
+                            font-size: 112%;
+                        }
+                    </style>
+                    <ul class="clearfix gender">
+
+                        <li><span>男</span>
+                            <input type="radio" name="sex" value="男"
+                                #if($user.getSex()=='男')
+                                   checked
+                                #end
+                            />
+                        </li>
+                        <li><span>女</span>
+                            <input type="radio" name="sex" value="女"
+                                #if($user.getSex()=='女')
+                                   checked
+                                #end
+                            />
+                        </li>
+                    </ul>
+                    <ul class="clearfix confirm">
+                        <li class="cancel" onclick="showObj('gendermask','no');">取消</li>
+                        <li onclick="confirmSetSex();">确定</li>
+                    </ul>
+                </div>
             </div>
+
+
         </div>
         <div class="mask_personal hidden" id="datemask">
             <div class="choosedate">
@@ -212,10 +234,8 @@
             success: function (data) {
                 if (data) {
                     alert("修改成功");
-                    return;
                 } else {
                     alert("修改失败");
-                    return;
                 }
             },
             error: function () {
@@ -236,10 +256,8 @@
             success: function (data) {
                 if (data) {
                     alert("修改成功");
-                    return;
                 } else {
                     alert("修改失败");
-                    return;
                 }
             },
             error: function () {
@@ -260,10 +278,8 @@
             success: function (data) {
                 if (data) {
                     alert("修改成功");
-                    return;
                 } else {
                     alert("修改失败");
-                    return;
                 }
             },
             error: function () {

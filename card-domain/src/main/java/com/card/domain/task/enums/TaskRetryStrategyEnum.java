@@ -55,4 +55,13 @@ public enum TaskRetryStrategyEnum {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+
+	public static TaskRetryStrategyEnum getTaskRetryStrategyEnum(Integer code){
+		for (TaskRetryStrategyEnum taskStatusEnum:TaskRetryStrategyEnum.values()) {
+			if(taskStatusEnum.getType()==code){
+				return taskStatusEnum;
+			}
+		}
+		return null;
+	}
 }

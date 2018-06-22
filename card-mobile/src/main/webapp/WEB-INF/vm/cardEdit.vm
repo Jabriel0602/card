@@ -119,7 +119,7 @@
     };
     
     var _index_page=function () {
-        document.location.href = "/index";
+        document.location.href = "/";
     }
 
     var _delete = function () {
@@ -135,7 +135,7 @@
                     _index_page();
                     return;
                 } else if (data == 0) {
-                    alert("用户不存在")
+                    alert("卡片不存在")
                 } else {
                     alert("参数错误")
                 }

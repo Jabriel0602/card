@@ -211,6 +211,7 @@
         <if test="task.createdTime != null">AND created_time= #{task.createdTime,jdbcType=DATE}</if>
         <if test="task.modifiedTime != null">AND modified_time= #{task.modifiedTime,jdbcType=DATE}</if>
         <if test="task.yn != null">AND yn= #{task.yn,jdbcType=TINYINT}</if>
+        order by order_id
     </select>
 
     <select id="selectTaskById" resultMap="BaseResultMap">

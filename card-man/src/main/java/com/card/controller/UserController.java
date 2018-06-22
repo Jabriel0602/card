@@ -63,11 +63,11 @@ public class UserController {
 	public String login(@RequestParam(required = true) String userName, @RequestParam(required = true) String password, HttpServletRequest request, HttpServletResponse response, Map map) {
 
 		User user = userService.getUserByNameAndPassWord(userName, password);
-		if (user != null || !user.getUserType().equals(UserTypeEnum.USER.getDesc())) {
+		if (user != null && !user.getUserType().equals(UserTypeEnum.USER.getDesc())) {
 			Cookie cookie = new Cookie(cookieName, user.getUserId().toString());
-			cookie.setMaxAge(3600 * 24 * 7);
-			cookie.setDomain("");
-			cookie.setPath(cookieDomain);
+			cookie.setMaxAge(3600 * 24);
+			cookie.setDomain(cookieDomain);
+			cookie.setPath("/");
 			response.addCookie(cookie);
 
 			Map moduleTypeLimitsMap = userService.getModuleTypeLimitsMap(user);
@@ -90,7 +90,7 @@ public class UserController {
 		User user = userService.getUser(LoginContext.getUserId());
 		if (user != null) {
 			Cookie cookie = new Cookie("card_user_cookie", user.getUserId().toString());
-			cookie.setDomain("127.0.0.1");
+			cookie.setDomain(cookieDomain);
 			cookie.setPath("/");
 			cookie.setMaxAge(0);
 			response.addCookie(cookie);

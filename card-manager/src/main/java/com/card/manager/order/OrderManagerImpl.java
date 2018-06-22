@@ -83,7 +83,7 @@ public class OrderManagerImpl implements OrderManager {
 				map.put(orderId + "", "已推到退款网关");
 				continue;
 			}
-
+			map.put(orderId + "", "已插入退款任务");
 			taskManager.updateTaskAndRefund(orderId);
 		}
 		return map;

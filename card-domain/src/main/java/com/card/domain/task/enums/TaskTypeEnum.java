@@ -131,4 +131,13 @@ public enum TaskTypeEnum {
 				", queue='" + queue + '\'' +
 				'}';
 	}
+
+	public static TaskTypeEnum getTaskTypeEnum(Integer code){
+		for (TaskTypeEnum taskTypeEnum:TaskTypeEnum.values()) {
+			if(taskTypeEnum.getType().equals(code)){
+				return taskTypeEnum;
+			}
+		}
+		return null;
+	}
 }

@@ -78,6 +78,7 @@ public class CardController {
 	}
 
 	@DeleteMapping("/{cardId}")
+	@ResponseBody
 	public int removeCard(@PathVariable Long cardId) {
 		return cardService.deleteById(cardId);
 	}

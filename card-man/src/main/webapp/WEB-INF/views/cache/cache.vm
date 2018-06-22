@@ -40,9 +40,8 @@
     <form id="cacheSearchForm" action="/caches" method="GET">
         查询条件：
         <select name="pattern">
-            <option name="cacheKey" value=''></option>
             #foreach($key in $cacheKeyEnum)
-                <option name="cacheKey" value='${key.getValue()}'>${key.getDesc()}</option>
+                <option name="cacheKey" value='${key.getKey()}'>${key.getDesc()}</option>
             #end
             <option name="cacheKey" value='*'>ALL</option>
 
